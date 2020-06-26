@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="@integer/one"
+        android:id="@+id/paylayout"
+        >
+
+        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:gravity="left|center_vertical"
+            android:layout_gravity="center"
+            android:id="@+id/payment_text"
+            android:layout_height="wrap_content"
+            android:text="@string/update_changes"
+            android:textColor="@color/cart_text"
+            android:textSize="@dimen/text14sp"
+            />
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp5"
+
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="right"
+            android:layout_height="wrap_content"
+
+            >
+            <ImageView
+                android:layout_width="@dimen/dp35"
+                android:layout_height="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp6"
+                android:layout_marginBottom="@dimen/dp6"
+                android:id="@+id/paymentimg"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:background="@color/line_pay"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+
+</LinearLayout>

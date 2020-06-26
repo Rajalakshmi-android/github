@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:id="@+id/fullayout"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/menu_back"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            android:id="@+id/testcustomview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp35"
+                            android:layout_marginTop="@dimen/dp30"
+                            android:gravity="start"
+                            android:text="@string/welcome_black"
+                            android:textColor="@color/app_text_color"
+                            android:textSize="@dimen/text25sp"
+                            android:textStyle="bold" />
+
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextViewLight
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/update_changes"
+                            android:layout_marginStart="@dimen/dp35"
+                            android:textColor="@color/sub_text"
+                            android:textSize="@dimen/text15sp"
+                            />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:layout_marginTop="@dimen/dp25"
+                            android:background="@drawable/login_bg"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp45"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_marginTop="@dimen/dp20">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp30"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/dp10"
+                                    android:padding="@dimen/dp3"
+                                    android:layout_marginBottom="@dimen/dp2"
+                                    android:src="@mipmap/users" />
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/Username"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp45"
+                                    android:theme="@style/LoginEditTexts"
+                                    android:textAlignment="viewStart">
+
+                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                        android:id="@+id/f_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="@dimen/dp3"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@drawable/login_edit_bg"
+                                        android:gravity="start|center_vertical"
+                                        android:hint="@string/frist_name"
+                                        android:imeOptions="actionNext"
+                                        android:paddingBottom="@dimen/dp2"
+                                        android:inputType="text"
+                                        android:singleLine="true"
+                                        android:textColor="@color/app_text_color"
+                                        android:textColorHint="@color/plceholder"
+                                        android:textSize="@dimen/text15sp" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp45"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_marginTop="@dimen/dp20">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp30"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/dp10"
+                                    android:padding="@dimen/dp3"
+                                    android:layout_marginBottom="@dimen/dp2"
+                                    android:src="@mipmap/users" />
+
+                                <android.support.design.widget.TextInputLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp45"
+                                    android:theme="@style/LoginEditTexts"
+                                    android:textAlignment="viewStart">
+
+                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                        android:id="@+id/l_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="@dimen/dp3"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@drawable/login_edit_bg"
+                                        android:gravity="start|center_vertical"
+                                        android:hint="@string/last_name"
+                                        android:imeOptions="actionNext"
+                                        android:paddingBottom="@dimen/dp2"
+                                        android:inputType="text"
+                                        android:singleLine="true"
+                                        android:textColor="@color/app_text_color"
+                                        android:textColorHint="@color/plceholder"
+                                        android:textSize="@dimen/text15sp" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp45"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_marginTop="@dimen/dp20">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp30"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/dp10"
+                                    android:padding="@dimen/dp3"
+                                    android:layout_marginBottom="@dimen/dp2"
+                                    android:src="@mipmap/mailss" />
+
+                                <android.support.design.widget.TextInputLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp45"
+                                    android:theme="@style/LoginEditTexts"
+                                    android:textAlignment="viewStart">
+
+                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                        android:id="@+id/email"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="@dimen/dp3"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@drawable/login_edit_bg"
+                                        android:gravity="start|center_vertical"
+                                        android:hint="@string/USERNAME_Email"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textEmailAddress"
+                                        android:paddingBottom="@dimen/dp2"
+                                        android:singleLine="true"
+                                        android:textColor="@color/app_text_color"
+                                        android:textColorHint="@color/plceholder"
+                                        android:textSize="@dimen/text15sp" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_marginBottom="@dimen/dp10"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp45"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_marginTop="@dimen/dp20">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp30"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/dp10"
+                                    android:padding="@dimen/dp3"
+                                    android:layout_marginBottom="@dimen/dp2"
+                                    android:src="@mipmap/phone" />
+
+                                <android.support.design.widget.TextInputLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp45"
+                                    android:theme="@style/LoginEditTexts"
+                                    android:textAlignment="viewStart">
+
+                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                        android:id="@+id/mobile"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="@dimen/dp3"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@drawable/login_edit_bg"
+                                        android:gravity="start|center_vertical"
+                                        android:hint="@string/phone"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:paddingBottom="@dimen/dp2"
+                                        android:singleLine="true"
+                                        android:textColor="@color/app_text_color"
+                                        android:textColorHint="@color/plceholder"
+                                        android:textSize="@dimen/text15sp" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+
+
+
+
+
+                        </LinearLayout>
+
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <FrameLayout
+                android:id="@+id/update"
+                android:visibility="gone"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginBottom="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp100"
+                android:background="@drawable/login_button">
+
+                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    android:id="@+id/cont"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/update"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text20sp"
+                    android:textStyle="bold" />
+
+
+            </FrameLayout>
+
+            </LinearLayout>
+            <include
+                layout="@layout/error_layout"/>
+            <include
+                layout="@layout/loading"
+                />
+
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>

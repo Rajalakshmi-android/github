@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "556171876746",
+    "firebase_url": "https://stutzenme.firebaseio.com",
+    "project_id": "stutzenme",
+    "storage_bucket": "stutzenme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556171876746:android:42c3bed2e8c53ece2cd073",
+        "android_client_info": {
+          "package_name": "com.iamretailer.krishnasupermarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556171876746-ugqiapoa5aqm3t51jod8ogae8ac5ebjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjxSwGKm3rgFm-dkaGXZ2cMlYl6NI3oEw"
+        },
+        {
+          "current_key": "AIzaSyCdJL6cOhJgxjCQzz4qNdEpxNuZjrSvy7c"
+        },
+        {
+          "current_key": "AIzaSyCNqsSmvwI3ykvFXQgZkLmBz-WDYiS7Pf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556171876746-k245mhqsmuth2v1pa22n35g9g9092aue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

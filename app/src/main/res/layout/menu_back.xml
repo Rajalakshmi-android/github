@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="@dimen/dp60"
+    android:layout_gravity="top"
+    android:background="@drawable/k_hometopbg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="@dimen/dp35"
+        android:layout_height="@dimen/dp50"
+        android:layout_gravity="start|center_vertical"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/dp5"
+        android:padding="@dimen/dp5">
+
+        <ImageView
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp20"
+            android:layout_gravity="center"
+            android:src="@mipmap/backk"
+            android:autoMirrored="true"
+            android:rotationY="@integer/locale_mirror_flip"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp50"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp5"
+        android:gravity="center|center_vertical">
+
+        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dp2"
+            android:id="@+id/header"
+            android:inputType = "textCapWords"
+            android:text="@string/product_details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text18sp"
+           />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/cart_items"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp30"
+        android:layout_marginRight="@dimen/dp5"
+        android:layout_gravity="end|center_vertical"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cart"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp5"
+                android:autoMirrored="true"
+                android:rotationY="@integer/locale_mirror_flip"
+                android:src="@mipmap/cart_main" />
+
+            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                android:id="@+id/cart_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="start"
+                android:layout_marginRight="@dimen/dp10"
+                android:adjustViewBounds="true"
+                android:background="@drawable/white_ovel"
+                android:gravity="center"
+                android:minHeight="@dimen/text13sp"
+                android:minWidth="@dimen/text15sp"
+                android:padding="@dimen/dp1"
+                android:scaleType="fitStart"
+                android:text="@string/cart"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text10sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

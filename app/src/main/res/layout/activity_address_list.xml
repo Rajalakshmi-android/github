@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fullayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/menu_back" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/success"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@android:color/transparent"
+                    >
+
+
+                    <LinearLayout
+                        android:id="@+id/add_new_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp50"
+                        android:layout_marginStart="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp20"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:orientation="horizontal"
+                        android:background="@drawable/add_line"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp15"
+                            android:layout_height="@dimen/dp15"
+                            android:src="@mipmap/add_icon"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                           />
+
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/dp10"
+                            android:text="@string/add_new_address"
+                            android:textColor="@color/add_text"
+                            android:textSize="@dimen/text17sp"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/dp40"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/address_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        android:listSelector="@android:color/transparent"
+
+                        android:scrollbars="none"
+
+                        />
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text15sp"
+                            android:textColor="@color/app_text_color"
+                            android:text="@string/currently_no_address_list"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/dp10"
+                            android:visibility="gone"
+                            android:layout_marginTop="@dimen/dp40"
+                            android:id="@+id/no_address"/>
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/cont"
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_marginStart="@dimen/dp30"
+                    android:layout_marginEnd="@dimen/dp30"
+                    android:layout_marginBottom="@dimen/dp30"
+                    android:background="@drawable/login_button">
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/con"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text20sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+
+            </FrameLayout>
+
+            <include layout="@layout/error_layout" />
+
+            <include layout="@layout/loading"
+                />
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>

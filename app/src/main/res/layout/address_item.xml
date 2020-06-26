@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp15"
+        android:padding="@dimen/dp20"
+        android:background="@drawable/addresslist_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/select_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="@integer/two">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/address"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="@dimen/text14sp"
+                        />
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        android:id="@+id/pos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/dp3"
+                        android:text="@string/address"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="@dimen/text14sp"
+                        />
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:id="@+id/edit"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_gravity="end|center_vertical"
+                        android:gravity="right"
+                        android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="@dimen/dp18"
+                        android:layout_height="@dimen/dp18"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@mipmap/gray_edit" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/delete"
+                        android:layout_width="@dimen/dp25"
+                        android:layout_gravity="end|center_vertical"
+                        android:gravity="right"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp13"
+                        android:layout_height="@dimen/dp13"
+                        android:layout_gravity="end|center_vertical"
+                        android:gravity="right"
+                        android:src="@mipmap/gray_delete" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp0_1"
+                android:background="@color/select" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dp3">
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        android:id="@+id/cus_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user"
+                        android:textColor="@color/add_text1"
+                        android:textSize="@dimen/text16sp"
+                        />
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        android:id="@+id/address_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user"
+                        android:textColor="@color/add_text2"
+                        android:textSize="@dimen/text14sp"
+
+                        />
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        android:id="@+id/city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user"
+                        android:textColor="@color/add_text2"
+                        android:textSize="@dimen/text14sp"
+
+                        />
+
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="@integer/two">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="@dimen/value1.5">
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        android:id="@+id/country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user"
+                        android:textColor="@color/add_text2"
+                        android:textSize="@dimen/text14sp"
+
+                        />
+
+                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        android:id="@+id/cus_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="871927912`90"
+                        android:textColor="@color/text_color1"
+                        android:textSize="@dimen/text15sp"
+                       />
+
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@dimen/value0.5"
+                    android:layout_gravity="end"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/select"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_gravity="end"
+                        android:gravity="center"
+                        android:src="@mipmap/addres_selects"
+                        />
+                    <ImageView
+                        android:id="@+id/select1"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_gravity="end"
+                        android:gravity="top"
+                        android:src="@mipmap/gray_circle1"
+                        android:visibility="gone"/>
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+  <FrameLayout
+      android:id="@+id/text_bg"
+      android:background="@drawable/size_grey_bg"
+      android:layout_width="wrap_content"
+
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/dp20">
+
+    <FrameLayout
+
+
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+      <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+          android:id="@+id/child"
+          android:layout_width="@dimen/dp33"
+          android:layout_height="@dimen/dp33"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:textColor="@color/white"
+          android:singleLine="true"
+          android:textSize="@dimen/text10sp" />
+    </FrameLayout>
+  </FrameLayout>
+</LinearLayout>

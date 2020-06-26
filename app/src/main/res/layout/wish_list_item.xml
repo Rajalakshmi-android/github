@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp7">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp95"
+                    android:layout_height="@dimen/dp100"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/dp5"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:background="@drawable/product_back1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/prod_img"
+                        android:layout_width="@dimen/dp80"
+                        android:layout_height="@dimen/dp80"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:padding="@dimen/dp8" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity=""
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                android:id="@+id/prod_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="@dimen/dp35"
+                                android:text="@string/product_name"
+                                android:textColor="@color/cart_text"
+                                android:textSize="@dimen/text16sp" />
+
+                            <ImageView
+                                android:id="@+id/remove"
+                                android:layout_width="@dimen/dp20"
+                                android:layout_height="@dimen/dp20"
+                                android:layout_gravity="end|top"
+                                android:layout_marginEnd="@dimen/dp12"
+                                android:padding="@dimen/dp4"
+                                android:src="@mipmap/cancel_icon" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                android:id="@+id/cur_front"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:paddingBottom="@dimen/dp2"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text11sp"
+                                android:textStyle="bold" />
+
+                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                android:id="@+id/prod_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="@dimen/dp1"
+                                android:text="@string/amount"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text16sp"
+                                android:textStyle="bold" />
+
+                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                android:id="@+id/cur_back"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:paddingBottom="@dimen/dp2"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text11sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp.4dp"
+        android:layout_marginStart="@dimen/dp100"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/app_view_color" />
+
+</LinearLayout>
