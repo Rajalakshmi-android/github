@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fullayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/menu_back" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dp3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="@integer/two">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp25"
+                        android:layout_weight="@dimen/value_0_65">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/main_cat_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp18"
+                            android:divider="@null"
+                            android:listSelector="@android:color/transparent"
+                            android:scrollbars="none" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_weight="@dimen/value_1_35"
+                        android:orientation="vertical">
+
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                            android:id="@+id/cat_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/app_text_color"
+                            android:textSize="@dimen/text18sp"
+                            android:layout_marginStart="@dimen/dp15"
+                            android:theme="@style/LoginEditTexts" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/sub_cat_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:divider="@null"
+                                android:scrollbars="none" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <include layout="@layout/error_layout" />
+
+            <include layout="@layout/loading" />
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>

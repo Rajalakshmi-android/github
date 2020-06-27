@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp0"
+        android:layout_marginStart="@dimen/dp20"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                android:id="@+id/heading"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp0"
+                android:text="@string/select_size"
+                android:textSize="@dimen/text14sp"
+                android:textColor="@color/app_text_color" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/optiongrid"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp50"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp5"
+            android:horizontalSpacing="@dimen/dp2"
+            android:numColumns="@integer/flour"
+            android:verticalSpacing="@dimen/dp2" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:background="@color/app_view_color"
+
+        />
+</LinearLayout>
