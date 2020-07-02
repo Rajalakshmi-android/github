@@ -71,6 +71,8 @@ public class ViewDetails extends Language {
     TextView cus_name, cus_address_one, cus_address_two, cus_mobile;
     TextView country_name;
     ImageView del_image;
+    private View delivery;
+    private View shipping;
 
 
     @Override
@@ -114,6 +116,8 @@ public class ViewDetails extends Language {
         country_name = (TextView) findViewById(R.id.country);
         cus_mobile = (TextView) findViewById(R.id.mobile);
         del_image=(ImageView)findViewById(R.id.del_image);
+        delivery=(View)findViewById(R.id.delivery);
+        shipping=(View)findViewById(R.id.shipping);
         header.setText(getResources().getString(R.string.order_ids)+bun.getString("id"));
         OrderTask task = new OrderTask();
         task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
@@ -285,13 +289,17 @@ public class ViewDetails extends Language {
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
                     if (shipping_firstname.equalsIgnoreCase(""))
                     {
+                        Log.i("sfsdfsdf","sfsdfs");
                         del_add_lay.setVisibility(View.GONE);
                         //status_img.setVisibility(View.GONE);
                         ship_info.setVisibility(View.GONE);
                         ship_method_sec.setVisibility(View.GONE);
+                        delivery.setVisibility(View.GONE);
+                        shipping.setVisibility(View.GONE);
                     }
                     else
                     {
+                        Log.i("sfsdfsdf","tertretet");
                       //  del_add.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + "" + object.getString("payment_lastname") + "\n" + object.getString("payment_address_1") + "\n" + object.getString("payment_address_2") + "\n" + object.getString("payment_city") + " - " + object.getString("payment_postcode") + "\n" + object.getString("payment_zone") + "\n" + object.getString("payment_country")+ "\n"+object.getString("telephone")+"");
                         cus_name.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname") );
                         cus_address_one.setText(object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",");
@@ -301,7 +309,14 @@ public class ViewDetails extends Language {
                         del_add_lay.setVisibility(View.VISIBLE);
                       //  status_img.setVisibility(View.VISIBLE);
                         ship_info.setVisibility(View.VISIBLE);
-                        ship_method_sec.setVisibility(View.VISIBLE);
+                        if(object.isNull("shipping_method")||object.getString("shipping_method").equalsIgnoreCase("")){
+                            ship_method_sec.setVisibility(View.GONE);
+                        }else{
+                            ship_method_sec.setVisibility(View.VISIBLE);
+                        }
+
+                        delivery.setVisibility(View.VISIBLE);
+                        shipping.setVisibility(View.VISIBLE);
                     }
 
                     JSONArray arr = new JSONArray(object.getString("products"));

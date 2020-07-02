@@ -473,6 +473,7 @@ public class Drawer extends Language {
         LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
         lang_list=(ListView)popUpView.findViewById(R.id.lang_list);
         langs=dbCon.get_lan_list();
+        Log.i("tag","fgdfngdkfgndfkg "+langs.size());
         langAdapter=new LangAdapter(Drawer.this,R.layout.lang_list,langs);
         lang_list.setAdapter(langAdapter);
         if (dbCon.get_lan_c()>0)

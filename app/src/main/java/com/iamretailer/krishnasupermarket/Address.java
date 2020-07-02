@@ -624,6 +624,8 @@ public class Address extends Language {
 
                         if (from==4)
                         {
+                            Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
+
                             Intent intent = new Intent();
                             setResult(3, intent);
                             finish();
@@ -779,6 +781,8 @@ public class Address extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1)
                     {
+                        Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
+
 
                       /*  if (from == 3) {
 
@@ -957,6 +961,8 @@ public class Address extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1)
                     {
+                        Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
+
 
                       /*  if (from == 3) {
 
@@ -1454,6 +1460,8 @@ public class Address extends Language {
                             SaveBillAddress addressTask = new SaveBillAddress();
                             addressTask.execute(add_ids);
                         }else{
+                            Toast.makeText(Address.this,  R.string.address_update, Toast.LENGTH_LONG).show();
+
                             Intent intent = new Intent();
                             intent.putExtra("first", f_name.getText().toString());
                             intent.putExtra("from", from);

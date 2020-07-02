@@ -59,6 +59,7 @@
 
     <color name="order_id">#606060</color>
     <color name="tansparent">#00000000</color>
+    <color name="search_boxs">#c6c6c6</color>
 
 
 </resources>

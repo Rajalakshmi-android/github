@@ -47,7 +47,7 @@
         <ImageView
             android:layout_width="@dimen/dp90"
             android:layout_height="@dimen/dp90"
-            android:src="@mipmap/confirm_cart" />
+            android:src="@mipmap/empty_cart" />
 
         <com.iamretailer.krishnasupermarket.Common.CustomTextview1
             android:layout_width="fill_parent"

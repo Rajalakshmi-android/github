@@ -2,6 +2,7 @@ package com.iamretailer.krishnasupermarket.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iamretailer.krishnasupermarket.Allen;
 import com.iamretailer.krishnasupermarket.Common.Appconstatants;
 import com.iamretailer.krishnasupermarket.POJO.BrandsPO;
 import com.iamretailer.krishnasupermarket.R;
@@ -22,6 +24,7 @@ public class FilerAdapter extends RecyclerView.Adapter<FilerAdapter.MyViewHolder
 
     private LayoutInflater inflater;
     private ArrayList<BrandsPO> list;
+    private ArrayList<BrandsPO> items;
     Context context;
     AndroidLogger logger;
 
@@ -47,12 +50,38 @@ public class FilerAdapter extends RecyclerView.Adapter<FilerAdapter.MyViewHolder
 
         holder.name.setText(list.get(position).getStore_name());
 
-        if (list.get(position).isSelect())
-            holder.cat_img.setImageResource(R.mipmap.checked);
-        else
-            holder.cat_img.setImageResource(R.mipmap.unchecked);
+        if (list.get(position).isSelect()){
+            holder.cat_img.setVisibility(View.VISIBLE);
+            holder.cat_img1.setVisibility(View.GONE);
+        }
 
+        else{
+            holder.cat_img1.setVisibility(View.VISIBLE);
+            holder.cat_img.setVisibility(View.GONE);
+        }
+
+        holder.cat_imgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.cat_img.getVisibility()==View.VISIBLE) {
+                    holder.cat_img.setVisibility(View.GONE);
+                    holder.cat_img1.setVisibility(View.VISIBLE);
+                    list.get(position).setSelect(false);
+                    Log.i("dsfsfdsf","notcheck"+position+"  "+list.get(position).getStore_name());
+                } else {
+                    holder.cat_img.setVisibility(View.VISIBLE);
+                    holder.cat_img1.setVisibility(View.GONE);
+                    list.get(position).setSelect(true);
+                    Log.i("dsfsfdsf","ischecked"+position+"  "+list.get(position).getStore_name());
+                }
+                ((Allen)context).categoryselect(list);
+
+                }
+
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -62,14 +91,16 @@ public class FilerAdapter extends RecyclerView.Adapter<FilerAdapter.MyViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
-        FrameLayout items_bg;
-        ImageView cat_img;
+        FrameLayout items_bg,cat_imgs;
+        ImageView cat_img,cat_img1;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.store_name);
             items_bg = (FrameLayout) itemView.findViewById(R.id.item_bg);
+            cat_imgs = (FrameLayout) itemView.findViewById(R.id.cat_imgs);
             cat_img = (ImageView) itemView.findViewById(R.id.cat_img);
+            cat_img1 = (ImageView) itemView.findViewById(R.id.cat_img1);
         }
     }
 }

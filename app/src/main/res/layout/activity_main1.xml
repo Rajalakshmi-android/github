@@ -411,7 +411,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp70"
                 android:layout_gravity="top"
-                android:paddingEnd="@dimen/dp13"
                 android:paddingStart="@dimen/dp13"
                 android:paddingTop="@dimen/dp10">
 
@@ -449,6 +448,8 @@
                     android:id="@+id/cart_items"
                     android:layout_width="@dimen/dp50"
                     android:layout_height="@dimen/dp26"
+                    android:layout_marginEnd="@dimen/dp5"
+                    android:paddingEnd="@dimen/dp2"
                     android:layout_gravity="end|center_vertical"
                     android:gravity="center">
 
@@ -472,7 +473,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="start"
-                            android:layout_marginEnd="@dimen/dp12"
+                            android:layout_marginEnd="@dimen/dp14"
                             android:adjustViewBounds="true"
                             android:background="@drawable/white_ovel"
                             android:gravity="center"

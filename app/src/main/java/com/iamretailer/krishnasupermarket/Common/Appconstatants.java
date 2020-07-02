@@ -133,7 +133,8 @@ public class Appconstatants {
 
     public static String BANNER_LINK=domain+"index.php?route=feed/rest_api/bannerProducts&id=";
 
-    public static String CATEGORY_FILTER=domain+"index.php?route=feed/rest_api/manufacturers";
+   // public static String CATEGORY_FILTER=domain+"index.php?route=feed/rest_api/manufacturers";
+    public static String CATEGORY_FILTER=domain+"index.php?route=rest/filter/filteroption";
 
 
 

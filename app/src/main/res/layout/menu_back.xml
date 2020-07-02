@@ -73,7 +73,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="start"
-                android:layout_marginRight="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp10"
                 android:adjustViewBounds="true"
                 android:background="@drawable/white_ovel"
                 android:gravity="center"

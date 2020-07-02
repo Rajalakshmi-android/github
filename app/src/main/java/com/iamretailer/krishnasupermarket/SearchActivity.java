@@ -260,6 +260,7 @@ public class SearchActivity extends Language {
                                 bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
                                 bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                 bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
+                                bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
                                 bo.setWish_list(obj.isNull("wish_list")?false:obj.getBoolean("wish_list"));
                                 bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
                                 Object dd = obj.get("options");
