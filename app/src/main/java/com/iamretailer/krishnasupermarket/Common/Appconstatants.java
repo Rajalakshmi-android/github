@@ -128,6 +128,7 @@ public class Appconstatants {
     public static String CUR_LIST=domain+"index.php?route=feed/rest_api/productclasses";
 
     public static String CUR="";
+    public static String Mobile_Otp="0";
 
     public static String PAYMENT=domain+"index.php?route=rest/confirm/confirm&page=pay";
 
@@ -135,6 +136,7 @@ public class Appconstatants {
 
    // public static String CATEGORY_FILTER=domain+"index.php?route=feed/rest_api/manufacturers";
     public static String CATEGORY_FILTER=domain+"index.php?route=rest/filter/filteroption";
+    public static String razorpay=domain+"index.php?route=rest/razorpay/order";
 
 
 
