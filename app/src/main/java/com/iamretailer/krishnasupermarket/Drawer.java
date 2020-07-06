@@ -126,7 +126,7 @@ public class Drawer extends Language {
         if(dbCon.getLoginCount()>0){
             Log.i("jhfg","hgfdjkghfdkghf"+dbCon.getName()+" -- "+dbCon.getEmail());
             email.setVisibility(View.VISIBLE);
-            email.setText(dbCon.getEmail());
+            email.setText(dbCon.getName());
             login.setVisibility(View.GONE);
             gologout.setVisibility(View.VISIBLE);
             change_pwd.setVisibility(View.VISIBLE);
@@ -732,7 +732,7 @@ public class Drawer extends Language {
         super.onResume();
 
         if (dbCon.getLoginCount() > 0) {
-            email.setText(dbCon.getEmail());
+            email.setText(dbCon.getName());
             email.setVisibility(View.VISIBLE);
             login.setVisibility(View.GONE);
             gologout.setVisibility(View.VISIBLE);

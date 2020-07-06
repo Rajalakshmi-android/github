@@ -334,7 +334,7 @@ public class MainActivity extends Drawer {
         Log.i("resume", "login&logout.............");
         if (db.getLoginCount() > 0) {
 
-            email.setText(db.getEmail());
+            email.setText(dbCon.getName());
             email.setVisibility(View.VISIBLE);
             login.setVisibility(View.GONE);
             gologout.setVisibility(View.VISIBLE);
