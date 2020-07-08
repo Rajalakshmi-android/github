@@ -80,6 +80,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
                                 android:theme="@style/LoginEditTexts"
+                                android:layout_gravity="start"
+                                android:gravity="start"
                                 android:layout_marginStart="@dimen/dp10">
 
                                 <com.iamretailer.krishnasupermarket.Common.CustomEditext
@@ -443,7 +445,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/login_edit_bg"
                                     android:layout_marginStart="@dimen/dp10"
-                                    android:layout_gravity="center_vertical">
+                                    android:layout_gravity="end|center_vertical">
 
                                 <Spinner
                                     android:id="@+id/state"
@@ -514,5 +516,4 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp60"
         />
-
 </FrameLayout>

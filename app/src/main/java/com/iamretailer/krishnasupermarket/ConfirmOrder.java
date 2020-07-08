@@ -222,7 +222,10 @@ public class ConfirmOrder extends Language {
                 } else {
                     //getPayment(order_id);
                     Log.d("Razor_id", order_id + "");
-                    startPayment(orderid);
+                    OrderTask OrderTask = new OrderTask();
+                    OrderTask.execute(order_id);
+
+
 
                 }
 
@@ -838,7 +841,7 @@ public class ConfirmOrder extends Language {
     //--------------------------------------Razor Pay integration-----------------------------
 
 
-    public void startPayment(String orderid) {
+    public void startPayment(String orid) {
         final Activity activity = this;
 
         final Checkout co = new Checkout();
@@ -854,10 +857,10 @@ public class ConfirmOrder extends Language {
             JSONObject preFill = new JSONObject();
             preFill.put("email", db.getEmail());
             preFill.put("contact", mobile);
-
             options.put("prefill", preFill);
-
-            options.put("amount", pay_tot * 100);
+            options.put("order_id", orid);
+            options.put("amount",  pay_tot*100);
+            Log.i("razorpay",options.toString()+" ");
 
             co.open(activity, options);
         } catch (JSONException e) {
@@ -1073,5 +1076,97 @@ public class ConfirmOrder extends Language {
         }
     }
 
+    private class OrderTask extends AsyncTask<Object, Void, String> {
 
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(ConfirmOrder.this);
+            pDialog.setMessage(getResources().getString(R.string.loading_wait));
+            pDialog.setCancelable(false);
+            pDialog.show();
+            Log.d("payment", "started");
+        }
+
+        protected String doInBackground(Object... param) {
+            logger.info("payment_success_api " + Appconstatants.razorpay);
+            Log.i("tag", "payment_success_api " + Appconstatants.razorpay);
+
+            String response = null;
+            Connection connection = new Connection();
+            try {
+
+                JSONObject json = new JSONObject();
+                json.put("order_id", order_id);
+              //  json.put("order_id", param[0]);
+
+
+                Log.d("Cart_input", json.toString());
+                Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
+                Log.i("tag", "payment_success_item" + json);
+                logger.info("payment_success" + json);
+                response = connection.sendHttpPostjson(Appconstatants.razorpay, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                Log.i("tag", "payment_success" + response);
+                logger.info("payment_success" + response);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            pDialog.dismiss();
+            Log.i("Cart", "payment_success11--" + resp);
+            if (resp != null) {
+                try {
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+
+                        startPayment(json.getString("order_id"));
+
+                    } else {
+                        new AlertDialog.Builder(ConfirmOrder.this)
+                                .setCancelable(false)
+                                .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+                        JSONArray error = json.getJSONArray("error");
+                        String error_msg = error.getString(0);
+                        Toast.makeText(ConfirmOrder.this, error_msg, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    new AlertDialog.Builder(ConfirmOrder.this)
+                            .setCancelable(false)
+                            .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                    Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
+
+                }
+            } else {
+                new AlertDialog.Builder(ConfirmOrder.this)
+                        .setCancelable(false)
+                        .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                Toast.makeText(ConfirmOrder.this, R.string.error_net, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 }

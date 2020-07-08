@@ -142,9 +142,10 @@
                                         android:layout_weight="0.5"
                                         android:id="@+id/filter">
                                         <ImageView
-                                            android:layout_width="@dimen/dp25"
-                                            android:layout_height="@dimen/dp25"
-                                            android:src="@mipmap/filter"/>
+                                            android:id="@+id/filter_icon"
+                                            android:layout_width="@dimen/dp20"
+                                            android:layout_height="@dimen/dp20"
+                                            android:src="@mipmap/filter_black"/>
 
                                     </LinearLayout>
 

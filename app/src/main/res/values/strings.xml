@@ -359,9 +359,11 @@
     <string name="enter_quantity">Enter Quantity</string>
     <string name="qty_e">Please enter valid Quantity !</string>
     <string name="offer">Offer Products</string>
-    <string name="search_category">Search Brand...</string>
+    <string name="search_category">Search Brand</string>
     <string name="category_filter">Filter by Brand</string>
     <string name="brand_not_found">Brand not found !!</string>
+    <string name="address_save">Address Added Successfully</string>
+    <string name="address_update">Address Updated Successfully</string>
 
 
 </resources>

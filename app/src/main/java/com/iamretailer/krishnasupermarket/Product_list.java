@@ -66,6 +66,7 @@ public class Product_list extends Language {
     String banner_id="";
     ArrayList<ProductsPO> banner_items;
     String title="";
+    private String head="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class Product_list extends Language {
         bundle=new Bundle();
         bundle=getIntent().getExtras();
         from=bundle.getString("view_all");
+        head=bundle.getString("head");
         dbController=new DBController(Product_list.this);
         Appconstatants.sessiondata=dbController.getSession();
         Appconstatants.Lang=dbController.get_lang_code();
@@ -121,7 +123,7 @@ public class Product_list extends Language {
         if (from.equals("best_sell")) {
             BEST_SELLING best_selling = new BEST_SELLING();
             best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
-            header.setText(R.string.most);
+            header.setText(head);
         }
         else if (from.equals("banners"))
         {
@@ -133,7 +135,7 @@ public class Product_list extends Language {
         {
             FEATURE_TASK feature_task = new FEATURE_TASK();
             feature_task.execute(Appconstatants.Feature_api+"&page="+start+"&limit="+limit);
-            header.setText(R.string.newly);
+            header.setText(head);
 
         }
 

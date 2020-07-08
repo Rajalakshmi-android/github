@@ -39,7 +39,7 @@
                             android:id="@+id/forget_pass"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+                            android:layout_gravity="start|center_vertical"
                             android:layout_marginStart="@dimen/dp40"
                             android:gravity="start|center_vertical"
                             android:text="@string/Rated"
@@ -175,7 +175,8 @@
                             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
+                                android:layout_gravity="start|center_vertical"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/del_add"
                                 android:textColor="@color/text_color1"
                                 android:textSize="@dimen/text14sp" />
@@ -235,6 +236,7 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/delivery"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp0_2"
                     android:layout_marginTop="@dimen/dp10"
@@ -269,7 +271,7 @@
                             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
+                                android:layout_gravity="start|center_vertical"
                                 android:gravity="start|center_vertical"
                                 android:text="@string/ship"
                                 android:textColor="@color/text_color1"
@@ -347,6 +349,7 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/shipping"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp0_2"
                     android:layout_marginTop="@dimen/dp5"
@@ -380,7 +383,7 @@
                             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
+                                android:layout_gravity="start|center_vertical"
                                 android:gravity="start|center_vertical"
                                 android:text="@string/paymets"
                                 android:textColor="@color/text_color1"
@@ -391,7 +394,7 @@
                                 android:id="@+id/paymethod"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
+                                android:layout_gravity="start|center_vertical"
                                 android:gravity="start|center_vertical"
                                 android:text="@string/del_add"
                                 android:textColor="@color/conf_tex"

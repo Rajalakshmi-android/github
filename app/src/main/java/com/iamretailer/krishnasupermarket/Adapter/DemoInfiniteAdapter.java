@@ -51,6 +51,7 @@ public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
                 Intent intent = new Intent(context, Product_list.class);
                 Bundle best = new Bundle();
                 best.putString("view_all", "banners");
+                best.putString("head", "");
                 best.putString("banner_id",itemList.get(listPosition).getBanner_id());
                 best.putString("title",itemList.get(listPosition).getLink());
                 intent.putExtras(best);

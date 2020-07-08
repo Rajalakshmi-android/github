@@ -303,6 +303,7 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle best = new Bundle();
                 best.putString("view_all", "best_sell");
+                best.putString("head", "Most Popular");
                 intent.putExtras(best);
                 startActivity(intent);
             }
@@ -313,6 +314,7 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle feat = new Bundle();
                 feat.putString("view_all", "feat");
+                feat.putString("head", "Newly Added");
                 intent.putExtras(feat);
                 startActivity(intent);
             }
@@ -332,7 +334,7 @@ public class MainActivity extends Drawer {
         Log.i("resume", "login&logout.............");
         if (db.getLoginCount() > 0) {
 
-            email.setText(db.getEmail());
+            email.setText(dbCon.getName());
             email.setVisibility(View.VISIBLE);
             login.setVisibility(View.GONE);
             gologout.setVisibility(View.VISIBLE);
@@ -805,6 +807,7 @@ public class MainActivity extends Drawer {
                     Intent intent = new Intent(MainActivity.this, Product_list.class);
                     Bundle best = new Bundle();
                     best.putString("view_all", "banners");
+                    best.putString("head", "");
                     best.putString("banner_id",banner2.get(position).getBanner_id());
                     best.putString("title",banner2.get(position).getLink());
                     intent.putExtras(best);

@@ -235,6 +235,7 @@ public class Registration extends Language {
                 json.put("confirm", param[4]);
                 json.put("telephone", param[5]);
                 json.put("agree", param[6]);
+                json.put("telephone_unique", Appconstatants.Mobile_Otp);
                 JSONObject custom_field_obj= new JSONObject();
                 JSONObject account_obj=new JSONObject();
                 account_obj.put("1","+364545454");

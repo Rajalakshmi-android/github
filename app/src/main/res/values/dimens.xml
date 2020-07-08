@@ -131,5 +131,6 @@
     <dimen name="text9sp">9sp</dimen>
     <dimen name="dp43">43dp</dimen>
     <dimen name="dp17">17dp</dimen>
+    <dimen name="dp63">63dp</dimen>
 
 </resources>

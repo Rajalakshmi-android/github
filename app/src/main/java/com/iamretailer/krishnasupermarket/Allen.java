@@ -1,6 +1,9 @@
 package com.iamretailer.krishnasupermarket;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
@@ -11,11 +14,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +43,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.iamretailer.krishnasupermarket.Common.Appconstatants;
 import com.iamretailer.krishnasupermarket.Common.DBController;
@@ -82,16 +91,21 @@ public class Allen extends Language {
     int firstVisibleItem, visibleItemCount, totalItemCount;
     GridLayoutManager mLayoutManager;
     LinearLayout filter;
-    AlertDialog alertReviewDialog;
-    LinearLayout cancel, cancels, apply, filter_load;
+    Dialog alertReviewDialog;
+    LinearLayout  cancels,  filter_load,apply;
+    FrameLayout cancel;
     EditText filter_edit;
     RecyclerView filter_list;
     private ArrayList<BrandsPO> category_list;
+    private ArrayList<BrandsPO> categoryfil_list;
     FilerAdapter filerAdapter;
-    int manuf_id;
+    String manuf_id="0",manuf_ids,manuf_idss;
+    int option_id;
     Category category1;
     String filter_name="";
     TextView no_brands;
+    Boolean value=true;
+    private ImageView filter_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +136,8 @@ public class Allen extends Language {
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
         loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
         filter = (LinearLayout) findViewById(R.id.filter);
-
+        filter_icon = (ImageView) findViewById(R.id.filter_icon);
+        filter_icon.setImageResource(R.mipmap.filter_black);
         bundle = new Bundle();
         bundle = getIntent().getExtras();
         cat_id = Integer.parseInt(bundle.getString("id"));
@@ -131,6 +146,8 @@ public class Allen extends Language {
         sort_option = "date_added";
         sort_order = "DESC";
         sort_name.setText(R.string.news);
+        category1=new Category();
+        category1.execute(Appconstatants.CATEGORY_FILTER+"&path="+cat_id);
 
         ProductTask productTask = new ProductTask();
         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
@@ -366,22 +383,56 @@ public class Allen extends Language {
     }
 
     private void filter_view() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Allen.this, R.style.CustomAlertDialog);
+        alertReviewDialog = new Dialog(Allen.this, R.style.CustomAlertDialog);
+        alertReviewDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         View dialogView = getLayoutInflater().inflate(R.layout.filter, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.create();
-        alertReviewDialog = dialogBuilder.create();
+        alertReviewDialog.setContentView(dialogView);
+        alertReviewDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        alertReviewDialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        alertReviewDialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.TRANSPARENT));
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = (int) (displaymetrics.widthPixels * 1);
+        int height = (int) (displaymetrics.heightPixels * 1);
+        alertReviewDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        cancel = (LinearLayout) dialogView.findViewById(R.id.cancel);
-        cancels = (LinearLayout) dialogView.findViewById(R.id.cancels);
+
+
+        cancel = (FrameLayout) dialogView.findViewById(R.id.cancel);
+        //cancels = (LinearLayout) dialogView.findViewById(R.id.cancels);
         filter_edit = (EditText) dialogView.findViewById(R.id.filter_edit);
         apply = (LinearLayout) dialogView.findViewById(R.id.apply);
         filter_load = (LinearLayout) dialogView.findViewById(R.id.filter_load);
         filter_list=(RecyclerView)dialogView.findViewById(R.id.filter_list);
         no_brands=(TextView)dialogView.findViewById(R.id.no_brands) ;
+        categoryfil_list= new ArrayList<BrandsPO>();
+        for(int i=0;i<category_list.size();i++) {
+            BrandsPO bo = new BrandsPO();
+            bo.setStore_name(category_list.get(i).getStore_name());
+            bo.setS_id(category_list.get(i).getS_id());
+            bo.setSelect(category_list.get(i).isSelect());
+            categoryfil_list.add(bo);
 
-        category1=new Category();
-        category1.execute(Appconstatants.CATEGORY_FILTER);
+        }
+        if (categoryfil_list.size()!=0) {
+            filter_load.setVisibility(View.GONE);
+            filerAdapter = new FilerAdapter(Allen.this, categoryfil_list);
+            filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
+            filter_list.setAdapter(filerAdapter);
+            filter_list.setVisibility(View.VISIBLE);
+            no_brands.setVisibility(View.GONE);
+
+        }
+        else
+        {
+            filter_load.setVisibility(View.GONE);
+            no_brands.setVisibility(View.VISIBLE);
+            filter_list.setVisibility(View.GONE);
+
+        }
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -400,29 +451,73 @@ public class Allen extends Language {
 
                 if (category1!=null)
                     category1.cancel(true);
-                filter_load.setVisibility(View.VISIBLE);
+              //  filter_load.setVisibility(View.VISIBLE);
                 if (s.toString().length() > 0) {
 
                     filter_load.setVisibility(View.VISIBLE);
                     no_brands.setVisibility(View.GONE);
                     filter_name = s.toString();
-                    category1=new Category();
-                    try {
-                        category1.execute(Appconstatants.CATEGORY_FILTER+"&name="+ URLEncoder.encode(filter_name, "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                    categoryfil_list = new ArrayList<BrandsPO>();
+
+                    for(int i=0;i<category_list.size();i++) {
+                        if (category_list.get(i).getStore_name().toLowerCase().contains(filter_name)||category_list.get(i).getStore_name().contains(filter_name)) {
+                            BrandsPO bo = new BrandsPO();
+                            Log.i("sdhfskfksjf", filter_name+" "+category_list.get(i).getStore_name());
+                            bo.setStore_name(category_list.get(i).getStore_name());
+                            bo.setS_id(category_list.get(i).getS_id());
+                            bo.setSelect(category_list.get(i).isSelect());
+                            categoryfil_list.add(bo);
+                        }
                     }
+                    if (categoryfil_list.size()!=0) {
+                        filter_load.setVisibility(View.GONE);
+                        filerAdapter = new FilerAdapter(Allen.this, categoryfil_list);
+                        filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
+                        filter_list.setAdapter(filerAdapter);
+                        filter_list.setVisibility(View.VISIBLE);
+                        no_brands.setVisibility(View.GONE);
+
+                    }
+                    else
+                    {
+                        filter_load.setVisibility(View.GONE);
+                        no_brands.setVisibility(View.VISIBLE);
+                        filter_list.setVisibility(View.GONE);
+
+                    }
+
+
+
                 }
                 else
                 {
                     filter_load.setVisibility(View.VISIBLE);
                     no_brands.setVisibility(View.GONE);
                     filter_name="";
-                    category1=new Category();
-                    try {
-                        category1.execute(Appconstatants.CATEGORY_FILTER+"&name="+URLEncoder.encode(filter_name, "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                    categoryfil_list= new ArrayList<BrandsPO>();
+                    for(int i=0;i<category_list.size();i++) {
+                       BrandsPO bo = new BrandsPO();
+                            bo.setStore_name(category_list.get(i).getStore_name());
+                            bo.setS_id(category_list.get(i).getS_id());
+                            bo.setSelect(category_list.get(i).isSelect());
+                            categoryfil_list.add(bo);
+
+                    }
+                    if (categoryfil_list.size()!=0) {
+                        filter_load.setVisibility(View.GONE);
+                        filerAdapter = new FilerAdapter(Allen.this, categoryfil_list);
+                        filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
+                        filter_list.setAdapter(filerAdapter);
+                        filter_list.setVisibility(View.VISIBLE);
+                        no_brands.setVisibility(View.GONE);
+
+                    }
+                    else
+                    {
+                        filter_load.setVisibility(View.GONE);
+                        no_brands.setVisibility(View.VISIBLE);
+                        filter_list.setVisibility(View.GONE);
+
                     }
 
 
@@ -437,58 +532,51 @@ public class Allen extends Language {
             }
         });
 
-        cancels.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertReviewDialog.dismiss();
-                prog_sec.setVisibility(View.VISIBLE);
-                no_items.setVisibility(View.GONE);
-                manuf_id=0;
-                val = 0;
-                start = 1;
-                for (int i=0;i<category_list.size();i++) {
-                    category_list.get(i).setSelect(false);
-                }
-                filerAdapter.notifyDataSetChanged();
-                ProductTask productTask = new ProductTask();
-                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
-            }
-        });
+
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
+                manuf_ids="";
+                manuf_id="";
                 alertReviewDialog.dismiss();
                 val = 0;
                 start = 1;
                 prog_sec.setVisibility(View.VISIBLE);
                 no_items.setVisibility(View.GONE);
+
                 for (int i=0;i<category_list.size();i++) {
                     if (category_list.get(i).isSelect()) {
-                        manuf_id = Integer.parseInt(category_list.get(i).getS_id());
-                        break;
+                        Log.i("lofjdjj",i+" : "+(category_list.size()-1));
+
+                       manuf_idss=category_list.get(i).getS_id()+",";
+                       Log.i("jdsjkfhjdk",manuf_idss+""+manuf_ids);
+                  manuf_ids=manuf_ids+manuf_idss;
+                        Log.i("hfghfghfh",""+manuf_ids);
+
+
                     }
                 }
+                Log.i("dhdhdhdh",manuf_ids+"  ");
+                if(manuf_ids!=null&&!manuf_ids.equalsIgnoreCase("")){
+                    manuf_ids = manuf_ids.substring(0, manuf_ids.length() - 1);
+                    Log.i("dfgdfgdgd", (manuf_ids.length() - 1)+" --- "+manuf_ids);
+                    filter_icon.setImageResource(R.mipmap.filter_g);
+                }else{
+
+                    filter_icon.setImageResource(R.mipmap.filter_black);
+                }
+
+
+                manuf_id =manuf_ids;
+
                 ProductTask productTask = new ProductTask();
                 productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
             }
         });
         alertReviewDialog.show();
 
-        filter_list.addOnItemTouchListener(new RecyclerItemClickListener(Allen.this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
 
-                for (int i=0;i<category_list.size();i++)
-                {
-                    category_list.get(i).setSelect(false);
-                }
-                category_list.get(position).setSelect(true);
-                filerAdapter.notifyDataSetChanged();
-
-            }
-        }));
     }
 
     @Override
@@ -502,6 +590,21 @@ public class Allen extends Language {
         }
 
 
+    }
+
+    public void categoryselect(ArrayList<BrandsPO> list) {
+        if(category_list.size()!=0){
+            for(int i=0;i<category_list.size();i++){
+                for(int j=0;j<categoryfil_list.size();j++){
+                    if(category_list.get(i).getS_id()==categoryfil_list.get(j).getS_id()){
+                        category_list.get(i).setSelect(categoryfil_list.get(j).isSelect());
+                    }
+
+
+                }
+
+            }
+        }
     }
 
     private class ProductTask extends AsyncTask<String, Void, String> {
@@ -607,10 +710,13 @@ public class Allen extends Language {
                         }
 
                         error_network.setVisibility(View.GONE);
-                        prog_sec.setVisibility(View.GONE);
-                        loading.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
                         start = start + 1;
+                        prog_sec.setVisibility(View.GONE);
+                        loading.setVisibility(View.GONE);
+                        loading_bar.setVisibility(View.GONE);
+
+
 
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
@@ -690,60 +796,48 @@ public class Allen extends Language {
 
 
                     category_list=new ArrayList<>();
+                    categoryfil_list= new ArrayList<BrandsPO>();
                     JSONObject json=new JSONObject(resp);
 
                     if (json.getInt("success")==1)
                     {
 
-                        JSONArray arr = new JSONArray(json.getString("data"));
+                        JSONObject objs = new JSONObject(json.getString("data"));
+                        JSONArray arr = new JSONArray(objs.getString("brand"));
                         for (int h = 0; h < arr.length(); h++) {
                             JSONObject obj = arr.getJSONObject(h);
                             BrandsPO bo = new BrandsPO();
                             bo.setS_id(obj.isNull("manufacturer_id") ? "" : obj.getString("manufacturer_id"));
                             bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
-                            bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
+                            //bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
+                            bo.setSelect(false);
                             category_list.add(bo);
+                            categoryfil_list.add(bo);
 
                         }
-
-                        for (int j=0;j<category_list.size();j++)
-                        {
-                            if (manuf_id==Integer.parseInt(category_list.get(j).getS_id()))
-                            {
-                                category_list.get(j).setSelect(true);
-                            }
-                        }
-
-                        if (category_list.size()!=0) {
-
-                            filerAdapter = new FilerAdapter(Allen.this, category_list);
-                            filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
-                            filter_list.setAdapter(filerAdapter);
-                            filter_list.setVisibility(View.VISIBLE);
-                            no_brands.setVisibility(View.GONE);
-
-                        }
-                        else
-                        {
-                            no_brands.setVisibility(View.VISIBLE);
-                            filter_list.setVisibility(View.GONE);
-
-                        }
-                        filter_load.setVisibility(View.GONE);
-
                     }
+
                     else
                     {
+                        prog_sec.setVisibility(View.GONE);
+                        loading.setVisibility(View.GONE);
+                        error_network.setVisibility(View.VISIBLE);
                         Toast.makeText(Allen.this,R.string.error_msg,Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("sdfaf",e.toString()+"");
+                    prog_sec.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
+                    error_network.setVisibility(View.VISIBLE);
                     Toast.makeText(Allen.this,R.string.error_msg,Toast.LENGTH_LONG).show();
 
                 }
             } else {
+                prog_sec.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
+                error_network.setVisibility(View.VISIBLE);
                 Toast.makeText(Allen.this,R.string.error_net,Toast.LENGTH_LONG).show();
 
             }
