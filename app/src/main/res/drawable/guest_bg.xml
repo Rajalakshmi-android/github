@@ -54,7 +54,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="@color/guest_checkout" />
             <corners android:radius="30dp" />
         </shape>
     </item>

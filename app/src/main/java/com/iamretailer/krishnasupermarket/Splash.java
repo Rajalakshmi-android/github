@@ -9,8 +9,10 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -42,6 +44,7 @@ public class Splash extends Language {
     private String pushid;
     private String pushregid;
     ArrayList<LangPO> langPOS;
+    String appId="";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class Splash extends Language {
         CheckTask task = new CheckTask();
         task.execute();
         printHashKey(Splash.this);
+        appId = BuildConfig.APPLICATION_ID;
     }
 
     private class CheckTask extends AsyncTask<Void, Void, Void> {
@@ -95,7 +99,7 @@ public class Splash extends Language {
                 } else {
 //
                     GetSessionTask task = new GetSessionTask();
-                    task.execute(Appconstatants.SESSION_API);
+                    task.execute(Appconstatants.SESSION_API+","+Appconstatants.APP_KEY+","+appId);
                 }
             } else {
                 Snackbar
@@ -147,7 +151,7 @@ public class Splash extends Language {
             protected void onPostExecute(String resp) {
 
                 if (resp != null) {
-                    Log.i("resp__", resp);
+                    Log.i("resp__", resp+"zvsadfsfdsa");
 
                     try {
                         final JSONObject json = new JSONObject(resp);
@@ -186,16 +190,7 @@ public class Splash extends Language {
 
                     }
                 } else {
-                    Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
-                            .setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    CheckTask task = new CheckTask();
-                                    task.execute();
-                                }
-                            })
-                            .show();
+                    show_alret();
                 }
             }
         }
@@ -215,9 +210,11 @@ public class Splash extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
+                Log.d("url_response",param[0] + "");
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,"",Splash.this);
                 logger.info("Session Resp :"+response);
                 Log.d("url_response", response + "");
+                Log.d("url_response",param[0] + "xxZ");;
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -496,7 +493,18 @@ public class Splash extends Language {
             }
         }
     }*/
-
+   public void show_alret(){
+       final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
+       View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
+       dial.setView(popUpView);
+       final AlertDialog popupStore = dial.create();
+       WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+       lp.copyFrom(popupStore.getWindow().getAttributes());
+       lp.gravity= Gravity.CENTER;
+       popupStore.getWindow().setAttributes(lp);
+       popupStore.show();
+       popupStore.setCancelable(false);
+   }
 
 
 

@@ -364,6 +364,8 @@
     <string name="brand_not_found">Brand not found !!</string>
     <string name="address_save">Address Added Successfully</string>
     <string name="address_update">Address Updated Successfully</string>
+    <string name="invalid_msg">The Marketplace Id is connected with different Domain already. Kindly update New Marketplace Id for this Package</string>
 
 
-</resources>
+
+    </resources>
