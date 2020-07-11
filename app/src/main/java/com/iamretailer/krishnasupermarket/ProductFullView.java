@@ -697,9 +697,8 @@ public class ProductFullView extends Language {
             rbn.setId(check_value.get(u).getProduct_option_value_id());
             rbn.setText("  " + check_value.get(u).getName());
             rbn.setTypeface(typeface);
-            rbn.setButtonDrawable(R.drawable.raidobuttonstyle);
             rbn.setTextColor(getResources().getColor(R.color.text_select));
-            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.radiobutton_selector));
+            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
             if (u==0) {
                 rbn.setChecked(true);
                 optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());
@@ -751,7 +750,7 @@ public class ProductFullView extends Language {
         for (int u = 0; u < radio_values.size(); u++) {
             RadioButton rbn = new RadioButton(ProductFullView.this);
             Log.i("hishihfi","rrrrrr");
-            rbn.setButtonDrawable(R.drawable.raidobuttonstyle);
+            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.radiobutton_selector));
             RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rbn.setTypeface(typeface);
             rbn.setLayoutParams(params);

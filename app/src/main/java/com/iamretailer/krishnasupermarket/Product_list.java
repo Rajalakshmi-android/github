@@ -611,8 +611,7 @@ public class Product_list extends Language {
                                     }
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            }
-                            else {
+                            } else {
 
                                 if (feat_list.size() > 0 && feat_list!=null) {
                                     for (int u = 0; u < feat_list.size(); u++) {
@@ -704,7 +703,7 @@ public class Product_list extends Language {
 
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            } else if( from.equals("banners")){
+                            }else if( from.equals("banners")){
                                 if (banner_items.size()>0 &&banner_items!=null) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
@@ -741,6 +740,11 @@ public class Product_list extends Language {
                                     featuredAdapter.notifyDataSetChanged();
                                 }
                             }
+
+
+
+
+
                         }
                     }
                 } catch (Exception e) {

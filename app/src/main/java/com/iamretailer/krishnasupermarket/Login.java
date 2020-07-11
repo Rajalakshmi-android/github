@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
@@ -25,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -102,6 +105,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
     int has_ship;
     private ArrayList<Object> addressPOS;
     private ProgressDialog pDialog;
+    LinearLayout pass;
+    ImageView hide, show;
 
 
     @Override
@@ -132,6 +137,9 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         gmail_login = (LinearLayout) findViewById(R.id.gmail_login);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
+        pass = (LinearLayout) findViewById(R.id.pass);
+        hide = (ImageView) findViewById(R.id.hide);
+        show = (ImageView) findViewById(R.id.show);
 
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         callbackManager = CallbackManager.Factory.create();
@@ -276,6 +284,22 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         } catch (Exception e) {
             Log.e("exception", e.toString());
         }
+
+        pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (show.getVisibility() == View.VISIBLE) {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    hide.setVisibility(View.VISIBLE);
+                    show.setVisibility(View.GONE);
+                } else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    show.setVisibility(View.VISIBLE);
+                    hide.setVisibility(View.GONE);
+                }
+
+            }
+        });
 
 
 
