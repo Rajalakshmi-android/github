@@ -1318,8 +1318,9 @@ public class ProductFullView extends Language {
                                         }
                                     }
                                 }
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.notifyDataSetChanged();
+
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");

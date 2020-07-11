@@ -910,8 +910,9 @@ public class Allen extends Language {
                                         }
                                     }
                                 }
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.notifyDataSetChanged();
+
                         }
 
                     } else {
