@@ -678,8 +678,6 @@
                             android:layout_height="@dimen/dp28"
                             android:layout_gravity="center"
                             android:padding="@dimen/dp3"
-                            android:autoMirrored="true"
-                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/whatsapp" />
                     </LinearLayout>
 

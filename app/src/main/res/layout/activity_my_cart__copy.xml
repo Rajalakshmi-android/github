@@ -219,8 +219,6 @@
                                             <ImageView
                                                 android:layout_width="@dimen/dp23"
                                                 android:layout_height="@dimen/dp23"
-                                                android:autoMirrored="true"
-                                                android:rotationY="@integer/locale_mirror_flip"
                                                 android:src="@mipmap/but_cart"
                                                 android:layout_marginStart="@dimen/dp4"/>
 

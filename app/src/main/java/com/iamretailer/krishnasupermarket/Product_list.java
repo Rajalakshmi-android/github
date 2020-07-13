@@ -594,24 +594,7 @@ public class Product_list extends Language {
                                     }
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            }else if( from.equals("banners")){
-                                if (banner_items.size()>0 &&banner_items!=null) {
-                                    for (int u = 0; u < banner_items.size(); u++) {
-                                        for (int h = 0; h < cart_item.size(); h++) {
-                                            if (Integer.parseInt(banner_items.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
-                                                banner_items.get(u).setCart_list(true);
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                banner_items.get(u).setCart_list(false);
-
-                                            }
-                                        }
-                                    }
-                                    bestAdapter.notifyDataSetChanged();
-                                }
-                            } else {
+                            }else {
 
                                 if (feat_list.size() > 0 && feat_list!=null) {
                                     for (int u = 0; u < feat_list.size(); u++) {
@@ -703,23 +686,6 @@ public class Product_list extends Language {
 
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            }else if( from.equals("banners")){
-                                if (banner_items.size()>0 &&banner_items!=null) {
-                                    for (int u = 0; u < banner_items.size(); u++) {
-                                        for (int h = 0; h < fav_item.size(); h++) {
-                                            if (Integer.parseInt(banner_items.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
-                                                banner_items.get(u).setWish_list(true);
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                banner_items.get(u).setWish_list(false);
-
-                                            }
-                                        }
-                                    }
-                                    bestAdapter.notifyDataSetChanged();
-                                }
                             }
                             else
                             {
@@ -740,11 +706,6 @@ public class Product_list extends Language {
                                     featuredAdapter.notifyDataSetChanged();
                                 }
                             }
-
-
-
-
-
                         }
                     }
                 } catch (Exception e) {
