@@ -45,6 +45,7 @@ public class Splash extends Language {
     private String pushid;
     private String pushregid;
     ArrayList<LangPO> langPOS;
+    String appId="";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,8 @@ public class Splash extends Language {
         CheckTask task = new CheckTask();
         task.execute();
         printHashKey(Splash.this);
+        appId = BuildConfig.APPLICATION_ID;
+
     }
 
     private class CheckTask extends AsyncTask<Void, Void, Void> {
@@ -98,7 +101,7 @@ public class Splash extends Language {
                 } else {
 //
                         GetSessionTask task = new GetSessionTask();
-                        task.execute(Appconstatants.SESSION_API);
+                        task.execute(Appconstatants.SESSION_API+","+Appconstatants.APP_KEY+","+appId);
                 }
             } else {
                 Snackbar
@@ -192,16 +195,7 @@ public class Splash extends Language {
 
                     }
                 } else {
-                    Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
-                            .setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    CheckTask task = new CheckTask();
-                                    task.execute();
-                                }
-                            })
-                            .show();
+                    show_alret();
 
                 }
             }
@@ -505,7 +499,18 @@ public class Splash extends Language {
     }*/
 
 
-
+    public void show_alret(){
+              final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
+              View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
+              dial.setView(popUpView);
+              final AlertDialog popupStore = dial.create();
+              WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+              lp.copyFrom(popupStore.getWindow().getAttributes());
+              lp.gravity= Gravity.CENTER;
+              popupStore.getWindow().setAttributes(lp);
+              popupStore.show();
+              popupStore.setCancelable(false);
+          }
 
 
 

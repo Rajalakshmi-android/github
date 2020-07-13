@@ -138,4 +138,7 @@ public class Appconstatants {
     public static String CATEGORY_FILTER=domain+"index.php?route=rest/filter/filteroption";
     public static String razorpay=domain+"index.php?route=rest/razorpay/order";
 
+
+    public  static  String APP_KEY="12345";
+
 }
