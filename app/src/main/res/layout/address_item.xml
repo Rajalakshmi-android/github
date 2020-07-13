@@ -80,18 +80,14 @@
                         android:id="@+id/delete"
                         android:layout_width="@dimen/dp25"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="end"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
+                        android:gravity="right"
                         android:layout_height="match_parent">
 
                     <ImageView
                         android:layout_width="@dimen/dp13"
                         android:layout_height="@dimen/dp13"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="end"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
+                        android:gravity="right"
                         android:src="@mipmap/gray_delete" />
                     </LinearLayout>
 
@@ -196,8 +192,6 @@
                         android:layout_height="@dimen/dp30"
                         android:layout_gravity="end"
                         android:gravity="center"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/addres_selects"
                         />
                     <ImageView
@@ -206,8 +200,6 @@
                         android:layout_height="@dimen/dp30"
                         android:layout_gravity="end"
                         android:gravity="top"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/gray_circle1"
                         android:visibility="gone"/>
                 </FrameLayout>

@@ -31,8 +31,6 @@
                     <ImageView
                         android:id="@+id/cart_img"
                         android:layout_width="@dimen/dp85"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_height="@dimen/dp85"
                         android:src="@mipmap/place_holder"
                         android:layout_gravity="center"

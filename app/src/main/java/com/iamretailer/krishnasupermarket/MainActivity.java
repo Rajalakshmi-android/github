@@ -334,7 +334,7 @@ public class MainActivity extends Drawer {
         Log.i("resume", "login&logout.............");
         if (db.getLoginCount() > 0) {
 
-            email.setText(db.getName());
+            email.setText(dbCon.getName());
             email.setVisibility(View.VISIBLE);
             login.setVisibility(View.GONE);
             gologout.setVisibility(View.VISIBLE);
@@ -570,7 +570,7 @@ public class MainActivity extends Drawer {
                                 if (h == array.length() - 1) {
                                     BannerBo bo1 = new BannerBo();
                                     bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
-                                    bo1.setLink(obj.isNull("title") ? "" : obj.getString("title"));
+                                    bo1.setLink(obj.isNull("link") ? "" : obj.getString("link"));
                                     bo1.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
                                     banner2.add(bo);
                                 }

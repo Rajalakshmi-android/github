@@ -31,8 +31,6 @@
             <ImageView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-4dp"
-                android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/corner"
                 android:id="@+id/cornericon"
                 android:layout_gravity="center"/>

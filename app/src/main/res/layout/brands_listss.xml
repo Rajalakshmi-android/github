@@ -34,8 +34,6 @@
                     android:layout_height="@dimen/dp25"
                     android:layout_gravity="center"
                     android:src="@mipmap/next"
-                    android:autoMirrored="true"
-                    android:rotationY="@integer/locale_mirror_flip"
                     android:visibility="gone" />
             </FrameLayout>
 

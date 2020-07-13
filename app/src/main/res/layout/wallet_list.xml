@@ -105,8 +105,6 @@
                 android:layout_height="@dimen/dp25"
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/dp10"
-                android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"
                 android:layout_marginTop="@dimen/dp10"
                 android:src="@mipmap/addres_selects" />
             </FrameLayout>
