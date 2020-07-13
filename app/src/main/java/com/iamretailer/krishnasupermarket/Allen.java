@@ -152,7 +152,6 @@ public class Allen extends Language {
         ProductTask productTask = new ProductTask();
         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
 
-
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
