@@ -18,6 +18,8 @@
             android:id="@+id/erroricon"
             android:layout_width="@dimen/dp90"
             android:layout_height="@dimen/dp90"
+            android:autoMirrored="true"
+            android:rotationY="@integer/locale_mirror_flip"
             android:src="@mipmap/no_connection" />
 
         <com.iamretailer.krishnasupermarket.Common.CustomTextview1

@@ -220,6 +220,8 @@
                                                 android:layout_width="@dimen/dp23"
                                                 android:layout_height="@dimen/dp23"
                                                 android:src="@mipmap/but_cart"
+                                                android:autoMirrored="true"
+                                                android:rotationY="@integer/locale_mirror_flip"
                                                 android:layout_marginStart="@dimen/dp4"/>
 
                                         </LinearLayout>

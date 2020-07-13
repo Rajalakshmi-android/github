@@ -141,5 +141,4 @@ public class Appconstatants {
 
     public  static  String APP_KEY="12345";
 
-
 }
