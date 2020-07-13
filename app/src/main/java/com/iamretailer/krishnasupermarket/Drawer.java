@@ -132,25 +132,6 @@ public class Drawer extends Language {
           //  wallet.setVisibility(View.GONE);
         }
 
-       /* Log.d("adsd",dbCon.get_lan_c()+"");
-        if (dbCon.get_lan_lists()>1)
-        {
-            language.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            language.setVisibility(View.GONE);
-        }
-        Log.d("adsd",dbCon.get_cur_count()+"");
-        if (dbCon.get_cur_count()>1)
-        {
-            currency.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            currency.setVisibility(View.GONE);
-
-        }*/
         setListener();
 
         layout.setDrawerListener(new DrawerLayout.DrawerListener() {
@@ -349,39 +330,6 @@ public class Drawer extends Language {
 
                 startActivity(new Intent(Drawer.this,ContactForm.class));
 
-
-              /*  try{
-                    if (ContextCompat.checkSelfPermission(Drawer.this,
-                            Manifest.permission.CALL_PHONE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        if (ActivityCompat.shouldShowRequestPermissionRationale
-                                (Drawer.this, Manifest.permission.CALL_PHONE)) {
-                            Snackbar.make(findViewById(android.R.id.content),
-                                    "Please Grant Permissions",
-                                    Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
-                                    new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Log.i("ree8888", "inside");
-                                            ActivityCompat.requestPermissions(Drawer.this,
-                                                    new String[]{ Manifest.permission.CALL_PHONE},
-                                                    212);
-                                        }
-                                    }).show();
-                        } else {
-                            Log.i("reevvvvv", "inside");
-                            ActivityCompat.requestPermissions(Drawer.this,
-                                    new String[]{  Manifest.permission.CALL_PHONE},
-                                    212);
-                        }
-                    } else {
-
-                        showCallPopup();
-                    }
-                }catch (Exception e){
-
-                }*/
-
             }
         });
 
@@ -426,68 +374,7 @@ public class Drawer extends Language {
 
 
 
-    public void change_lang(String languageToLoad) {
 
-        ArrayList<String> lang_list= LanguageList.getLang_list();
-        String set_lan="en";
-
-        for (int h=0;h<lang_list.size();h++)
-        {
-            if (languageToLoad.contains(lang_list.get(h)))
-            {
-                set_lan = lang_list.get(h);
-
-            }
-
-        }
-        LocaleHelper.setLocale(this, set_lan);
-        Locale locale = new Locale(set_lan);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        if (Build.VERSION.SDK_INT >= 17) {
-            config.setLayoutDirection(locale);
-        }
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-        startActivity(new Intent(Drawer.this, MainActivity.class));
-    }
-
-/*    public void showCallPopup(){
-        AlertDialog.Builder dial = new AlertDialog.Builder(Drawer.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, null);
-        dial.setView(popUpView);
-        final AlertDialog popupStore = dial.create();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity= Gravity.CENTER;
-        popupStore.getWindow().setAttributes(lp);
-        popupStore.show();
-        final TextView no = (TextView) popUpView.findViewById(R.id.no);
-        final TextView yes = (TextView) popUpView.findViewById(R.id.yes);
-
-        no.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-            }
-        });
-        yes.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-                String ph=getResources().getString(R.string.tel)+getResources().getString(R.string.phone_num);
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse(ph));
-                startActivity(callIntent);
-            }
-        });
-
-    }*/
 
     public void showLogoutPopup(){
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);

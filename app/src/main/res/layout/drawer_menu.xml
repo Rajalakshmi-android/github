@@ -70,6 +70,8 @@
                         android:layout_width="@dimen/dp20"
                         android:layout_height="@dimen/dp20"
                         android:layout_marginTop="@dimen/dp5"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/menu_account" />
 
                 </LinearLayout>
@@ -105,6 +107,8 @@
                     <ImageView
                         android:layout_width="@dimen/dp20"
                         android:layout_height="@dimen/dp20"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_marginTop="@dimen/dp5"
                         android:src="@mipmap/menu_my_orders" />
 
@@ -145,6 +149,8 @@
                         android:layout_height="@dimen/dp20"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp3"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_marginEnd="@dimen/dp1"
                         android:src="@mipmap/menu_cart" />
 
@@ -225,6 +231,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_home" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -275,6 +283,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_notification" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -322,6 +332,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_favorite" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -369,6 +381,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_address" />
 
                         <LinearLayout
@@ -418,6 +432,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_contact_us" />
                         <LinearLayout
 
@@ -469,6 +485,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_wallet" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -499,6 +517,7 @@
 
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:id="@+id/gorateus"
                     android:layout_width="match_parent"
@@ -518,6 +537,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_rate" />
 
                         <LinearLayout
@@ -568,6 +589,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_share" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -617,6 +640,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/location2" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -664,6 +689,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_about" />
 
                         <LinearLayout
@@ -716,6 +743,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_password" />
                         <LinearLayout
                             android:layout_width="match_parent"

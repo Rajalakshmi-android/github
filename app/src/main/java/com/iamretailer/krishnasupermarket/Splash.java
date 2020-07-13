@@ -1,5 +1,6 @@
 package com.iamretailer.krishnasupermarket;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -9,13 +10,13 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.iamretailer.krishnasupermarket.Common.Appconstatants;
@@ -75,6 +76,7 @@ public class Splash extends Language {
         task.execute();
         printHashKey(Splash.this);
         appId = BuildConfig.APPLICATION_ID;
+
     }
 
     private class CheckTask extends AsyncTask<Void, Void, Void> {
@@ -98,8 +100,8 @@ public class Splash extends Language {
 
                 } else {
 //
-                    GetSessionTask task = new GetSessionTask();
-                    task.execute(Appconstatants.SESSION_API+","+Appconstatants.APP_KEY+","+appId);
+                        GetSessionTask task = new GetSessionTask();
+                        task.execute(Appconstatants.SESSION_API+","+Appconstatants.APP_KEY+","+appId);
                 }
             } else {
                 Snackbar
@@ -140,6 +142,8 @@ public class Splash extends Language {
                 try {
                     Connection connection = new Connection();
                     response = connection.connStringResponse(param[0], null, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,"",Splash.this);
+                    Log.d("session_url",param[0]);
+                    Log.d("session_res",response+"zasfadfad");
                     logger.info("Session Resp :"+response);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -151,10 +155,11 @@ public class Splash extends Language {
             protected void onPostExecute(String resp) {
 
                 if (resp != null) {
-                    Log.i("resp__", resp+"zvsadfsfdsa");
+                    Log.i("resp__", resp);
 
                     try {
                         final JSONObject json = new JSONObject(resp);
+
                         if (json.getInt("success") == 1)
                         {
 
@@ -191,6 +196,7 @@ public class Splash extends Language {
                     }
                 } else {
                     show_alret();
+
                 }
             }
         }
@@ -210,11 +216,9 @@ public class Splash extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                Log.d("url_response",param[0] + "");
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,"",Splash.this);
                 logger.info("Session Resp :"+response);
                 Log.d("url_response", response + "");
-                Log.d("url_response",param[0] + "xxZ");;
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -493,18 +497,20 @@ public class Splash extends Language {
             }
         }
     }*/
-   public void show_alret(){
-       final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
-       View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
-       dial.setView(popUpView);
-       final AlertDialog popupStore = dial.create();
-       WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-       lp.copyFrom(popupStore.getWindow().getAttributes());
-       lp.gravity= Gravity.CENTER;
-       popupStore.getWindow().setAttributes(lp);
-       popupStore.show();
-       popupStore.setCancelable(false);
-   }
+
+
+    public void show_alret(){
+              final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
+              View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
+              dial.setView(popUpView);
+              final AlertDialog popupStore = dial.create();
+              WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+              lp.copyFrom(popupStore.getWindow().getAttributes());
+              lp.gravity= Gravity.CENTER;
+              popupStore.getWindow().setAttributes(lp);
+              popupStore.show();
+              popupStore.setCancelable(false);
+          }
 
 
 

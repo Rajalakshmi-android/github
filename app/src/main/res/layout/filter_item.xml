@@ -39,6 +39,8 @@
                 android:layout_height="@dimen/dp25"
                 android:layout_gravity="center"
                 android:id="@+id/cat_img"
+                android:autoMirrored="true"
+                android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/brand_checked"
                 />
             <ImageView
@@ -46,6 +48,8 @@
                 android:layout_height="@dimen/dp25"
                 android:layout_gravity="center"
                 android:id="@+id/cat_img1"
+                android:autoMirrored="true"
+                android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/brand_unchecked"
                 />
         </FrameLayout>
