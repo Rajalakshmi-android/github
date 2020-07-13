@@ -24,8 +24,6 @@
                 android:layout_width="@dimen/dp70"
                 android:layout_height="@dimen/dp70"
                 android:layout_gravity="center"
-                android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"
                 android:layout_marginTop="@dimen/dp10"
                 android:src="@mipmap/order_placed" />
 

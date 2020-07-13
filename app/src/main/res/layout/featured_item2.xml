@@ -285,18 +285,13 @@
                                         android:layout_width="@dimen/dp20"
                                         android:layout_height="@dimen/dp21"
                                         android:src="@mipmap/product_cart"
-                                        android:visibility="gone"
-                                        android:autoMirrored="true"
-                                        android:rotationY="@integer/locale_mirror_flip"/>
+                                        android:visibility="gone" />
 
                                     <ImageView
                                         android:id="@+id/cart_unlike"
                                         android:layout_width="@dimen/dp20"
                                         android:layout_height="@dimen/dp20"
-                                        android:src="@mipmap/cart_unlike"
-                                        android:autoMirrored="true"
-                                        android:rotationY="@integer/locale_mirror_flip"/>
-
+                                        android:src="@mipmap/cart_unlike" />
 
                                 </FrameLayout>
                             </LinearLayout>

@@ -30,9 +30,7 @@
                     android:layout_width="@dimen/dp80"
                     android:layout_height="@dimen/dp80"
                     android:layout_gravity="center"
-                    android:id="@+id/cat_img"
-                    android:autoMirrored="true"
-                    android:rotationY="@integer/locale_mirror_flip"/>
+                    android:id="@+id/cat_img"/>
 
             </FrameLayout>
         </LinearLayout>
