@@ -27,8 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
-import com.iamretailer.krishnasupermarket.Adapter.CurAdapter;
-import com.iamretailer.krishnasupermarket.Adapter.LangAdapter;
 import com.iamretailer.krishnasupermarket.Common.Appconstatants;
 import com.iamretailer.krishnasupermarket.Common.CommonFunctions;
 import com.iamretailer.krishnasupermarket.Common.DBController;
@@ -67,18 +65,10 @@ public class Drawer extends Language {
     FrameLayout user;
     AndroidLogger logger;
     LinearLayout address;
-    LinearLayout language;
-    ArrayList<LangPO> langs;
-    ArrayList<CurPO> curs;
-    LangAdapter langAdapter;
-    CurAdapter curAdapter;
-    ListView lang_list;
-    ListView cur_list;
     int pos=0;
     LinearLayout wallet;
     LinearLayout store;
     LinearLayout aboutus;
-    LinearLayout currency;
     TextView title;
 
 
@@ -112,11 +102,10 @@ public class Drawer extends Language {
         my_profile=(LinearLayout)view.findViewById(R.id.my_profile);
         address=(LinearLayout)view.findViewById(R.id.address);
 
-        language=(LinearLayout)findViewById(R.id.language);
         wallet=(LinearLayout)findViewById(R.id.wallet);
         store=(LinearLayout)view.findViewById(R.id.store);
         aboutus=(LinearLayout)view.findViewById(R.id.aboutus);
-        currency=(LinearLayout)view.findViewById(R.id.currency);
+
         title=(TextView)view.findViewById(R.id.title);
         String s1=getResources().getString( R.string.about);
         String s2=getResources().getString(R.string.app_name);
@@ -143,25 +132,6 @@ public class Drawer extends Language {
           //  wallet.setVisibility(View.GONE);
         }
 
-        Log.d("adsd",dbCon.get_lan_c()+"");
-        if (dbCon.get_lan_lists()>1)
-        {
-            language.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            language.setVisibility(View.GONE);
-        }
-        Log.d("adsd",dbCon.get_cur_count()+"");
-        if (dbCon.get_cur_count()>1)
-        {
-            currency.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            currency.setVisibility(View.GONE);
-
-        }
         setListener();
 
         layout.setDrawerListener(new DrawerLayout.DrawerListener() {
@@ -351,27 +321,6 @@ public class Drawer extends Language {
             }
         });
 
-        language.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                lang_popup();
-            }
-        });
-
-        currency.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cur_popup();
-            }
-        });
-        store.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StoreLocator.class);
-                startActivity(intent);
-            }
-        });
 
 
 
@@ -380,7 +329,6 @@ public class Drawer extends Language {
             public void onClick(View view) {
 
                 startActivity(new Intent(Drawer.this,ContactForm.class));
-
 
             }
         });
@@ -424,139 +372,9 @@ public class Drawer extends Language {
         });
         }
 
-    private void lang_popup() {
-
-
-        AlertDialog.Builder dial = new AlertDialog.Builder(Drawer.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.lang_popup, null);
-        dial.setView(popUpView);
-        final AlertDialog popupStore = dial.create();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity= Gravity.CENTER;
-        popupStore.getWindow().setAttributes(lp);
-        popupStore.show();
-
-        LinearLayout no = (LinearLayout) popUpView.findViewById(R.id.no);
-        LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
-        lang_list=(ListView)popUpView.findViewById(R.id.lang_list);
-        langs=dbCon.get_lan_list();
-        Log.i("tag","fgdfngdkfgndfkg "+langs.size());
-        langAdapter=new LangAdapter(Drawer.this,R.layout.lang_list,langs);
-        lang_list.setAdapter(langAdapter);
-        if (dbCon.get_lan_c()>0)
-        {
-            for (int k=0;k<langs.size();k++)
-            {
-                if (langs.get(k).getLang_code().equals(dbCon.get_lang_code()))
-                {
-                    langs.get(k).setSelect_lang(true);
-                }
-            }
-
-        }
-
-
-        lang_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pos=position;
-                for (int y=0;y<langs.size();y++)
-                {
-                    langs.get(y).setSelect_lang(false);
-                }
-                langs.get(position).setSelect_lang(true);
-                langAdapter.notifyDataSetChanged();
-            }
-        });
-
-
-        no.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-            }
-        });
-        yes.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-                dbCon.get_lang_code();
-                dbCon.insert_app_lang(langs.get(pos).getLang_id(),langs.get(pos).getLang_name(),langs.get(pos).getLang_code());
-                change_lang(dbCon.get_lang_code());
 
 
 
-            }
-        });
-    }
-
-    public void change_lang(String languageToLoad) {
-
-        ArrayList<String> lang_list= LanguageList.getLang_list();
-        String set_lan="en";
-
-        for (int h=0;h<lang_list.size();h++)
-        {
-            if (languageToLoad.contains(lang_list.get(h)))
-            {
-                set_lan = lang_list.get(h);
-
-            }
-
-        }
-        LocaleHelper.setLocale(this, set_lan);
-        Locale locale = new Locale(set_lan);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        if (Build.VERSION.SDK_INT >= 17) {
-            config.setLayoutDirection(locale);
-        }
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-        startActivity(new Intent(Drawer.this, MainActivity.class));
-    }
-
-/*    public void showCallPopup(){
-        AlertDialog.Builder dial = new AlertDialog.Builder(Drawer.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, null);
-        dial.setView(popUpView);
-        final AlertDialog popupStore = dial.create();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity= Gravity.CENTER;
-        popupStore.getWindow().setAttributes(lp);
-        popupStore.show();
-        final TextView no = (TextView) popUpView.findViewById(R.id.no);
-        final TextView yes = (TextView) popUpView.findViewById(R.id.yes);
-
-        no.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-            }
-        });
-        yes.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-                String ph=getResources().getString(R.string.tel)+getResources().getString(R.string.phone_num);
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse(ph));
-                startActivity(callIntent);
-            }
-        });
-
-    }*/
 
     public void showLogoutPopup(){
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);
@@ -719,72 +537,6 @@ public class Drawer extends Language {
         }
     }
 
-    private void cur_popup() {
-
-
-        AlertDialog.Builder dial = new AlertDialog.Builder(Drawer.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.cur_popup, null);
-        dial.setView(popUpView);
-        final AlertDialog popupStore = dial.create();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity= Gravity.CENTER;
-        popupStore.getWindow().setAttributes(lp);
-        popupStore.show();
-
-        LinearLayout no = (LinearLayout) popUpView.findViewById(R.id.no);
-        LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
-        cur_list=(ListView)popUpView.findViewById(R.id.cur_list);
-        curs=dbCon.get_cur_list();
-        curAdapter=new CurAdapter(Drawer.this,R.layout.lang_list,curs);
-        cur_list.setAdapter(curAdapter);
-        if (dbCon.get_cur_count()>0)
-        {
-            for (int k=0;k<curs.size();k++)
-            {
-                if (curs.get(k).getCur_code().equals(dbCon.getCurCode()))
-                {
-                    curs.get(k).setIsselected(true);
-                }
-            }
-
-        }
-
-
-        cur_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pos=position;
-                for (int y=0;y<curs.size();y++)
-                {
-                    curs.get(y).setIsselected(false);
-                }
-                curs.get(position).setIsselected(true);
-                curAdapter.notifyDataSetChanged();
-            }
-        });
-
-
-        no.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-            }
-        });
-        yes.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                popupStore.dismiss();
-                dbCon.drop_app_cur();
-                dbCon.insert_app_cur(curs.get(pos).getCur_title(),curs.get(pos).getCur_code(),curs.get(pos).getCur_left(),curs.get(pos).getCur_right());
-                startActivity(new Intent(Drawer.this,MainActivity.class));
-            }
-        });
-    }
 
 
 
