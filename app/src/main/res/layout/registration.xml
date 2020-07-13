@@ -75,6 +75,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:padding="@dimen/dp3"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:layout_marginBottom="@dimen/dp2"
                                 android:src="@mipmap/users" />
 
@@ -122,6 +124,8 @@
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginBottom="@dimen/dp2"
                                 android:padding="@dimen/dp3"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/users" />
 
                             <android.support.design.widget.TextInputLayout
@@ -168,6 +172,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:padding="@dimen/dp4"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/mailss" />
 
                             <android.support.design.widget.TextInputLayout
@@ -212,6 +218,8 @@
                                 android:layout_height="@dimen/dp25"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="@dimen/dp10"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:layout_marginBottom="@dimen/dp2"
                                 android:src="@mipmap/phone"
                                 />
@@ -260,6 +268,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginBottom="@dimen/dp2"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/pass" />
 
                             <android.support.design.widget.TextInputLayout
@@ -308,6 +318,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:src="@mipmap/con_pwd"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:layout_marginBottom="@dimen/dp2"/>
 
                             <android.support.design.widget.TextInputLayout

@@ -57,6 +57,8 @@
                             android:paddingStart="@dimen/dp6"
                             android:paddingBottom="@dimen/dp2"
                             android:paddingTop="@dimen/dp2"
+                            android:rotationY="@integer/locale_mirror_flip"
+                            android:autoMirrored="true"
                             android:layout_gravity="end|center_vertical"/>
 
                     </FrameLayout>

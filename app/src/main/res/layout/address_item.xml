@@ -66,13 +66,15 @@
                         android:id="@+id/edit"
                         android:layout_width="@dimen/dp30"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:layout_height="match_parent">
                     <ImageView
                         android:layout_width="@dimen/dp18"
                         android:layout_height="@dimen/dp18"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/gray_edit" />
                     </LinearLayout>
 

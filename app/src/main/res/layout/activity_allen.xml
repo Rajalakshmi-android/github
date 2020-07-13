@@ -88,6 +88,8 @@
                                                 android:layout_marginStart="@dimen/dp5"
                                                 android:layout_marginTop="@dimen/dp3"
                                                 android:gravity="center"
+                                                android:rotationY="@integer/locale_mirror_flip"
+                                                android:autoMirrored="true"
                                                 android:src="@mipmap/sort" />
                                         </LinearLayout>
 
@@ -145,6 +147,8 @@
                                             android:id="@+id/filter_icon"
                                             android:layout_width="@dimen/dp20"
                                             android:layout_height="@dimen/dp20"
+                                            android:rotationY="@integer/locale_mirror_flip"
+                                            android:autoMirrored="true"
                                             android:src="@mipmap/filter_black"/>
 
                                     </LinearLayout>

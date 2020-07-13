@@ -80,6 +80,8 @@
                                 android:layout_gravity="end|top"
                                 android:layout_marginEnd="@dimen/dp12"
                                 android:padding="@dimen/dp4"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/cancel_icon" />
                         </FrameLayout>
 

@@ -74,6 +74,8 @@
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/dp5"
                                 android:padding="@dimen/dp3"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/users" />
 
                             <android.support.design.widget.TextInputLayout
@@ -114,6 +116,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="@dimen/dp5"
                                 android:padding="@dimen/dp3"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/users" />
 
 
@@ -158,6 +162,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/cmpy" />
 
 
@@ -197,6 +203,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp1"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/add_address" />
 
 
@@ -238,6 +246,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp1"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/add_address" />
 
 
@@ -277,6 +287,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/menu_home" />
 
 
@@ -316,6 +328,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/pin_code" />
 
 
@@ -356,6 +370,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp1"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/menu_contact_us" />
 
 
@@ -398,6 +414,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/country" />
 
                                 <FrameLayout
@@ -439,6 +457,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/address_state" />
                                 <FrameLayout
                                     android:layout_width="match_parent"
@@ -458,6 +478,8 @@
                                         android:layout_height="@dimen/dp15"
                                         android:src="@mipmap/drop_arrow"
                                         android:padding="@dimen/dp2"
+                                        android:rotationY="@integer/locale_mirror_flip"
+                                        android:autoMirrored="true"
                                         android:layout_marginEnd="@dimen/dp6"
                                         android:layout_gravity="end|center_vertical"/>
                                 </FrameLayout>

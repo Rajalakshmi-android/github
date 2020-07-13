@@ -43,6 +43,8 @@
                             android:src="@mipmap/add_icon"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
+                            android:rotationY="@integer/locale_mirror_flip"
+                            android:autoMirrored="true"
                            />
 
                         <com.iamretailer.krishnasupermarket.Common.CustomTextview

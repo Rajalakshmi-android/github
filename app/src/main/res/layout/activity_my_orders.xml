@@ -47,6 +47,8 @@
         <ImageView
             android:layout_width="@dimen/dp90"
             android:layout_height="@dimen/dp90"
+            android:rotationY="@integer/locale_mirror_flip"
+            android:autoMirrored="true"
             android:src="@mipmap/empty_cart" />
 
         <com.iamretailer.krishnasupermarket.Common.CustomTextview1

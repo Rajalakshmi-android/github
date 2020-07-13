@@ -5,10 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -16,13 +14,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,17 +25,10 @@ import com.facebook.login.LoginManager;
 import com.iamretailer.krishnasupermarket.Common.Appconstatants;
 import com.iamretailer.krishnasupermarket.Common.CommonFunctions;
 import com.iamretailer.krishnasupermarket.Common.DBController;
-import com.iamretailer.krishnasupermarket.Common.LanguageList;
-import com.iamretailer.krishnasupermarket.Common.LocaleHelper;
-import com.iamretailer.krishnasupermarket.POJO.CurPO;
-import com.iamretailer.krishnasupermarket.POJO.LangPO;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Locale;
 
 import stutzen.co.network.Connection;
 

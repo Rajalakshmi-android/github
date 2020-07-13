@@ -83,6 +83,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/users" />
 
@@ -127,6 +129,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/mailss" />
 
@@ -170,7 +174,7 @@
                                 android:id="@+id/comments"
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="@dimen/dp20"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
                                 android:hint="@string/comment"
                                 android:imeOptions="actionDone"

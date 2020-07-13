@@ -37,9 +37,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="@dimen/dp10"
-                android:gravity="left"
+                android:gravity="start"
                 android:orientation="vertical">
 
                     <com.iamretailer.krishnasupermarket.Common.CustomTextview
@@ -77,7 +77,7 @@
                         android:id="@+id/grms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginEnd="@dimen/dp5"
                         android:background="@drawable/dms_bg"
                         android:ellipsize="end"
                         android:paddingBottom="@dimen/dp2"
@@ -106,28 +106,28 @@
                             android:id="@+id/r2"
                             android:layout_width="@dimen/dp10"
                             android:layout_height="@dimen/dp10"
-                            android:layout_marginLeft="@dimen/dp2"
+                            android:layout_marginStart="@dimen/dp2"
                             android:src="@mipmap/fill" />
 
                         <ImageView
                             android:id="@+id/r3"
                             android:layout_width="@dimen/dp10"
                             android:layout_height="@dimen/dp10"
-                            android:layout_marginLeft="@dimen/dp2"
+                            android:layout_marginStart="@dimen/dp2"
                             android:src="@mipmap/fill" />
 
                         <ImageView
                             android:id="@+id/r4"
                             android:layout_width="@dimen/dp10"
                             android:layout_height="@dimen/dp10"
-                            android:layout_marginLeft="@dimen/dp2"
+                            android:layout_marginStart="@dimen/dp2"
                             android:src="@mipmap/fill" />
 
                         <ImageView
                             android:id="@+id/r5"
                             android:layout_width="@dimen/dp10"
                             android:layout_height="@dimen/dp10"
-                            android:layout_marginLeft="@dimen/dp2"
+                            android:layout_marginStart="@dimen/dp2"
                             android:src="@mipmap/fill" />
 
                     </LinearLayout>

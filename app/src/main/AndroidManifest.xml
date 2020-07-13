@@ -144,7 +144,7 @@
         <activity android:name=".About_Activity" />
         <activity android:name=".Webactivity" />
         <activity android:name=".PaymentAct" />
-        <activity android:name=".MyCart"></activity>
+        <activity android:name=".MyCart"/>
     </application>
 
 </manifest>

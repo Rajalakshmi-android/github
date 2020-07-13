@@ -81,6 +81,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/users" />
 
@@ -125,6 +127,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/users" />
 
@@ -170,6 +174,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/mailss" />
 
@@ -216,6 +222,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/phone" />
 
