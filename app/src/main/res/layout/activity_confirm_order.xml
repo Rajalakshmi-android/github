@@ -50,7 +50,9 @@
                                     android:layout_width="@dimen/dp20"
                                     android:layout_height="@dimen/dp20"
                                     android:layout_margin="@dimen/dp5"
-                                    android:src="@mipmap/add_address" />
+                                    android:src="@mipmap/add_address"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"/>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -131,6 +133,7 @@
                                     android:layout_height="@dimen/dp20"
                                     android:autoMirrored="true"
                                     android:rotationY="@integer/locale_mirror_flip"
+
                                     android:src="@mipmap/edit_arrow" />
 
                             </LinearLayout>
@@ -154,7 +157,9 @@
                                 android:layout_width="@dimen/dp20"
                                 android:layout_height="@dimen/dp20"
                                 android:layout_margin="@dimen/dp5"
-                                android:src="@mipmap/payment_icon" />
+                                android:src="@mipmap/payment_icon"
+                                android:autoMirrored="true"
+                                android:rotationY="@integer/locale_mirror_flip"/>
 
                             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                                 android:layout_width="wrap_content"
@@ -288,6 +293,8 @@
                                     android:layout_height="@dimen/dp25"
                                     android:layout_gravity="center"
                                     android:layout_margin="@dimen/dp5"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
                                     android:src="@mipmap/promo_tag_unfill" />
 
                             </LinearLayout>
@@ -330,6 +337,7 @@
                                         android:layout_height="@dimen/dp30"
                                         android:autoMirrored="true"
                                         android:rotationY="@integer/locale_mirror_flip"
+
                                         android:src="@mipmap/promo_circle_unfil" />
                                 </LinearLayout>
 

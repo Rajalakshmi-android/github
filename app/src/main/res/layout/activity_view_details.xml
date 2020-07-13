@@ -164,6 +164,8 @@
                             android:layout_width="@dimen/dp20"
                             android:layout_height="@dimen/dp20"
                             android:layout_margin="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/add_address" />
 
                         <LinearLayout
@@ -259,6 +261,8 @@
                             android:layout_width="@dimen/dp20"
                             android:layout_height="@dimen/dp20"
                             android:layout_margin="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/shipping" />
 
                         <LinearLayout
@@ -372,6 +376,8 @@
                             android:layout_width="@dimen/dp20"
                             android:layout_height="@dimen/dp20"
                             android:layout_margin="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/payment_det" />
 
                         <LinearLayout

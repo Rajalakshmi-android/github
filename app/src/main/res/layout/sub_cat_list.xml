@@ -44,6 +44,7 @@
         android:autoMirrored="true"
         android:layout_marginRight="@dimen/dp5"
         android:rotationY="@integer/locale_mirror_flip"
+
         android:src="@mipmap/sub_arrow"/>
         </LinearLayout>
     </LinearLayout>

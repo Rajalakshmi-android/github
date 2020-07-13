@@ -82,6 +82,8 @@
                     android:layout_marginTop="@dimen/dp5"
                     android:gravity="center"
                     android:text="@string/Account"
+                    android:autoMirrored="true"
+                    android:rotationY="@integer/locale_mirror_flip"
                     android:textColor="@color/menu_text2"
                     android:textSize="@dimen/text13sp" />
 
@@ -106,6 +108,8 @@
                         android:layout_width="@dimen/dp20"
                         android:layout_height="@dimen/dp20"
                         android:layout_marginTop="@dimen/dp5"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/menu_my_orders" />
 
                 </LinearLayout>
@@ -145,6 +149,8 @@
                         android:layout_height="@dimen/dp20"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp3"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_marginEnd="@dimen/dp1"
                         android:src="@mipmap/menu_cart" />
 
@@ -224,6 +230,8 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:layout_marginTop="@dimen/dp5"
                             android:src="@mipmap/menu_home" />
                         <LinearLayout
@@ -275,6 +283,8 @@
                             android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_notification" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -499,7 +509,104 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:orientation="vertical"
+                    >
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp20"
+                            android:layout_height="@dimen/dp20"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:src="@mipmap/menu_lang" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp20">
+
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/language"
+                            android:textColor="@color/menu_text1"
+                            android:textSize="@dimen/text13sp"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp0_1"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:background="@color/line_color" />
+                    </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/currency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp20"
+                            android:layout_height="@dimen/dp20"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:src="@mipmap/menu_money" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp20">
+
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/currency"
+                            android:textColor="@color/menu_text1"
+                            android:textSize="@dimen/text13sp" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp0_1"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:background="@color/line_color" />
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
 
                 <LinearLayout
