@@ -368,21 +368,8 @@ public class Splash extends Language {
                                 if (i==0 && dbCon.get_lan_c()<=0) {
                                     dbCon.drop_app_lang();
                                     dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
-
                                 }
                                 dbCon.insert_lang(object1.isNull("language_id")?"":object1.getString("language_id"),object1.isNull("name")?"":object1.getString("name"),object1.isNull("code")?"":object1.getString("code"));
-                                if (j==(i+1))
-                                {
-                                    LangPO langPO1=new LangPO();
-
-                                    langPO1.setLang_id("asa");
-                                    langPO1.setLang_name("Arabic");
-                                    langPO1.setLang_code("ar-gb");
-                                    langPOS.add(langPO1);
-                                    dbCon.insert_lang("asa","Arabic","ar-gb");
-
-                                }
-
                             }
                         }
                         Intent i = new Intent(Splash.this, MainActivity.class);
@@ -422,81 +409,6 @@ public class Splash extends Language {
             }
         }
     }
-
-   /* private class GETCUR extends AsyncTask<String, Void, String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("tag", "started");
-        }
-
-        protected String doInBackground(String... param) {
-
-            Log.d("url_", param[0]);
-            logger.info("Session api :"+param[0]);
-            String response = null;
-            try {
-                Connection connection = new Connection();
-                Log.d("currency_Api",param[0]+"");
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,"",Splash.this);
-                logger.info("Session Resp :"+response);
-                Log.d("url_response", response + "");
-                Log.d("currency_res",response+"");
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-            return response;
-        }
-
-        protected void onPostExecute(String resp) {
-            Log.i("tag", "Hai--->" + resp);
-            if (resp != null) {
-                try {
-                    JSONObject object = new JSONObject(resp);
-                    if (object.getInt("success") == 1)
-                    {
-                        JSONArray array=object.getJSONArray("data");
-                        langPOS=new ArrayList<>();
-
-                        Intent i = new Intent(Splash.this, MainActivity.class);
-                        startActivity(i);
-
-                    } else
-                    {
-                        JSONArray array = object.getJSONArray("error");
-                        Toast.makeText(Splash.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    CheckTask task = new CheckTask();
-                                    task.execute();
-
-                                }
-                            })
-                            .show();
-
-                }
-
-            } else {
-                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                        .setAction(R.string.retry, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                CheckTask task = new CheckTask();
-                                task.execute();
-
-                            }
-                        })
-                        .show();
-            }
-        }
-    }*/
 
 
     public void show_alret(){
