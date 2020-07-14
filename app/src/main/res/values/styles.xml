@@ -22,7 +22,7 @@
         <item name="android:textAlignment">viewStart</item>
         <item name="android:textDirection">locale</item>
         <item name="android:textColor">@color/app_text_color</item>
-        <item name="android:layoutDirection">locale</item>
+        <item name="android:layoutDirection">rtl</item>
 
     </style>
 
