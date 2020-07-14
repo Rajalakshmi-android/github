@@ -82,6 +82,14 @@ public class AddressList extends Language {
         cart_items=(LinearLayout)findViewById(R.id.cart_items);
         cart_count=(TextView)findViewById(R.id.cart_count);
 
+        cart_items.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddressList.this, MyCart.class));
+            }
+        });
+
+
         cc = new Bundle();
         cc = getIntent().getExtras();
         from=cc.getInt("from");

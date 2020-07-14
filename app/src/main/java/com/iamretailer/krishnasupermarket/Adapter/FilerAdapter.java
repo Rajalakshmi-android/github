@@ -74,7 +74,7 @@ public class FilerAdapter extends RecyclerView.Adapter<FilerAdapter.MyViewHolder
                     list.get(position).setSelect(true);
                     Log.i("dsfsfdsf","ischecked"+position+"  "+list.get(position).getStore_name());
                 }
-                ((Allen)context).categoryselect(list);
+
 
                 }
 

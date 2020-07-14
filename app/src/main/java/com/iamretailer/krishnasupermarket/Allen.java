@@ -152,6 +152,7 @@ public class Allen extends Language {
         ProductTask productTask = new ProductTask();
         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
 
+
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -450,7 +451,7 @@ public class Allen extends Language {
 
                 if (category1!=null)
                     category1.cancel(true);
-              //  filter_load.setVisibility(View.VISIBLE);
+                //  filter_load.setVisibility(View.VISIBLE);
                 if (s.toString().length() > 0) {
 
                     filter_load.setVisibility(View.VISIBLE);
@@ -495,11 +496,11 @@ public class Allen extends Language {
                     filter_name="";
                     categoryfil_list= new ArrayList<BrandsPO>();
                     for(int i=0;i<category_list.size();i++) {
-                       BrandsPO bo = new BrandsPO();
-                            bo.setStore_name(category_list.get(i).getStore_name());
-                            bo.setS_id(category_list.get(i).getS_id());
-                            bo.setSelect(category_list.get(i).isSelect());
-                            categoryfil_list.add(bo);
+                        BrandsPO bo = new BrandsPO();
+                        bo.setStore_name(category_list.get(i).getStore_name());
+                        bo.setS_id(category_list.get(i).getS_id());
+                        bo.setSelect(category_list.get(i).isSelect());
+                        categoryfil_list.add(bo);
 
                     }
                     if (categoryfil_list.size()!=0) {
@@ -535,7 +536,7 @@ public class Allen extends Language {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                categoryselect();
                 manuf_ids="";
                 manuf_id="";
                 alertReviewDialog.dismiss();
@@ -548,9 +549,9 @@ public class Allen extends Language {
                     if (category_list.get(i).isSelect()) {
                         Log.i("lofjdjj",i+" : "+(category_list.size()-1));
 
-                       manuf_idss=category_list.get(i).getS_id()+",";
-                       Log.i("jdsjkfhjdk",manuf_idss+""+manuf_ids);
-                  manuf_ids=manuf_ids+manuf_idss;
+                        manuf_idss=category_list.get(i).getS_id()+",";
+                        Log.i("jdsjkfhjdk",manuf_idss+""+manuf_ids);
+                        manuf_ids=manuf_ids+manuf_idss;
                         Log.i("hfghfghfh",""+manuf_ids);
 
 
@@ -591,7 +592,7 @@ public class Allen extends Language {
 
     }
 
-    public void categoryselect(ArrayList<BrandsPO> list) {
+    public void categoryselect() {
         if(category_list.size()!=0){
             for(int i=0;i<category_list.size();i++){
                 for(int j=0;j<categoryfil_list.size();j++){
