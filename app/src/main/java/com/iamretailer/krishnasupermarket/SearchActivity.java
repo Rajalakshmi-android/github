@@ -263,27 +263,22 @@ public class SearchActivity extends Language {
                                 bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
                                 bo.setWish_list(obj.isNull("wish_list")?false:obj.getBoolean("wish_list"));
                                 bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
-                                Object dd = obj.get("options");
                                 optionPOS = new ArrayList<>();
-                                if (dd instanceof JSONObject)
-                                {
-                                    JSONObject jsonObject=obj.getJSONObject("options");
-                                    JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                    if (option.length()>0) {
-                                        for (int k = 0; k < option.length(); k++) {
-                                            JSONObject object1 = option.getJSONObject(k);
-                                            SingleOptionPO po = new SingleOptionPO();
-                                            po.setProduct_option_value_id(object1.isNull("product_option_value_id") ? 0 : object1.getInt("product_option_value_id"));
-                                            optionPOS.add(po);
+                                if (obj.getJSONArray("options").length() > 0) {
 
-                                        }
-                                        bo.setSingleOptionPOS(optionPOS);
+                                    JSONArray arr1 = obj.getJSONArray("options");
+                                    for (int k = 0; k < arr1.length(); k++) {
+                                        JSONObject object = arr1.getJSONObject(k);
+                                        SingleOptionPO po = new SingleOptionPO();
+                                        po.setProduct_option_value_id(object.isNull("product_option_id") ? 0 : object.getInt("product_option_id"));
+                                        optionPOS.add(po);
+
                                     }
-                                }
-                                else
-                                {
+                                    bo.setSingleOptionPOS(optionPOS);
+                                } else {
                                     bo.setSingleOptionPOS(optionPOS);
                                 }
+
                                 optionsPOArrayList1.add(bo);
                             }
 
