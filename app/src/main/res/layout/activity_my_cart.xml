@@ -155,7 +155,7 @@
                                             android:id="@+id/rupee_front"
                                             android:textColor="@color/amt"
                                             android:layout_gravity="bottom"
-                                            android:layout_marginBottom="@dimen/dp2"
+                                            android:paddingBottom="@dimen/dp2"
                                             android:gravity="bottom"
                                             android:layout_marginEnd="@dimen/dp2"
                                             />
@@ -176,7 +176,7 @@
                                             android:textStyle="bold"
                                             android:id="@+id/rupee_back"
                                             android:gravity="bottom"
-                                            android:layout_marginBottom="@dimen/dp2"
+                                            android:paddingBottom="@dimen/dp2"
                                             android:layout_gravity="bottom"
                                             android:textColor="@color/amt"/>
                                         </LinearLayout>

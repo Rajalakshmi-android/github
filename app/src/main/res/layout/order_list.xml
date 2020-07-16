@@ -200,6 +200,15 @@
                         android:textColor="@color/conf_tex"
                         android:textSize="@dimen/dp14"
                         />
+                        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                            android:id="@+id/symbol1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/order"
+                            android:textColor="@color/conf_tex"
+                            android:textSize="@dimen/dp9"
+                            />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

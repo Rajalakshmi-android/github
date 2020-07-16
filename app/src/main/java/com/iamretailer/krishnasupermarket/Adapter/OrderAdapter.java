@@ -69,16 +69,10 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         holder.product = (TextView) convertView.findViewById(R.id.quan);
         holder.status = (TextView) convertView.findViewById(R.id.status);
         holder.symbol = (TextView) convertView.findViewById(R.id.symbol);
+        holder.symbol1 = (TextView) convertView.findViewById(R.id.symbol1);
         holder.image = (ImageView) convertView.findViewById(R.id.image);
-        if(cur_left!=null && !cur_left.equalsIgnoreCase("")){
-            Log.i("tag","dgfkdsgkjsdgkdsgkdsj "+cur_left);
-            holder.symbol.setText(cur_left);
-
-        }else{
-            Log.i("tag","dgfkdsgkjsdgkdsgkdsj1111 "+cur_right);
-            holder.symbol.setText(cur_right);
-
-        }
+        holder.symbol.setText(cur_left);
+        holder.symbol1.setText(cur_right);
 
 
         holder.order_id.setText(items.get(position).getPayment() + "");
@@ -112,7 +106,7 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
     }
 
     private static class ViewHolder {
-        public TextView order_id, subtotal1, order_placed, charges, order_amount, order, product, status,symbol;
+        public TextView order_id, subtotal1, order_placed, charges, order_amount, order, product, status,symbol,symbol1;
         public ImageView image;
 
 

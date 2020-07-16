@@ -138,8 +138,9 @@
                             android:textSize="@dimen/text9sp"
                             android:textColor="@color/cart_text"
                             android:id="@+id/cur_left"
-                            android:paddingBottom="@dimen/dp3"
+                            android:paddingBottom="@dimen/dp1"
                             android:layout_gravity="bottom"
+                            android:gravity="bottom"
                             />
 
                         <com.iamretailer.krishnasupermarket.Common.CustomTextview1
@@ -156,8 +157,9 @@
                             android:textSize="@dimen/text10sp"
                             android:textColor="@color/cart_text"
                             android:id="@+id/cur_right"
-                            android:paddingBottom="@dimen/dp3"
-                            android:layout_gravity="bottom"/>
+                            android:paddingBottom="@dimen/dp1"
+                            android:layout_gravity="bottom"
+                            android:gravity="bottom"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -171,8 +173,9 @@
                                 android:textSize="@dimen/text10sp"
                                 android:textColor="@color/blue"
                                 android:id="@+id/cur_left1"
-                                android:paddingBottom="@dimen/dp2"
+                                android:paddingBottom="@dimen/dp1"
                                 android:layout_gravity="bottom"
+                                android:gravity="bottom"
                                 android:textStyle="bold"/>
                             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                                 android:id="@+id/total"
@@ -188,9 +191,10 @@
                                 android:textSize="@dimen/text10sp"
                                 android:textColor="@color/blue"
                                 android:id="@+id/cur_right1"
-                                android:paddingBottom="@dimen/dp2"
+                                android:paddingBottom="@dimen/dp1"
                                 android:textStyle="bold"
-                                android:layout_gravity="bottom"/>
+                                android:layout_gravity="bottom"
+                                android:gravity="bottom"/>
                         </LinearLayout>
                     </LinearLayout>
 
