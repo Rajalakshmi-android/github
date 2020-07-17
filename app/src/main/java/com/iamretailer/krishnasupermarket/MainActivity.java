@@ -804,14 +804,16 @@ public class MainActivity extends Drawer {
             banner.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, Product_list.class);
-                    Bundle best = new Bundle();
-                    best.putString("view_all", "banners");
-                    best.putString("head", "");
-                    best.putString("banner_id",banner2.get(position).getBanner_id());
-                    best.putString("title",banner2.get(position).getLink());
-                    intent.putExtras(best);
-                    startActivity(intent);
+                    if(Appconstatants.need_brand_product==1) {
+                        Intent intent = new Intent(MainActivity.this, Product_list.class);
+                        Bundle best = new Bundle();
+                        best.putString("view_all", "banners");
+                        best.putString("head", "");
+                        best.putString("banner_id", banner2.get(position).getBanner_id());
+                        best.putString("title", banner2.get(position).getLink());
+                        intent.putExtras(best);
+                        startActivity(intent);
+                    }
                 }
             });
 

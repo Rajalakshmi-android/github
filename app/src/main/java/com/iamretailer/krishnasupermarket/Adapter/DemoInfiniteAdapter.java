@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.iamretailer.krishnasupermarket.Common.Appconstatants;
 import com.iamretailer.krishnasupermarket.Product_list;
 import com.iamretailer.krishnasupermarket.R;
 import com.squareup.picasso.Picasso;
@@ -48,14 +49,16 @@ public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Product_list.class);
-                Bundle best = new Bundle();
-                best.putString("view_all", "banners");
-                best.putString("head", "");
-                best.putString("banner_id",itemList.get(listPosition).getBanner_id());
-                best.putString("title",itemList.get(listPosition).getLink());
-                intent.putExtras(best);
-                context.startActivity(intent);
+                if(Appconstatants.need_brand_product==1) {
+                    Intent intent = new Intent(context, Product_list.class);
+                    Bundle best = new Bundle();
+                    best.putString("view_all", "banners");
+                    best.putString("head", "");
+                    best.putString("banner_id", itemList.get(listPosition).getBanner_id());
+                    best.putString("title", itemList.get(listPosition).getLink());
+                    intent.putExtras(best);
+                    context.startActivity(intent);
+                }
             }
         });
 

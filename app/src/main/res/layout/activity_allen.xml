@@ -65,7 +65,6 @@
                                             android:textColor="@color/app_text_color"
                                             android:textSize="@dimen/dp15" />
 
-
                                         <LinearLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -138,20 +137,6 @@
                                                 android:textSize="@dimen/text14sp" />
 
                                         </LinearLayout>
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:id="@+id/filter">
-                                        <ImageView
-                                            android:id="@+id/filter_icon"
-                                            android:layout_width="@dimen/dp20"
-                                            android:layout_height="@dimen/dp20"
-                                            android:rotationY="@integer/locale_mirror_flip"
-                                            android:autoMirrored="true"
-                                            android:src="@mipmap/filter_black"/>
-
-                                    </LinearLayout>
 
 
                                 </LinearLayout>

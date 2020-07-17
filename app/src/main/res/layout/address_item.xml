@@ -67,15 +67,15 @@
                         android:layout_width="@dimen/dp30"
                         android:layout_gravity="end|center_vertical"
                         android:gravity="end"
-                        android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_width="@dimen/dp18"
-                        android:layout_height="@dimen/dp18"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         android:autoMirrored="true"
                         android:rotationY="@integer/locale_mirror_flip"
-                        android:src="@mipmap/gray_edit" />
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="@dimen/dp18"
+                            android:layout_height="@dimen/dp18"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:src="@mipmap/gray_edit" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -87,14 +87,12 @@
                         android:rotationY="@integer/locale_mirror_flip"
                         android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="@dimen/dp13"
-                        android:layout_height="@dimen/dp13"
-                        android:layout_gravity="end|center_vertical"
-                        android:gravity="end"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
-                        android:src="@mipmap/gray_delete" />
+                        <ImageView
+                            android:layout_width="@dimen/dp13"
+                            android:layout_height="@dimen/dp13"
+                            android:layout_gravity="end|center_vertical"
+                            android:gravity="end"
+                            android:src="@mipmap/gray_delete" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -180,7 +178,7 @@
                         android:text="871927912`90"
                         android:textColor="@color/text_color1"
                         android:textSize="@dimen/text15sp"
-                       />
+                        />
 
 
                 </LinearLayout>
@@ -198,8 +196,6 @@
                         android:layout_height="@dimen/dp30"
                         android:layout_gravity="end"
                         android:gravity="center"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/addres_selects"
                         />
                     <ImageView

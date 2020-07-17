@@ -37,7 +37,7 @@
                             android:id="@+id/main_cat_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp18"
+                            android:layout_marginStart="@dimen/dp18"
                             android:divider="@null"
                             android:listSelector="@android:color/transparent"
                             android:scrollbars="none" />

@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 import com.facebook.all.All;
 import com.iamretailer.krishnasupermarket.Adapter.CommonAdapter;
-import com.iamretailer.krishnasupermarket.Adapter.FilerAdapter;
 import com.iamretailer.krishnasupermarket.Common.CommonFunctions;
 import com.iamretailer.krishnasupermarket.Common.RecyclerItemClickListener;
 import com.iamretailer.krishnasupermarket.POJO.BrandsPO;
@@ -96,16 +95,10 @@ public class Allen extends Language {
     FrameLayout cancel;
     EditText filter_edit;
     RecyclerView filter_list;
-    private ArrayList<BrandsPO> category_list;
-    private ArrayList<BrandsPO> categoryfil_list;
-    FilerAdapter filerAdapter;
-    String manuf_id="0",manuf_ids,manuf_idss;
-    int option_id;
-    Category category1;
-    String filter_name="";
+
     TextView no_brands;
     Boolean value=true;
-    private ImageView filter_icon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +128,6 @@ public class Allen extends Language {
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
         loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        filter = (LinearLayout) findViewById(R.id.filter);
-        filter_icon = (ImageView) findViewById(R.id.filter_icon);
-        filter_icon.setImageResource(R.mipmap.filter_black);
         bundle = new Bundle();
         bundle = getIntent().getExtras();
         cat_id = Integer.parseInt(bundle.getString("id"));
@@ -146,11 +136,10 @@ public class Allen extends Language {
         sort_option = "date_added";
         sort_order = "DESC";
         sort_name.setText(R.string.news);
-        category1=new Category();
-        category1.execute(Appconstatants.CATEGORY_FILTER+"&path="+cat_id);
+
 
         ProductTask productTask = new ProductTask();
-        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
+        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
 
 
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -177,7 +166,7 @@ public class Allen extends Language {
                             val = 1;
                             load_more.setVisibility(View.VISIBLE);
                             ProductTask productTask = new ProductTask();
-                            productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
+                            productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
                         }
                     }
                 }
@@ -186,14 +175,7 @@ public class Allen extends Language {
 
         });
 
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                filter_view();
-
-            }
-        });
 
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,7 +206,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
                         mBottomSheetDialog.dismiss();
                     }
@@ -241,7 +223,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
                         mBottomSheetDialog.dismiss();
                     }
                 });
@@ -257,7 +239,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
                         mBottomSheetDialog.dismiss();
                     }
@@ -274,7 +256,7 @@ public class Allen extends Language {
                         start = 1;
                         sort_name.setText(R.string.mztoa);
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
                         mBottomSheetDialog.dismiss();
                     }
@@ -293,7 +275,7 @@ public class Allen extends Language {
                         sort_name.setText(R.string.lowtohigh);
 
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
                     }
                 });
                 htl.setOnClickListener(new View.OnClickListener() {
@@ -308,7 +290,7 @@ public class Allen extends Language {
                         start = 1;
                         sort_name.setText(R.string.hightolow);
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
                         mBottomSheetDialog.dismiss();
 
@@ -328,7 +310,7 @@ public class Allen extends Language {
                         start = 1;
                         ProductTask productTask = new ProductTask();
 
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+ "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
 
                     }
@@ -345,7 +327,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
 
                     }
                 });
@@ -361,7 +343,7 @@ public class Allen extends Language {
                 loading.setVisibility(View.VISIBLE);
                 no_items.setVisibility(View.GONE);
                 ProductTask productTask = new ProductTask();
-                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
+                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
             }
         });
 
@@ -382,202 +364,7 @@ public class Allen extends Language {
 
     }
 
-    private void filter_view() {
-        alertReviewDialog = new Dialog(Allen.this, R.style.CustomAlertDialog);
-        alertReviewDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View dialogView = getLayoutInflater().inflate(R.layout.filter, null);
-        alertReviewDialog.setContentView(dialogView);
-        alertReviewDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        alertReviewDialog.getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        alertReviewDialog.getWindow().setBackgroundDrawable(
-                new ColorDrawable(Color.TRANSPARENT));
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = (int) (displaymetrics.widthPixels * 1);
-        int height = (int) (displaymetrics.heightPixels * 1);
-        alertReviewDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-
-
-        cancel = (FrameLayout) dialogView.findViewById(R.id.cancel);
-        //cancels = (LinearLayout) dialogView.findViewById(R.id.cancels);
-        filter_edit = (EditText) dialogView.findViewById(R.id.filter_edit);
-        apply = (LinearLayout) dialogView.findViewById(R.id.apply);
-        filter_load = (LinearLayout) dialogView.findViewById(R.id.filter_load);
-        filter_list=(RecyclerView)dialogView.findViewById(R.id.filter_list);
-        no_brands=(TextView)dialogView.findViewById(R.id.no_brands) ;
-        categoryfil_list= new ArrayList<BrandsPO>();
-        for(int i=0;i<category_list.size();i++) {
-            BrandsPO bo = new BrandsPO();
-            bo.setStore_name(category_list.get(i).getStore_name());
-            bo.setS_id(category_list.get(i).getS_id());
-            bo.setSelect(category_list.get(i).isSelect());
-            categoryfil_list.add(bo);
-
-        }
-        if (categoryfil_list.size()!=0) {
-            filter_load.setVisibility(View.GONE);
-            filerAdapter = new FilerAdapter(Allen.this, categoryfil_list);
-            filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
-            filter_list.setAdapter(filerAdapter);
-            filter_list.setVisibility(View.VISIBLE);
-            no_brands.setVisibility(View.GONE);
-
-        }
-        else
-        {
-            filter_load.setVisibility(View.GONE);
-            no_brands.setVisibility(View.VISIBLE);
-            filter_list.setVisibility(View.GONE);
-
-        }
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertReviewDialog.dismiss();
-            }
-        });
-
-        filter_edit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (category1!=null)
-                    category1.cancel(true);
-                //  filter_load.setVisibility(View.VISIBLE);
-                if (s.toString().length() > 0) {
-
-                    filter_load.setVisibility(View.VISIBLE);
-                    no_brands.setVisibility(View.GONE);
-                    filter_name = s.toString();
-                    categoryfil_list = new ArrayList<BrandsPO>();
-
-                    for(int i=0;i<category_list.size();i++) {
-                        if (category_list.get(i).getStore_name().toLowerCase().contains(filter_name)||category_list.get(i).getStore_name().contains(filter_name)) {
-                            BrandsPO bo = new BrandsPO();
-                            Log.i("sdhfskfksjf", filter_name+" "+category_list.get(i).getStore_name());
-                            bo.setStore_name(category_list.get(i).getStore_name());
-                            bo.setS_id(category_list.get(i).getS_id());
-                            bo.setSelect(category_list.get(i).isSelect());
-                            categoryfil_list.add(bo);
-                        }
-                    }
-                    if (categoryfil_list.size()!=0) {
-                        filter_load.setVisibility(View.GONE);
-                        filerAdapter = new FilerAdapter(Allen.this, categoryfil_list);
-                        filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
-                        filter_list.setAdapter(filerAdapter);
-                        filter_list.setVisibility(View.VISIBLE);
-                        no_brands.setVisibility(View.GONE);
-
-                    }
-                    else
-                    {
-                        filter_load.setVisibility(View.GONE);
-                        no_brands.setVisibility(View.VISIBLE);
-                        filter_list.setVisibility(View.GONE);
-
-                    }
-
-
-
-                }
-                else
-                {
-                    filter_load.setVisibility(View.VISIBLE);
-                    no_brands.setVisibility(View.GONE);
-                    filter_name="";
-                    categoryfil_list= new ArrayList<BrandsPO>();
-                    for(int i=0;i<category_list.size();i++) {
-                        BrandsPO bo = new BrandsPO();
-                        bo.setStore_name(category_list.get(i).getStore_name());
-                        bo.setS_id(category_list.get(i).getS_id());
-                        bo.setSelect(category_list.get(i).isSelect());
-                        categoryfil_list.add(bo);
-
-                    }
-                    if (categoryfil_list.size()!=0) {
-                        filter_load.setVisibility(View.GONE);
-                        filerAdapter = new FilerAdapter(Allen.this, categoryfil_list);
-                        filter_list.setLayoutManager(new LinearLayoutManager(Allen.this, LinearLayoutManager.VERTICAL, false));
-                        filter_list.setAdapter(filerAdapter);
-                        filter_list.setVisibility(View.VISIBLE);
-                        no_brands.setVisibility(View.GONE);
-
-                    }
-                    else
-                    {
-                        filter_load.setVisibility(View.GONE);
-                        no_brands.setVisibility(View.VISIBLE);
-                        filter_list.setVisibility(View.GONE);
-
-                    }
-
-
-                }
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        apply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categoryselect();
-                manuf_ids="";
-                manuf_id="";
-                alertReviewDialog.dismiss();
-                val = 0;
-                start = 1;
-                prog_sec.setVisibility(View.VISIBLE);
-                no_items.setVisibility(View.GONE);
-
-                for (int i=0;i<category_list.size();i++) {
-                    if (category_list.get(i).isSelect()) {
-                        Log.i("lofjdjj",i+" : "+(category_list.size()-1));
-
-                        manuf_idss=category_list.get(i).getS_id()+",";
-                        Log.i("jdsjkfhjdk",manuf_idss+""+manuf_ids);
-                        manuf_ids=manuf_ids+manuf_idss;
-                        Log.i("hfghfghfh",""+manuf_ids);
-
-
-                    }
-                }
-                Log.i("dhdhdhdh",manuf_ids+"  ");
-                if(manuf_ids!=null&&!manuf_ids.equalsIgnoreCase("")){
-                    manuf_ids = manuf_ids.substring(0, manuf_ids.length() - 1);
-                    Log.i("dfgdfgdgd", (manuf_ids.length() - 1)+" --- "+manuf_ids);
-                    filter_icon.setImageResource(R.mipmap.filter_g);
-                }else{
-
-                    filter_icon.setImageResource(R.mipmap.filter_black);
-                }
-
-
-                manuf_id =manuf_ids;
-
-                ProductTask productTask = new ProductTask();
-                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&manufacturer=" +manuf_id+"&page=" + start + "&limit=" + limit);
-            }
-        });
-        alertReviewDialog.show();
-
-
-    }
 
     @Override
     public void onResume() {
@@ -592,20 +379,6 @@ public class Allen extends Language {
 
     }
 
-    public void categoryselect() {
-        if(category_list.size()!=0){
-            for(int i=0;i<category_list.size();i++){
-                for(int j=0;j<categoryfil_list.size();j++){
-                    if(category_list.get(i).getS_id()==categoryfil_list.get(j).getS_id()){
-                        category_list.get(i).setSelect(categoryfil_list.get(j).isSelect());
-                    }
-
-
-                }
-
-            }
-        }
-    }
 
     private class ProductTask extends AsyncTask<String, Void, String> {
 
@@ -764,86 +537,7 @@ public class Allen extends Language {
     }
 
 
-    private class Category extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPreExecute() {
-            Log.d("Tag", "started");
-        }
-
-        protected String doInBackground(String... param) {
-            logger.info("Product List api" + param[0]);
-            Log.i("tag", "Category_api--- " + param[0]);
-
-            String response = null;
-            try {
-                Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Allen.this);
-                logger.info("Product List resp" + response);
-                Log.d("Category_resp", response + "affda");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-            return response;
-        }
-
-        protected void onPostExecute(String resp) {
-            Log.i("tag", "products_Hai---> cc " + resp);
-            if (resp != null) {
-                try {
-
-
-                    category_list=new ArrayList<>();
-                    categoryfil_list= new ArrayList<BrandsPO>();
-                    JSONObject json=new JSONObject(resp);
-
-                    if (json.getInt("success")==1)
-                    {
-
-                        JSONObject objs = new JSONObject(json.getString("data"));
-                        JSONArray arr = new JSONArray(objs.getString("brand"));
-                        for (int h = 0; h < arr.length(); h++) {
-                            JSONObject obj = arr.getJSONObject(h);
-                            BrandsPO bo = new BrandsPO();
-                            bo.setS_id(obj.isNull("manufacturer_id") ? "" : obj.getString("manufacturer_id"));
-                            bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
-                            //bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
-                            bo.setSelect(false);
-                            category_list.add(bo);
-                            categoryfil_list.add(bo);
-
-                        }
-                    }
-
-                    else
-                    {
-                        prog_sec.setVisibility(View.GONE);
-                        loading.setVisibility(View.GONE);
-                        error_network.setVisibility(View.VISIBLE);
-                        Toast.makeText(Allen.this,R.string.error_msg,Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("sdfaf",e.toString()+"");
-                    prog_sec.setVisibility(View.GONE);
-                    loading.setVisibility(View.GONE);
-                    error_network.setVisibility(View.VISIBLE);
-                    Toast.makeText(Allen.this,R.string.error_msg,Toast.LENGTH_LONG).show();
-
-                }
-            } else {
-                prog_sec.setVisibility(View.GONE);
-                loading.setVisibility(View.GONE);
-                error_network.setVisibility(View.VISIBLE);
-                Toast.makeText(Allen.this,R.string.error_net,Toast.LENGTH_LONG).show();
-
-            }
-
-        }
-    }
 
     private class CartTask extends AsyncTask<String, Void, String> {
 

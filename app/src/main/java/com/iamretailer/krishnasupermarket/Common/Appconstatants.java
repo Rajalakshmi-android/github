@@ -140,5 +140,6 @@ public class Appconstatants {
 
 
     public  static  String APP_KEY="12345";
+    public static int need_brand_product=0;
 
 }
