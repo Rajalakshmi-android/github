@@ -21,6 +21,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -39,7 +40,6 @@ import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.facebook.shimmer.ShimmerFrameLayout;
 import com.iamretailer.krishnasupermarket.Adapter.BrandzAdapter;
 import com.iamretailer.krishnasupermarket.Adapter.CommonAdapter;
 import com.iamretailer.krishnasupermarket.Adapter.DemoInfiniteAdapter;
@@ -49,6 +49,7 @@ import com.iamretailer.krishnasupermarket.Common.DBController;
 import com.iamretailer.krishnasupermarket.Common.LanguageList;
 import com.iamretailer.krishnasupermarket.Common.LocaleHelper;
 import com.iamretailer.krishnasupermarket.Common.LoopingViewPager;
+import com.iamretailer.krishnasupermarket.Common.RecyclerItemClickListener;
 import com.iamretailer.krishnasupermarket.POJO.BannerBo;
 import com.iamretailer.krishnasupermarket.POJO.BrandsPO;
 import com.iamretailer.krishnasupermarket.POJO.ProductsPO;
@@ -109,17 +110,25 @@ public class MainActivity extends Drawer {
     TextView no_items, no_items1;
     CommonAdapter bestAdapters;
     private ArrayList<SingleOptionPO> optionPOS;
-    private LinearLayout cat_seall;
+   // private LinearLayout cat_seall;
     CommonAdapter featuredProduct;
-    private ScrollView stickyscroll;
-    private FrameLayout topbg;
-    private LinearLayout app_bgss;
+   // private ScrollView stickyscroll;
+   // private FrameLayout topbg;
+   // private LinearLayout app_bgss;
     private int width,height;
     private int width1;
     private LoopingViewPager pager;
     private ArrayList<ProductsPO> cart_item;
+    private GridLayoutManager mLayoutManager;
     LinearLayout categ_preloader,most_preloader,newly_preloader;
-
+    private LinearLayout cate_bottom;
+    private LinearLayout contact;
+    private LinearLayout cart_bottom;
+    private TextView cart_count_bot;
+    private LinearLayout deal_bottom;
+    private ArrayList<BrandsPO> seller_lists;
+    private LinearLayout category;
+    private ArrayList<ProductsPO> productbO;
 
 
     @Override
@@ -135,7 +144,7 @@ public class MainActivity extends Drawer {
             //change_langs("ar");
         }
         Appconstatants.Lang=db.get_lang_code();
-        setContentView(R.layout.activity_main1);
+        setContentView(R.layout.activity_main);
         if (Appconstatants.sessiondata == null || Appconstatants.sessiondata.length() == 0)
             Appconstatants.sessiondata = db.getSession();
         Appconstatants.CUR=db.getCurCode();
@@ -162,13 +171,68 @@ public class MainActivity extends Drawer {
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
         categ = (TextView) findViewById(R.id.categ);
-        cat_seall = (LinearLayout) findViewById(R.id.cat_seeall);
+        //cat_seall = (LinearLayout) findViewById(R.id.cat_seeall);
         loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
         no_items = (TextView) findViewById(R.id.no_items);
         no_items1 = (TextView) findViewById(R.id.no_items1);
         categ_preloader=(LinearLayout)findViewById(R.id.categ_preloader);
         most_preloader=(LinearLayout)findViewById(R.id.most_preloader);
         newly_preloader=(LinearLayout)findViewById(R.id.newly_preloader);
+        cate_bottom = (LinearLayout) findViewById(R.id.cate_bottom);
+        contact = (LinearLayout) findViewById(R.id.contact);
+        cart_bottom = (LinearLayout) findViewById(R.id.cart_bottom);
+        deal_bottom = (LinearLayout) findViewById(R.id.deal_bottom);
+        cart_count_bot = (TextView) findViewById(R.id.cart_count_bot);
+        category = (LinearLayout) findViewById(R.id.category);
+
+        cate_bottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(seller_list!=null&&seller_list.size()>0){
+
+                    if (level == 0) {
+                        Intent intent = new Intent(MainActivity.this, Category.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, Category_level.class);
+                        Bundle pos = new Bundle();
+                        pos.putInt("pos", 0);
+                        intent.putExtras(pos);
+                        startActivity(intent);
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.pl_loading), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dbCon.getLoginCount()>0) {
+                    startActivity(new Intent(getApplicationContext(), MyProfile.class));
+                }
+                else
+                {
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    intent.putExtra("from", 7);
+                    startActivity(intent);
+                }
+            }
+        });
+        cart_bottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MyCart.class));
+            }
+        });
+        deal_bottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Deal_list.class));
+            }
+        });
+
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
@@ -182,62 +246,43 @@ public class MainActivity extends Drawer {
         });
         drawerview(drawerview, drawerLayout, MainActivity.this);
 
-        cat_seall.setOnClickListener(new View.OnClickListener() {
+        grid.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                if (level == 0) {
-                    Intent intent = new Intent(MainActivity.this, Category.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, Category_level.class);
-                    Bundle pos = new Bundle();
-                    pos.putInt("pos", 0);
-                    intent.putExtras(pos);
-                    startActivity(intent);
-                }
-            }
-        });
-        topbg = (FrameLayout) findViewById(R.id.topbg);
-        app_bgss = (LinearLayout) findViewById(R.id.app_bgss);
-        stickyscroll = (ScrollView) findViewById(R.id.stickyscroll);
-        final float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
-        stickyscroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            public void onItemClick(View view, int position) {
 
-            @SuppressLint("ResourceType")
-            @Override
-            public void onScrollChanged() {
-                if (stickyscroll.getScrollY() > pager.getHeight() - px && stickyscroll.getScrollY() <= pager.getHeight()) {
-                    if (stickyscroll.getScrollY() <= pager.getHeight() - px + (px / 7)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                    } else if (stickyscroll.getScrollY() <= pager.getHeight() - px + ((px / 7) * 2)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                        app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
-                    } else if (stickyscroll.getScrollY() <= pager.getHeight() - px + ((px / 7) * 3)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                        app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
-                    } else if (stickyscroll.getScrollY() <= pager.getHeight() - px + ((px / 7) * 4)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                        app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
-                    } else if (stickyscroll.getScrollY() <= pager.getHeight() - px + ((px / 7) * 5)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                        app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
-                    } else if (stickyscroll.getScrollY() <= pager.getHeight() - px + ((px / 7) * 6)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                        app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
-                    } else if (stickyscroll.getScrollY() <= pager.getHeight() - px + ((px / 7) * 7)) {
-                        topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                        app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
+
+                if (position == 3) {
+
+                    if (level == 0) {
+                        Intent intent = new Intent(MainActivity.this, Category.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, Category_level.class);
+                        Bundle pos = new Bundle();
+                        pos.putInt("pos", 0);
+                        intent.putExtras(pos);
+                        startActivity(intent);
                     }
-                } else if (stickyscroll.getScrollY() > pager.getHeight()) {
-                    topbg.setBackgroundResource(R.drawable.k_hometopbg);
-                    app_bgss.setBackgroundColor(Color.parseColor("#00000000"));
-
                 } else {
-                    app_bgss.setBackgroundResource(R.drawable.k_hometopbg);
-                    topbg.setBackgroundColor(Color.parseColor("#00000000"));
+
+                    if (seller_list.get(position).getArrayList().size() == 0) {
+                        Intent u = new Intent(MainActivity.this, Allen.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", seller_list.get(position).getS_id());
+                        bundle.putString("cat_name", seller_list.get(position).getStore_name());
+                        u.putExtras(bundle);
+                        startActivity(u);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, Category_level.class);
+                        Bundle pos = new Bundle();
+                        pos.putInt("pos", position);
+                        intent.putExtras(pos);
+                        startActivity(intent);
+                    }
                 }
+
             }
-        });
+        }));
 
 
 
@@ -303,7 +348,7 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle best = new Bundle();
                 best.putString("view_all", "best_sell");
-                best.putString("head", "Most Popular");
+                best.putString("head", "Best Selling");
                 intent.putExtras(best);
                 startActivity(intent);
             }
@@ -314,7 +359,7 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle feat = new Bundle();
                 feat.putString("view_all", "feat");
-                feat.putString("head", "Newly Added");
+                feat.putString("head","Feature Products");
                 intent.putExtras(feat);
                 startActivity(intent);
             }
@@ -473,12 +518,15 @@ public class MainActivity extends Drawer {
                         Log.i("skjdjkf",seller_list.size()+"");
                         adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1,0,0);
                         grid.setAdapter(adapter1);
-                        grid.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                        mLayoutManager=new GridLayoutManager(MainActivity.this,4);
+                        grid.setLayoutManager(mLayoutManager);
                         categ_preloader.setVisibility(View.GONE);
                         grid.setVisibility(View.VISIBLE);
-
+                        /*GetCategoryTask cattask = new GetCategoryTask();
+                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);*/
                         BEST_SELLING best_selling = new BEST_SELLING();
                         best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
+
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(MainActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -554,7 +602,6 @@ public class MainActivity extends Drawer {
 
                         JSONArray jsonObject = json.getJSONArray("data");
                         JSONObject object = jsonObject.getJSONObject(0);
-
                         JSONArray array = object.getJSONArray("data");
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {
@@ -571,7 +618,8 @@ public class MainActivity extends Drawer {
                                     BannerBo bo1 = new BannerBo();
                                     bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
                                     bo1.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                    bo1.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
+                                    bo.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
+
                                     banner2.add(bo);
                                 }
 
@@ -583,7 +631,7 @@ public class MainActivity extends Drawer {
 
                         loading.setVisibility(View.GONE);
 
-                        setupJazziness();
+                        setupJazziness(JazzyViewPager.TransitionEffect.Standard);
 
                         Brandtask brandtask = new Brandtask();
                         brandtask.execute(Appconstatants.CAT_LIST);
@@ -629,6 +677,319 @@ public class MainActivity extends Drawer {
     }
 
 
+    private class GetCategoryTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            Log.d("tag", "started");
+        }
+
+        protected String doInBackground(String... param) {
+
+            Log.d("cat_url_", param[0]);
+            logger.info("Category api :" + param[0]);
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                logger.info("Category resp :" + response);
+                Log.d("url response", response + "");
+                Log.d("cat_url_res", response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+        protected void onPostExecute(String resp) {
+            Log.i("tag", "Hai--->" + resp);
+            if (resp != null) {
+                try {
+                    seller_lists = new ArrayList<BrandsPO>();
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        JSONArray arr = new JSONArray(json.getString("data"));
+                        if (arr.length() > 0) {
+                            if(arr.length()<5){
+                                for (int h = 0; h < arr.length(); h++) {
+
+                                    JSONObject obj = arr.getJSONObject(h);
+                                    BrandsPO bo = new BrandsPO();
+                                    bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
+                                    bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                    seller_lists.add(bo);
+                                }
+                            }else{
+                                for (int h = 0; h < 5; h++) {
+
+                                    JSONObject obj = arr.getJSONObject(h);
+                                    BrandsPO bo = new BrandsPO();
+                                    bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
+                                    bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                    seller_lists.add(bo);
+                                }
+                            }
+                            category.removeAllViews();
+                            if(seller_lists!=null&&seller_lists.size()>0){
+                                for(int i=0;i<seller_lists.size();i++){
+                                    addLayoutss(seller_lists.get(i),category,i);
+                                }
+                            }else{
+                                category.setVisibility(View.GONE);
+                            }
+                        }
+
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(MainActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                    }
+                    BEST_SELLING best_selling = new BEST_SELLING();
+                    best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loading_bar.setVisibility(View.GONE);
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    loading_bar.setVisibility(View.VISIBLE);
+                                    GetBannerTask task1 = new GetBannerTask();
+                                    task1.execute(Appconstatants.BANNER_IMAGEa);
+                                }
+                            }).show();
+                }
+            } else {
+                loading_bar.setVisibility(View.GONE);
+                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                loading_bar.setVisibility(View.VISIBLE);
+                                GetBannerTask task1 = new GetBannerTask();
+                                task1.execute(Appconstatants.BANNER_IMAGEa);
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+
+    private void addLayoutss(final BrandsPO brandsbo, LinearLayout payment_list, int pos) {
+        View convertView = LayoutInflater.from(this).inflate(R.layout.categlist, payment_list, false);
+        TextView namess = (TextView) convertView.findViewById(R.id.name);
+        LinearLayout view_all = (LinearLayout) convertView.findViewById(R.id.view_all);
+        TextView no_proditems = (TextView) convertView.findViewById(R.id.no_proditems);
+        RecyclerView product_list = (RecyclerView)convertView. findViewById(R.id.product_list);
+        FrameLayout product_success = (FrameLayout)convertView. findViewById(R.id.success);
+        FrameLayout product_loading = (FrameLayout)convertView. findViewById(R.id.loading);
+        Log.i("tag","listview----");
+
+        namess.setText(brandsbo.getStore_name()+"");
+        GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading);
+        cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+
+        view_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent u = new Intent(MainActivity.this, Allen.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", brandsbo.getS_id());
+                bundle.putString("cat_name", brandsbo.getStore_name());
+                u.putExtras(bundle);
+                startActivity(u);
+
+            }
+        });
+        payment_list.addView(convertView);
+    }
+
+
+    private class GetProductTask extends AsyncTask<String, Void, String> {
+        TextView no_proditem;
+        RecyclerView product_lists;
+        FrameLayout product_successs,product_loadings;
+        public GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading) {
+            no_proditem=no_proditems;
+            product_lists=product_list;
+            product_successs=product_success;
+            product_loadings=product_loading;
+
+        }
+        @Override
+        protected void onPreExecute() {
+            Log.d("tag", "started");
+        }
+
+        protected String doInBackground(String... param) {
+
+            Log.d("cat_url_", param[0]);
+            logger.info("Category api :" + param[0]);
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                logger.info("Category resp :" + response);
+                Log.d("url response", response + "");
+                Log.d("cat_url_res", response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+        protected void onPostExecute(String resp) {
+            Log.i("tag", "Hai--->" + resp);
+            if (resp != null) {
+
+                try {
+                    productbO = new ArrayList<>();
+                    JSONObject json = new JSONObject(resp);
+
+                    if (json.getInt("success") == 1) {
+
+                        if (json.has("data")) {
+                            JSONArray arr = new JSONArray(json.getString("data"));
+
+                            if (arr.length() > 0) {
+                                Log.i("mfnmd",arr.length()+"");
+                                if(arr.length()<10){
+                                    for (int h = 0; h < arr.length(); h++) {
+                                        JSONObject obj = arr.getJSONObject(h);
+                                        ProductsPO bo = new ProductsPO();
+                                        bo.setProduct_id(obj.isNull("product_id") ? "" : obj.getString("product_id"));
+                                        bo.setProduct_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                        bo.setProd_original_rate(Double.parseDouble(obj.isNull("price") ? "0.00" : obj.getString("price")));
+                                        bo.setProd_offer_rate(Double.parseDouble(obj.isNull("special") ? "0.00" : obj.getString("special")));
+                                        bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
+                                        bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
+                                        bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
+                                        bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                        JSONArray dd = obj.getJSONArray("option");
+                                        Log.i("jhfdgdhfg",dd+"dfddf");
+                                        optionPOS = new ArrayList<>();
+                                        if (dd instanceof JSONArray){
+                                            Log.i("khghgjhg","lkhkjhjkhkj");
+                                            JSONArray jsonObject = obj.getJSONArray("option");
+                                            if(jsonObject.length()>0){
+                                                JSONObject object = jsonObject.getJSONObject(0);
+                                                JSONArray option = object.getJSONArray("product_option_value");
+                                                Log.i("khghgjhg",option.length()+"");
+                                                if (option.length() > 0) {
+
+
+                                                    for (int k = 0; k < option.length(); k++) {
+                                                        JSONObject object1 = option.getJSONObject(k);
+                                                        SingleOptionPO po = new SingleOptionPO();
+                                                        po.setProduct_option_value_id(object1.isNull("product_option_value_id") ? 0 : object1.getInt("product_option_value_id"));
+                                                        optionPOS.add(po);
+
+                                                    }
+                                                    bo.setSingleOptionPOS(optionPOS);
+                                                }else{
+                                                    bo.setSingleOptionPOS(optionPOS);
+                                                }
+                                            }else{
+                                                bo.setSingleOptionPOS(optionPOS);
+                                            }
+
+                                        } else {
+                                            bo.setSingleOptionPOS(optionPOS);
+                                        }
+                                        productbO.add(bo);
+                                    }
+                                }else{
+                                    for (int h = 0; h < 10; h++) {
+                                        JSONObject obj = arr.getJSONObject(h);
+                                        ProductsPO bo = new ProductsPO();
+                                        bo.setProduct_id(obj.isNull("product_id") ? "" : obj.getString("product_id"));
+                                        bo.setProduct_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                        bo.setProd_original_rate(Double.parseDouble(obj.isNull("price") ? "0.00" : obj.getString("price")));
+                                        bo.setProd_offer_rate(Double.parseDouble(obj.isNull("special") ? "0.00" : obj.getString("special")));
+                                        bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
+                                        bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
+                                        bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
+                                        bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                        JSONArray dd = obj.getJSONArray("option");
+                                        optionPOS = new ArrayList<>();
+                                        if (dd instanceof JSONArray) {
+                                            JSONArray jsonObject = obj.getJSONArray("option");
+                                            JSONObject object = jsonObject.getJSONObject(0);
+                                            JSONArray option = object.getJSONArray("product_option_value");
+                                            if (option.length() > 0) {
+                                                for (int k = 0; k < option.length(); k++) {
+                                                    JSONObject object1 = option.getJSONObject(k);
+                                                    SingleOptionPO po = new SingleOptionPO();
+                                                    po.setProduct_option_value_id(object1.isNull("product_option_value_id") ? 0 : object1.getInt("product_option_value_id"));
+                                                    optionPOS.add(po);
+
+                                                }
+                                                bo.setSingleOptionPOS(optionPOS);
+                                            }
+                                        } else {
+                                            bo.setSingleOptionPOS(optionPOS);
+                                        }
+                                        productbO.add(bo);
+                                    }
+                                }
+                            }
+                            if (productbO.size() != 0) {
+
+                                bestAdapters = new CommonAdapter(MainActivity.this, productbO,1,1);
+                                product_lists.setAdapter(bestAdapters);
+                                product_lists.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                                product_loadings.setVisibility(View.GONE);
+                                product_successs.setVisibility(View.VISIBLE);
+                                no_proditem.setVisibility(View.GONE);
+                                product_lists.setVisibility(View.VISIBLE);
+                            } else {
+                                product_loadings.setVisibility(View.GONE);
+                                product_successs.setVisibility(View.VISIBLE);
+                                no_proditem.setVisibility(View.VISIBLE);
+                                product_lists.setVisibility(View.GONE);
+                            }
+                        } else {
+                            product_loadings.setVisibility(View.GONE);
+                            product_successs.setVisibility(View.VISIBLE);
+                            no_proditem.setVisibility(View.VISIBLE);
+                            product_lists.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        product_loadings.setVisibility(View.GONE);
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(MainActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loading_bar.setVisibility(View.GONE);
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    loading_bar.setVisibility(View.VISIBLE);
+                                    GetBannerTask task1 = new GetBannerTask();
+                                    task1.execute(Appconstatants.BANNER_IMAGEa);
+                                }
+                            })
+                            .show();
+                    product_loadings.setVisibility(View.GONE);
+                }
+            } else {
+                product_loadings.setVisibility(View.GONE);
+                loading_bar.setVisibility(View.GONE);
+                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                loading_bar.setVisibility(View.VISIBLE);
+                                GetBannerTask task1 = new GetBannerTask();
+                                task1.execute(Appconstatants.BANNER_IMAGEa);
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+
 
     private class CartTask extends AsyncTask<String, Void, String> {
 
@@ -669,6 +1030,7 @@ public class MainActivity extends Drawer {
                         if (dd instanceof JSONArray) {
                             cart_count.setText(0 + "");
                             cart_count1.setText(0 + "");
+                            cart_count_bot.setText(0 + "");
 
                         } else if (dd instanceof JSONObject) {
 
@@ -686,6 +1048,7 @@ public class MainActivity extends Drawer {
                             }
                             cart_count.setText(qty + "");
                             cart_count1.setText(qty + "");
+                            cart_count_bot.setText(qty + "");
                         }
 
                         if (feat_list.size()>0 && feat_list!=null) {
@@ -742,15 +1105,12 @@ public class MainActivity extends Drawer {
 
 
 
-    private void setupJazziness() {
+    private void setupJazziness(JazzyViewPager.TransitionEffect effect) {
 
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
        // pager.setPageMargin(15);
 
-        int margin =  (int) getResources().getDimension(R.dimen.dp90);
-        pager.setClipToPadding(false);
-        pager.setPageMargin(-margin);
         try {
             Field mScroller;
             android.view.animation.Interpolator sInterpolator = new DecelerateInterpolator();
@@ -800,6 +1160,7 @@ public class MainActivity extends Drawer {
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.banner_roundview2, container, false);
             imgDisplay = (ImageView) viewLayout.findViewById(R.id.browsebackground);
+
             LinearLayout banner=(LinearLayout) viewLayout.findViewById(R.id.banners);
             banner.setOnClickListener(new OnClickListener() {
                 @Override
@@ -965,7 +1326,7 @@ public class MainActivity extends Drawer {
                                 no_items1.setVisibility(View.VISIBLE);
                                 horizontalListView.setVisibility(View.GONE);
                                 view_all_feat.setVisibility(View.GONE);
-                                newly_preloader.setVisibility(View.GONE);
+                              newly_preloader.setVisibility(View.GONE);
                             }
 
 
@@ -1107,7 +1468,7 @@ public class MainActivity extends Drawer {
                                 no_items.setVisibility(View.GONE);
                                 best_selling_list.setVisibility(View.VISIBLE);
                                 view_all_best.setVisibility(View.VISIBLE);
-                                most_preloader.setVisibility(View.GONE);
+                               most_preloader.setVisibility(View.GONE);
                                 best_selling_list.setVisibility(View.VISIBLE);
                             } else {
                                 no_items.setVisibility(View.VISIBLE);

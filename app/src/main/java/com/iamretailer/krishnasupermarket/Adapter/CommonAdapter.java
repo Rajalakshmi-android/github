@@ -48,7 +48,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
     AndroidLogger logger;
     int from;
     int cart;
-    public CommonAdapter(Context ctx, ArrayList<ProductsPO> imageModelArrayList, int from, int cart) {
+    public CommonAdapter(Context ctx, ArrayList<ProductsPO> imageModelArrayList, int from,int cart) {
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
         this.context = ctx;
@@ -70,7 +70,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(final CommonAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
         if (from==1)
         {
@@ -89,18 +89,10 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         holder.product_name.setText(items.get(position).getProduct_name());
 
         if (items.get(position).getProd_offer_rate() > 0) {
-            holder.or_cur_right.setText(cur_right);
-            holder.or_cur_left.setText(cur_left);
-            holder.sp_cur_right.setText(cur_right);
-            holder.sp_cur_left.setText(cur_left);
-            holder.p_price.setText(String.format("%.2f", items.get(position).getProd_offer_rate()));
-            holder.orginal.setText(String.format("%.2f", items.get(position).getProd_original_rate()));
+            holder.p_price.setText(cur_left + String.format("%.2f", items.get(position).getProd_offer_rate()) + cur_right);
+            holder.orginal.setText(cur_left + String.format("%.2f", items.get(position).getProd_original_rate()) + cur_right);
         } else {
-            holder.sp_cur_right.setText(cur_right);
-            holder.sp_cur_left.setText(cur_left);
-            holder.or_cur_right.setText("");
-            holder.or_cur_left.setText("");
-            holder.p_price.setText(String.format("%.2f", items.get(position).getProd_original_rate()));
+            holder.p_price.setText(cur_left + String.format("%.2f", items.get(position).getProd_original_rate()) + cur_right);
             holder.orginal.setText("");
         }
 
@@ -109,31 +101,12 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         else
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(holder.p_img);
 
-        if(items.get(position).getWeight()!=null && !items.get(position).getWeight().equalsIgnoreCase("0.00kg")){
-            Log.i("tag","nlfjslkfjlfdjwlk11 --- "+items.get(position).getWeight());
-            holder.grms.setVisibility(View.VISIBLE);
-        }else {
-            Log.i("tag","nlfjslkfjlfdjwlk22 --- "+items.get(position).getWeight());
-            holder.grms.setVisibility(View.GONE);
-        }
-
-        holder.grms.setText(items.get(position).getWeight()+"");
-        holder.manufact.setText(items.get(position).getManufact()+"");
-
         if (items.get(position).isWish_list()) {
             holder.like.setVisibility(View.VISIBLE);
             holder.un_like.setVisibility(View.GONE);
         } else {
             holder.un_like.setVisibility(View.VISIBLE);
             holder.like.setVisibility(View.GONE);
-        }
-
-        if (items.get(position).isCart_list()) {
-            holder.cart_like.setVisibility(View.VISIBLE);
-            holder.cart_unlike.setVisibility(View.GONE);
-        } else {
-            holder.cart_unlike.setVisibility(View.VISIBLE);
-            holder.cart_like.setVisibility(View.GONE);
         }
         holder.items_bg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,10 +220,9 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView p_price, orginal,product_name;
-        ImageView like, un_like,p_img,cart_like,cart_unlike;
+        ImageView like, un_like,p_img;
         LinearLayout items_bg, add_to_cart,fav,background;
         ImageView r1, r2, r3, r4, r5;
-        TextView sp_cur_left,sp_cur_right,or_cur_left,or_cur_right,grms,manufact;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -269,15 +241,6 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             r3 = (ImageView) itemView.findViewById(R.id.r3);
             r4 = (ImageView) itemView.findViewById(R.id.r4);
             r5 = (ImageView) itemView.findViewById(R.id.r5);
-            sp_cur_left=(TextView)itemView.findViewById(R.id.sp_cur_left);
-            sp_cur_right=(TextView)itemView.findViewById(R.id.sp_cur_right);
-            or_cur_left=(TextView)itemView.findViewById(R.id.or_cur_left);
-            or_cur_right=(TextView)itemView.findViewById(R.id.or_cur_right);
-            cart_like = (ImageView) itemView.findViewById(R.id.cart_like);
-           cart_unlike = (ImageView) itemView.findViewById(R.id.cart_unlike);
-           grms = (TextView) itemView.findViewById(R.id.grms);
-           manufact = (TextView) itemView.findViewById(R.id.prod_name1);
-
         }
     }
 

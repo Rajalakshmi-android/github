@@ -2,7 +2,7 @@
 <FrameLayout android:layout_width="match_parent"
     android:layout_height="@dimen/dp60"
     android:layout_gravity="top"
-    android:background="@drawable/k_hometopbg"
+    android:background="@drawable/layer"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -38,7 +38,7 @@
             android:id="@+id/header"
             android:inputType = "textCapWords"
             android:text="@string/product_details"
-            android:textColor="@color/white"
+            android:textColor="@color/app_text_color"
             android:textSize="@dimen/text18sp"
            />
 
@@ -64,7 +64,7 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:autoMirrored="true"
                 android:rotationY="@integer/locale_mirror_flip"
-                android:src="@mipmap/cart_main" />
+                android:src="@mipmap/shoppingg" />
 
             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                 android:id="@+id/cart_count"
@@ -73,16 +73,16 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="start"
-                android:layout_marginEnd="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
                 android:adjustViewBounds="true"
-                android:background="@drawable/white_ovel"
+                android:background="@drawable/badge"
                 android:gravity="center"
                 android:minHeight="@dimen/text13sp"
                 android:minWidth="@dimen/text15sp"
                 android:padding="@dimen/dp1"
                 android:scaleType="fitStart"
                 android:text="@string/cart"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text10sp" />
         </RelativeLayout>
 

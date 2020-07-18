@@ -220,10 +220,10 @@ public class ConfirmOrder extends Language {
                     OrderTask.execute(Appconstatants.Place_Order);
 
                 } else {
-                    //getPayment(order_id);
+                    getPayment(order_id);
                     Log.d("Razor_id", order_id + "");
-                    OrderTask OrderTask = new OrderTask();
-                    OrderTask.execute(order_id);
+                   /* OrderTask OrderTask = new OrderTask();
+                    OrderTask.execute(order_id);*/
 
 
 

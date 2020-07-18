@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Krishna eStores</string>
+    <string name="app_name">i.am.retailer</string>
 
     <string-array name="jazzy_effects">
         <item>Standard</item>
@@ -21,9 +21,10 @@
     <string name="rs">$</string>
     <string name="rate">4.8</string>
     <string name="cart">0</string>
-    <string name="facebook_app_id">253152069245434</string>
-    <string name="fb_login_protocol_scheme">fb253152069245434</string>
     <string name="server_client_id">609338089678-2mrjk25p6d8cc1jkoh1raofq3bmts782.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">518934811993522</string>
+    <string name="fb_login_protocol_scheme">fb518934811993522</string>
+
 
 
     //change text
@@ -362,9 +363,14 @@
     <string name="search_category">Search Brand</string>
     <string name="category_filter">Filter by Brand</string>
     <string name="brand_not_found">Brand not found !!</string>
+    <string name="dfgdg">أدخل رقم الجوال</string>
+
+    //pink
+    <string name="pl_loading">Please wait Loading....</string>
+
+    <string name="invalid_msg">The Marketplace Id is connected with different Domain already. Kindly update New Marketplace Id for this Package</string>
     <string name="address_save">Address Added Successfully</string>
     <string name="address_update">Address Updated Successfully</string>
-    <string name="invalid_msg">The Marketplace Id is connected with different Domain already. Kindly update New Marketplace Id for this Package</string>
 
 
 </resources>

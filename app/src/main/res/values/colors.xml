@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#108cd2</color>
+
     <color name="colorPrimaryDark">#7e7e7e</color>
-    <color name="colorAccent">#04dd5d</color>
-    <color name="button_clr">#0ac957</color>
+    <color name="button_clr">#e40582</color>
     <color name="black">#000000</color>
     <color name="full_view_bg">#80FFFFFF</color>
     <color name="red">#FF0000</color>
-    <color name="orange_status">#FFA500</color>
-    <color name="green_status">#008000</color>
     <color name="white">#ffffff</color>
-    <color name="blue">#2d7d96</color>
+    <color name="blue">#e40582</color>
     <color name="app_bg_color">#f5f5f5</color>
     <color name="app_view_color">#6ca0a1a3</color>
     <color name="app_text_color">#494949</color>
-    <color name="price_textcolor">#0f99a4</color>
+    <color name="price_textcolor">#e40582</color>
     <color name="textcolor">#a2a2a2</color>
     <color name="grms_textcolor">#939393</color>
     <color name="grm_bg">#f9f9f9</color>
@@ -22,7 +19,7 @@
     <color name="search_text">#cecece</color>
     <color name="text_color1">#898989</color>
     <color name="text_color2">#979797</color>
-    <color name="bg">#0096a0</color>
+    <color name="bg">#e40582</color>
     <color name="add_text">#8d8d8d</color>
     <color name="add_text1">#6c6c6c</color>
     <color name="add_text2">#949494</color>
@@ -38,11 +35,10 @@
 
     <color name="share_bg">#0ac957</color>
     <color name="product_text_clr">#595959</color>
-    <color name="rupee_clr">#0093bc</color>
     <color name="select">#e8e8e8</color>
     <color name="un_select">#c1c1c1</color>
     <color name="option_sub">#494949</color>
-    <color name="green">#1dbf5e</color>
+    <color name="green">#e40582</color>
     <color name="option_green">#1dbf5e</color>
     <color name="price_original">#979797</color>
     <color name="text_select">#777777</color>
@@ -62,7 +58,21 @@
     <color name="order_id">#606060</color>
     <color name="tansparent">#00000000</color>
     <color name="search_boxs">#c6c6c6</color>
-    <color name="guest_checkout">#108cd2</color>
 
+    //pink
+    <color name="cart_bg_clr1">#11bbbbbb</color>
+    <color name="cart_bg_clr3">#33bbbbbb</color>
+    <color name="cat_bg_clr1">#01e40582</color>
+    <color name="cat_bg_clr2">#11e40582</color>
+    <color name="cat_bg_clr3">#11e40582</color>
+    <color name="bottom_clr">#01000000</color>
+    <color name="bottom_clr1">#11000000</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorAccent">#e40582</color>
+    <color name="rupee_clr">#e40582</color>
+    <color name="bottom_textcolor">#bababa</color>
+       <color name="orange_status">#FFA500</color>
+    <color name="green_status">#008000</color>
+    <color name="guest_checkout">#e40582</color>
 
 </resources>

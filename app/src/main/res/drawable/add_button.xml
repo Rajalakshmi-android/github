@@ -3,7 +3,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/rupee_clr" />
+            <solid android:color="@color/colorAccent" />
             <corners android:radius="@dimen/dp30" />
         </shape>
     </item>
