@@ -19,6 +19,7 @@
             android:layout_height="@dimen/dp20"
             android:layout_gravity="center"
             android:src="@mipmap/backk"
+            android:id="@+id/back"
             android:autoMirrored="true"
             android:rotationY="@integer/locale_mirror_flip"/>
     </LinearLayout>

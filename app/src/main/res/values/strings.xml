@@ -26,7 +26,6 @@
     <string name="fb_login_protocol_scheme">fb518934811993522</string>
 
 
-
     //change text
     <string name="loading_wait">Loading....</string>
     <string name="exit">Press again exit from the App</string>
@@ -47,7 +46,7 @@
     <string name="error_msg">Something went wrong.Try Again</string>
     <string name="retry">Retry</string>
     <string name="products">Products</string>
-    <string name="sorting">Sort By :</string>
+    <string name="sorting">Sort By</string>
     <string name="no_items">No Products Found.</string>
     <string name="no_con">No Connection</string>
     <string name="check_network"> Please check your internet  \nconnectivity &amp; try again.</string>
@@ -371,6 +370,7 @@
     <string name="invalid_msg">The Marketplace Id is connected with different Domain already. Kindly update New Marketplace Id for this Package</string>
     <string name="address_save">Address Added Successfully</string>
     <string name="address_update">Address Updated Successfully</string>
+    <string name="fil_bg">Filter By</string>
 
 
 </resources>

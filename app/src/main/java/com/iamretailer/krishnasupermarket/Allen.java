@@ -174,10 +174,19 @@ public class Allen extends Language {
 
 
         });
-
-
-
         sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i2 = new Intent(Allen.this, Filter.class);
+                startActivity(i2);
+                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
+
+            }
+        });
+
+
+        /*sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -333,7 +342,7 @@ public class Allen extends Language {
                 });
 
             }
-        });
+        });*/
 
         retry.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -63,12 +63,12 @@
                                             android:gravity="start|center_horizontal"
                                             android:text="@string/sorting"
                                             android:textColor="@color/app_text_color"
-                                            android:textSize="@dimen/dp15" />
+                                            android:textSize="@dimen/text15sp" />
 
                                         <LinearLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginLeft="@dimen/dp2">
+                                            android:layout_marginStart="@dimen/dp2">
 
                                             <com.iamretailer.krishnasupermarket.Common.CustomTextview
                                                 android:id="@+id/sort_name"
@@ -78,18 +78,18 @@
                                                 android:layout_marginTop="@dimen/dp1"
                                                 android:gravity="center"
                                                 android:textColor="@color/text_color2"
-                                                android:textSize="@dimen/dp14" />
+                                                android:textSize="@dimen/text14sp"
+                                                android:visibility="gone" />
 
                                             <ImageView
-                                                android:layout_width="@dimen/dp10"
-                                                android:layout_height="@dimen/dp10"
+                                                android:layout_width="@dimen/dp20"
+                                                android:layout_height="@dimen/dp20"
                                                 android:layout_gravity="center"
                                                 android:layout_marginStart="@dimen/dp5"
-                                                android:layout_marginTop="@dimen/dp3"
+                                                android:autoMirrored="true"
                                                 android:gravity="center"
                                                 android:rotationY="@integer/locale_mirror_flip"
-                                                android:autoMirrored="true"
-                                                android:src="@mipmap/sort" />
+                                                android:src="@mipmap/sorts" />
                                         </LinearLayout>
 
 
@@ -109,34 +109,33 @@
                                     android:layout_gravity="center"
                                     android:layout_weight="@integer/one"
                                     android:gravity="center"
-                                    android:weightSum="2"
-                                    >
+                                    android:weightSum="2">
 
 
-                                        <LinearLayout
-                                            android:layout_width="0dp"
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1.5"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                            android:id="@+id/product_count"
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:gravity="center"
-                                            android:layout_weight="1.5"
-                                            android:orientation="horizontal">
+                                            android:text="@string/cart"
+                                            android:textColor="@color/text_color2"
+                                            android:textSize="@dimen/text14sp" />
 
-                                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
-                                                android:id="@+id/product_count"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="@string/cart"
-                                                android:textColor="@color/text_color2"
-                                                android:textSize="@dimen/text14sp" />
+                                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/dp5"
+                                            android:text="@string/products"
+                                            android:textColor="@color/text_color2"
+                                            android:textSize="@dimen/text14sp" />
 
-                                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginStart="@dimen/dp5"
-                                                android:text="@string/products"
-                                                android:textColor="@color/text_color2"
-                                                android:textSize="@dimen/text14sp" />
-
-                                        </LinearLayout>
+                                    </LinearLayout>
 
 
                                 </LinearLayout>
@@ -231,7 +230,7 @@
 
                 <include
                     layout="@layout/loading"
-                    />
+                    android:visibility="gone" />
             </FrameLayout>
 
             <FrameLayout

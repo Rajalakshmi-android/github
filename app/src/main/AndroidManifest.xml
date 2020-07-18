@@ -118,10 +118,11 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_Il11upgKqcMaXI" />
-       <!-- <meta-data
+        <!--
+            <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_bf1ZU8pk5khLRL" />
--->
+        -->
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
@@ -144,7 +145,8 @@
         <activity android:name=".About_Activity" />
         <activity android:name=".Webactivity" />
         <activity android:name=".PaymentAct" />
-        <activity android:name=".MyCart"/>
+        <activity android:name=".MyCart" />
+        <activity android:name=".Filter"></activity>
     </application>
 
 </manifest>

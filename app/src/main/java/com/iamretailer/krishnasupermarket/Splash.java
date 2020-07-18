@@ -365,7 +365,7 @@ public class Splash extends Language {
                                 langPO.setLang_name(object1.isNull("name")?"":object1.getString("name"));
                                 langPO.setLang_code(object1.isNull("code")?"":object1.getString("code"));
                                 langPOS.add(langPO);
-                                if (i==0 && dbCon.get_lan_c()<=0) {
+                                if (i==1 && dbCon.get_lan_c()<=0) {
                                     dbCon.drop_app_lang();
                                     dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
                                 }
