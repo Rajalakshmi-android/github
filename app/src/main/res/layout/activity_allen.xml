@@ -54,9 +54,16 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center">
+                                        android:gravity="center"
+                                        android:orientation="vertical">
 
 
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_gravity="center"
+                                            android:gravity="center">
                                         <com.iamretailer.krishnasupermarket.Common.CustomTextview1
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -64,6 +71,18 @@
                                             android:text="@string/sorting"
                                             android:textColor="@color/app_text_color"
                                             android:textSize="@dimen/text15sp" />
+
+                                        <ImageView
+                                            android:layout_width="@dimen/dp20"
+                                            android:layout_height="@dimen/dp20"
+                                            android:layout_gravity="center"
+                                            android:layout_marginStart="@dimen/dp5"
+                                            android:autoMirrored="true"
+                                            android:gravity="center"
+                                            android:rotationY="@integer/locale_mirror_flip"
+                                            android:padding="@dimen/dp5"
+                                            android:src="@mipmap/drop_arrow" />
+                                    </LinearLayout>
 
                                         <LinearLayout
                                             android:layout_width="wrap_content"
@@ -79,17 +98,9 @@
                                                 android:gravity="center"
                                                 android:textColor="@color/text_color2"
                                                 android:textSize="@dimen/text14sp"
-                                                android:visibility="gone" />
+                                               />
 
-                                            <ImageView
-                                                android:layout_width="@dimen/dp20"
-                                                android:layout_height="@dimen/dp20"
-                                                android:layout_gravity="center"
-                                                android:layout_marginStart="@dimen/dp5"
-                                                android:autoMirrored="true"
-                                                android:gravity="center"
-                                                android:rotationY="@integer/locale_mirror_flip"
-                                                android:src="@mipmap/sorts" />
+
                                         </LinearLayout>
 
 
