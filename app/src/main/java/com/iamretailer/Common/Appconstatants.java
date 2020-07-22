@@ -59,8 +59,6 @@ public class Appconstatants {
 
     public static String Place_Order =domain+"index.php?route=rest/simple_confirm/confirm";
 
-    public static String Payment_Success =domain+"index.php?route=rest/razorpay";
-
     public static String LOGOUT_URL=domain+"index.php?route=rest/logout/logout";
 
     public static String SEARCH=domain+"index.php?route=feed/rest_api/products&id=&search=";
@@ -136,7 +134,6 @@ public class Appconstatants {
 
    // public static String CATEGORY_FILTER=domain+"index.php?route=feed/rest_api/manufacturers";
     public static String CATEGORY_FILTER=domain+"index.php?route=rest/filter/filteroption";
-    public static String razorpay=domain+"index.php?route=rest/razorpay/order";
 
 
     public  static  String APP_KEY="1234567890";

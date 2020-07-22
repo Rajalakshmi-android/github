@@ -116,13 +116,6 @@
         </activity>
 
         <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_Il11upgKqcMaXI" />
-       <!-- <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_bf1ZU8pk5khLRL" />
--->
-        <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
 
