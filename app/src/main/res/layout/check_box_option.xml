@@ -11,7 +11,7 @@
         android:layout_marginEnd="@dimen/dp20"
         android:orientation="vertical">
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+        <com.iamretailer.Common.CustomTextview1
             android:id="@+id/heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

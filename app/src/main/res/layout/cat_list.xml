@@ -49,7 +49,7 @@
                 android:layout_marginBottom="@dimen/dp5"
 
                 >
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:id="@+id/store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

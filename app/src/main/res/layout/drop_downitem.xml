@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+    <com.iamretailer.Common.CustomTextview1
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

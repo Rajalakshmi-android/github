@@ -51,7 +51,7 @@
                     android:layout_marginStart="@dimen/dp5"
                     android:orientation="vertical">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:layout_marginEnd="@dimen/dp28"
                         android:layout_marginStart="@dimen/dp10"
                         android:id="@+id/p_name"
@@ -72,7 +72,7 @@
                         android:orientation="horizontal"
                         android:weightSum="@integer/two">
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_marginEnd="@dimen/dp25"
                             android:id="@+id/p_rate1"
                             android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                             android:textSize="@dimen/text19sp"
                             android:textStyle="bold" />
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:id="@+id/orginal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

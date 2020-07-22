@@ -28,19 +28,17 @@ repositories {
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.iamretailer.krishnasupermarket"
+        applicationId "com.iamretailer"
         minSdkVersion 19
         targetSdkVersion 29
-
-        versionCode 2
-        versionName "1.1"
+        versionCode 7
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 onesignal_app_id               : '1072d2ba-6845-4e15-9ca2-30380c360222',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
-
 
     }
     buildTypes {

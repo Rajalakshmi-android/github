@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dp100" />
 
-        <com.iamretailer.krishnasupermarket.Fragments.HorizontalListView
+        <com.iamretailer.Fragments.HorizontalListView
             android:id="@+id/horizlist"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/dp100"

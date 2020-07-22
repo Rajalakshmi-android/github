@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:padding="@dimen/dp5">
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

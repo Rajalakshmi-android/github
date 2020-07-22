@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iamretailer.krishnasupermarket">
+    package="com.iamretailer">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -54,7 +54,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.iamretailer.krishnasupermarket.fileProvider"
+            android:authorities="com.iamretailer.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -118,11 +118,10 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_Il11upgKqcMaXI" />
-        <!--
-            <meta-data
+       <!-- <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_bf1ZU8pk5khLRL" />
-        -->
+-->
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
@@ -145,7 +144,7 @@
         <activity android:name=".About_Activity" />
         <activity android:name=".Webactivity" />
         <activity android:name=".PaymentAct" />
-        <activity android:name=".MyCart" />
+        <activity android:name=".MyCart"/>
     </application>
 
 </manifest>

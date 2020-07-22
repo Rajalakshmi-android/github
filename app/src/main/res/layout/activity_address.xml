@@ -25,7 +25,7 @@
                 android:orientation="vertical">
 
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
 
                     android:id="@+id/testcustomview"
                     android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                     android:textColor="@color/app_text_color"
                     android:textSize="@dimen/text26sp"
                     android:textStyle="bold" />
-                <com.iamretailer.krishnasupermarket.Common.CustomTextViewLight
+                <com.iamretailer.Common.CustomTextViewLight
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/need_your_contacts"
@@ -86,7 +86,7 @@
                                 android:gravity="start"
                                 android:layout_marginStart="@dimen/dp10">
 
-                                <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/full_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -127,7 +127,7 @@
                                 android:theme="@style/LoginEditTexts"
                                 android:layout_marginStart="@dimen/dp10">
 
-                                <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/username2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -173,7 +173,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/company"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -215,7 +215,7 @@
                                     android:layout_marginStart="@dimen/dp10">
 
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/address_one"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -257,7 +257,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/address_two"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -298,7 +298,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/city"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -339,7 +339,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/pin_code"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -381,7 +381,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/mobile"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -505,7 +505,7 @@
                     android:layout_gravity="center"
                     android:orientation="horizontal">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

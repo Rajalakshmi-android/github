@@ -16,7 +16,7 @@
         android:id="@+id/paylayout"
         >
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+        <com.iamretailer.Common.CustomTextview1
             android:layout_width="0dp"
             android:layout_weight="0.7"
             android:gravity="start"

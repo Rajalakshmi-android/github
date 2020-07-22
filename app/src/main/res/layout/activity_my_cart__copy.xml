@@ -44,7 +44,7 @@
                             android:layout_height="@dimen/dp90"
                             android:src="@mipmap/empty_cart" />
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        <com.iamretailer.Common.CustomTextview1
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -55,7 +55,7 @@
                             android:textStyle="bold"
                             android:textSize="@dimen/text21sp" />
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -78,7 +78,7 @@
                             android:gravity="center"
                             >
 
-                            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                            <com.iamretailer.Common.CustomTextview1
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -135,7 +135,7 @@
                                         android:layout_gravity="center"
                                         android:orientation="vertical">
 
-                                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                        <com.iamretailer.Common.CustomTextview
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/total"
@@ -145,7 +145,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal">
-                                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                            <com.iamretailer.Common.CustomTextview
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textSize="@dimen/text13sp"
@@ -158,7 +158,7 @@
                                                 android:layout_marginEnd="@dimen/dp2"
                                                 />
 
-                                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                            <com.iamretailer.Common.CustomTextview
                                                 android:id="@+id/subtotal"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                                                 android:textColor="@color/amt"
                                                 android:textSize="@dimen/text21sp"
                                                 android:textStyle="bold" />
-                                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                            <com.iamretailer.Common.CustomTextview
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textSize="@dimen/text13sp"
@@ -206,7 +206,7 @@
                                             android:background="@drawable/login_button"
                                             android:gravity="center">
 
-                                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                            <com.iamretailer.Common.CustomTextview
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_vertical"
@@ -233,7 +233,7 @@
                                         android:layout_marginEnd="@dimen/dp10"
                                         android:visibility="gone">
 
-                                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                                        <com.iamretailer.Common.CustomTextview
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="end"

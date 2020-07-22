@@ -21,7 +21,7 @@
                 android:gravity="center"
                 android:padding="@dimen/dp5"
                 android:background="@drawable/redcircle">
-                <com.iamretailer.krishnasupermarket.Common.circularimageview.CircleImage
+                <com.iamretailer.Common.circularimageview.CircleImage
                     android:layout_width="@dimen/dp50"
                     android:layout_height="@dimen/dp50"
                     android:id="@+id/img"

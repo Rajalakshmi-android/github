@@ -39,7 +39,7 @@
                 android:layout_gravity="center|center_vertical"
                 android:layout_marginBottom="@dimen/dp5"
                 >
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                <com.iamretailer.Common.CustomTextview1
                     android:id="@+id/store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.7">
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/names"

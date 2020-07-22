@@ -65,7 +65,7 @@
                                     android:layout_marginTop="@dimen/dp10"
                                     android:theme="@style/LoginEditTexts">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/comments"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/dp100"
@@ -100,7 +100,7 @@
                 android:gravity="center"
                 >
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

@@ -27,7 +27,7 @@
                 android:background="@mipmap/cate_pinkbg">
 
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                <com.iamretailer.Common.CustomTextview1
                     android:id="@+id/store_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -28,7 +28,7 @@
             />
     </FrameLayout>
 
-    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+    <com.iamretailer.Common.CustomTextview
         android:id="@+id/child"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:background="@color/white" >
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:layout_width="@dimen/dp30"
                     android:layout_height="@dimen/dp30"
                     android:id="@+id/colors"

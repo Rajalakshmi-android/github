@@ -19,7 +19,6 @@
             android:layout_height="@dimen/dp20"
             android:layout_gravity="center"
             android:src="@mipmap/backk"
-            android:id="@+id/back"
             android:autoMirrored="true"
             android:rotationY="@integer/locale_mirror_flip"/>
     </LinearLayout>
@@ -31,7 +30,7 @@
         android:layout_margin="@dimen/dp5"
         android:gravity="center|center_vertical">
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+        <com.iamretailer.Common.CustomTextview1
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -67,7 +66,7 @@
                 android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/shoppingg" />
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:id="@+id/cart_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

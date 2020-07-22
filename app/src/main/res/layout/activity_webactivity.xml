@@ -62,7 +62,7 @@
                                     android:indeterminateDrawable="@drawable/custom_progress" />
                             </LinearLayout>
 
-                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/no_items"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

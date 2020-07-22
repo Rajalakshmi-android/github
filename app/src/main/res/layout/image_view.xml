@@ -8,7 +8,7 @@
         android:layout_width="@dimen/dp15"
         android:layout_height="match_parent"/>
 
-    <com.iamretailer.krishnasupermarket.Common.circularimageview.RoundedImage
+    <com.iamretailer.Common.circularimageview.RoundedImage
         android:id="@+id/browsebackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
