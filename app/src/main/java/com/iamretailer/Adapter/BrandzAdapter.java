@@ -3,7 +3,9 @@ package com.iamretailer.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +63,14 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        holder.name.setText(items.get(position).getStore_name());
+        if (Build.VERSION.SDK_INT >= 24)
+        {
+            holder.name.setText(Html.fromHtml(items.get(position).getStore_name() , Html.FROM_HTML_MODE_LEGACY));
+        }
+        else
+        {
+            holder.name.setText(Html.fromHtml(items.get(position).getStore_name()));
+        }
 
         if (from == 1) {
             float widthPixels = context.getResources().getDisplayMetrics().widthPixels;

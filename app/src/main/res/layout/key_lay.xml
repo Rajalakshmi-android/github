@@ -37,7 +37,19 @@
             android:layout_marginEnd="@dimen/dp10"
             android:text="@string/invalid_msg"
             android:textColor="@color/app_text_color"
-            android:layout_marginBottom="@dimen/dp10"
+            android:textSize="@dimen/text17sp" />
+        <com.iamretailer.Common.CustomTextview
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:text="support.iamretailer.com"
+            android:textColor="@color/colorAccent"
+            android:layout_marginBottom="@dimen/dp15"
             android:textSize="@dimen/text17sp" />
     </LinearLayout>
 </FrameLayout>

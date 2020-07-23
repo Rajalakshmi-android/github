@@ -58,6 +58,7 @@
             android:layout_marginTop="@dimen/dp15"
             android:gravity="center"
             android:text="@string/add_st"
+            android:visibility="gone"
             android:textColor="@color/product_text_clr"
             android:textSize="@dimen/text21sp" />
 
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/order_emp"
+            android:text="@string/no_orders"
             android:textColor="@color/add_text2"
             android:textSize="@dimen/text17sp" />
 

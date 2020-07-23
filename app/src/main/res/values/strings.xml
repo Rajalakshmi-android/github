@@ -336,10 +336,10 @@
     <string name="view_all_categories">View All Categories</string>
     <string name="welcome">Welcome back,</string>
     <string name="buy">Buy</string>
-    <string name="deal">Deal</string>
+    <string name="deal">Deals</string>
     <string name="user_bot">My Account</string>
     <string name="cart_bot">Cart</string>
-    <string name="carte_bot">Category</string>
+    <string name="carte_bot">Categories</string>
     <string name="ex_cate">Explore Categories</string>
     <string name="most">Most Popular</string>
     <string name="show">Show all</string>
@@ -368,9 +368,10 @@
     //pink
     <string name="pl_loading">Please wait Loading....</string>
 
-    <string name="invalid_msg">The Marketplace Id is connected with different Domain already. Kindly update New Marketplace Id for this Package</string>
+    <string name="invalid_msg">Your License Key is connected with different package already. Kindly do a new purchase if launching new App. And if Licensing did not enabled for the first App yet click the below link for the activation procedure.</string>
     <string name="address_save">Address Added Successfully</string>
     <string name="address_update">Address Updated Successfully</string>
+    <string name="no_orders">No Orders Yet!!</string>
 
 
 </resources>

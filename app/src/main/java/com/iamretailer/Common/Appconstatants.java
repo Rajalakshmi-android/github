@@ -136,7 +136,7 @@ public class Appconstatants {
     public static String CATEGORY_FILTER=domain+"index.php?route=rest/filter/filteroption";
 
 
-    public  static  String APP_KEY="1234567890";
+    public  static  String LICENSE_KEY="1234567890";
     public static int need_brand_product=0;
 
 }

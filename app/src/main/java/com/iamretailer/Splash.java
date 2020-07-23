@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamretailer.Common.Appconstatants;
@@ -55,7 +57,7 @@ public class Splash extends Language {
         Log.d("dfsa",dbCon.get_lang_code()+"");
         setContentView(R.layout.splash);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Appconstatants.sessiondata = dbCon.getSession();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         lay = (FrameLayout) findViewById(R.id.lay);
@@ -94,14 +96,15 @@ public class Splash extends Language {
                 Log.d("session_datasss", Appconstatants.sessiondata + "");
                 if (Appconstatants.sessiondata != null && Appconstatants.sessiondata.length() > 0)
                 {
+                    //  Log.i("daat", Appconstatants.CUR_LIST.split("/")[2]);
 
                     GETCURRENCY getcurrency=new GETCURRENCY();
-                    getcurrency.execute(Appconstatants.CUR_LIST);
+                    getcurrency.execute(Appconstatants.CUR_LIST+","+Appconstatants.LICENSE_KEY+","+appId);
 
                 } else {
 //
-                        GetSessionTask task = new GetSessionTask();
-                        task.execute(Appconstatants.SESSION_API+","+Appconstatants.APP_KEY+","+appId);
+                    GetSessionTask task = new GetSessionTask();
+                    task.execute(Appconstatants.SESSION_API+","+Appconstatants.LICENSE_KEY+","+appId);
                 }
             } else {
                 Snackbar
@@ -137,7 +140,7 @@ public class Splash extends Language {
 
             protected String doInBackground(String... param) {
                 Log.i("Session Url :", param[0]);
-               logger.info("Session Url :"+param[0]);
+                logger.info("Session Url :"+param[0]);
                 String response = null;
                 try {
                     Connection connection = new Connection();
@@ -169,11 +172,12 @@ public class Splash extends Language {
                             Appconstatants.sessiondata = dbCon.getSession();
 
                             GETCURRENCY getcurrency=new GETCURRENCY();
-                            getcurrency.execute(Appconstatants.CUR_LIST);
+                            getcurrency.execute(Appconstatants.CUR_LIST+","+Appconstatants.LICENSE_KEY+","+appId);
 
 
-                        } else
-                            {
+                        } else if(json.getInt("success") == 2) {
+                            show_alret();
+                        }else {
                             JSONArray array = json.getJSONArray("error");
                             Toast.makeText(Splash.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         }
@@ -195,8 +199,18 @@ public class Splash extends Language {
 
                     }
                 } else {
-                    show_alret();
-
+                    Snackbar
+                            .make(lay, R.string.error_net,
+                                    Snackbar.LENGTH_INDEFINITE)
+                            .setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    CheckTask task = new CheckTask();
+                                    task.execute();
+                                }
+                            })
+                            .show();
                 }
             }
         }
@@ -263,8 +277,9 @@ public class Splash extends Language {
                         GETLang getLang=new GETLang();
                         getLang.execute(Appconstatants.LANG_API);
 
-                    } else
-                        {
+                    } else if(object.getInt("success") == 2) {
+                        show_alret();
+                    }else{
                         JSONArray array = object.getJSONArray("error");
                         Toast.makeText(Splash.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -412,17 +427,25 @@ public class Splash extends Language {
 
 
     public void show_alret(){
-              final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
-              View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
-              dial.setView(popUpView);
-              final AlertDialog popupStore = dial.create();
-              WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-              lp.copyFrom(popupStore.getWindow().getAttributes());
-              lp.gravity= Gravity.CENTER;
-              popupStore.getWindow().setAttributes(lp);
-              popupStore.show();
-              popupStore.setCancelable(false);
-          }
+        final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
+        View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
+        TextView text = (TextView) popUpView.findViewById(R.id.text2);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://support.iamretailer.com/support/solutions/articles/77000377844-activation-of-app-license-key"));
+                startActivity(browserIntent);
+            }
+        });
+        dial.setView(popUpView);
+        final AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity= Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.setCancelable(false);
+        popupStore.show();
+    }
 
 
 

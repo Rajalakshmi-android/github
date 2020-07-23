@@ -2,8 +2,10 @@ package com.iamretailer.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +52,17 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
     }
     @Override
     public void onBindViewHolder(final Sub_Category_Adapter.MyViewHolder holder, final int position) {
-        holder.name.setText(list.get(position).getStore_name());
+
+
+        if (Build.VERSION.SDK_INT >= 24)
+        {
+            holder.name.setText(Html.fromHtml(list.get(position).getStore_name() , Html.FROM_HTML_MODE_LEGACY));
+        }
+        else
+        {
+            holder.name.setText(Html.fromHtml(list.get(position).getStore_name()));
+        }
+
 
 
     }
