@@ -211,13 +211,13 @@ public class SearchActivity extends Language {
 
             logger.info("Product list search api"+param[0]);
 
-            Log.d("singleurl", param[0]);
+            Log.d("singleurl", param[0]+"");
             String response = null;
             try {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,SearchActivity.this);
                 logger.info("Product list search resp"+response);
-                Log.d("list_products", param[0]);
+                Log.d("list_products", param[0]+"");
                 Log.d("list_products", Appconstatants.sessiondata);
 
 
@@ -343,8 +343,8 @@ public class SearchActivity extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                Log.d("Cart_list_url", param[0]);
-                Log.d("Cart_url_list", Appconstatants.sessiondata);
+                Log.d("Cart_list_url", param[0]+"");
+                Log.d("Cart_url_list", Appconstatants.sessiondata+"");
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,SearchActivity.this);
                 logger.info("Cart resp"+response);
                 Log.d("Cart_list_resp", response + "");
