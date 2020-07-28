@@ -522,10 +522,9 @@ public class MainActivity extends Drawer {
                         grid.setLayoutManager(mLayoutManager);
                         categ_preloader.setVisibility(View.GONE);
                         grid.setVisibility(View.VISIBLE);
-                        /*GetCategoryTask cattask = new GetCategoryTask();
-                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);*/
-                        BEST_SELLING best_selling = new BEST_SELLING();
-                        best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
+
+                        GetCategoryTask cattask = new GetCategoryTask();
+                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);
 
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -737,28 +736,22 @@ public class MainActivity extends Drawer {
                                 category.setVisibility(View.GONE);
                             }
                         }
+                        loading.setVisibility(View.GONE);
 
                     } else {
+                        loading.setVisibility(View.GONE);
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(MainActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
-                    BEST_SELLING best_selling = new BEST_SELLING();
-                    best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
                 } catch (Exception e) {
                     e.printStackTrace();
                     loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    GetBannerTask task1 = new GetBannerTask();
-                                    task1.execute(Appconstatants.BANNER_IMAGEa);
-                                }
-                            }).show();
+                    loading.setVisibility(View.GONE);
+                    category.setVisibility(View.GONE);
                 }
             } else {
                 loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
@@ -777,15 +770,29 @@ public class MainActivity extends Drawer {
         View convertView = LayoutInflater.from(this).inflate(R.layout.categlist, payment_list, false);
         TextView namess = (TextView) convertView.findViewById(R.id.name);
         LinearLayout view_all = (LinearLayout) convertView.findViewById(R.id.view_all);
-        TextView no_proditems = (TextView) convertView.findViewById(R.id.no_proditems);
-        RecyclerView product_list = (RecyclerView)convertView. findViewById(R.id.product_list);
-        FrameLayout product_success = (FrameLayout)convertView. findViewById(R.id.success);
-        FrameLayout product_loading = (FrameLayout)convertView. findViewById(R.id.loading);
-        Log.i("tag","listview----");
-
+        final TextView no_proditems = (TextView) convertView.findViewById(R.id.no_proditems);
+        final RecyclerView product_list = (RecyclerView)convertView. findViewById(R.id.product_list);
+        final FrameLayout product_success = (FrameLayout)convertView. findViewById(R.id.success);
+        final FrameLayout product_loading = (FrameLayout)convertView. findViewById(R.id.loading);
+        final FrameLayout no_network = (FrameLayout) convertView.findViewById(R.id.error_network);
+        LinearLayout retry = (LinearLayout) convertView.findViewById(R.id.retry);
         namess.setText(brandsbo.getStore_name()+"");
-        GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading);
+        Log.i("tag","listview----");
+        GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
         cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                product_success.setVisibility(View.GONE);
+                product_loading.setVisibility(View.VISIBLE);
+                no_network.setVisibility(View.GONE);
+                GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
+                cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+
+            }
+        });
+
+
 
         view_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -806,12 +813,13 @@ public class MainActivity extends Drawer {
     private class GetProductTask extends AsyncTask<String, Void, String> {
         TextView no_proditem;
         RecyclerView product_lists;
-        FrameLayout product_successs,product_loadings;
-        public GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading) {
+        FrameLayout product_successs,product_loadings,no_network;
+        public GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading,FrameLayout no_net) {
             no_proditem=no_proditems;
             product_lists=product_list;
             product_successs=product_success;
             product_loadings=product_loading;
+            no_network=no_net;
 
         }
         @Override
@@ -938,6 +946,7 @@ public class MainActivity extends Drawer {
                                 product_lists.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 product_loadings.setVisibility(View.GONE);
                                 product_successs.setVisibility(View.VISIBLE);
+                                no_network.setVisibility(View.GONE);
                                 no_proditem.setVisibility(View.GONE);
                                 product_lists.setVisibility(View.VISIBLE);
                             } else {
@@ -945,8 +954,10 @@ public class MainActivity extends Drawer {
                                 product_successs.setVisibility(View.VISIBLE);
                                 no_proditem.setVisibility(View.VISIBLE);
                                 product_lists.setVisibility(View.GONE);
+                                no_network.setVisibility(View.GONE);
                             }
                         } else {
+                            no_network.setVisibility(View.GONE);
                             product_loadings.setVisibility(View.GONE);
                             product_successs.setVisibility(View.VISIBLE);
                             no_proditem.setVisibility(View.VISIBLE);
@@ -954,38 +965,19 @@ public class MainActivity extends Drawer {
                         }
                     }
                     else {
+                        no_network.setVisibility(View.VISIBLE);
                         product_loadings.setVisibility(View.GONE);
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(MainActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    GetBannerTask task1 = new GetBannerTask();
-                                    task1.execute(Appconstatants.BANNER_IMAGEa);
-                                }
-                            })
-                            .show();
+                    no_network.setVisibility(View.VISIBLE);
                     product_loadings.setVisibility(View.GONE);
                 }
             } else {
                 product_loadings.setVisibility(View.GONE);
-                loading_bar.setVisibility(View.GONE);
-                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                        .setAction(R.string.retry, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
-                                GetBannerTask task1 = new GetBannerTask();
-                                task1.execute(Appconstatants.BANNER_IMAGEa);
-                            }
-                        })
-                        .show();
+                no_network.setVisibility(View.VISIBLE);
             }
         }
     }

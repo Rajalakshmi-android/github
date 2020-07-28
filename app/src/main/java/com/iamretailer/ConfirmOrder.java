@@ -689,9 +689,10 @@ public class ConfirmOrder extends Language {
         details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 Intent i = new Intent(ConfirmOrder.this, MainActivity.class);
                 startActivity(i);
-                dialog.dismiss();
+              //  dialog.dismiss();
 
             }
         });
