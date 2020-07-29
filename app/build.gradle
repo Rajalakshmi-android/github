@@ -53,7 +53,7 @@ android {
         exclude 'META-INF/DEPENDENCIES'
     }
     dexOptions {
-        javaMaxHeapSize = "1G"
+        javaMaxHeapSize = "4g"
         jumboMode true
     }
     /* dexOptions {
