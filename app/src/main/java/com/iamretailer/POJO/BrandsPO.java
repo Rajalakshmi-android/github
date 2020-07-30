@@ -17,6 +17,16 @@ public class BrandsPO extends ArrayList<BrandsPO> {
     }
 
     ArrayList<BrandsPO> arrayList;
+    ArrayList<BrandsPO> arrayList1;
+
+    public ArrayList<BrandsPO> getArrayList1() {
+        return arrayList1;
+    }
+
+    public void setArrayList1(ArrayList<BrandsPO> arrayList1) {
+        this.arrayList1 = arrayList1;
+    }
+
     ArrayList<ProductsPO> productslist;
 
     public ArrayList<ProductsPO> getProductslist() {

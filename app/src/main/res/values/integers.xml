@@ -8,5 +8,6 @@
     <integer name="five">5</integer>
     <integer name="siz">6</integer>
     <integer name="locale_mirror_flip">0</integer>
+    <integer name="ninety">90</integer>
 
 </resources>

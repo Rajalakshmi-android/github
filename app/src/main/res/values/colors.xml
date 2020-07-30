@@ -73,5 +73,7 @@
        <color name="orange_status">#FFA500</color>
     <color name="green_status">#008000</color>
     <color name="guest_checkout">#e40582</color>
+    <color name="view_line">#1e484848</color>
+
 
 </resources>

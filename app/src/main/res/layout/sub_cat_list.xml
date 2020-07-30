@@ -6,43 +6,79 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/dp6"
         android:paddingStart="@dimen/dp10"
-        android:paddingTop="@dimen/dp12"
         android:weightSum="@integer/two">
 
         <LinearLayout
-            android:layout_width="@dimen/dp0"
+            android:id="@+id/sub"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.7">
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp12">
 
-            <com.iamretailer.Common.CustomTextview
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp5"
-                android:text="@string/product"
-                android:textColor="@color/text_color1"
-                android:textSize="@dimen/text14sp" />
+                android:layout_weight="1.7">
 
+                <com.iamretailer.Common.CustomTextview
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/product"
+                    android:textColor="@color/text_color1"
+                    android:textSize="@dimen/text14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.3"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/arrow"
+                        android:layout_width="@dimen/dp10"
+                        android:layout_height="@dimen/dp10"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="@dimen/dp5"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
+                        android:src="@mipmap/sub_arrow" />
+
+                    <ImageView
+                        android:id="@+id/arrow1"
+                        android:layout_width="@dimen/dp10"
+                        android:layout_height="@dimen/dp10"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="@dimen/dp5"
+                        android:src="@mipmap/sub_arrow"
+                        android:rotation="@integer/ninety"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="@dimen/dp0"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:gravity="center">
+            android:paddingStart="@dimen/dp5">
 
-
-            <ImageView
-                android:layout_width="@dimen/dp10"
-                android:layout_height="@dimen/dp10"
-                android:layout_gravity="end|center"
-                android:layout_marginEnd="@dimen/dp5"
-                android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"
-                android:src="@mipmap/sub_arrow" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/sub_product_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:scrollbars="none" />
         </LinearLayout>
     </LinearLayout>
 
