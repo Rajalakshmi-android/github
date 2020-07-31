@@ -5,7 +5,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+    <com.iamretailer.Common.CustomTextview1
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp40"
         android:gravity="center"
@@ -32,7 +32,7 @@ android:layout_height="match_parent"
         android:layout_marginStart="@dimen/dp10"
         >
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+        <com.iamretailer.Common.CustomTextview
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@ android:layout_height="match_parent"
             android:id="@+id/high_to_low"
             android:layout_marginStart="@dimen/dp10"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -69,7 +69,7 @@ android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp10"
             android:id="@+id/newest"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -88,7 +88,7 @@ android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp10"
             android:id="@+id/popular"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -107,7 +107,7 @@ android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp10"
             android:id="@+id/nameaz"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -126,7 +126,7 @@ android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp10"
             android:id="@+id/nameza"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -146,7 +146,7 @@ android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp10"
             android:id="@+id/modelaz"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -166,7 +166,7 @@ android:layout_height="match_parent"
             android:id="@+id/modelza"
             android:visibility="gone"
             android:orientation="horizontal">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 

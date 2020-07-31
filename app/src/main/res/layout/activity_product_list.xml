@@ -17,7 +17,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:id="@+id/no_proditems"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

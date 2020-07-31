@@ -133,4 +133,8 @@
     <dimen name="dp17">17dp</dimen>
     <dimen name="dp63">63dp</dimen>
 
+	//pink
+	<dimen name="dpp2">2px</dimen>
+	<dimen name="dpp1">1px</dimen>
+
 </resources>

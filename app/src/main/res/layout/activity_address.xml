@@ -25,7 +25,7 @@
                 android:orientation="vertical">
 
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
 
                     android:id="@+id/testcustomview"
                     android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                     android:textColor="@color/app_text_color"
                     android:textSize="@dimen/text26sp"
                     android:textStyle="bold" />
-                <com.iamretailer.krishnasupermarket.Common.CustomTextViewLight
+                <com.iamretailer.Common.CustomTextViewLight
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/need_your_contacts"
@@ -74,6 +74,8 @@
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/dp5"
                                 android:padding="@dimen/dp3"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/users" />
 
                             <android.support.design.widget.TextInputLayout
@@ -84,7 +86,7 @@
                                 android:gravity="start"
                                 android:layout_marginStart="@dimen/dp10">
 
-                                <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/full_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -114,6 +116,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="@dimen/dp5"
                                 android:padding="@dimen/dp3"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/users" />
 
 
@@ -123,7 +127,7 @@
                                 android:theme="@style/LoginEditTexts"
                                 android:layout_marginStart="@dimen/dp10">
 
-                                <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/username2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -158,6 +162,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/cmpy" />
 
 
@@ -167,7 +173,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/company"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -197,6 +203,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp1"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/add_address" />
 
 
@@ -207,7 +215,7 @@
                                     android:layout_marginStart="@dimen/dp10">
 
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/address_one"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -238,6 +246,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp1"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/add_address" />
 
 
@@ -247,7 +257,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/address_two"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -277,6 +287,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/menu_home" />
 
 
@@ -286,7 +298,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/city"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -316,6 +328,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/pin_code" />
 
 
@@ -325,7 +339,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/pin_code"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -356,6 +370,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp1"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/menu_contact_us" />
 
 
@@ -365,7 +381,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:layout_marginStart="@dimen/dp10">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/mobile"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -398,6 +414,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/country" />
 
                                 <FrameLayout
@@ -439,6 +457,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="@dimen/dp5"
                                     android:padding="@dimen/dp3"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:autoMirrored="true"
                                     android:src="@mipmap/address_state" />
                                 <FrameLayout
                                     android:layout_width="match_parent"
@@ -458,6 +478,8 @@
                                         android:layout_height="@dimen/dp15"
                                         android:src="@mipmap/drop_arrow"
                                         android:padding="@dimen/dp2"
+                                        android:rotationY="@integer/locale_mirror_flip"
+                                        android:autoMirrored="true"
                                         android:layout_marginEnd="@dimen/dp6"
                                         android:layout_gravity="end|center_vertical"/>
                                 </FrameLayout>
@@ -483,7 +505,7 @@
                     android:layout_gravity="center"
                     android:orientation="horizontal">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

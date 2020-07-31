@@ -61,7 +61,7 @@
                         android:layout_gravity="center"
                         android:src="@mipmap/star_white" />
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/prod_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                 android:layout_marginTop="@dimen/dp20"
                 android:orientation="vertical">
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:id="@+id/p_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                     android:orientation="horizontal"
                     android:weightSum="@integer/two">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/p_rate1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                         android:textSize="@dimen/text14sp"
                         android:textStyle="bold" />
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/orginal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center">
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add"

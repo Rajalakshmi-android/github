@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/app_bg_color"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:id="@+id/fullayout">
@@ -56,9 +56,11 @@
                                     android:layout_gravity="center"
                                     android:layout_marginStart="@dimen/dp10"
                                     android:padding="@dimen/dp2"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
                                     android:src="@mipmap/searching" />
 
-                                <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/search_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -98,7 +100,7 @@
                                 android:indeterminateDrawable="@drawable/custom_progress" />
                         </LinearLayout>
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text15sp"

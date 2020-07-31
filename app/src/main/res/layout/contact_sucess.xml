@@ -10,7 +10,7 @@
         android:orientation="vertical"
         >
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+        <com.iamretailer.Common.CustomTextview1
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_marginTop="@dimen/dp10"
             android:background="@color/app_view_color"/>
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+        <com.iamretailer.Common.CustomTextview
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="@dimen/dp10"
             android:id="@+id/okay"
             android:background="@drawable/buy_back">
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ok"

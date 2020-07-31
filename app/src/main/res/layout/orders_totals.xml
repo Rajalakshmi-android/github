@@ -12,7 +12,7 @@
         android:weightSum="@integer/two"
         android:layout_marginTop="@dimen/dp2">
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+        <com.iamretailer.Common.CustomTextview
             android:id="@+id/amount_title"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_weight="0.5"
             android:gravity="end">
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/cur_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:textColor="@color/qty_tex"
                 android:textSize="@dimen/text9sp" />
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/amount_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 android:textColor="@color/qty_tex"
                 android:textSize="@dimen/text14sp" />
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/cur_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

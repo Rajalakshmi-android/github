@@ -43,9 +43,11 @@
                             android:src="@mipmap/add_icon"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
+                            android:rotationY="@integer/locale_mirror_flip"
+                            android:autoMirrored="true"
                            />
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -73,7 +75,7 @@
                         android:scrollbars="none"
 
                         />
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text15sp"
@@ -101,7 +103,7 @@
                     android:layout_marginBottom="@dimen/dp30"
                     android:background="@drawable/login_button">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

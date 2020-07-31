@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -40,7 +40,7 @@
                         android:textColor="@color/app_text_color"
                         android:textSize="@dimen/text14sp"
                         />
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/pos"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -66,29 +66,33 @@
                         android:id="@+id/edit"
                         android:layout_width="@dimen/dp30"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="right"
+                        android:gravity="end"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_width="@dimen/dp18"
-                        android:layout_height="@dimen/dp18"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:src="@mipmap/gray_edit" />
+                        <ImageView
+                            android:layout_width="@dimen/dp18"
+                            android:layout_height="@dimen/dp18"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:src="@mipmap/gray_edit" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/delete"
                         android:layout_width="@dimen/dp25"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="right"
+                        android:gravity="end"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="@dimen/dp13"
-                        android:layout_height="@dimen/dp13"
-                        android:layout_gravity="end|center_vertical"
-                        android:gravity="right"
-                        android:src="@mipmap/gray_delete" />
+                        <ImageView
+                            android:layout_width="@dimen/dp13"
+                            android:layout_height="@dimen/dp13"
+                            android:layout_gravity="end|center_vertical"
+                            android:gravity="end"
+                            android:src="@mipmap/gray_delete" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -110,7 +114,7 @@
                     android:orientation="vertical"
                     android:paddingTop="@dimen/dp3">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/cus_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,7 +123,7 @@
                         android:textSize="@dimen/text16sp"
                         />
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/address_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -129,7 +133,7 @@
 
                         />
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,7 +161,7 @@
                     android:orientation="vertical"
                     android:layout_weight="@dimen/value1.5">
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                    <com.iamretailer.Common.CustomTextview
                         android:id="@+id/country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -167,14 +171,14 @@
 
                         />
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/cus_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="871927912`90"
                         android:textColor="@color/text_color1"
                         android:textSize="@dimen/text15sp"
-                       />
+                        />
 
 
                 </LinearLayout>
@@ -200,6 +204,8 @@
                         android:layout_height="@dimen/dp30"
                         android:layout_gravity="end"
                         android:gravity="top"
+                        android:autoMirrored="true"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/gray_circle1"
                         android:visibility="gone"/>
                 </FrameLayout>

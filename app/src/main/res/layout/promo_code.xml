@@ -22,10 +22,12 @@
                 android:layout_width="@dimen/dp12"
                 android:layout_height="@dimen/dp12"
                 android:src="@mipmap/cancel_icon"
+                android:rotationY="@integer/locale_mirror_flip"
+                android:autoMirrored="true"
                 android:layout_margin="@dimen/dp5"/>
         </LinearLayout>
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+        <com.iamretailer.Common.CustomTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +36,7 @@
             android:textColor="@color/cart_text"
             android:textSize="@dimen/text15sp" />
 
-        <com.iamretailer.krishnasupermarket.Common.CustomEditext
+        <com.iamretailer.Common.CustomEditext
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
             android:layout_marginEnd="@dimen/dp10"
@@ -59,7 +61,7 @@
             android:id="@+id/apply"
             >
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

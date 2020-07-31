@@ -64,7 +64,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/prod_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -80,6 +80,8 @@
                                 android:layout_gravity="end|top"
                                 android:layout_marginEnd="@dimen/dp12"
                                 android:padding="@dimen/dp4"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:autoMirrored="true"
                                 android:src="@mipmap/cancel_icon" />
                         </FrameLayout>
 
@@ -88,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/cur_front"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -98,7 +100,7 @@
                                 android:textSize="@dimen/text11sp"
                                 android:textStyle="bold" />
 
-                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/prod_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -108,7 +110,7 @@
                                 android:textSize="@dimen/text16sp"
                                 android:textStyle="bold" />
 
-                            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                            <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/cur_back"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

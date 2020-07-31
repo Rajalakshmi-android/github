@@ -14,7 +14,7 @@
             android:padding="@dimen/dp5"
             android:gravity="right"
             >
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text14sp"
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:padding="@dimen/dp5">
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text14sp"

@@ -23,7 +23,7 @@
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 >
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -31,7 +31,7 @@
                     android:textColor="@color/text_color1"
                     android:textSize="@dimen/text13sp"
                     />
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                <com.iamretailer.Common.CustomTextview1
                     android:layout_marginLeft="@dimen/dp1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                     android:textSize="@dimen/text14sp"
                     />
 
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                <com.iamretailer.Common.CustomTextview1
                     android:id="@+id/order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_gravity="end"
                 android:orientation="horizontal"
                 >
-                <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                <com.iamretailer.Common.CustomTextview1
                     android:id="@+id/status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                         android:orientation="horizontal"
                         >
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
@@ -113,7 +113,7 @@
                             android:textSize="@dimen/text13sp" />
 
                     </LinearLayout>
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/quan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         >
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
@@ -146,7 +146,7 @@
 
                     </LinearLayout>
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/daytime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                         android:orientation="horizontal"
                         >
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="start"
@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         >
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        <com.iamretailer.Common.CustomTextview1
                             android:id="@+id/symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                             android:textColor="@color/conf_tex"
                             android:textSize="@dimen/dp9"
                             />
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/totalamount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -200,6 +200,15 @@
                         android:textColor="@color/conf_tex"
                         android:textSize="@dimen/dp14"
                         />
+                        <com.iamretailer.Common.CustomTextview1
+                            android:id="@+id/symbol1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/order"
+                            android:textColor="@color/conf_tex"
+                            android:textSize="@dimen/dp9"
+                            />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -220,7 +229,7 @@
                         android:orientation="horizontal"
                         >
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
@@ -230,7 +239,7 @@
 
                     </LinearLayout>
 
-                    <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                    <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/orderid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -252,7 +261,7 @@
                         android:layout_gravity="end"
                         android:gravity="end">
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        <com.iamretailer.Common.CustomTextview1
                             android:id="@+id/detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

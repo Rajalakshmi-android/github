@@ -57,7 +57,7 @@
                 android:autoMirrored="true"
                 android:rotationY="@integer/locale_mirror_flip"/>
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview
+            <com.iamretailer.Common.CustomTextview
                 android:id="@+id/cart_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

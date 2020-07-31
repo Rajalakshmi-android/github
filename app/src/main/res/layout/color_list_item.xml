@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/colortxt"
                 android:layout_width="36dp"
                 android:layout_height="36dp"

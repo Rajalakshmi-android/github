@@ -6,22 +6,18 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent">
 
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/splashbg" />
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp320"
+            android:layout_height="@dimen/dp100"
             android:layout_gravity="center"
-            android:src="@mipmap/logo"
+            android:src="@mipmap/logo1"
             android:scaleType="fitCenter"
-            android:layout_marginBottom="@dimen/dp70"/>
+           />
 
     </FrameLayout>
 

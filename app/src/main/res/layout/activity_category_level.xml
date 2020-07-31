@@ -37,7 +37,7 @@
                             android:id="@+id/main_cat_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp18"
+                            android:layout_marginStart="@dimen/dp18"
                             android:divider="@null"
                             android:listSelector="@android:color/transparent"
                             android:scrollbars="none" />
@@ -52,7 +52,7 @@
                         android:layout_weight="@dimen/value_1_35"
                         android:orientation="vertical">
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+                        <com.iamretailer.Common.CustomTextview1
                             android:id="@+id/cat_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     android:paddingLeft="@dimen/dp20"
     android:paddingRight="@dimen/dp20">
 
-    <com.iamretailer.krishnasupermarket.Common.circularimageview.RoundedImage
+    <com.iamretailer.Common.circularimageview.RoundedImage
         android:id="@+id/browsebackground"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

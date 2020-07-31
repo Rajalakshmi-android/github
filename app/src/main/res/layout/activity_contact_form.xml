@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:id="@+id/testcustomview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                             android:textSize="@dimen/text25sp"
                             android:textStyle="bold" />
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextViewLight
+                        <com.iamretailer.Common.CustomTextViewLight
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sumbit_queries"
@@ -83,6 +83,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/users" />
 
@@ -93,7 +95,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:textAlignment="viewStart">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/full_name"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -127,6 +129,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/dp10"
                                     android:padding="@dimen/dp3"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
                                     android:layout_marginBottom="@dimen/dp2"
                                     android:src="@mipmap/mailss" />
 
@@ -136,7 +140,7 @@
                                     android:theme="@style/LoginEditTexts"
                                     android:textAlignment="viewStart">
 
-                                    <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                                    <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/mailid"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -166,7 +170,7 @@
                                 android:layout_marginEnd="@dimen/dp15"
                                 android:layout_marginTop="@dimen/dp25"
                                 android:background="@drawable/contact_us_bg">
-                            <com.iamretailer.krishnasupermarket.Common.CustomEditext
+                            <com.iamretailer.Common.CustomEditext
                                 android:id="@+id/comments"
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="@dimen/dp20"
@@ -205,7 +209,7 @@
                         android:layout_marginEnd="@dimen/dp30"
                         android:background="@drawable/login_button">
 
-                        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+                        <com.iamretailer.Common.CustomTextview
                             android:id="@+id/cont"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

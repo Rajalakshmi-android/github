@@ -47,24 +47,27 @@
         <ImageView
             android:layout_width="@dimen/dp90"
             android:layout_height="@dimen/dp90"
+            android:rotationY="@integer/locale_mirror_flip"
+            android:autoMirrored="true"
             android:src="@mipmap/empty_cart" />
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+        <com.iamretailer.Common.CustomTextview1
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp15"
             android:gravity="center"
             android:text="@string/add_st"
+            android:visibility="gone"
             android:textColor="@color/product_text_clr"
             android:textSize="@dimen/text21sp" />
 
-        <com.iamretailer.krishnasupermarket.Common.CustomTextview
+        <com.iamretailer.Common.CustomTextview
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/order_emp"
+            android:text="@string/no_orders"
             android:textColor="@color/add_text2"
             android:textSize="@dimen/text17sp" />
 
@@ -82,7 +85,7 @@
             android:gravity="center"
             >
 
-            <com.iamretailer.krishnasupermarket.Common.CustomTextview1
+            <com.iamretailer.Common.CustomTextview1
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
