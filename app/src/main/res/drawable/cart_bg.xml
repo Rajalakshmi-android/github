@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#11bbbbbb" />
+            <padding  android:right="1px" android:bottom="1px"  />
+            <corners
+                android:bottomLeftRadius="@dimen/dp10"
+                android:topLeftRadius="@dimen/dp10"
+                android:topRightRadius="@dimen/dp10"
+                android:bottomRightRadius="@dimen/dp10"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#11bbbbbb" />
+            <padding  android:right="1px" android:bottom="1px"  android:top="1px" android:left="1px"   />
+            <corners
+                android:bottomLeftRadius="@dimen/dp10"
+                android:topLeftRadius="@dimen/dp10"
+                android:topRightRadius="@dimen/dp10"
+                android:bottomRightRadius="@dimen/dp10"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#33bbbbbb" />
+            <padding  android:right="2px" android:bottom="2px"  />
+            <corners
+                android:bottomLeftRadius="@dimen/dp10"
+                android:topLeftRadius="@dimen/dp10"
+                android:topRightRadius="@dimen/dp10"
+                android:bottomRightRadius="@dimen/dp10"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <padding  android:right="1px" android:bottom="1px"  android:top="1px" android:left="1px" />
+            <corners
+                android:bottomLeftRadius="@dimen/dp10"
+                android:topLeftRadius="@dimen/dp10"
+                android:topRightRadius="@dimen/dp10"
+                android:bottomRightRadius="@dimen/dp10"/>
+        </shape>
+    </item>
+</layer-list>

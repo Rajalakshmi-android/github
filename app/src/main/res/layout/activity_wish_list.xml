@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fullayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/menu_back" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/wish_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:divider="@null"
+                    android:listSelector="@android:color/transparent" />
+
+                <FrameLayout
+                    android:id="@+id/no_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.iamretailer.Common.CustomTextview
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="@string/no_items_yet"
+                            android:textColor="@color/app_text_color"
+                            android:textSize="@dimen/text17sp" />
+
+                        <com.iamretailer.Common.CustomButton
+                            android:id="@+id/shop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp35"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:background="@drawable/circle"
+                            android:paddingEnd="@dimen/dp20"
+                            android:paddingStart="@dimen/dp20"
+                            android:text="@string/shop_now"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text12sp" />
+
+
+                    </LinearLayout>
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <include layout="@layout/error_layout" />
+
+            <include layout="@layout/loading" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

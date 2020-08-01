@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="zero">0</integer>
+    <integer name="one">1</integer>
+    <integer name="two">2</integer>
+    <integer name="three">3</integer>
+    <integer name="flour">4</integer>
+    <integer name="five">5</integer>
+    <integer name="siz">6</integer>
+    <integer name="locale_mirror_flip">0</integer>
+    <integer name="ninety">90</integer>
+
+</resources>

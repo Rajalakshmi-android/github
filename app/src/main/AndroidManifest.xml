@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.iamretailer">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".AppClass"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".ProductFullView"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Allen" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".FullView" />
+        <activity
+            android:name=".Address"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Login" />
+        <activity
+            android:name=".Registration"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".GuestCheckout"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".PaymentMethod" />
+        <activity android:name=".DeliveryMethod" />
+        <activity android:name=".ConfirmOrder" />
+        <activity android:name=".MyOrders" />
+        <activity android:name=".ViewDetails" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.iamretailer.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".Category" />
+        <activity android:name=".Review" />
+
+        <service
+            android:name=".Common.MyNotificationExtenderService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ChangePassword" />
+        <activity android:name=".Product_list" />
+        <activity android:name=".Deal_list" />
+        <activity android:name=".Category_level" />
+        <activity android:name=".MyProfile" />
+        <activity android:name=".WishList" />
+
+        <!--
+            <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="922b4ff6de5921100f91bd8a0017eedf386db81c" />
+        -->
+
+        <activity android:name=".AddressList" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:exported="true"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
+
+        <activity android:name=".OrderEdit" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBjxSwGKm3rgFm-dkaGXZ2cMlYl6NI3oEw" />
+
+        <activity
+            android:name=".ContactForm"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Wallet" />
+        <activity android:name=".Language" />
+        <activity android:name=".StoreLocator" />
+        <activity android:name=".About_Activity" />
+        <activity android:name=".Webactivity" />
+        <activity android:name=".PaymentAct" />
+        <activity android:name=".MyCart"/>
+        <meta-data android:value="rzp_live_Il11upgKqcMaXI" android:name="com.razorpay.ApiKey"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topbg"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp60"
+    android:layout_gravity="top"
+    android:background="@drawable/layer">
+
+    <LinearLayout
+        android:id="@+id/sidemenu"
+        android:layout_width="@dimen/dp25"
+        android:layout_height="@dimen/dp50"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="@dimen/dp10"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/menu_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:rotationY="@integer/locale_mirror_flip"
+            android:src="@mipmap/menu_black" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp5"
+        android:gravity="center|center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/logo" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/cart_items"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp26"
+        android:layout_gravity="end|center_vertical"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp20"
+                android:src="@mipmap/shoppingg"
+                android:autoMirrored="true"
+                android:rotationY="@integer/locale_mirror_flip"/>
+
+            <com.iamretailer.Common.CustomTextview
+                android:id="@+id/cart_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/dp10"
+                android:adjustViewBounds="true"
+                android:background="@drawable/badge"
+                android:gravity="center"
+                android:minHeight="@dimen/text17sp"
+                android:minWidth="@dimen/text18sp"
+                android:padding="@dimen/dp1"
+                android:scaleType="fitStart"
+                android:text="@string/cart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text10sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</FrameLayout>

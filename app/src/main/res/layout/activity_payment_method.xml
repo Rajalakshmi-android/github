@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/menu_back" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_marginBottom="@dimen/dp85"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp8"
+                        android:layout_marginEnd="@dimen/dp25"
+                        android:layout_marginStart="@dimen/dp20"
+                       >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:orientation="vertical">
+
+                             <ListView
+
+                                 android:id="@+id/payment_list"
+                                 android:divider="@null"
+                                 android:background="@null"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="vertical" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_marginStart="@dimen/dp30"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:background="@drawable/rounded"
+                                android:visibility="gone">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp10"
+                                    android:theme="@style/LoginEditTexts">
+
+                                    <com.iamretailer.Common.CustomEditext
+                                        android:id="@+id/comments"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dp100"
+                                        android:layout_gravity="start|top"
+                                        android:background="@null"
+                                        android:gravity="start|top"
+                                        android:hint="@string/delivery_tex"
+                                        android:inputType="textMultiLine"
+                                        android:padding="@dimen/dp10"
+                                        android:textColor="@color/app_text_color"
+                                        android:textSize="@dimen/text15sp" />
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cont"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp45"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@drawable/login_button"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp40"
+                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginStart="@dimen/dp30"
+                android:gravity="center"
+                >
+
+                <com.iamretailer.Common.CustomTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@string/continues"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text20sp" />
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/error_layout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp60"/>
+    </FrameLayout>
+
+     <include
+         layout="@layout/loading"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+
+         android:layout_marginTop="@dimen/dp60" />
+</FrameLayout>

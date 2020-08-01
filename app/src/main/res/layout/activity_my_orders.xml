@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fullayout"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <include
+            layout="@layout/menu_back"/>
+        <ListView
+
+            android:layout_width="match_parent"
+            android:id="@+id/order_list"
+            android:layout_marginTop="@dimen/dp10"
+            android:divider="@null"
+            android:dividerHeight="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:scrollbars="none"
+            android:layout_height="match_parent"
+            android:listSelector="@android:color/transparent"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+        <include
+            layout="@layout/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp60"/>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp90"
+            android:rotationY="@integer/locale_mirror_flip"
+            android:autoMirrored="true"
+            android:src="@mipmap/empty_cart" />
+
+        <com.iamretailer.Common.CustomTextview1
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="center"
+            android:text="@string/add_st"
+            android:visibility="gone"
+            android:textColor="@color/product_text_clr"
+            android:textSize="@dimen/text21sp" />
+
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/no_orders"
+            android:textColor="@color/add_text2"
+            android:textSize="@dimen/text17sp" />
+
+
+        <LinearLayout
+            android:id="@+id/shopnow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp30"
+            android:background="@drawable/login_button"
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/dp40"
+            android:layout_marginStart="@dimen/dp40"
+            android:gravity="center"
+            >
+
+            <com.iamretailer.Common.CustomTextview1
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/shop_now"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text18sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <include
+
+        layout="@layout/loading"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp60"/>
+
+</FrameLayout>

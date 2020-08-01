@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end|center_vertical"
+        android:layout_gravity="end|center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="@integer/two"
+        android:layout_marginTop="@dimen/dp2">
+
+        <com.iamretailer.Common.CustomTextview
+            android:id="@+id/amount_title"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="1.5"
+            android:layout_marginStart="@dimen/dp5"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/qty_tex"
+            android:textSize="@dimen/text14sp" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="0.5"
+            android:gravity="end">
+
+            <com.iamretailer.Common.CustomTextview1
+                android:id="@+id/cur_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="@dimen/dp2"
+                android:textColor="@color/qty_tex"
+                android:textSize="@dimen/text9sp" />
+
+            <com.iamretailer.Common.CustomTextview1
+                android:id="@+id/amount_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="end|center_vertical"
+                android:text="@string/copy"
+                android:textColor="@color/qty_tex"
+                android:textSize="@dimen/text14sp" />
+
+            <com.iamretailer.Common.CustomTextview1
+                android:id="@+id/cur_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="@dimen/dp2"
+                android:textColor="@color/qty_tex"
+                android:textSize="@dimen/text9sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

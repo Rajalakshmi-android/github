@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/error_network"
+    android:visibility="gone"
+    android:background="@color/white">
+    <LinearLayout
+        android:id="@+id/nonetwork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/erroricon"
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp90"
+            android:autoMirrored="true"
+            android:rotationY="@integer/locale_mirror_flip"
+            android:src="@mipmap/no_connection" />
+
+        <com.iamretailer.Common.CustomTextview1
+            android:id="@+id/errortxt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:gravity="center"
+            android:text="@string/no_con"
+            android:textColor="@color/product_text_clr"
+            android:textSize="@dimen/text21sp"
+            android:textStyle="bold" />
+
+        <com.iamretailer.Common.CustomTextview
+            android:id="@+id/errortxt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/dp17"
+            android:text="@string/check_network"
+            android:textColor="@color/add_text2" />
+
+    <LinearLayout
+        android:id="@+id/retry"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp30"
+        android:background="@drawable/login_button"
+        android:orientation="horizontal"
+        android:layout_marginEnd="@dimen/dp40"
+        android:layout_marginStart="@dimen/dp40"
+        android:gravity="center"
+        >
+
+        <com.iamretailer.Common.CustomTextview1
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/retry"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text18sp" />
+    </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

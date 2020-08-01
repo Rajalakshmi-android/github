@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/banner"
+    >
+    <View
+        android:id="@+id/poss"
+        android:layout_width="@dimen/dp15"
+        android:layout_height="match_parent"/>
+
+    <com.iamretailer.Common.circularimageview.RoundedImage
+        android:id="@+id/browsebackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="@dimen/dp15"
+        android:src="@mipmap/place_holder" />
+</LinearLayout>
