@@ -105,6 +105,12 @@ public class AddressList extends Language {
             }
         });
 
+        if(from==1){
+            address_list.setPadding(0,0,0,50);
+        }else{
+            address_list.setPadding(0,0,0,0);
+        }
+
         address_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

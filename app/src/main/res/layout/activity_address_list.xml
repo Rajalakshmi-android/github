@@ -60,7 +60,6 @@
 
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_marginBottom="@dimen/dp40"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -71,7 +70,6 @@
                         android:layout_height="match_parent"
                         android:divider="@null"
                         android:listSelector="@android:color/transparent"
-
                         android:scrollbars="none"
 
                         />
