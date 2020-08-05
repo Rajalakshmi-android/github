@@ -2,14 +2,12 @@ package com.iamretailer;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -32,28 +30,19 @@ import stutzen.co.network.Connection;
 
 public class About_Activity extends AppCompatActivity {
 
-    private DBController dbCon;
     private GridView Grid;
-    private LinearLayout back;
-    ArrayList<OptionsPO> optionsPOArrayList1;
-    AboutAdapter adapter1;
-    Bundle bundle;
-    private TextView cart_count;
-    ArrayList<OptionsPO> optionsPOArrayList;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    FrameLayout error_network;
-    LinearLayout retry;
-    EditText search_text;
-    LinearLayout search_loading;
-    TextView no_items;
-    FrameLayout fullayout;
-    String text = "";
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
-    AboutTask productTask;
+    private ArrayList<OptionsPO> optionsPOArrayList1;
+    private AboutAdapter adapter1;
+    private Bundle bundle;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private LinearLayout search_loading;
+    private TextView no_items;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
+    private AndroidLogger logger;
 
 
     @Override
@@ -62,36 +51,30 @@ public class About_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         CommonFunctions.updateAndroidSecurityProvider(this);
 
-        dbCon = new DBController(About_Activity.this);
+        DBController dbCon = new DBController(About_Activity.this);
         logger=AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID,false);
         Appconstatants.sessiondata = dbCon.getSession();
-        Appconstatants.Lang=dbCon.get_lang_code();
-        Appconstatants.CUR=dbCon.getCurCode();
+        Appconstatants.Lang= dbCon.get_lang_code();
+        Appconstatants.CUR= dbCon.getCurCode();
         Log.d("Session", Appconstatants.sessiondata + "Value");
-        Grid = (GridView) findViewById(R.id.grid);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
+        Grid = findViewById(R.id.grid);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        optionsPOArrayList = new ArrayList<>();
-        String s1=getResources().getString( R.string.about);
+        loading =findViewById(R.id.loading);
+        error_network =findViewById(R.id.error_network);
+        loading_bar=findViewById(R.id.loading_bar);
         String s2=getResources().getString(R.string.app_name);
         header.setText(s2);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        search_text = (EditText) findViewById(R.id.search_text);
-        search_loading = (LinearLayout) findViewById(R.id.search_loading);
-        no_items = (TextView) findViewById(R.id.no_items);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
+        LinearLayout retry = findViewById(R.id.retry);
+        search_loading =findViewById(R.id.search_loading);
+        no_items =findViewById(R.id.no_items);
+        fullayout =findViewById(R.id.fullayout);
+        errortxt1 =findViewById(R.id.errortxt1);
+        errortxt2 =findViewById(R.id.errortxt2);
 
-
-        AboutTask   productTask = new AboutTask();
-        productTask.execute(Appconstatants.ABOUT );
+        new AboutTask().execute(Appconstatants.ABOUT);
 
 
 
@@ -145,7 +128,7 @@ public class About_Activity extends AppCompatActivity {
             logger.info("Product list search api"+param[0]);
 
             Log.d("singleurl", param[0]);
-            String response = null;
+            String response;
             try {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,About_Activity.this);

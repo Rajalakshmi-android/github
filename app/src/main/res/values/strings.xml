@@ -373,5 +373,16 @@
     <string name="address_update">Address Updated Successfully</string>
     <string name="no_orders">No Orders Yet!!</string>
 
+    <string name="per_enable">Enable Permissions from settings</string>
+    <string name="enable">ENABLE</string>
+    <string name="no_cat_found">No Categories found.</string>
+
+    <string name="menu">Menu</string>
+    <string name="most_p">Populat Items</string>
+    <string name="newly_f">Fresh Products</string>
+    <string name="rating">-50%</string>
+    <string name="rating1">%</string>
+    <string name="kg">/Kg</string>
+
 
 </resources>
