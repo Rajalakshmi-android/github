@@ -64,23 +64,23 @@ public class AddressList extends Language {
         setContentView(R.layout.activity_address_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        cont = (FrameLayout) findViewById(R.id.cont);
-        add_new_address = (LinearLayout) findViewById(R.id.add_new_address);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        address_list = (ListView) findViewById(R.id.address_list);
-        header=(TextView)findViewById(R.id.header);
-        no_address=(TextView)findViewById(R.id.no_address);
+        back = findViewById(R.id.menu);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        cont = findViewById(R.id.cont);
+        add_new_address = findViewById(R.id.add_new_address);
+        fullayout = findViewById(R.id.fullayout);
+        loading_bar = findViewById(R.id.loading_bar);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        retry = findViewById(R.id.retry);
+        address_list = findViewById(R.id.address_list);
+        header= findViewById(R.id.header);
+        no_address= findViewById(R.id.no_address);
         dbController = new DBController(getApplicationContext());
 
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        cart_count=(TextView)findViewById(R.id.cart_count);
+        cart_items= findViewById(R.id.cart_items);
+        cart_count= findViewById(R.id.cart_count);
 
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override

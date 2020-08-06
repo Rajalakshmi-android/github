@@ -46,12 +46,12 @@ public class ChangePassword extends Language {
         Appconstatants.sessiondata=db.getSession();
         Appconstatants.Lang=db.get_lang_code();
         Appconstatants.CUR=db.getCurCode();
-        change_pwd=(FrameLayout)findViewById(R.id.change_pwd);
-        pass1=(EditText)findViewById(R.id.pwd1);
-        pass2=(EditText)findViewById(R.id.pwd2);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        login_page=(TextView)findViewById(R.id.login_page);
-        home=(LinearLayout)findViewById(R.id.home);
+        change_pwd= findViewById(R.id.change_pwd);
+        pass1= findViewById(R.id.pwd1);
+        pass2= findViewById(R.id.pwd2);
+        fullayout= findViewById(R.id.fullayout);
+        login_page= findViewById(R.id.login_page);
+        home= findViewById(R.id.home);
 
 
         change_pwd.setOnClickListener(new View.OnClickListener() {

@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -21,7 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Adapter.CountryAdapter;
+import com.iamretailer.Adapter.StateAdapter;
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
+import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.Validation;
+import com.iamretailer.POJO.CountryPO;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
@@ -29,21 +32,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import com.iamretailer.Adapter.CountryAdapter;
-import com.iamretailer.Adapter.StateAdapter;
-import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.DBController;
-import com.iamretailer.Common.Validation;
-import com.iamretailer.POJO.CountryPO;
-
 import stutzen.co.network.Connection;
 
 
 public class Address extends Language {
     LinearLayout back;
-    EditText f_name, l_name, mobile, company, addressone, addressstwo, city, pincode, passone, passtwo;
+    EditText f_name, l_name, mobile, company, addressone, addressstwo, city, pincode;
     FrameLayout cont;
-    CheckBox terms;
     Spinner state, country;
     FrameLayout error_network;
     LinearLayout retry;
@@ -63,17 +58,6 @@ public class Address extends Language {
     AndroidLogger logger;
     StateAdapter s_adapter;
     CountryAdapter c_adapter;
-    String zone="";
-    String coun="";
-     String first_name="";
-     String last_name="";
-    private String cmpy="";
-    private String add_one="";
-    private String add_two="";
-    private String pin_code="";
-    private String city_name="";
-    private String phone="";
-    private String zone1="";
     int has_ship;
     private int add_ids =0;
 
@@ -96,30 +80,28 @@ public class Address extends Language {
         Log.d("from_values",from+"");
         has_ship=cc.getInt("has_ship");
         Appconstatants.Lang=dbController.get_lang_code();
-        f_name = (EditText) findViewById(R.id.full_name);
-        l_name = (EditText) findViewById(R.id.username2);
-        mobile = (EditText) findViewById(R.id.mobile);
-        passone = (EditText) findViewById(R.id.passone);
-        passtwo = (EditText) findViewById(R.id.passtwo);
-        company = (EditText) findViewById(R.id.company);
-        addressone = (EditText) findViewById(R.id.address_one);
-        addressstwo = (EditText) findViewById(R.id.address_two);
-        city = (EditText) findViewById(R.id.city);
-        pincode = (EditText) findViewById(R.id.pin_code);
-        cont = (FrameLayout) findViewById(R.id.cont);
-        state = (Spinner) findViewById(R.id.state);
-        country = (Spinner) findViewById(R.id.country);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
+        f_name = findViewById(R.id.full_name);
+        l_name = findViewById(R.id.username2);
+        mobile = findViewById(R.id.mobile);
+        company = findViewById(R.id.company);
+        addressone = findViewById(R.id.address_one);
+        addressstwo = findViewById(R.id.address_two);
+        city = findViewById(R.id.city);
+        pincode = findViewById(R.id.pin_code);
+        cont = findViewById(R.id.cont);
+        state = findViewById(R.id.state);
+        country = findViewById(R.id.country);
+        error_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
+        back = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
         header.setText(R.string.delivery_add);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
+        cart_items = findViewById(R.id.cart_items);
+        fullayout= findViewById(R.id.fullayout);
         cart_items.setVisibility(View.GONE);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar= findViewById(R.id.loading_bar);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +109,7 @@ public class Address extends Language {
                 onBackPressed();
             }
         });
-        loading = (FrameLayout) findViewById(R.id.loading);
+        loading = findViewById(R.id.loading);
 
 
         CountryTask countryTask = new CountryTask();
@@ -1196,7 +1178,7 @@ public class Address extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    country_list = new ArrayList<CountryPO>();
+                    country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
                     po1.setCount_name("Select Country");
@@ -1238,7 +1220,7 @@ public class Address extends Language {
 
                         }
 
-                        state_list = new ArrayList<CountryPO>();
+                        state_list = new ArrayList<>();
                         CountryPO po = new CountryPO();
                         po.setZone_id("0");
                         po.setCont_id("0");
@@ -1391,11 +1373,6 @@ public class Address extends Language {
             }
 
         }
-    }
-
-    public void onBackPressed() {
-        super.onBackPressed();
-
     }
 
     private class UPDATE_ADD extends AsyncTask<String, Void, String> {
