@@ -2,21 +2,22 @@ package com.iamretailer;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamretailer.Adapter.CommonAdapter;
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.POJO.ProductsPO;
 import com.iamretailer.POJO.SingleOptionPO;
 import com.logentries.android.AndroidLogger;
 
@@ -24,10 +25,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import com.iamretailer.Common.Appconstatants;
-
-import com.iamretailer.POJO.ProductsPO;
 
 import stutzen.co.network.Connection;
 
@@ -47,7 +44,6 @@ public class Product_list extends Language {
     LinearLayout cart_items;
     TextView cart_counts;
     LinearLayout retry;
-    private boolean scrollValue;
     private boolean scrollNeed=true;
     private int start=1,limit=10;
     LinearLayout load_more;
@@ -74,20 +70,20 @@ public class Product_list extends Language {
         setContentView(R.layout.activity_product_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        error_network=(FrameLayout)findViewById(R.id.error_network);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        product_list=(RecyclerView) findViewById(R.id.product_list);
-        back=(LinearLayout)findViewById(R.id.menu);
-        header=(TextView)findViewById(R.id.header);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        cart_counts=(TextView)findViewById(R.id.cart_count);
-        retry=(LinearLayout)findViewById(R.id.retry);
-        load_more=(LinearLayout) findViewById(R.id.load_more);
-        errortxt1=(TextView)findViewById(R.id.errortxt1);
-        errortxt2=(TextView)findViewById(R.id.errortxt2);
-        no_proditems=(TextView)findViewById(R.id.no_proditems);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        loading= findViewById(R.id.loading);
+        error_network= findViewById(R.id.error_network);
+        fullayout= findViewById(R.id.fullayout);
+        product_list= findViewById(R.id.product_list);
+        back= findViewById(R.id.menu);
+        header= findViewById(R.id.header);
+        cart_items= findViewById(R.id.cart_items);
+        cart_counts= findViewById(R.id.cart_count);
+        retry= findViewById(R.id.retry);
+        load_more= findViewById(R.id.load_more);
+        errortxt1= findViewById(R.id.errortxt1);
+        errortxt2= findViewById(R.id.errortxt2);
+        no_proditems= findViewById(R.id.no_proditems);
+        loading_bar= findViewById(R.id.loading_bar);
         bundle=new Bundle();
         bundle=getIntent().getExtras();
         from=bundle.getString("view_all");
@@ -115,11 +111,6 @@ public class Product_list extends Language {
             title=bundle.getString("title");
         }
 
-
-
-
-
-
         if (from.equals("best_sell")) {
             BEST_SELLING best_selling = new BEST_SELLING();
             best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
@@ -144,6 +135,10 @@ public class Product_list extends Language {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
+                start=1;
+                limit=10;
+                val=0;
+                loadin=false;
                 no_proditems.setVisibility(View.GONE);
                 if (from.equals("best_sell")) {
                     BEST_SELLING best_selling = new BEST_SELLING();
@@ -165,10 +160,6 @@ public class Product_list extends Language {
         });
 
         product_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -352,7 +343,6 @@ public class Product_list extends Language {
                         Toast.makeText(Product_list.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
-                    Log.d("prducts_arra",scrollNeed+"   "+scrollValue);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -876,7 +866,6 @@ public class Product_list extends Language {
                         Toast.makeText(Product_list.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
-                    Log.d("prducts_arra",scrollNeed+"   "+scrollValue);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -886,8 +875,8 @@ public class Product_list extends Language {
                                 @Override
                                 public void onClick(View view) {
                                     loading_bar.setVisibility(View.VISIBLE);
-                                    BEST_SELLING best_selling = new BEST_SELLING();
-                                    best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
+                                    BANNER banner = new BANNER();
+                                    banner.execute(Appconstatants.BANNER_LINK+banner_id+"&page="+start+"&limit="+limit);
 
                                 }
                             })
