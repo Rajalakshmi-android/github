@@ -297,6 +297,7 @@
     <string name="ore_br">(order id:</string>
     <string name="comp">is completed. Thank you for ordering.</string>
     <string name="cod">Cash on Delivery</string>
+    <string name="razorpay">razorpay</string>
     <string name="colrs">Color</string>
     <string name="colss">Colours</string>
     <string name="radio">radio</string>
