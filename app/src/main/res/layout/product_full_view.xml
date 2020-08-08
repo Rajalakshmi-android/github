@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical">
+
             <include layout="@layout/menu_back" />
 
             <ScrollView
@@ -34,223 +35,234 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="@dimen/dp20"
                         android:layout_marginEnd="@dimen/dp20"
-                        android:layout_marginTop="@dimen/dp20">
-                    <com.iamretailer.Common.CustomTextview1
-                        android:id="@+id/product_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/dp0"
-                        android:paddingStart="@dimen/dp10"
-                        android:text="@string/product_name"
-                        android:includeFontPadding="false"
-                        android:lineSpacingExtra="0dp"
-                        android:textColor="@color/product_text_clr"
-                        android:firstBaselineToTopHeight="0dp"
-                        android:textSize="@dimen/text18sp" />
+                        android:layout_marginStart="@dimen/dp20"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingEnd="@dimen/dp0"
-                        android:layout_marginTop="@dimen/dp3"
-                        android:paddingStart="@dimen/dp10">
-
-                        <LinearLayout
+                        <com.iamretailer.Common.CustomTextview1
+                            android:id="@+id/product_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start|center_vertical"
-                            android:gravity="center_vertical">
-                            <com.iamretailer.Common.CustomTextview
-                                android:id="@+id/productrs"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="start|center_vertical"
-                                android:text=""
-                                android:textColor="@color/rupee_clr"
-                                android:textSize="@dimen/text14sp"
-                                android:layout_gravity="bottom"
-                                android:paddingBottom="@dimen/dp3"
-                                android:textStyle="bold" />
+                            android:firstBaselineToTopHeight="0dp"
+                            android:includeFontPadding="false"
+                            android:lineSpacingExtra="0dp"
+                            android:paddingEnd="@dimen/dp0"
+                            android:paddingStart="@dimen/dp10"
+                            android:text="@string/product_name"
+                            android:textColor="@color/product_text_clr"
+                            android:textSize="@dimen/text18sp" />
 
-                            <com.iamretailer.Common.CustomTextview
-                                android:id="@+id/productrate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="start|center_vertical"
-                                android:text=""
-                                android:textColor="@color/rupee_clr"
-                                android:textSize="@dimen/text21sp"
-                                android:textStyle="bold" />
-                            <com.iamretailer.Common.CustomTextview
-                                android:id="@+id/productrs1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="start|center_vertical"
-                                android:text=""
-                                android:textColor="@color/rupee_clr"
-                                android:textSize="@dimen/text14sp"
-                                android:layout_gravity="bottom"
-                                android:paddingBottom="@dimen/dp3"
-                                android:textStyle="bold" />
-
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp0"
+                            android:paddingStart="@dimen/dp10">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp8"
-                                android:layout_marginEnd="@dimen/dp8"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/strike_line">
-                            <com.iamretailer.Common.CustomTextview
-                                android:id="@+id/originalrs"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="start|center_vertical"
-                                android:text=""
-                                android:layout_gravity="bottom"
-                                android:textColor="@color/price_original"
-                                android:textSize="@dimen/text12sp"
-                                android:paddingBottom="@dimen/dp1"
-                                />
-                            <com.iamretailer.Common.CustomTextview
-                                android:id="@+id/orginal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="start|center_vertical"
-                                android:text=""
-                                android:textSize="@dimen/text15sp"
-                                android:textColor="@color/price_original" />
-                            <com.iamretailer.Common.CustomTextview
-                                android:id="@+id/originalrs1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:gravity="start|center_vertical"
-                                android:text=""
-                                android:paddingBottom="@dimen/dp1"
-                                android:textColor="@color/price_original"
-                                android:textSize="@dimen/text12sp" />
+                                android:layout_gravity="start|center_vertical"
+                                android:gravity="center_vertical">
+
+                                <com.iamretailer.Common.CustomTextview
+                                    android:id="@+id/productrs"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingBottom="@dimen/dp3"
+                                    android:text=""
+                                    android:textColor="@color/rupee_clr"
+                                    android:textSize="@dimen/text14sp"
+                                    android:textStyle="bold" />
+
+                                <com.iamretailer.Common.CustomTextview
+                                    android:id="@+id/productrate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start|center_vertical"
+                                    android:text=""
+                                    android:textColor="@color/rupee_clr"
+                                    android:textSize="@dimen/text21sp"
+                                    android:textStyle="bold" />
+
+                                <com.iamretailer.Common.CustomTextview
+                                    android:id="@+id/productrs1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingBottom="@dimen/dp3"
+                                    android:text=""
+                                    android:textColor="@color/rupee_clr"
+                                    android:textSize="@dimen/text14sp"
+                                    android:textStyle="bold" />
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/dp8"
+                                    android:layout_marginStart="@dimen/dp8"
+                                    android:background="@drawable/strike_line">
+
+                                    <com.iamretailer.Common.CustomTextview
+                                        android:id="@+id/originalrs"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="bottom"
+                                        android:gravity="start|center_vertical"
+                                        android:paddingBottom="@dimen/dp1"
+                                        android:text=""
+                                        android:textColor="@color/price_original"
+                                        android:textSize="@dimen/text12sp" />
+
+                                    <com.iamretailer.Common.CustomTextview
+                                        android:id="@+id/orginal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="start|center_vertical"
+                                        android:text=""
+                                        android:textColor="@color/price_original"
+                                        android:textSize="@dimen/text15sp" />
+
+                                    <com.iamretailer.Common.CustomTextview
+                                        android:id="@+id/originalrs1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="bottom"
+                                        android:gravity="start|center_vertical"
+                                        android:paddingBottom="@dimen/dp1"
+                                        android:text=""
+                                        android:textColor="@color/price_original"
+                                        android:textSize="@dimen/text12sp" />
+                                </LinearLayout>
+
+
                             </LinearLayout>
 
 
-                        </LinearLayout>
+                            <FrameLayout
+                                android:id="@+id/fav"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="@dimen/dp20">
 
+                                <ImageView
+                                    android:id="@+id/like"
+                                    android:layout_width="@dimen/dp20"
+                                    android:layout_height="@dimen/dp20"
+                                    android:src="@mipmap/pro_fill"
+                                    android:visibility="gone"
+                                    android:contentDescription="@null"/>
 
-                        <FrameLayout
-                            android:id="@+id/fav"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="@dimen/dp20">
+                                <ImageView
+                                    android:id="@+id/unlike"
+                                    android:layout_width="@dimen/dp20"
+                                    android:layout_height="@dimen/dp20"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/unlike" />
 
-                            <ImageView
-                                android:id="@+id/like"
-                                android:layout_width="@dimen/dp20"
-                                android:layout_height="@dimen/dp20"
-                                android:src="@mipmap/pro_fill"
-                                android:visibility="gone" />
+                            </FrameLayout>
 
-                            <ImageView
-                                android:id="@+id/unlike"
-                                android:layout_width="@dimen/dp20"
-                                android:layout_height="@dimen/dp20"
-                                android:src="@mipmap/unlike" />
 
                         </FrameLayout>
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp15"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:orientation="horizontal">
 
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/r1"
+                                android:layout_width="@dimen/dp11"
+                                android:layout_height="@dimen/dp11"
+                                android:contentDescription="@null"
+                                android:src="@mipmap/fill" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp3"
-                        android:layout_marginStart="@dimen/dp15"
-                        android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/r2"
+                                android:layout_width="@dimen/dp11"
+                                android:layout_height="@dimen/dp11"
+                                android:contentDescription="@null"
+                                android:layout_marginStart="@dimen/dp2"
+                                android:src="@mipmap/fill" />
 
-                        <ImageView
-                            android:id="@+id/r1"
-                            android:layout_width="@dimen/dp11"
-                            android:layout_height="@dimen/dp11"
-                            android:src="@mipmap/fill" />
+                            <ImageView
+                                android:id="@+id/r3"
+                                android:layout_width="@dimen/dp11"
+                                android:layout_height="@dimen/dp11"
+                                android:contentDescription="@null"
+                                android:layout_marginStart="@dimen/dp2"
+                                android:src="@mipmap/fill" />
 
-                        <ImageView
-                            android:id="@+id/r2"
-                            android:layout_width="@dimen/dp11"
-                            android:layout_height="@dimen/dp11"
-                            android:layout_marginStart="@dimen/dp2"
-                            android:src="@mipmap/fill" />
+                            <ImageView
+                                android:id="@+id/r4"
+                                android:layout_width="@dimen/dp11"
+                                android:layout_height="@dimen/dp11"
+                                android:layout_marginStart="@dimen/dp2"
+                                android:contentDescription="@null"
+                                android:src="@mipmap/fill" />
 
-                        <ImageView
-                            android:id="@+id/r3"
-                            android:layout_width="@dimen/dp11"
-                            android:layout_height="@dimen/dp11"
-                            android:layout_marginStart="@dimen/dp2"
-                            android:src="@mipmap/fill" />
+                            <ImageView
+                                android:id="@+id/r5"
+                                android:layout_width="@dimen/dp11"
+                                android:layout_height="@dimen/dp11"
+                                android:layout_marginStart="@dimen/dp2"
+                                android:contentDescription="@null"
+                                android:src="@mipmap/fill" />
 
-                        <ImageView
-                            android:id="@+id/r4"
-                            android:layout_width="@dimen/dp11"
-                            android:layout_height="@dimen/dp11"
-                            android:layout_marginStart="@dimen/dp2"
-                            android:src="@mipmap/fill" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/r5"
-                            android:layout_width="@dimen/dp11"
-                            android:layout_height="@dimen/dp11"
-                            android:layout_marginStart="@dimen/dp2"
-                            android:src="@mipmap/fill" />
-
-                    </LinearLayout>
-
-                    <com.iamretailer.Common.CustomTextview
-                        android:id="@+id/out_of_stock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/dp15"
-                        android:text="@string/out_ofstock"
-                        android:layout_marginTop="@dimen/dp5"
-                        android:textColor="@color/red" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        >
+                        <com.iamretailer.Common.CustomTextview
+                            android:id="@+id/out_of_stock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:paddingStart="@dimen/dp15"
+                            android:text="@string/out_ofstock"
+                            android:textColor="@color/red" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp5">
-
-                                <android.support.v4.view.ViewPager
-                                    android:id="@+id/viewPager"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dp200" />
-
-                            </RelativeLayout>
+                            android:layout_gravity="center">
 
                             <LinearLayout
-                                android:id="@+id/indicator"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp25"
-                                android:gravity="center"
-                                android:layout_marginTop="@dimen/dp5"
-                                android:orientation="horizontal" />
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp5">
+
+                                    <android.support.v4.view.ViewPager
+                                        android:id="@+id/viewPager"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dp200" />
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/indicator"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_marginTop="@dimen/dp5"
+                                    android:gravity="center"
+                                    android:orientation="horizontal" />
 
 
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -281,8 +293,7 @@
                                 android:paddingStart="@dimen/dp12"
                                 android:paddingTop="@dimen/dp6"
                                 android:text="@string/product_info"
-                                android:textSize="@dimen/text14sp"
-                              />
+                                android:textSize="@dimen/text14sp" />
 
                         </LinearLayout>
 
@@ -303,8 +314,7 @@
                                 android:paddingStart="@dimen/dp12"
                                 android:paddingTop="@dimen/dp6"
                                 android:text="@string/ss"
-                                android:textSize="@dimen/text14sp"
-                                />
+                                android:textSize="@dimen/text14sp" />
                         </LinearLayout>
 
 
@@ -325,8 +335,7 @@
                                 android:paddingStart="@dimen/dp12"
                                 android:paddingTop="@dimen/dp6"
                                 android:text="@string/add_review"
-                                android:textSize="@dimen/text14sp"
-                              />
+                                android:textSize="@dimen/text14sp" />
                         </LinearLayout>
 
 
@@ -343,9 +352,9 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp25"
                         android:layout_marginEnd="@dimen/dp15"
-                        android:layout_marginStart="@dimen/dp15">
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_marginTop="@dimen/dp25">
 
                         <FrameLayout
                             android:id="@+id/option_layout"
@@ -385,8 +394,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/des"
-                                            android:textSize="@dimen/text15sp"
-                                            android:textColor="@color/app_text_color"/>
+                                            android:textColor="@color/app_text_color"
+                                            android:textSize="@dimen/text15sp" />
 
 
                                         <WebView
@@ -493,12 +502,14 @@
                                         android:id="@+id/rate1"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
+                                        android:contentDescription="@null"
                                         android:src="@mipmap/rating_unfill" />
 
                                     <ImageView
                                         android:id="@+id/rate2"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
+                                        android:contentDescription="@null"
                                         android:layout_marginStart="@dimen/dp10"
                                         android:src="@mipmap/rating_unfill" />
 
@@ -506,6 +517,7 @@
                                         android:id="@+id/rate3"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
+                                        android:contentDescription="@null"
                                         android:layout_marginStart="@dimen/dp10"
                                         android:src="@mipmap/rating_unfill" />
 
@@ -513,6 +525,7 @@
                                         android:id="@+id/rate4"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
+                                        android:contentDescription="@null"
                                         android:layout_marginStart="@dimen/dp10"
                                         android:src="@mipmap/rating_unfill" />
 
@@ -521,15 +534,16 @@
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
                                         android:layout_marginStart="@dimen/dp10"
+                                        android:contentDescription="@null"
                                         android:src="@mipmap/rating_unfill" />
                                 </LinearLayout>
 
                                 <FrameLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/dp100"
-                                    android:layout_marginTop="@dimen/dp10"
                                     android:layout_marginEnd="@dimen/dp20"
                                     android:layout_marginStart="@dimen/dp20"
+                                    android:layout_marginTop="@dimen/dp10"
                                     android:background="@drawable/comment_box">
 
                                     <com.iamretailer.Common.CustomEditext
@@ -549,25 +563,26 @@
 
 
                                 <LinearLayout
+                                    android:id="@+id/post_reviews"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/dp40"
-                                    android:id="@+id/post_reviews"
                                     android:layout_gravity="end"
-                                    android:gravity="center"
-                                    android:layout_marginTop="@dimen/dp10"
                                     android:layout_marginEnd="@dimen/dp20"
-                                    android:background="@drawable/share_back">
-                                <com.iamretailer.Common.CustomTextview
+                                    android:layout_marginTop="@dimen/dp10"
+                                    android:background="@drawable/share_back"
+                                    android:gravity="center">
 
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:paddingEnd="@dimen/dp25"
-                                    android:paddingStart="@dimen/dp25"
-                                    android:text="@string/submit"
-                                    android:textColor="@color/app_text_color"
-                                    android:textSize="@dimen/text14sp"
-                                    android:textStyle="bold" />
+                                    <com.iamretailer.Common.CustomTextview
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:paddingEnd="@dimen/dp25"
+                                        android:paddingStart="@dimen/dp25"
+                                        android:text="@string/submit"
+                                        android:textColor="@color/app_text_color"
+                                        android:textSize="@dimen/text14sp"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -632,13 +647,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp50"
+                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/dp5"
                 android:layout_marginEnd="@dimen/dp5"
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp5"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:weightSum="@integer/two">
 
 
@@ -647,10 +662,10 @@
                     android:layout_width="@dimen/dp0"
                     android:layout_height="@dimen/dp40"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dp10"
                     android:layout_weight="1"
                     android:background="@drawable/share_back1"
                     android:gravity="center"
-                    android:layout_marginStart="@dimen/dp10"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -659,8 +674,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                       >
+                        android:orientation="horizontal">
+
                         <com.iamretailer.Common.CustomTextview1
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -670,15 +685,15 @@
                             android:gravity="center"
                             android:text="@string/share_this"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text17sp"
-                           />
+                            android:textSize="@dimen/text17sp" />
 
                         <ImageView
                             android:layout_width="@dimen/dp28"
                             android:layout_height="@dimen/dp28"
                             android:layout_gravity="center"
-                            android:padding="@dimen/dp3"
                             android:autoMirrored="true"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/dp3"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/whatsapp" />
                     </LinearLayout>
@@ -690,11 +705,11 @@
                 <LinearLayout
                     android:layout_width="@dimen/dp0"
                     android:layout_height="match_parent"
-                    android:layout_weight="@integer/one"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginEnd="@dimen/dp10"
                     android:layout_marginStart="@dimen/dp10"
-                    android:layout_marginEnd="@dimen/dp10">
+                    android:layout_weight="@integer/one"
+                    android:gravity="center">
 
 
                     <LinearLayout
@@ -712,8 +727,7 @@
                             android:gravity="center"
                             android:text="@string/add_to_cart"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text17sp"
-                            />
+                            android:textSize="@dimen/text17sp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -737,8 +751,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp60">
 
-            <include layout="@layout/loading"
-              />
+            <include layout="@layout/loading" />
         </FrameLayout>
 
 

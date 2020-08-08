@@ -89,35 +89,35 @@ public class ViewDetails extends Language {
         cur_right=db.get_cur_Right();
         bun = new Bundle();
         bun = getIntent().getExtras();
-        view_list = (LinearLayout) findViewById(R.id.listview);
-        no_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        order_id = (TextView) findViewById(R.id.order_no);
-        order_date = (TextView) findViewById(R.id.order_date);
-        ship_method = (TextView) findViewById(R.id.ship_method);
-        ordertotview = (LinearLayout) findViewById(R.id.ordertot);
-        calls = (FrameLayout) findViewById(R.id.call);
-        paymethod = (TextView) findViewById(R.id.paymethod);
-        status = (TextView) findViewById(R.id.status);
-        TextView header = (TextView) findViewById(R.id.header);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        del_add_lay=(LinearLayout)findViewById(R.id.del_add_lay);
+        view_list = findViewById(R.id.listview);
+        no_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
+        order_id = findViewById(R.id.order_no);
+        order_date = findViewById(R.id.order_date);
+        ship_method = findViewById(R.id.ship_method);
+        ordertotview = findViewById(R.id.ordertot);
+        calls = findViewById(R.id.call);
+        paymethod = findViewById(R.id.paymethod);
+        status = findViewById(R.id.status);
+        TextView header = findViewById(R.id.header);
+        loading= findViewById(R.id.loading);
+        fullayout= findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar= findViewById(R.id.loading_bar);
+        del_add_lay= findViewById(R.id.del_add_lay);
        // status_img=(LinearLayout)findViewById(R.id.status_img);
-        ship_info=(LinearLayout)findViewById(R.id.ship_info);
-        ship_method_sec=(LinearLayout)findViewById(R.id.ship_method_sec);
-        phone = (TextView) findViewById(R.id.phone);
-        cus_name = (TextView) findViewById(R.id.name);
-        cus_address_one = (TextView) findViewById(R.id.address_one);
-        cus_address_two = (TextView) findViewById(R.id.address_two);
-        country_name = (TextView) findViewById(R.id.country);
-        cus_mobile = (TextView) findViewById(R.id.mobile);
-        del_image=(ImageView)findViewById(R.id.del_image);
-        delivery=(View)findViewById(R.id.delivery);
-        shipping=(View)findViewById(R.id.shipping);
+        ship_info= findViewById(R.id.ship_info);
+        ship_method_sec= findViewById(R.id.ship_method_sec);
+        phone = findViewById(R.id.phone);
+        cus_name = findViewById(R.id.name);
+        cus_address_one = findViewById(R.id.address_one);
+        cus_address_two = findViewById(R.id.address_two);
+        country_name = findViewById(R.id.country);
+        cus_mobile = findViewById(R.id.mobile);
+        del_image= findViewById(R.id.del_image);
+        delivery= findViewById(R.id.delivery);
+        shipping= findViewById(R.id.shipping);
         header.setText(getResources().getString(R.string.order_ids)+bun.getString("id"));
         OrderTask task = new OrderTask();
         task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
@@ -129,7 +129,7 @@ public class ViewDetails extends Language {
         order_id.setText("#"+bun.getString("id"));
 
 
-        back = (LinearLayout) findViewById(R.id.menu);
+        back = findViewById(R.id.menu);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +153,7 @@ public class ViewDetails extends Language {
 
             }
         });
-        LinearLayout cart_items = (LinearLayout) findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
 
     }
@@ -168,8 +168,8 @@ public class ViewDetails extends Language {
         lp.gravity = Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
-        final TextView no = (TextView) popUpView.findViewById(R.id.no);
-        final TextView yes = (TextView) popUpView.findViewById(R.id.yes);
+        final TextView no = popUpView.findViewById(R.id.no);
+        final TextView yes = popUpView.findViewById(R.id.yes);
 
         no.setOnClickListener(new View.OnClickListener() {
 
@@ -411,17 +411,17 @@ public class ViewDetails extends Language {
     private void addLayout(final PlacePO placePO, LinearLayout view_list) {
 
         View convertView = LayoutInflater.from(this).inflate(R.layout.place_list, view_list, false);
-        TextView name = (TextView) convertView.findViewById(R.id.p_name);
-        ImageView imag = (ImageView) convertView.findViewById(R.id.place_img);
-        TextView price = (TextView) convertView.findViewById(R.id.p_total);
-        TextView qunt = (TextView) convertView.findViewById(R.id.p_qty);
-        TextView amount = (TextView) convertView.findViewById(R.id.total);
-        TextView p_option=(TextView)convertView.findViewById(R.id.p_option);
+        TextView name = convertView.findViewById(R.id.p_name);
+        ImageView imag = convertView.findViewById(R.id.place_img);
+        TextView price = convertView.findViewById(R.id.p_total);
+        TextView qunt = convertView.findViewById(R.id.p_qty);
+        TextView amount = convertView.findViewById(R.id.total);
+        TextView p_option= convertView.findViewById(R.id.p_option);
 
-        TextView cur_left1=(TextView)convertView.findViewById(R.id.cur_left);
-        TextView cur_right1=(TextView)convertView.findViewById(R.id.cur_right);
-        TextView cur_left2=(TextView)convertView.findViewById(R.id.cur_left1);
-        TextView cur_right2=(TextView)convertView.findViewById(R.id.cur_right1);
+        TextView cur_left1= convertView.findViewById(R.id.cur_left);
+        TextView cur_right1= convertView.findViewById(R.id.cur_right);
+        TextView cur_left2= convertView.findViewById(R.id.cur_left1);
+        TextView cur_right2= convertView.findViewById(R.id.cur_right1);
         cur_left1.setText(cur_left);
         cur_left2.setText(cur_left);
         cur_right1.setText(cur_right);
@@ -464,10 +464,10 @@ public class ViewDetails extends Language {
     private void addTotals(final JSONObject obj, LinearLayout view_list) {
 
         View convertView = LayoutInflater.from(this).inflate(R.layout.orders_totals, view_list, false);
-        TextView tot_title = (TextView) convertView.findViewById(R.id.amount_title);
-        TextView tot_value = (TextView) convertView.findViewById(R.id.amount_value);
-        TextView rigth_cur=(TextView)convertView.findViewById(R.id.cur_right);
-        TextView left_cur=(TextView)convertView.findViewById(R.id.cur_left);
+        TextView tot_title = convertView.findViewById(R.id.amount_title);
+        TextView tot_value = convertView.findViewById(R.id.amount_value);
+        TextView rigth_cur= convertView.findViewById(R.id.cur_right);
+        TextView left_cur= convertView.findViewById(R.id.cur_left);
         rigth_cur.setText(cur_right);
         left_cur.setText(cur_left);
         try {

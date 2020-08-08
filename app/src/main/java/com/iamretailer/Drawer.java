@@ -43,19 +43,15 @@ public class Drawer extends Language {
     LinearLayout gorateus;
     LinearLayout goshare;
     LinearLayout gologout;
-    LinearLayout home;
     LinearLayout home1;
     LinearLayout wish;
     TextView cart_count1;
     LinearLayout change_pwd;
     LinearLayout track_order;
     LinearLayout my_profile;
-    FrameLayout user;
     AndroidLogger logger;
     LinearLayout address;
-    int pos=0;
     LinearLayout wallet;
-    LinearLayout store;
     LinearLayout aboutus;
     TextView title;
 
@@ -63,45 +59,43 @@ public class Drawer extends Language {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbCon=new DBController(Drawer.this);
+        dbCon = new DBController(Drawer.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        Appconstatants.sessiondata=dbCon.getSession();
-        Appconstatants.Lang=dbCon.get_lang_code();
-        Appconstatants.CUR=dbCon.getCurCode();
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        Appconstatants.sessiondata = dbCon.getSession();
+        Appconstatants.Lang = dbCon.get_lang_code();
+        Appconstatants.CUR = dbCon.getCurCode();
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
 
     }
 
-    public void drawerview(FrameLayout view, final DrawerLayout layout, Context context){
+    public void drawerview(FrameLayout view, final DrawerLayout layout, Context context) {
 
-        login =(TextView)view.findViewById(R.id.loginview);
-        myorders =(LinearLayout) view.findViewById(R.id.myorders);
-      /*  my_cart =(LinearLayout) view.findViewById(R.id.my_cart);*/
-        callus = (LinearLayout)view. findViewById(R.id.callus);
-        gorateus = (LinearLayout)view. findViewById(R.id.gorateus);
-        goshare = (LinearLayout)view. findViewById(R.id.goshare);
-        gologout = (LinearLayout)view. findViewById(R.id.gologout);
-        home1 = (LinearLayout)view. findViewById(R.id.home);
-        wish = (LinearLayout)view. findViewById(R.id.wish);
-        email =(TextView)view.findViewById(R.id.user_mail);
-        change_pwd=(LinearLayout) view.findViewById(R.id.change_pwd);
-        cart_count1=(TextView)view.findViewById(R.id.cart_count1);
-        track_order=(LinearLayout)view.findViewById(R.id.track_order);
-        my_profile=(LinearLayout)view.findViewById(R.id.my_profile);
-        address=(LinearLayout)view.findViewById(R.id.address);
+        login = view.findViewById(R.id.loginview);
+        myorders = view.findViewById(R.id.myorders);
+        callus = view.findViewById(R.id.callus);
+        gorateus = view.findViewById(R.id.gorateus);
+        goshare = view.findViewById(R.id.goshare);
+        gologout = view.findViewById(R.id.gologout);
+        home1 = view.findViewById(R.id.home);
+        wish = view.findViewById(R.id.wish);
+        email = view.findViewById(R.id.user_mail);
+        change_pwd = view.findViewById(R.id.change_pwd);
+        cart_count1 = view.findViewById(R.id.cart_count1);
+        track_order = view.findViewById(R.id.track_order);
+        my_profile = view.findViewById(R.id.my_profile);
+        address = view.findViewById(R.id.address);
 
-        wallet=(LinearLayout)findViewById(R.id.wallet);
-        store=(LinearLayout)view.findViewById(R.id.store);
-        aboutus=(LinearLayout)view.findViewById(R.id.aboutus);
+        wallet = findViewById(R.id.wallet);
+        aboutus = view.findViewById(R.id.aboutus);
 
-        title=(TextView)view.findViewById(R.id.title);
-        String s1=getResources().getString( R.string.about);
-        String s2=getResources().getString(R.string.app_name);
-        title.setText(s1+" "+s2);
+        title = view.findViewById(R.id.title);
+        String s1 = getResources().getString(R.string.about);
+        String s2 = getResources().getString(R.string.app_name);
+        title.setText(s1 + " " + s2);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        if(dbCon.getLoginCount()>0){
-            Log.i("jhfg","hgfdjkghfdkghf"+dbCon.getName()+" -- "+dbCon.getEmail());
+        if (dbCon.getLoginCount() > 0) {
+            Log.i("jhfg", "hgfdjkghfdkghf" + dbCon.getName() + " -- " + dbCon.getEmail());
             email.setVisibility(View.VISIBLE);
             email.setText(dbCon.getName());
             login.setVisibility(View.GONE);
@@ -109,15 +103,13 @@ public class Drawer extends Language {
             change_pwd.setVisibility(View.VISIBLE);
             wish.setVisibility(View.VISIBLE);
             address.setVisibility(View.VISIBLE);
-            //wallet.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             email.setVisibility(View.GONE);
             login.setVisibility(View.VISIBLE);
             gologout.setVisibility(View.GONE);
             change_pwd.setVisibility(View.GONE);
             wish.setVisibility(View.GONE);
             address.setVisibility(View.GONE);
-          //  wallet.setVisibility(View.GONE);
         }
 
         setListener();
@@ -143,10 +135,10 @@ public class Drawer extends Language {
 
             }
         });
-  
 
 
     }
+
     private class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -156,16 +148,16 @@ public class Drawer extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Drawer.this);
-                logger.info("Cart resp"+response);
-                Log.d("Cart_list_resp", response+"");
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Drawer.this);
+                logger.info("Cart resp" + response);
+                Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -185,7 +177,7 @@ public class Drawer extends Language {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
                             cart_count1.setText(0 + "");
-                            //cart_count1.setText(0 + "");
+
 
                         } else if (dd instanceof JSONObject) {
 
@@ -199,7 +191,7 @@ public class Drawer extends Language {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
                             cart_count1.setText(qty + "");
-                            // cart_count1.setText(qty + "");
+
                         }
                     }
 
@@ -219,14 +211,10 @@ public class Drawer extends Language {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(login.getText().toString().equalsIgnoreCase(getString(R.string.Log_reg))) {
+                if (login.getText().toString().equalsIgnoreCase(getString(R.string.Log_reg))) {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     intent.putExtra("from", 1);
                     startActivity(intent);
-                }
-                else
-                {
-
                 }
             }
         });
@@ -244,10 +232,10 @@ public class Drawer extends Language {
 
             }
         });
-       home1.setOnClickListener(new View.OnClickListener() {
+        home1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
 
@@ -263,7 +251,7 @@ public class Drawer extends Language {
         myorders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent bb=new Intent(Drawer.this,MyOrders.class);
+                Intent bb = new Intent(Drawer.this, MyOrders.class);
 
                 startActivity(bb);
             }
@@ -271,7 +259,7 @@ public class Drawer extends Language {
         wish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),WishList.class));
+                startActivity(new Intent(getApplicationContext(), WishList.class));
             }
         });
 
@@ -279,19 +267,17 @@ public class Drawer extends Language {
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ChangePassword.class));
+                startActivity(new Intent(getApplicationContext(), ChangePassword.class));
             }
         });
         my_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(dbCon.getLoginCount()>0) {
+                if (dbCon.getLoginCount() > 0) {
 
                     startActivity(new Intent(getApplicationContext(), MyProfile.class));
-                }
-                else
-                {
+                } else {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     intent.putExtra("from", 1);
                     startActivity(intent);
@@ -302,7 +288,7 @@ public class Drawer extends Language {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddressList.class);
-                Bundle bundle=new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putInt("from", 4);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -310,13 +296,11 @@ public class Drawer extends Language {
         });
 
 
-
-
         callus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(Drawer.this,ContactForm.class));
+                startActivity(new Intent(Drawer.this, ContactForm.class));
 
             }
         });
@@ -324,7 +308,7 @@ public class Drawer extends Language {
         gorateus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.iamretailer"));
+                Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()));
                 startActivity(browserIntent);
 
             }
@@ -341,7 +325,7 @@ public class Drawer extends Language {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Download app at https://play.google.com/store/apps/details?id=com.iamretailer");
+                intent.putExtra(Intent.EXTRA_TEXT, "Download app at https://play.google.com/store/apps/details?id=" + getPackageName());
                 startActivity(Intent.createChooser(intent, "Share Using"));
             }
         });
@@ -350,28 +334,24 @@ public class Drawer extends Language {
         track_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent bb=new Intent(Drawer.this,MyCart.class);
-                Bundle aa=new Bundle();
-                aa.putInt("order",2);
+                Intent bb = new Intent(Drawer.this, MyCart.class);
+                Bundle aa = new Bundle();
+                aa.putInt("order", 2);
                 bb.putExtras(aa);
                 startActivity(bb);
 
             }
         });
-        }
+    }
 
 
-
-
-
-    public void showLogoutPopup(){
+    public void showLogoutPopup() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);
         View popUpView = getLayoutInflater().inflate(R.layout.logout_view, null);
-        LinearLayout happy = (LinearLayout) popUpView.findViewById(R.id.happy);
-        LinearLayout bad = (LinearLayout) popUpView.findViewById(R.id.bad);
+        LinearLayout happy = popUpView.findViewById(R.id.happy);
+        LinearLayout bad = popUpView.findViewById(R.id.bad);
         dialLo.setView(popUpView);
         final AlertDialog dialog = dialLo.create();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.setCancelable(true);
         dialog.show();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -386,8 +366,8 @@ public class Drawer extends Language {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-              LogoutTask task = new LogoutTask();
-              task.execute(Appconstatants.LOGOUT_URL);
+                LogoutTask task = new LogoutTask();
+                task.execute(Appconstatants.LOGOUT_URL);
             }
         });
         bad.setOnClickListener(new View.OnClickListener() {
@@ -405,8 +385,7 @@ public class Drawer extends Language {
         private ProgressDialog pDialog;
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             pDialog = new ProgressDialog(Drawer.this);
             pDialog.setMessage(getResources().getString(R.string.loading_wait));
             pDialog.setCancelable(false);
@@ -415,12 +394,12 @@ public class Drawer extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Logout api"+param[0]);
+            logger.info("Logout api" + param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.sendHttpPostLogout(param[0],Appconstatants.sessiondata,Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR);
-                logger.info("Logout api resp"+response);
+                response = connection.sendHttpPostLogout(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR);
+                logger.info("Logout api resp" + response);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -430,37 +409,32 @@ public class Drawer extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("confirm_order", "Logout--->  "+resp);
+            Log.i("confirm_order", "Logout--->  " + resp);
             pDialog.dismiss();
             if (resp != null) {
 
                 try {
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success")==1)
-                    {
+                    if (json.getInt("success") == 1) {
                         dbCon.dropUser();
                         LoginManager.getInstance().logOut();
-                        Toast.makeText(Drawer.this,R.string.log_suc,Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(Drawer.this,MainActivity.class);
+                        Toast.makeText(Drawer.this, R.string.log_suc, Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(Drawer.this, MainActivity.class);
                         startActivity(i);
-                    }
-                    else
-                    {
-                        Toast.makeText(Drawer.this,R.string.log_fail,Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Drawer.this, R.string.log_fail, Toast.LENGTH_LONG).show();
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(Drawer.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Drawer.this,R.string.log_fail,Toast.LENGTH_LONG).show();
+                    Toast.makeText(Drawer.this, R.string.log_fail, Toast.LENGTH_LONG).show();
                 }
 
-            }
-            else
-            {
+            } else {
                 Toast.makeText(Drawer.this, R.string.error_net, Toast.LENGTH_SHORT).show();
-                Toast.makeText(Drawer.this,R.string.log_fail,Toast.LENGTH_LONG).show();
+                Toast.makeText(Drawer.this, R.string.log_fail, Toast.LENGTH_LONG).show();
             }
 
         }
@@ -472,12 +446,9 @@ public class Drawer extends Language {
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case 212: {
-                Log.i("reeeeeee", grantResults.length+"=="+grantResults[0]);
-                if ((grantResults.length == 1) && grantResults[0]  == PackageManager.PERMISSION_GRANTED) {
+                Log.i("reeeeeee", grantResults.length + "==" + grantResults[0]);
+                if ((grantResults.length == 1) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i("reekkk", "inside");
-                    //Intent i = getIntent();
-                    //finish();
-                    //startActivity(i);
                 } else {
                     Log.i("reeaaaaaa", "inside");
                     Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
@@ -513,7 +484,6 @@ public class Drawer extends Language {
             change_pwd.setVisibility(View.VISIBLE);
             wish.setVisibility(View.VISIBLE);
             address.setVisibility(View.VISIBLE);
-            //wallet.setVisibility(View.VISIBLE);
         } else {
             gologout.setVisibility(View.GONE);
             login.setVisibility(View.VISIBLE);
@@ -521,12 +491,8 @@ public class Drawer extends Language {
             change_pwd.setVisibility(View.GONE);
             wish.setVisibility(View.GONE);
             address.setVisibility(View.GONE);
-           // wallet.setVisibility(View.GONE);
         }
     }
-
-
-
 
 
 }

@@ -2,38 +2,27 @@ package com.iamretailer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamretailer.Adapter.PaymentAdapter;
-import com.iamretailer.Common.CommonFunctions;
-import com.logentries.android.AndroidLogger;
-
 import com.iamretailer.Common.Appconstatants;
+import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.TypePO;
-
-
+import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.util.ArrayList;
 
@@ -42,7 +31,6 @@ import stutzen.co.network.Connection;
 public class DeliveryMethod extends Language {
     LinearLayout next;
     private DBController db;
-    private EditText comments;
     private FrameLayout error_network;
     private LinearLayout retry;
     private ArrayList<TypePO> methodlist;
@@ -55,24 +43,20 @@ public class DeliveryMethod extends Language {
     private String pincode;
     private String country;
     private String state;
-    private String paymethod;
     private String mobile;
-    LinearLayout menu,cart_items;
+    LinearLayout menu, cart_items;
     TextView header;
-    Typeface typeface;
     FrameLayout loading;
     FrameLayout fullayout;
-
     TextView errortxt1, errortxt2;
     LinearLayout loading_bar;
     String address_id;
     AndroidLogger logger;
-    private int from=0;
+    private int from = 0;
     private ListView payment_list;
     private PaymentAdapter payadapter;
-    private String paycode="";
-    private String paymentname="";
-
+    private String paycode = "";
+    private String paymentname = "";
 
 
     @Override
@@ -80,7 +64,7 @@ public class DeliveryMethod extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_method);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         fname = getIntent().getExtras().getString("fname");
         from = getIntent().getExtras().getInt("from");
         lname = getIntent().getExtras().getString("lname");
@@ -91,32 +75,28 @@ public class DeliveryMethod extends Language {
         pincode = getIntent().getExtras().getString("pincode");
         country = getIntent().getExtras().getString("country");
         state = getIntent().getExtras().getString("state");
-        //paymethod=getIntent().getExtras().getString("payment_method");
-        mobile=getIntent().getExtras().getString("mobile");
-        address_id=getIntent().getExtras().getString("address_id");
-        next=(LinearLayout) findViewById(R.id.next);
+        mobile = getIntent().getExtras().getString("mobile");
+        address_id = getIntent().getExtras().getString("address_id");
+        next = findViewById(R.id.next);
         db = new DBController(DeliveryMethod.this);
-        Appconstatants.sessiondata=db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
-        comments = (EditText)findViewById(R.id.comments);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry =(LinearLayout)findViewById(R.id.retry);
-        payment_list = (ListView) findViewById(R.id.payment_list);
-        menu=(LinearLayout)findViewById(R.id.menu);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
+        Appconstatants.sessiondata = db.getSession();
+        Appconstatants.Lang = db.get_lang_code();
+        Appconstatants.CUR = db.getCurCode();
+        error_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
+        payment_list = findViewById(R.id.payment_list);
+        menu = findViewById(R.id.menu);
+        cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        header=(TextView)findViewById(R.id.header);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        typeface=Typeface.createFromAsset(getAssets(),"font/Heebo-Regular.ttf");
+        header = findViewById(R.id.header);
+        loading = findViewById(R.id.loading);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar = findViewById(R.id.loading_bar);
 
 
-
-        DeliveryMethodList paymentListTask=new DeliveryMethodList();
+        DeliveryMethodList paymentListTask = new DeliveryMethodList();
         paymentListTask.execute();
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -135,11 +115,9 @@ public class DeliveryMethod extends Language {
                 // TODO Auto-generated method stub
                 payadapter.setChild1(arg2);
                 payadapter.notifyDataSetChanged();
-
-                //if(paylist.get(arg2).getPaymentname().equalsIgnoreCase("Check / Money order")){
                 paycode = methodlist.get(arg2).getCode();
                 paymentname = methodlist.get(arg2).getTitle();
-                Log.i("asdsadasasdasd sadsadas",methodlist.get(arg2).getTitle()+"");
+                Log.i("asdsadasasdasd sadsadas", methodlist.get(arg2).getTitle() + "");
 
             }
         });
@@ -148,7 +126,7 @@ public class DeliveryMethod extends Language {
             public void onClick(View view) {
 
                 SaveDeliveryMethod paymentMethodTask = new SaveDeliveryMethod();
-                paymentMethodTask.execute(paycode,1+"","");
+                paymentMethodTask.execute(paycode, 1 + "", "");
 
             }
         });
@@ -163,23 +141,23 @@ public class DeliveryMethod extends Language {
         });
 
     }
+
     private class DeliveryMethodList extends AsyncTask<String, Void, String> {
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
 
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Delivery_list api"+Appconstatants.DELIVERYMETHOD_LIST);
+            logger.info("Delivery_list api" + Appconstatants.DELIVERYMETHOD_LIST);
 
             String response = null;
             Connection connection = new Connection();
             try {
-                Log.d("Delivery_list",Appconstatants.DELIVERYMETHOD_LIST);
-                Log.d("Delivery_list",Appconstatants.sessiondata);
-                response = connection.connStringResponse(Appconstatants.DELIVERYMETHOD_LIST,Appconstatants.sessiondata,Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,DeliveryMethod.this);
-                logger.info("Delivery_list api resp"+response);
+                Log.d("Delivery_list", Appconstatants.DELIVERYMETHOD_LIST);
+                Log.d("Delivery_list", Appconstatants.sessiondata);
+                response = connection.connStringResponse(Appconstatants.DELIVERYMETHOD_LIST, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, DeliveryMethod.this);
+                logger.info("Delivery_list api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -188,36 +166,33 @@ public class DeliveryMethod extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("Delivery_list", "Delivery_list--"+resp);
+            Log.i("Delivery_list", "Delivery_list--" + resp);
             if (resp != null) {
-                methodlist =new ArrayList<TypePO>();
+                methodlist = new ArrayList<>();
                 try {
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
+                    if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
-                        JSONArray object=jsonObject.getJSONArray("shipping_methods");
-                        for(int i = 0; i<object.length(); i++){
-                            JSONObject jsonObject1 =object.getJSONObject(i);
+                        JSONArray object = jsonObject.getJSONArray("shipping_methods");
+                        for (int i = 0; i < object.length(); i++) {
+                            JSONObject jsonObject1 = object.getJSONObject(i);
                             JSONArray jsonObject2 = jsonObject1.getJSONArray("quote");
-                            for (int h=0;h<jsonObject2.length();h++) {
-                                JSONObject jsonObject3=jsonObject2.getJSONObject(h);
+                            for (int h = 0; h < jsonObject2.length(); h++) {
+                                JSONObject jsonObject3 = jsonObject2.getJSONObject(h);
                                 TypePO bo = new TypePO();
                                 bo.setCode(jsonObject3.isNull("code") ? "" : jsonObject3.getString("code"));
                                 bo.setTitle(jsonObject3.isNull("title") ? "" : jsonObject3.getString("title"));
                                 bo.setAmount(jsonObject3.isNull("text") ? "" : jsonObject3.getString("text"));
                                 methodlist.add(bo);
                             }
-                            Log.i("jsonObject3", jsonObject2.toString()+"");
+                            Log.i("jsonObject3", jsonObject2.toString() + "");
                         }
-                        payadapter = new PaymentAdapter(
-                                getApplicationContext(), R.layout.payment_item, methodlist,1);
+                        payadapter = new PaymentAdapter(getApplicationContext(), R.layout.payment_item, methodlist, 1);
                         payment_list.setAdapter(payadapter);
 
 
-
                         if (methodlist != null) {
-                            if(methodlist.size()>0){
+                            if (methodlist.size() > 0) {
                                 paycode = methodlist.get(0).getCode();
                                 paymentname = methodlist.get(0).getTitle();
                                 payadapter.setChild1(0);
@@ -227,15 +202,13 @@ public class DeliveryMethod extends Language {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
 
-                    }
-                    else
-                    {
+                    } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
-                        Toast.makeText(DeliveryMethod.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        errortxt2.setText(array.getString(0) + "");
+                        Toast.makeText(DeliveryMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -257,9 +230,7 @@ public class DeliveryMethod extends Language {
 
                 }
 
-            }
-            else
-            {
+            } else {
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
@@ -268,21 +239,6 @@ public class DeliveryMethod extends Language {
 
         }
     }
-
-    public static JSONObject objectToJSONObject(Object object){
-        Object json = null;
-        JSONObject jsonObject = null;
-        try {
-            json = new JSONTokener(object.toString()).nextValue();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (json instanceof JSONObject) {
-            jsonObject = (JSONObject) json;
-        }
-        return jsonObject;
-    }
-
 
     private class SaveDeliveryMethod extends AsyncTask<String, Void, String> {
 
@@ -299,7 +255,7 @@ public class DeliveryMethod extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Save Delivery method api"+Appconstatants.DELIVERYMETHOD_LIST);
+            logger.info("Save Delivery method api" + Appconstatants.DELIVERYMETHOD_LIST);
 
             String response = null;
             Connection connection = new Connection();
@@ -308,8 +264,8 @@ public class DeliveryMethod extends Language {
                 json.put("shipping_method", param[0]);
                 json.put("comment", param[2]);
                 Log.d("delivery_format", json.toString());
-                response = connection.sendHttpPostjson(Appconstatants.DELIVERYMETHOD_LIST, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,DeliveryMethod.this);
-                logger.info("Save Delivery method api resp"+response);
+                response = connection.sendHttpPostjson(Appconstatants.DELIVERYMETHOD_LIST, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, DeliveryMethod.this);
+                logger.info("Save Delivery method api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -326,8 +282,8 @@ public class DeliveryMethod extends Language {
                     if (json.getInt("success") == 1) {
 
 
-                        Intent i =new Intent(DeliveryMethod.this,PaymentMethod.class);
-                        i.putExtra("address_id",address_id);
+                        Intent i = new Intent(DeliveryMethod.this, PaymentMethod.class);
+                        i.putExtra("address_id", address_id);
                         i.putExtra("fname", fname);
                         i.putExtra("from", from);
                         i.putExtra("lname", lname);
@@ -338,14 +294,14 @@ public class DeliveryMethod extends Language {
                         i.putExtra("pincode", pincode);
                         i.putExtra("country", country);
                         i.putExtra("state", state);
-                        i.putExtra("shipping",paymentname);
-                        i.putExtra("mobile",mobile);
+                        i.putExtra("shipping", paymentname);
+                        i.putExtra("mobile", mobile);
                         startActivity(i);
 
                     } else {
 
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(DeliveryMethod.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(DeliveryMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
@@ -353,8 +309,7 @@ public class DeliveryMethod extends Language {
                                         next.performClick();
 
                                     }
-                                })
-                                .show();
+                                }).show();
 
                     }
                 } catch (Exception e) {
@@ -377,8 +332,7 @@ public class DeliveryMethod extends Language {
                                 next.performClick();
 
                             }
-                        })
-                        .show();
+                        }).show();
             }
         }
     }

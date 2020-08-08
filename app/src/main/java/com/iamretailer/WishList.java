@@ -54,24 +54,24 @@ public class WishList extends Language {
         setContentView(R.layout.activity_wish_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        no_items = (FrameLayout) findViewById(R.id.no_items);
-        wish_list = (ListView) findViewById(R.id.wish_list);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        header = (TextView) findViewById(R.id.header);
+        back = findViewById(R.id.menu);
+        cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
+        no_items = findViewById(R.id.no_items);
+        wish_list = findViewById(R.id.wish_list);
+        error_network = findViewById(R.id.error_network);
+        loading = findViewById(R.id.loading);
+        loading_bar = findViewById(R.id.loading_bar);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        header = findViewById(R.id.header);
         header.setText(R.string.wish_list);
         dbController=new DBController(WishList.this);
         Appconstatants.Lang=dbController.get_lang_code();
         Appconstatants.CUR=dbController.getCurCode();
-        retry = (LinearLayout) findViewById(R.id.retry);
-        shop = (Button) findViewById(R.id.shop);
+        retry = findViewById(R.id.retry);
+        shop = findViewById(R.id.shop);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

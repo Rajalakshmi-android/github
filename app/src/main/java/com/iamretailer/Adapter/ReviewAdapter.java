@@ -56,16 +56,16 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
         } else {
             alertView = (FrameLayout) convertView;
         }
-        holder.comts = (TextView) convertView.findViewById(R.id.comments);
-        holder.rev_date = (TextView) convertView.findViewById(R.id.date);
-        holder.user_name = (TextView) convertView.findViewById(R.id.user_name);
-        holder.user_first = (TextView) convertView.findViewById(R.id.user_first);
-        holder.review_bg = (LinearLayout) convertView.findViewById(R.id.review_bg);
-        holder.r1 = (ImageView) convertView.findViewById(R.id.r1);
-        holder.r2 = (ImageView) convertView.findViewById(R.id.r2);
-        holder.r3 = (ImageView) convertView.findViewById(R.id.r3);
-        holder.r4 = (ImageView) convertView.findViewById(R.id.r4);
-        holder.r5 = (ImageView) convertView.findViewById(R.id.r5);
+        holder.comts = convertView.findViewById(R.id.comments);
+        holder.rev_date = convertView.findViewById(R.id.date);
+        holder.user_name = convertView.findViewById(R.id.user_name);
+        holder.user_first = convertView.findViewById(R.id.user_first);
+        holder.review_bg = convertView.findViewById(R.id.review_bg);
+        holder.r1 = convertView.findViewById(R.id.r1);
+        holder.r2 = convertView.findViewById(R.id.r2);
+        holder.r3 = convertView.findViewById(R.id.r3);
+        holder.r4 = convertView.findViewById(R.id.r4);
+        holder.r5 = convertView.findViewById(R.id.r5);
 
 
         holder.comts.setText(items.get(position).getRev_text());

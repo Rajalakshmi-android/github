@@ -19,16 +19,14 @@ import stutzen.co.network.Connection;
 
 public class PaymentAct extends AppCompatActivity {
     WebView webView;
-
     LinearLayout menu;
     TextView header;
     LinearLayout cart_items;
     DBController controller;
-    FrameLayout loading,error_network;
+    FrameLayout loading, error_network;
     AndroidLogger logger;
     LinearLayout loading_bar;
     FrameLayout fullayout;
-
 
 
     @Override
@@ -36,21 +34,21 @@ public class PaymentAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        controller=new DBController(PaymentAct.this);
-        Appconstatants.sessiondata=controller.getSession();
-        Appconstatants.Lang=controller.get_lang_code();
-        Appconstatants.CUR=controller.getCurCode();
-        menu=(LinearLayout)findViewById(R.id.menu);
-        header=(TextView)findViewById(R.id.header);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        error_network=(FrameLayout)findViewById(R.id.error_network);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        controller = new DBController(PaymentAct.this);
+        Appconstatants.sessiondata = controller.getSession();
+        Appconstatants.Lang = controller.get_lang_code();
+        Appconstatants.CUR = controller.getCurCode();
+        menu = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
         header.setText(getResources().getString(R.string.pay));
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
+        cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        webView=(WebView)findViewById(R.id.webview);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
+        webView = findViewById(R.id.webview);
+        loading_bar = findViewById(R.id.loading_bar);
+        fullayout = findViewById(R.id.fullayout);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,8 +58,8 @@ public class PaymentAct extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-       // webView.loadUrl(Appconstatants.PAYMENT);
-        PAYMENT payment=new PAYMENT();
+        // webView.loadUrl(Appconstatants.PAYMENT);
+        PAYMENT payment = new PAYMENT();
         payment.execute(Appconstatants.PAYMENT);
 
     }
@@ -79,7 +77,7 @@ public class PaymentAct extends AppCompatActivity {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,PaymentAct.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, PaymentAct.this);
                 logger.info("payment--> api:" + response);
                 Log.d("payment-->api", param[0]);
                 Log.d("payment-->resp", response + "");
@@ -140,7 +138,6 @@ public class PaymentAct extends AppCompatActivity {
             }*/
         }
     }
-
 
 
 }

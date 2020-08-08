@@ -83,23 +83,23 @@ public class Wallet extends Language {
         setContentView(R.layout.activity_wallent);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        menu=(LinearLayout)findViewById(R.id.menu);
-        header=(TextView)findViewById(R.id.header);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout) ;
-        cont=(LinearLayout)findViewById(R.id.cont) ;
+        menu= findViewById(R.id.menu);
+        header= findViewById(R.id.header);
+        cart_items= findViewById(R.id.cart_items);
+        fullayout= findViewById(R.id.fullayout);
+        cont= findViewById(R.id.cont);
         header.setText(R.string.wallet_head);
-        cart_count=(TextView)findViewById(R.id.cart_count);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        w_amount = (TextView) findViewById(R.id.amount);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        no_items=(TextView)findViewById(R.id.no_items);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        list_view=(FrameLayout)findViewById(R.id.success);
-        wallet_list=(ListView) findViewById(R.id.wallet_list);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        cart_count= findViewById(R.id.cart_count);
+        loading_bar= findViewById(R.id.loading_bar);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        w_amount = findViewById(R.id.amount);
+        error_network = findViewById(R.id.error_network);
+        no_items= findViewById(R.id.no_items);
+        loading = findViewById(R.id.loading);
+        list_view= findViewById(R.id.success);
+        wallet_list= findViewById(R.id.wallet_list);
+        retry = findViewById(R.id.retry);
 
         dbCon = new DBController(Wallet.this);
         Appconstatants.sessiondata = dbCon.getSession();
@@ -575,7 +575,7 @@ public class Wallet extends Language {
                                 item.setProductrate(jsonObject.isNull("price_formated") ? "" : jsonObject.getString("price_formated"));
                                 item.setDescription(jsonObject.isNull("description") ? "" : jsonObject.getString("description"));
                                 item.setQty(jsonObject.isNull("quantity") ? 0 : jsonObject.getInt("quantity"));
-                                item.setWish_list(jsonObject.isNull("wish_list") ? false : jsonObject.getBoolean("wish_list"));
+                                item.setWish_list(!jsonObject.isNull("wish_list") && jsonObject.getBoolean("wish_list"));
 
                                 optionsPOArrayList1.add(item);
                             }
@@ -731,8 +731,8 @@ public class Wallet extends Language {
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay=(LinearLayout)popUpView.findViewById(R.id.okay);
-        TextView text1=(TextView)popUpView.findViewById(R.id.text1);
+        LinearLayout okay= popUpView.findViewById(R.id.okay);
+        TextView text1= popUpView.findViewById(R.id.text1);
         text1.setText("ORDER ID: "+order);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -742,7 +742,7 @@ public class Wallet extends Language {
                 task.execute(product_id);
             }
         });
-        LinearLayout notokay=(LinearLayout)popUpView.findViewById(R.id.notokay);
+        LinearLayout notokay= popUpView.findViewById(R.id.notokay);
         notokay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

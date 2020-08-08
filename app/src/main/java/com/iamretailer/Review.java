@@ -61,20 +61,20 @@ public class Review extends Language {
         setContentView(R.layout.activity_review);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
+        back = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
         header.setText(R.string.review_head);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
+        cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        review_list = (ListView) findViewById(R.id.review_list);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        load_more = (LinearLayout) findViewById(R.id.load_more);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        review_list = findViewById(R.id.review_list);
+        loading = findViewById(R.id.loading);
+        fullayout = findViewById(R.id.fullayout);
+        error_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
+        load_more = findViewById(R.id.load_more);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar= findViewById(R.id.loading_bar);
         db = new DBController(Review.this);
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang=db.get_lang_code();
@@ -122,10 +122,7 @@ public class Review extends Language {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int count = firstVisibleItem + visibleItemCount;
-                if (totalItemCount == count)
-                    scrollValue = true;
-                else
-                    scrollValue = false;
+                scrollValue = totalItemCount == count;
             }
         });
 

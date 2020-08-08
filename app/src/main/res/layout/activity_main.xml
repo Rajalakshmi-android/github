@@ -72,6 +72,7 @@
                                                 android:layout_gravity="center"
                                                 android:layout_marginStart="@dimen/dp20"
                                                 android:padding="@dimen/dp2"
+                                                android:contentDescription="@null"
                                                 android:src="@mipmap/searching" />
 
                                             <com.iamretailer.Common.CustomTextview
@@ -411,6 +412,7 @@
                                                     android:layout_width="@dimen/dp25"
                                                     android:layout_height="@dimen/dp25"
                                                     android:layout_gravity="center"
+                                                    android:contentDescription="@null"
                                                     android:src="@mipmap/yellow_home" />
 
                                                 <com.iamretailer.Common.CustomTextview
@@ -444,6 +446,7 @@
                                                     android:id="@+id/category_bottom"
                                                     android:layout_width="@dimen/dp25"
                                                     android:layout_height="@dimen/dp25"
+                                                    android:contentDescription="@null"
                                                     android:layout_gravity="center"
                                                     android:src="@mipmap/category_gray" />
                                                 <com.iamretailer.Common.CustomTextview
@@ -477,6 +480,7 @@
                                                     android:id="@+id/locator_icon"
                                                     android:layout_width="@dimen/dp25"
                                                     android:layout_height="@dimen/dp25"
+                                                    android:contentDescription="@null"
                                                     android:layout_gravity="center"
                                                     android:src="@mipmap/deal_blue" />
                                                 <com.iamretailer.Common.CustomTextview
@@ -510,6 +514,7 @@
                                                 <ImageView
                                                     android:id="@+id/cart_img"
                                                     android:layout_width="@dimen/dp25"
+                                                    android:contentDescription="@null"
                                                     android:layout_height="@dimen/dp25"
                                                     android:layout_gravity="center"
                                                     android:src="@mipmap/user_gray" />
@@ -554,6 +559,7 @@
                                                         <ImageView
                                                             android:id="@+id/cart1"
                                                             android:layout_width="match_parent"
+                                                            android:contentDescription="@null"
                                                             android:layout_height="@dimen/dp20"
                                                             android:src="@mipmap/cart_bottom"
                                                             android:autoMirrored="true"

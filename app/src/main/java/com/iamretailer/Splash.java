@@ -60,7 +60,7 @@ public class Splash extends Language {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Appconstatants.sessiondata = dbCon.getSession();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        lay = (FrameLayout) findViewById(R.id.lay);
+        lay = findViewById(R.id.lay);
         Log.d("Session", Appconstatants.sessiondata + "Value");
 
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
@@ -429,7 +429,7 @@ public class Splash extends Language {
     public void show_alret(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
         View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
-        TextView text = (TextView) popUpView.findViewById(R.id.text2);
+        TextView text = popUpView.findViewById(R.id.text2);
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

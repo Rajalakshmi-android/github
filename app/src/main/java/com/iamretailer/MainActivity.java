@@ -1,12 +1,9 @@
 package com.iamretailer;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -24,18 +21,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,34 +82,20 @@ public class MainActivity extends Drawer {
     JazzyViewPager baner2;
     private ArrayList<ProductsPO> list;
     RecyclerView horizontalListView;
-    // CirclePageIndicator dots;
     RecyclerView best_selling_list;
     FrameLayout loading;
     TextView cart_count1;
     private ArrayList<ProductsPO> feat_list;
-    LoopingViewPager pager1;
-
     PageIndicatorView indicatorView;
-
     LinearLayout search;
-    TextView search_text;
     LinearLayout view_all_feat, view_all_best;
-    TextView errortxt1, errortxt2;
-    TextView categ;
     LinearLayout loading_bar;
     int level = 0;
-    FrameLayout top;
     AndroidLogger logger;
     TextView no_items, no_items1;
     CommonAdapter bestAdapters;
     private ArrayList<SingleOptionPO> optionPOS;
-   // private LinearLayout cat_seall;
     CommonAdapter featuredProduct;
-   // private ScrollView stickyscroll;
-   // private FrameLayout topbg;
-   // private LinearLayout app_bgss;
-    private int width,height;
-    private int width1;
     private LoopingViewPager pager;
     private ArrayList<ProductsPO> cart_item;
     private GridLayoutManager mLayoutManager;
@@ -141,7 +120,6 @@ public class MainActivity extends Drawer {
         {
             change_langs(db.get_lang_code());
             Log.i("tag","jgdljgldfjgldjg "+db.get_lang_code());
-            //change_langs("ar");
         }
         Appconstatants.Lang=db.get_lang_code();
         setContentView(R.layout.activity_main);
@@ -150,40 +128,35 @@ public class MainActivity extends Drawer {
         Appconstatants.CUR=db.getCurCode();
         Log.d("Curen_code",Appconstatants.CUR+"asdad"+db.getCurCode()+"");
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        grid = (RecyclerView) findViewById(R.id.grid);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        sidemenu = (LinearLayout) findViewById(R.id.sidemenu);
-        drawerview = (FrameLayout) findViewById(R.id.drawerview);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        horizontalListView = (RecyclerView) findViewById(R.id.features_list);
-        // dots = (CirclePageIndicator) findViewById(R.id.dots);
-        best_selling_list = (RecyclerView) findViewById(R.id.best_selling_list);
-        baner2 = (JazzyViewPager) findViewById(R.id.baner2);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        cart_count1 = (TextView) findViewById(R.id.cart_count1);
-        pager = (LoopingViewPager) findViewById(R.id.pager);
-        search = (LinearLayout) findViewById(R.id.search);
-        indicatorView = (PageIndicatorView) findViewById(R.id.dots);
-        view_all_feat = (LinearLayout) findViewById(R.id.view_all_feat);
-        view_all_best = (LinearLayout) findViewById(R.id.view_all_best);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        categ = (TextView) findViewById(R.id.categ);
-        //cat_seall = (LinearLayout) findViewById(R.id.cat_seeall);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        no_items = (TextView) findViewById(R.id.no_items);
-        no_items1 = (TextView) findViewById(R.id.no_items1);
-        categ_preloader=(LinearLayout)findViewById(R.id.categ_preloader);
-        most_preloader=(LinearLayout)findViewById(R.id.most_preloader);
-        newly_preloader=(LinearLayout)findViewById(R.id.newly_preloader);
-        cate_bottom = (LinearLayout) findViewById(R.id.cate_bottom);
-        contact = (LinearLayout) findViewById(R.id.contact);
-        cart_bottom = (LinearLayout) findViewById(R.id.cart_bottom);
-        deal_bottom = (LinearLayout) findViewById(R.id.deal_bottom);
-        cart_count_bot = (TextView) findViewById(R.id.cart_count_bot);
-        category = (LinearLayout) findViewById(R.id.category);
+        grid = findViewById(R.id.grid);
+        fullayout = findViewById(R.id.fullayout);
+        cart_items = findViewById(R.id.cart_items);
+        drawerLayout = findViewById(R.id.drawer);
+        sidemenu = findViewById(R.id.sidemenu);
+        drawerview = findViewById(R.id.drawerview);
+        cart_count = findViewById(R.id.cart_count);
+        horizontalListView = findViewById(R.id.features_list);
+        best_selling_list = findViewById(R.id.best_selling_list);
+        baner2 = findViewById(R.id.baner2);
+        loading = findViewById(R.id.loading);
+        cart_count1 = findViewById(R.id.cart_count1);
+        pager = findViewById(R.id.pager);
+        search = findViewById(R.id.search);
+        indicatorView = findViewById(R.id.dots);
+        view_all_feat = findViewById(R.id.view_all_feat);
+        view_all_best = findViewById(R.id.view_all_best);
+        loading_bar = findViewById(R.id.loading_bar);
+        no_items = findViewById(R.id.no_items);
+        no_items1 = findViewById(R.id.no_items1);
+        categ_preloader= findViewById(R.id.categ_preloader);
+        most_preloader= findViewById(R.id.most_preloader);
+        newly_preloader= findViewById(R.id.newly_preloader);
+        cate_bottom = findViewById(R.id.cate_bottom);
+        contact = findViewById(R.id.contact);
+        cart_bottom = findViewById(R.id.cart_bottom);
+        deal_bottom = findViewById(R.id.deal_bottom);
+        cart_count_bot = findViewById(R.id.cart_count_bot);
+        category = findViewById(R.id.category);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -386,7 +359,6 @@ public class MainActivity extends Drawer {
             change_pwd.setVisibility(View.VISIBLE);
             wish.setVisibility(View.VISIBLE);
             address.setVisibility(View.VISIBLE);
-           // wallet.setVisibility(View.VISIBLE);
         } else {
             gologout.setVisibility(View.GONE);
             login.setVisibility(View.VISIBLE);
@@ -394,7 +366,6 @@ public class MainActivity extends Drawer {
             change_pwd.setVisibility(View.GONE);
             wish.setVisibility(View.GONE);
             address.setVisibility(View.GONE);
-           //wallet.setVisibility(View.GONE);
         }
     }
 
@@ -444,7 +415,7 @@ public class MainActivity extends Drawer {
             if (resp != null) {
 
                 try {
-                    seller_list = new ArrayList<BrandsPO>();
+                    seller_list = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
@@ -515,7 +486,6 @@ public class MainActivity extends Drawer {
                             }
 
                         }
-                        Log.i("skjdjkf",seller_list.size()+"");
                         adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1,0,0);
                         grid.setAdapter(adapter1);
                         mLayoutManager=new GridLayoutManager(MainActivity.this,4);
@@ -593,7 +563,7 @@ public class MainActivity extends Drawer {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
                 try {
-                    banner_list = new ArrayList<BannerBo>();
+                    banner_list = new ArrayList<>();
                     banner2 = new ArrayList<>();
 
                     JSONObject json = new JSONObject(resp);
@@ -629,9 +599,7 @@ public class MainActivity extends Drawer {
                         Log.d("banner2_", banner_list.size() + "");
 
                         loading.setVisibility(View.GONE);
-
-                        setupJazziness(JazzyViewPager.TransitionEffect.Standard);
-
+                        setupJazziness();
                         Brandtask brandtask = new Brandtask();
                         brandtask.execute(Appconstatants.CAT_LIST);
 
@@ -703,7 +671,7 @@ public class MainActivity extends Drawer {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
                 try {
-                    seller_lists = new ArrayList<BrandsPO>();
+                    seller_lists = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
@@ -748,6 +716,17 @@ public class MainActivity extends Drawer {
                     loading_bar.setVisibility(View.GONE);
                     loading.setVisibility(View.GONE);
                     category.setVisibility(View.GONE);
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    loading_bar.setVisibility(View.VISIBLE);
+                                    GetBannerTask task1 = new GetBannerTask();
+                                    task1.execute(Appconstatants.BANNER_IMAGEa);
+                                }
+                            })
+                            .show();
+
                 }
             } else {
                 loading_bar.setVisibility(View.GONE);
@@ -768,14 +747,14 @@ public class MainActivity extends Drawer {
 
     private void addLayoutss(final BrandsPO brandsbo, LinearLayout payment_list, int pos) {
         View convertView = LayoutInflater.from(this).inflate(R.layout.categlist, payment_list, false);
-        TextView namess = (TextView) convertView.findViewById(R.id.name);
-        LinearLayout view_all = (LinearLayout) convertView.findViewById(R.id.view_all);
-        final TextView no_proditems = (TextView) convertView.findViewById(R.id.no_proditems);
-        final RecyclerView product_list = (RecyclerView)convertView. findViewById(R.id.product_list);
-        final FrameLayout product_success = (FrameLayout)convertView. findViewById(R.id.success);
-        final FrameLayout product_loading = (FrameLayout)convertView. findViewById(R.id.loading);
-        final FrameLayout no_network = (FrameLayout) convertView.findViewById(R.id.error_network);
-        LinearLayout retry = (LinearLayout) convertView.findViewById(R.id.retry);
+        TextView namess = convertView.findViewById(R.id.name);
+        LinearLayout view_all = convertView.findViewById(R.id.view_all);
+        final TextView no_proditems = convertView.findViewById(R.id.no_proditems);
+        final RecyclerView product_list = convertView. findViewById(R.id.product_list);
+        final FrameLayout product_success = convertView. findViewById(R.id.success);
+        final FrameLayout product_loading = convertView. findViewById(R.id.loading);
+        final FrameLayout no_network = convertView.findViewById(R.id.error_network);
+        LinearLayout retry = convertView.findViewById(R.id.retry);
         namess.setText(brandsbo.getStore_name()+"");
         Log.i("tag","listview----");
         GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
@@ -1097,11 +1076,10 @@ public class MainActivity extends Drawer {
 
 
 
-    private void setupJazziness(JazzyViewPager.TransitionEffect effect) {
+    private void setupJazziness() {
 
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
-       // pager.setPageMargin(15);
 
         try {
             Field mScroller;
@@ -1151,9 +1129,9 @@ public class MainActivity extends Drawer {
 
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.banner_roundview2, container, false);
-            imgDisplay = (ImageView) viewLayout.findViewById(R.id.browsebackground);
+            imgDisplay = viewLayout.findViewById(R.id.browsebackground);
 
-            LinearLayout banner=(LinearLayout) viewLayout.findViewById(R.id.banners);
+            LinearLayout banner= viewLayout.findViewById(R.id.banners);
             banner.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1524,25 +1502,6 @@ public class MainActivity extends Drawer {
         }
     }
 
-    private void setAppLocale(String localeCode){
-        try {
-
-
-            Resources resources = getResources();
-            DisplayMetrics dm = resources.getDisplayMetrics();
-            Configuration config = resources.getConfiguration();
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
-                config.setLocale(new Locale(localeCode.toLowerCase()));
-            } else {
-                config.locale = new Locale(localeCode.toLowerCase());
-            }
-            resources.updateConfiguration(config, dm);
-        }
-        catch (Exception e)
-        {
-            Log.d("dssf",e.toString()+"");
-        }
-    }
 
     private void change_langs(String languageToLoad) {
 

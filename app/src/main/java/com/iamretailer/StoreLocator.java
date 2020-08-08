@@ -60,11 +60,11 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID,false);
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maphome)).getMapAsync(this);
-        LinearLayout backclick = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
+        LinearLayout backclick = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
         header.setText(R.string.store);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
+        cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
         backclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +89,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout view = new LinearLayout(context);
         View dataView = mInflater.inflate(R.layout.marker_view, view, true);
-        ImageView imge = (ImageView) dataView.findViewById(R.id.img);
+        ImageView imge = dataView.findViewById(R.id.img);
         imge.setImageResource(img);
         view.setLayoutParams(new ActionBar.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));

@@ -56,7 +56,7 @@ public class MyCart extends Language {
     public LinearLayout retry;
     private FrameLayout success;
     FrameLayout loading;
-    LinearLayout cart_items;
+
     TextView header;
     FrameLayout fullayout;
 
@@ -98,35 +98,31 @@ public class MyCart extends Language {
         CommonFunctions.updateAndroidSecurityProvider(this);
         db = new DBController(getApplicationContext());
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        success = (FrameLayout) findViewById(R.id.success);
-        cart_list = (ListView) findViewById(R.id.cart_list);
-        checkoutview = (LinearLayout) findViewById(R.id.checkoutview);
-        subtotal = (TextView) findViewById(R.id.subtotal);
-        shopnow = (LinearLayout) findViewById(R.id.shopnow);
-        button = (LinearLayout) findViewById(R.id.home);
-        menu = (LinearLayout) findViewById(R.id.menu);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        header=(TextView)findViewById(R.id.header);
+        success = findViewById(R.id.success);
+        cart_list = findViewById(R.id.cart_list);
+        checkoutview = findViewById(R.id.checkoutview);
+        subtotal = findViewById(R.id.subtotal);
+        shopnow = findViewById(R.id.shopnow);
+        button = findViewById(R.id.home);
+        menu = findViewById(R.id.menu);
+        error_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
+        loading= findViewById(R.id.loading);
+        header= findViewById(R.id.header);
         header.setText(R.string.my_Cart);
-        //   cart_items.setVisibility(View.GONE);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        shipping=(LinearLayout)findViewById(R.id.shipping);
-        rupee_front=(TextView)findViewById(R.id.rupee_front);
-        rupee_back=(TextView)findViewById(R.id.rupee_back);
-        cart_count=(TextView)findViewById(R.id.cart_count);
-
-
+        fullayout= findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar= findViewById(R.id.loading_bar);
+        shipping= findViewById(R.id.shipping);
+        rupee_front= findViewById(R.id.rupee_front);
+        rupee_back= findViewById(R.id.rupee_back);
+        cart_count= findViewById(R.id.cart_count);
 
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang=db.get_lang_code();
         Appconstatants.CUR=db.getCurCode();
-        list = new ArrayList<ProductsPO>();
+        list = new ArrayList<>();
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
 
@@ -164,7 +160,7 @@ public class MyCart extends Language {
         });
 
 
-        checkout = (FrameLayout) findViewById(R.id.checkout);
+        checkout = findViewById(R.id.checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,10 +214,10 @@ public class MyCart extends Language {
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
-        calculate=(FrameLayout)dialogView.findViewById(R.id.calculate);
-        country=(Spinner)dialogView.findViewById(R.id.country);
-        state=(Spinner)dialogView.findViewById(R.id.state);
-        pin_code=(EditText)dialogView.findViewById(R.id.pin_code);
+        calculate= dialogView.findViewById(R.id.calculate);
+        country= dialogView.findViewById(R.id.country);
+        state= dialogView.findViewById(R.id.state);
+        pin_code= dialogView.findViewById(R.id.pin_code);
 
 
 
@@ -439,7 +435,7 @@ public class MyCart extends Language {
             Log.i("Cart_list_resp", "CartResp--->  " + resp);
 
             if (resp != null) {
-                list = new ArrayList<ProductsPO>();
+                list = new ArrayList<>();
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
@@ -488,7 +484,7 @@ public class MyCart extends Language {
                                     Log.d("Stock_values",jsonObject1.getBoolean("stock")+"");
 
 
-                                    ArrayList<OptionsPO> oplist = new ArrayList<OptionsPO>();
+                                    ArrayList<OptionsPO> oplist = new ArrayList<>();
                                     for (int u = 0; u < jarray.length(); u++) {
                                         JSONObject ob = jarray.getJSONObject(u);
                                         OptionsPO boo = new OptionsPO();
@@ -706,7 +702,7 @@ public class MyCart extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    country_list = new ArrayList<CountryPO>();
+                    country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
                     po1.setCount_name("Select Country");
@@ -802,7 +798,7 @@ public class MyCart extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    state_list = new ArrayList<CountryPO>();
+                    state_list = new ArrayList<>();
                     CountryPO po = new CountryPO();
                     po.setZone_id("0");
                     po.setCont_id("0");
@@ -969,8 +965,8 @@ public class MyCart extends Language {
         show_amount=dialogBuilder.create();
         String cost="";
 
-        LinearLayout ship_layer=(LinearLayout)dialogView.findViewById(R.id.ship_layer);
-        FrameLayout okay=(FrameLayout)dialogView.findViewById(R.id.okay);
+        LinearLayout ship_layer= dialogView.findViewById(R.id.ship_layer);
+        FrameLayout okay= dialogView.findViewById(R.id.okay);
         ship_layer.removeAllViews();
         Log.d("sample_check",jsonObject.toString()+"");
         try {
@@ -1011,8 +1007,8 @@ public class MyCart extends Language {
 
     private void add_layer(LinearLayout shipping_list,String key,String cost) {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ship_item, shipping_list, false);
-        TextView ship_title=(TextView)convertView.findViewById(R.id.ship_title);
-        TextView ship_cost=(TextView)convertView.findViewById(R.id.ship_cost);
+        TextView ship_title= convertView.findViewById(R.id.ship_title);
+        TextView ship_cost= convertView.findViewById(R.id.ship_cost);
         ship_title.setText(key+": ");
         ship_cost.setText(cost+"");
         shipping_list.addView(convertView);

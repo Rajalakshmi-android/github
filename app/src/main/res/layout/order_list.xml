@@ -32,7 +32,7 @@
                     android:textSize="@dimen/text13sp"
                     />
                 <com.iamretailer.Common.CustomTextview1
-                    android:layout_marginLeft="@dimen/dp1"
+                    android:layout_marginStart="@dimen/dp1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -52,8 +52,9 @@
                     />
                 <ImageView
                     android:id="@+id/image"
-                    android:layout_marginLeft="@dimen/dp5"
+                    android:layout_marginStart="@dimen/dp5"
                     android:layout_marginTop="@dimen/dp2"
+                    android:contentDescription="@null"
                     android:layout_width="@dimen/dp15"
                     android:layout_height="@dimen/dp15"
                     android:src="@mipmap/pending_my"/>
@@ -73,7 +74,8 @@
                     android:paddingStart="@dimen/dp10"
                     android:text="@string/delivered"
                     android:textColor="@color/red"
-                    android:textSize="@dimen/dp14" />
+                    android:paddingEnd="@dimen/dp0"
+                    android:textSize="@dimen/text14sp" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -120,7 +122,7 @@
                         android:gravity="start"
                         android:text="@string/order"
                         android:textColor="@color/conf_tex"
-                        android:textSize="@dimen/dp14"
+                        android:textSize="@dimen/text14sp"
                         />
                 </LinearLayout>
 
@@ -174,7 +176,7 @@
                             android:gravity="start"
                             android:text="@string/Total_amount"
                             android:textColor="@color/text_color1"
-                            android:textSize="@dimen/dp13" />
+                            android:textSize="@dimen/text13sp" />
 
                     </LinearLayout>
                     <LinearLayout
@@ -189,7 +191,7 @@
                             android:gravity="start"
                             android:text="@string/order"
                             android:textColor="@color/conf_tex"
-                            android:textSize="@dimen/dp9"
+                            android:textSize="@dimen/text9sp"
                             />
                     <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/totalamount"
@@ -198,7 +200,7 @@
                         android:gravity="start"
                         android:text="@string/order"
                         android:textColor="@color/conf_tex"
-                        android:textSize="@dimen/dp14"
+                        android:textSize="@dimen/text14sp"
                         />
                         <com.iamretailer.Common.CustomTextview1
                             android:id="@+id/symbol1"
@@ -207,7 +209,7 @@
                             android:gravity="start"
                             android:text="@string/order"
                             android:textColor="@color/conf_tex"
-                            android:textSize="@dimen/dp9"
+                            android:textSize="@dimen/text9sp"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -235,7 +237,7 @@
                             android:gravity="start"
                             android:text="@string/pay_head"
                             android:textColor="@color/text_color1"
-                            android:textSize="@dimen/dp13" />
+                            android:textSize="@dimen/text13sp" />
 
                     </LinearLayout>
 
@@ -246,7 +248,7 @@
                         android:gravity="start"
                         android:text="@string/Paidment"
                         android:textColor="@color/conf_tex"
-                        android:textSize="@dimen/dp14"
+                        android:textSize="@dimen/text14sp"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -273,7 +275,7 @@
                             android:paddingBottom="@dimen/dp5"
                             android:text="@string/details"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/dp14" />
+                            android:textSize="@dimen/text14sp" />
                     </LinearLayout>
                 </LinearLayout>
 

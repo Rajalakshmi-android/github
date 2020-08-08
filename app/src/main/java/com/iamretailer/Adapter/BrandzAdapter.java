@@ -36,10 +36,10 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
     String cur_right = "";
     AndroidLogger logger;
     int from;
-    int type;
 
 
-    public BrandzAdapter(Context ctx, ArrayList<BrandsPO> imageModelArrayList, int from,int width, int height) {
+
+    public BrandzAdapter(Context ctx, ArrayList<BrandsPO> imageModelArrayList, int from, int width, int height) {
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
         this.context = ctx;
@@ -48,7 +48,6 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
         cur_left = dbController.get_cur_Left();
         cur_right = dbController.get_cur_Right();
         Appconstatants.CUR = dbController.getCurCode();
-        this.type = type;
         logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
     }
 
@@ -63,12 +62,9 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        if (Build.VERSION.SDK_INT >= 24)
-        {
-            holder.name.setText(Html.fromHtml(items.get(position).getStore_name() , Html.FROM_HTML_MODE_LEGACY));
-        }
-        else
-        {
+        if (Build.VERSION.SDK_INT >= 24) {
+            holder.name.setText(Html.fromHtml(items.get(position).getStore_name(), Html.FROM_HTML_MODE_LEGACY));
+        } else {
             holder.name.setText(Html.fromHtml(items.get(position).getStore_name()));
         }
 
@@ -76,22 +72,20 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
             float widthPixels = context.getResources().getDisplayMetrics().widthPixels;
             float px1 = (widthPixels - (25 * context.getResources().getDisplayMetrics().density)) / 4;
             holder.frame.getLayoutParams().height = (int) px1;
-        } else if(from==3)
-        {
+        } else if (from == 3) {
             float widthPixels = context.getResources().getDisplayMetrics().widthPixels;
             float px1 = (widthPixels - (25 * context.getResources().getDisplayMetrics().density)) / 3;
             holder.frame.getLayoutParams().height = (int) px1;
-        }
-        else {
+        } else {
 
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.frame.getLayoutParams();
-            params.width=(int)context.getResources().getDimension(R.dimen.dp80);
-            params.height=(int)context.getResources().getDimension(R.dimen.dp80);
-            params.setMargins(0, (int) context.getResources().getDimension(R.dimen.dp10),   0,0);
+            params.width = (int) context.getResources().getDimension(R.dimen.dp80);
+            params.height = (int) context.getResources().getDimension(R.dimen.dp80);
+            params.setMargins(0, (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);
             holder.frame.setLayoutParams(params);
 
         }
-        if (items.get(position).getBg_img_url()!=null) {
+        if (items.get(position).getBg_img_url() != null) {
             if (items.get(position).getBg_img_url().isEmpty()) {
                 Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(holder.bg_img);
             } else {
@@ -115,27 +109,21 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
                 Picasso.with(context).load(items.get(position).getBg_img_url()).transform(new CircleTransforms(px, 0)).fit().placeholder(R.mipmap.place_holder).into(holder.bg_img);
                 Log.i("tag", "image_url--- " + items.get(position).getBg_img_url());
             }
-        }
-        else
-        {
+        } else {
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(holder.bg_img);
         }
-        if (from==1)
-        {
+        if (from == 1) {
             if (position == 3) {
-            holder.name.setText(R.string.see_all);
-            holder.more.setVisibility(View.VISIBLE);
-            holder.bg_img.setVisibility(View.GONE);
-         }
+                holder.name.setText(R.string.see_all);
+                holder.more.setVisibility(View.VISIBLE);
+                holder.bg_img.setVisibility(View.GONE);
+            }
         }
 
-        if (items.get(position).isSelect())
-        {
+        if (items.get(position).isSelect()) {
             holder.frame.setBackground(context.getResources().getDrawable(R.drawable.category_bg));
             holder.name.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        }
-        else
-        {
+        } else {
             holder.frame.setBackground(context.getResources().getDrawable(R.drawable.category_normal));
             holder.name.setTextColor(context.getResources().getColor(R.color.app_text_color));
         }
@@ -151,7 +139,7 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder {
         FrameLayout frame;
         ImageView bg_img;
-        TextView name,sub_name;
+        TextView name;
         ImageView more;
         LinearLayout item_bg;
 
@@ -159,11 +147,11 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            bg_img = (ImageView) itemView.findViewById(R.id.back_img);
-            frame = (FrameLayout) itemView.findViewById(R.id.brand);
-            name = (TextView) itemView.findViewById(R.id.store_name);
-            more = (ImageView) itemView.findViewById(R.id.more);
-            item_bg=(LinearLayout) itemView.findViewById(R.id.items_bg);
+            bg_img = itemView.findViewById(R.id.back_img);
+            frame = itemView.findViewById(R.id.brand);
+            name = itemView.findViewById(R.id.store_name);
+            more = itemView.findViewById(R.id.more);
+            item_bg = itemView.findViewById(R.id.items_bg);
 
         }
     }

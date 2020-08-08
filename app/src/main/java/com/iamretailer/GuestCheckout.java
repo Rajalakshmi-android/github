@@ -2,27 +2,21 @@ package com.iamretailer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.Common.Validation;
-import com.iamretailer.POJO.CountryPO;
 
 
 public class GuestCheckout extends Language {
     FrameLayout cont;
     EditText f_name,l_name,email,mobile;
-    ArrayList<CountryPO> country_list;
-    ArrayList<CountryPO> state_list;
     DBController db;
     TextView login;
     int has_ship;
@@ -36,15 +30,15 @@ public class GuestCheckout extends Language {
         db=new DBController(GuestCheckout.this);
         Appconstatants.sessiondata=db.getSession();
         Appconstatants.Lang=db.get_lang_code();
-        f_name=(EditText)findViewById(R.id.f_name);
-        l_name=(EditText)findViewById(R.id.l_name);
-        email=(EditText)findViewById(R.id.mail_id);
-        mobile=(EditText)findViewById(R.id.mobile);
-        login=(TextView)findViewById(R.id.login);
+        f_name= findViewById(R.id.f_name);
+        l_name= findViewById(R.id.l_name);
+        email= findViewById(R.id.mail_id);
+        mobile= findViewById(R.id.mobile);
+        login= findViewById(R.id.login);
 
         has_ship=getIntent().getIntExtra("has_ship",1);
 
-        cont=(FrameLayout) findViewById(R.id.cont);
+        cont= findViewById(R.id.cont);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

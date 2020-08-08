@@ -53,15 +53,15 @@ public class Registration extends Language {
         setContentView(R.layout.registration);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        f_name=(EditText)findViewById(R.id.full_name);
-        l_name=(EditText)findViewById(R.id.username2);
-        email=(EditText)findViewById(R.id.mailid);
-        mobile=(EditText)findViewById(R.id.mobile);
-        passone=(EditText)findViewById(R.id.passone);
-        passtwo=(EditText)findViewById(R.id.passtwo);
-        cont=(TextView)findViewById(R.id.cont);
-        fullayout=(LinearLayout)findViewById(R.id.fullayout);
-        login_page=(TextView)findViewById(R.id.login_page);
+        f_name= findViewById(R.id.full_name);
+        l_name= findViewById(R.id.username2);
+        email= findViewById(R.id.mailid);
+        mobile= findViewById(R.id.mobile);
+        passone= findViewById(R.id.passone);
+        passtwo= findViewById(R.id.passtwo);
+        cont= findViewById(R.id.cont);
+        fullayout= findViewById(R.id.fullayout);
+        login_page= findViewById(R.id.login_page);
       /*  state=(Spinner)findViewById(R.id.state);
         country=(Spinner)findViewById(R.id.country);*/
 

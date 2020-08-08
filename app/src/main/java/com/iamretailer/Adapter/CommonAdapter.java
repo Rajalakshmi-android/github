@@ -39,8 +39,8 @@ import stutzen.co.network.Connection;
 
 public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHolder> {
 
-    private LayoutInflater inflater;
-    private ArrayList<ProductsPO> items;
+    LayoutInflater inflater;
+    ArrayList<ProductsPO> items;
     Context context;
     DBController dbController;
     String cur_left = "";
@@ -48,7 +48,8 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
     AndroidLogger logger;
     int from;
     int cart;
-    public CommonAdapter(Context ctx, ArrayList<ProductsPO> imageModelArrayList, int from,int cart) {
+
+    public CommonAdapter(Context ctx, ArrayList<ProductsPO> imageModelArrayList, int from, int cart) {
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
         this.context = ctx;
@@ -57,14 +58,14 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         cur_left = dbController.get_cur_Left();
         cur_right = dbController.get_cur_Right();
         Appconstatants.CUR = dbController.getCurCode();
-        this.cart=cart;
+        this.cart = cart;
         logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-           view = inflater.inflate(R.layout.featured_item2, parent, false);
+        view = inflater.inflate(R.layout.featured_item2, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -72,18 +73,15 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        if (from==1)
-        {
+        if (from == 1) {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.items_bg.getLayoutParams();
-            params.width=(int)context.getResources().getDimension(R.dimen.dp150);
-            params.height=LinearLayout.LayoutParams.WRAP_CONTENT;
-            params.setMargins((int) context.getResources().getDimension(R.dimen.dp10), 0,   0,0);
+            params.width = (int) context.getResources().getDimension(R.dimen.dp150);
+            params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            params.setMargins((int) context.getResources().getDimension(R.dimen.dp10), 0, 0, 0);
             holder.items_bg.setLayoutParams(params);
-        }
-        else
-        {
+        } else {
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-            lp.setMargins((int) context.getResources().getDimension(R.dimen.dp5), (int) context.getResources().getDimension(R.dimen.dp10),   0,0);
+            lp.setMargins((int) context.getResources().getDimension(R.dimen.dp5), (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);
             holder.items_bg.setLayoutParams(lp);
         }
         holder.product_name.setText(items.get(position).getProduct_name());
@@ -219,28 +217,27 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView p_price, orginal,product_name;
-        ImageView like, un_like,p_img;
-        LinearLayout items_bg, add_to_cart,fav,background;
+        TextView p_price, orginal, product_name;
+        ImageView like, un_like, p_img;
+        LinearLayout items_bg, add_to_cart, fav;
         ImageView r1, r2, r3, r4, r5;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            product_name = (TextView) itemView.findViewById(R.id.prod_name);
-            p_img = (ImageView) itemView.findViewById(R.id.prod_img);
-            p_price = (TextView) itemView.findViewById(R.id.prod_price);
-            like = (ImageView) itemView.findViewById(R.id.like);
-            un_like = (ImageView) itemView.findViewById(R.id.unlike);
-            fav = (LinearLayout) itemView.findViewById(R.id.fav);
-            items_bg = (LinearLayout) itemView.findViewById(R.id.product);
-            add_to_cart = (LinearLayout) itemView.findViewById(R.id.add_to_cart);
-            background=(LinearLayout)itemView.findViewById(R.id.background);
-            orginal=(TextView)itemView.findViewById(R.id.orginal);
-            r1 = (ImageView) itemView.findViewById(R.id.r1);
-            r2 = (ImageView) itemView.findViewById(R.id.r2);
-            r3 = (ImageView) itemView.findViewById(R.id.r3);
-            r4 = (ImageView) itemView.findViewById(R.id.r4);
-            r5 = (ImageView) itemView.findViewById(R.id.r5);
+            product_name = itemView.findViewById(R.id.prod_name);
+            p_img = itemView.findViewById(R.id.prod_img);
+            p_price = itemView.findViewById(R.id.prod_price);
+            like = itemView.findViewById(R.id.like);
+            un_like = itemView.findViewById(R.id.unlike);
+            fav = itemView.findViewById(R.id.fav);
+            items_bg = itemView.findViewById(R.id.product);
+            add_to_cart = itemView.findViewById(R.id.add_to_cart);
+            orginal = itemView.findViewById(R.id.orginal);
+            r1 = itemView.findViewById(R.id.r1);
+            r2 = itemView.findViewById(R.id.r2);
+            r3 = itemView.findViewById(R.id.r3);
+            r4 = itemView.findViewById(R.id.r4);
+            r5 = itemView.findViewById(R.id.r5);
         }
     }
 
@@ -426,17 +423,17 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Toast.makeText(context, context.getResources().getString(R.string.cart_Add_text), Toast.LENGTH_SHORT).show();
-                        if (cart==1)
-                        ((MainActivity) context).cart_inc();
-                        else if (cart==2)
+                        if (cart == 1)
+                            ((MainActivity) context).cart_inc();
+                        else if (cart == 2)
                             ((Product_list) context).cart_inc();
-                        else if (cart==3)
+                        else if (cart == 3)
                             ((SearchActivity) context).cart_inc();
-                        else if (cart==4)
+                        else if (cart == 4)
                             ((Allen) context).cart_inc();
-                        else if (cart==5)
+                        else if (cart == 5)
                             ((Deal_list) context).cart_inc();
-                        else if (cart==6)
+                        else if (cart == 6)
                             ((ProductFullView) context).cart_inc();
 
 

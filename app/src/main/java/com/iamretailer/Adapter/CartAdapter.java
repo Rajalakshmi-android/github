@@ -5,14 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -27,7 +23,6 @@ import com.iamretailer.Common.DBController;
 import com.iamretailer.MyCart;
 import com.iamretailer.POJO.ProductsPO;
 import com.iamretailer.R;
-
 import com.logentries.android.AndroidLogger;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +41,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     LayoutInflater mInflater;
     double single_value;
     DBController db;
-    MyCart myCart;
     String cur_left = "";
     String cur_right = "";
     AndroidLogger logger;
@@ -61,7 +55,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         this.context = context;
         this.items = items;
         single_value = 0;
-        myCart = new MyCart();
         db = new DBController(getContext());
         cur_left = db.get_cur_Left();
         cur_right=db.get_cur_Right();
@@ -95,21 +88,21 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         } else {
             alertView = (LinearLayout) convertView;
         }
-        holder.cart_img = (ImageView) convertView.findViewById(R.id.cart_img);
-        holder.cart_prod_name = (TextView) convertView.findViewById(R.id.cart_prod_name);
-        holder.cart_prod_or_rate = (TextView) convertView.findViewById(R.id.tot);
-        holder.cart_ins = (ImageView) convertView.findViewById(R.id.add);
-        holder.cart_dec = (ImageView) convertView.findViewById(R.id.subtract);
-        holder.cart_value = (TextView) convertView.findViewById(R.id.cart_value);
-        holder.remove = (ImageView) convertView.findViewById(R.id.remove);
-        holder.option_list = (TextView) convertView.findViewById(R.id.option_list);
-        holder.out_of_stock=(TextView)convertView.findViewById(R.id.out_of_stock);
-        holder.qty=(LinearLayout)convertView.findViewById(R.id.qty);
-        holder.option=(LinearLayout)convertView.findViewById(R.id.option);
-        holder.rupee_front=(TextView)convertView.findViewById(R.id.rupee_front);
-        holder.rupee_back=(TextView)convertView.findViewById(R.id.rupee_back);
-        holder.spin_qty=(Spinner)convertView.findViewById(R.id.spin_qty);
-        holder.qty_count=(TextView)convertView.findViewById(R.id.qty_count);
+        holder.cart_img = convertView.findViewById(R.id.cart_img);
+        holder.cart_prod_name = convertView.findViewById(R.id.cart_prod_name);
+        holder.cart_prod_or_rate = convertView.findViewById(R.id.tot);
+        holder.cart_ins = convertView.findViewById(R.id.add);
+        holder.cart_dec = convertView.findViewById(R.id.subtract);
+        holder.cart_value = convertView.findViewById(R.id.cart_value);
+        holder.remove = convertView.findViewById(R.id.remove);
+        holder.option_list = convertView.findViewById(R.id.option_list);
+        holder.out_of_stock= convertView.findViewById(R.id.out_of_stock);
+        holder.qty= convertView.findViewById(R.id.qty);
+        holder.option= convertView.findViewById(R.id.option);
+        holder.rupee_front= convertView.findViewById(R.id.rupee_front);
+        holder.rupee_back= convertView.findViewById(R.id.rupee_back);
+        holder.spin_qty= convertView.findViewById(R.id.spin_qty);
+        holder.qty_count= convertView.findViewById(R.id.qty_count);
 
         qty_list=new ArrayList<>();
         for (int i=1;i<=4;i++)
@@ -282,9 +275,9 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
         alertReviewDialog.setCancelable(false);
-        LinearLayout cancel=(LinearLayout)dialogView.findViewById(R.id.cancel);
-        final EditText qty=(EditText)dialogView.findViewById(R.id.qty);
-        LinearLayout apply=(LinearLayout)dialogView.findViewById(R.id.apply);
+        LinearLayout cancel= dialogView.findViewById(R.id.cancel);
+        final EditText qty= dialogView.findViewById(R.id.qty);
+        LinearLayout apply= dialogView.findViewById(R.id.apply);
         qty.setText(qtys);
 
         cancel.setOnClickListener(new View.OnClickListener() {

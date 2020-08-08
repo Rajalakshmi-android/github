@@ -77,24 +77,24 @@ public class SearchActivity extends Language {
         Appconstatants.Lang=dbCon.get_lang_code();
         Appconstatants.CUR=dbCon.getCurCode();
         Log.d("Session", Appconstatants.sessiondata + "Value");
-        Grid = (RecyclerView) findViewById(R.id.grid);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        Grid = findViewById(R.id.grid);
+        back = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
+        cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        loading_bar= findViewById(R.id.loading_bar);
         optionsPOArrayList = new ArrayList<>();
         header.setText(R.string.search);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        search_text = (EditText) findViewById(R.id.search_text);
-        search_loading = (LinearLayout) findViewById(R.id.search_loading);
+        retry = findViewById(R.id.retry);
+        search_text = findViewById(R.id.search_text);
+        search_loading = findViewById(R.id.search_loading);
        // load_more=(LinearLayout) findViewById(R.id.load_more);
-        no_items = (TextView) findViewById(R.id.no_items);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
+        no_items = findViewById(R.id.no_items);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
 
        /* productTask = new SingleProductTask();
         productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);*/
@@ -261,7 +261,7 @@ public class SearchActivity extends Language {
                                 bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                 bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                 bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                                bo.setWish_list(obj.isNull("wish_list")?false:obj.getBoolean("wish_list"));
+                                bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                 bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
                                 optionPOS = new ArrayList<>();
                                 if (obj.getJSONArray("options").length() > 0) {

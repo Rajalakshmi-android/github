@@ -31,12 +31,12 @@ import stutzen.co.network.Connection;
 
 public class Product_list extends Language {
 
-    FrameLayout loading,error_network,fullayout;
+    FrameLayout loading, error_network, fullayout;
     ArrayList<ProductsPO> list;
     CommonAdapter bestAdapter;
     RecyclerView product_list;
     Bundle bundle;
-    String from="";
+    String from = "";
     private ArrayList<ProductsPO> feat_list;
     private CommonAdapter featuredAdapter;
     LinearLayout back;
@@ -44,10 +44,9 @@ public class Product_list extends Language {
     LinearLayout cart_items;
     TextView cart_counts;
     LinearLayout retry;
-    private boolean scrollNeed=true;
-    private int start=1,limit=10;
+    private int start = 1, limit = 10;
     LinearLayout load_more;
-    int val=0;
+    int val = 0;
     TextView errortxt1, errortxt2;
     LinearLayout loading_bar;
     AndroidLogger logger;
@@ -59,39 +58,39 @@ public class Product_list extends Language {
     int firstVisibleItem, visibleItemCount, totalItemCount;
     GridLayoutManager mLayoutManager;
     private boolean loadin = false;
-    String banner_id="";
+    String banner_id = "";
     ArrayList<ProductsPO> banner_items;
-    String title="";
-    private String head="";
+    String title = "";
+    private String head = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        loading= findViewById(R.id.loading);
-        error_network= findViewById(R.id.error_network);
-        fullayout= findViewById(R.id.fullayout);
-        product_list= findViewById(R.id.product_list);
-        back= findViewById(R.id.menu);
-        header= findViewById(R.id.header);
-        cart_items= findViewById(R.id.cart_items);
-        cart_counts= findViewById(R.id.cart_count);
-        retry= findViewById(R.id.retry);
-        load_more= findViewById(R.id.load_more);
-        errortxt1= findViewById(R.id.errortxt1);
-        errortxt2= findViewById(R.id.errortxt2);
-        no_proditems= findViewById(R.id.no_proditems);
-        loading_bar= findViewById(R.id.loading_bar);
-        bundle=new Bundle();
-        bundle=getIntent().getExtras();
-        from=bundle.getString("view_all");
-        head=bundle.getString("head");
-        dbController=new DBController(Product_list.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        fullayout = findViewById(R.id.fullayout);
+        product_list = findViewById(R.id.product_list);
+        back = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
+        cart_items = findViewById(R.id.cart_items);
+        cart_counts = findViewById(R.id.cart_count);
+        retry = findViewById(R.id.retry);
+        load_more = findViewById(R.id.load_more);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        no_proditems = findViewById(R.id.no_proditems);
+        loading_bar = findViewById(R.id.loading_bar);
+        bundle = new Bundle();
+        bundle = getIntent().getExtras();
+        from = bundle.getString("view_all");
+        head = bundle.getString("head");
+        dbController = new DBController(Product_list.this);
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,27 +104,22 @@ public class Product_list extends Language {
             }
         });
 
-        if (bundle.getString("banner_id")!=null)
-        {
-            banner_id=bundle.getString("banner_id");
-            title=bundle.getString("title");
+        if (bundle.getString("banner_id") != null) {
+            banner_id = bundle.getString("banner_id");
+            title = bundle.getString("title");
         }
 
         if (from.equals("best_sell")) {
             BEST_SELLING best_selling = new BEST_SELLING();
-            best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
+            best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
             header.setText(head);
-        }
-        else if (from.equals("banners"))
-        {
+        } else if (from.equals("banners")) {
             BANNER banner = new BANNER();
-            banner.execute(Appconstatants.BANNER_LINK+banner_id+"&page="+start+"&limit="+limit);
+            banner.execute(Appconstatants.BANNER_LINK + banner_id + "&page=" + start + "&limit=" + limit);
             header.setText(title);
-        }
-        else
-        {
+        } else {
             FEATURE_TASK feature_task = new FEATURE_TASK();
-            feature_task.execute(Appconstatants.Feature_api+"&page="+start+"&limit="+limit);
+            feature_task.execute(Appconstatants.Feature_api + "&page=" + start + "&limit=" + limit);
             header.setText(head);
 
         }
@@ -135,25 +129,21 @@ public class Product_list extends Language {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
-                start=1;
-                limit=10;
-                val=0;
-                loadin=false;
+                start = 1;
+                limit = 10;
+                val = 0;
+                loadin = false;
                 no_proditems.setVisibility(View.GONE);
                 if (from.equals("best_sell")) {
                     BEST_SELLING best_selling = new BEST_SELLING();
-                    best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
-                }
-                else if (from.equals("banners"))
-                {
+                    best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
+                } else if (from.equals("banners")) {
                     BANNER banner = new BANNER();
-                    banner.execute(Appconstatants.BANNER_LINK+banner_id+"&page="+start+"&limit="+limit);
+                    banner.execute(Appconstatants.BANNER_LINK + banner_id + "&page=" + start + "&limit=" + limit);
 
-                }
-                else
-                {
+                } else {
                     FEATURE_TASK feature_task = new FEATURE_TASK();
-                    feature_task.execute(Appconstatants.Feature_api+"&page="+start+"&limit="+limit);
+                    feature_task.execute(Appconstatants.Feature_api + "&page=" + start + "&limit=" + limit);
                 }
 
             }
@@ -164,46 +154,40 @@ public class Product_list extends Language {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 //  super.onScrolled(recyclerView, dx, dy);
-                if (dy>0)
-                {
+                if (dy > 0) {
                     visibleItemCount = product_list.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-                    if (from.equals("best_sell"))
-                    {
+                    if (from.equals("best_sell")) {
 
                         if (!loadin) {
-                            if ((visibleItemCount + firstVisibleItem) >= (start-1)*limit) {
+                            if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                                 loadin = true;
                                 val = 1;
                                 load_more.setVisibility(View.VISIBLE);
                                 BEST_SELLING best_selling = new BEST_SELLING();
-                                best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
+                                best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
                             }
                         }
 
-                    }
-                    else if (from.equals("banners"))
-                    {
+                    } else if (from.equals("banners")) {
                         if (!loadin) {
-                            if ((visibleItemCount + firstVisibleItem) >= (start-1)*limit) {
+                            if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                                 loadin = true;
                                 val = 1;
                                 load_more.setVisibility(View.VISIBLE);
                                 BANNER banner = new BANNER();
-                                banner.execute(Appconstatants.BANNER_LINK +banner_id+ "&page=" + start + "&limit=" + limit);
+                                banner.execute(Appconstatants.BANNER_LINK + banner_id + "&page=" + start + "&limit=" + limit);
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         if (!loadin) {
-                            if ((visibleItemCount + firstVisibleItem) >= (start-1)*limit) {
+                            if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                                 loadin = true;
                                 val = 1;
                                 load_more.setVisibility(View.VISIBLE);
                                 FEATURE_TASK feature_task = new FEATURE_TASK();
-                                feature_task.execute(Appconstatants.Feature_api+"&page="+start+"&limit="+limit);
+                                feature_task.execute(Appconstatants.Feature_api + "&page=" + start + "&limit=" + limit);
                             }
                         }
                     }
@@ -223,7 +207,7 @@ public class Product_list extends Language {
         cartTask.execute(Appconstatants.cart_api);
 
 
-        if (dbController.getLoginCount()>0) {
+        if (dbController.getLoginCount() > 0) {
 
             WISH_LIST wish_list = new WISH_LIST();
             wish_list.execute(Appconstatants.Wishlist_Get);
@@ -239,14 +223,14 @@ public class Product_list extends Language {
 
 
         protected String doInBackground(String... param) {
-            logger.info("Best sellin api"+param[0]);
+            logger.info("Best sellin api" + param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Product_list.this);
-                logger.info("Best sellin api"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Product_list.this);
+                logger.info("Best sellin api" + response);
                 Log.d("prducts_api", param[0]);
-                Log.d("prducts_", response+"");
+                Log.d("prducts_", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -256,16 +240,15 @@ public class Product_list extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("tag", "products_Hai--->  " + resp);
-            scrollNeed=true;
             load_more.setVisibility(View.GONE);
             if (resp != null) {
                 try {
-                    if (val==0) {
+                    if (val == 0) {
                         list = new ArrayList<>();
                     }
                     JSONObject json = new JSONObject(resp);
 
-                    if (json.getInt("success")==1) {
+                    if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
                         for (int h = 0; h < arr.length(); h++) {
                             JSONObject obj = arr.getJSONObject(h);
@@ -277,17 +260,16 @@ public class Product_list extends Language {
                             bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                             bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                             bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                            bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                            bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+                            bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                            bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                             bo.setWish_list(false);
                             bo.setCart_list(false);
                             Object dd = obj.get("option");
                             optionPOS = new ArrayList<>();
-                            if (dd instanceof JSONObject)
-                            {
-                                JSONObject jsonObject=obj.getJSONObject("option");
-                                JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                if (option.length()>0) {
+                            if (dd instanceof JSONObject) {
+                                JSONObject jsonObject = obj.getJSONObject("option");
+                                JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                if (option.length() > 0) {
 
 
                                     for (int k = 0; k < option.length(); k++) {
@@ -299,9 +281,7 @@ public class Product_list extends Language {
                                     }
                                     bo.setSingleOptionPOS(optionPOS);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 bo.setSingleOptionPOS(optionPOS);
                             }
 
@@ -310,8 +290,8 @@ public class Product_list extends Language {
 
                         if (list.size() != 0) {
                             if (val == 0) {
-                                bestAdapter = new CommonAdapter(Product_list.this,list,0,2);
-                                mLayoutManager=new GridLayoutManager(Product_list.this,2);
+                                bestAdapter = new CommonAdapter(Product_list.this, list, 0, 2);
+                                mLayoutManager = new GridLayoutManager(Product_list.this, 2);
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(bestAdapter);
 
@@ -319,9 +299,9 @@ public class Product_list extends Language {
                                 bestAdapter.notifyDataSetChanged();
                             }
                             no_proditems.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             no_proditems.setVisibility(View.VISIBLE);
-                            }
+                        }
 
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
@@ -330,17 +310,15 @@ public class Product_list extends Language {
                         load_more.setVisibility(View.GONE);
                         Log.d("prducts_arra", arr.length() + "");
 
-                            start = start + 1;
+                        start = start + 1;
 
-                    }
-                    else
-                    {
+                    } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
-                        Toast.makeText(Product_list.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        errortxt2.setText(array.getString(0) + "");
+                        Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -353,7 +331,7 @@ public class Product_list extends Language {
                                 public void onClick(View view) {
                                     loading_bar.setVisibility(View.VISIBLE);
                                     BEST_SELLING best_selling = new BEST_SELLING();
-                                    best_selling.execute(Appconstatants.Best_Sell+"&page="+start+"&limit="+limit);
+                                    best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
 
                                 }
                             })
@@ -370,7 +348,6 @@ public class Product_list extends Language {
     }
 
 
-
     private class FEATURE_TASK extends AsyncTask<String, Void, String> {
 
         @Override
@@ -379,16 +356,16 @@ public class Product_list extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Feature product api"+param[0]);
+            logger.info("Feature product api" + param[0]);
 
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Product_list.this);
-                logger.info("Feature product api resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Product_list.this);
+                logger.info("Feature product api resp" + response);
                 Log.d("prducts_api", param[0]);
-                Log.d("prducts_", response+"");
+                Log.d("prducts_", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -398,16 +375,14 @@ public class Product_list extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("tag", "products_Hai--->  " + resp);
-            scrollNeed=true;
             load_more.setVisibility(View.GONE);
             if (resp != null) {
                 try {
-                    if (val==0) {
+                    if (val == 0) {
                         feat_list = new ArrayList<>();
                     }
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success")==1)
-                    {
+                    if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
                         JSONObject object = arr.getJSONObject(0);
                         JSONArray array = object.getJSONArray("products");
@@ -420,18 +395,17 @@ public class Product_list extends Language {
                             bo.setProd_offer_rate(Double.parseDouble(obj.isNull("special") ? "" : obj.getString("special")));
                             bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                             bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
-                            bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                            bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+                            bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                            bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                             bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                             bo.setWish_list(false);
                             bo.setCart_list(false);
                             Object dd = obj.get("option");
                             optionPOS = new ArrayList<>();
-                            if (dd instanceof JSONObject)
-                            {
-                                JSONObject jsonObject=obj.getJSONObject("option");
-                                JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                if (option.length()>0) {
+                            if (dd instanceof JSONObject) {
+                                JSONObject jsonObject = obj.getJSONObject("option");
+                                JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                if (option.length() > 0) {
 
 
                                     for (int k = 0; k < option.length(); k++) {
@@ -443,9 +417,7 @@ public class Product_list extends Language {
                                     }
                                     bo.setSingleOptionPOS(optionPOS);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 bo.setSingleOptionPOS(optionPOS);
                             }
 
@@ -453,39 +425,35 @@ public class Product_list extends Language {
                             feat_list.add(bo);
                         }
                         if (feat_list.size() != 0) {
-                            if (val==0) {
+                            if (val == 0) {
 
-                                featuredAdapter = new CommonAdapter(Product_list.this, feat_list,0,2);
-                                mLayoutManager=new GridLayoutManager(Product_list.this,2);
+                                featuredAdapter = new CommonAdapter(Product_list.this, feat_list, 0, 2);
+                                mLayoutManager = new GridLayoutManager(Product_list.this, 2);
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(featuredAdapter);
-                            }
-                            else
-                            {
+                            } else {
                                 featuredAdapter.notifyDataSetChanged();
                             }
                             no_proditems.setVisibility(View.GONE);
 
-                        }else{
+                        } else {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
                         //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
 
-                            start = start + 1;
+                        start = start + 1;
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
 
 
-                    }
-                    else
-                    {
+                    } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt1.setText(array.getString(0)+"");
-                        Toast.makeText(Product_list.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        errortxt1.setText(array.getString(0) + "");
+                        Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -516,7 +484,6 @@ public class Product_list extends Language {
     }
 
 
-
     private class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -526,16 +493,16 @@ public class Product_list extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Product_list.this);
-                logger.info("Cart resp"+response);
-                Log.d("Cart_list_resp", response+"");
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Product_list.this);
+                logger.info("Cart resp" + response);
+                Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -571,7 +538,7 @@ public class Product_list extends Language {
                             cart_counts.setText(qty + "");
 
                             if (from.equals("best_sell")) {
-                                if (list.size() > 0 && list!=null) {
+                                if (list.size() > 0 && list != null) {
                                     for (int u = 0; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -584,16 +551,14 @@ public class Product_list extends Language {
                                     }
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            }else if( from.equals("banners")){
-                                if (banner_items.size()>0 &&banner_items!=null) {
+                            } else if (from.equals("banners")) {
+                                if (banner_items.size() > 0 && banner_items != null) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
-                                            if (Integer.parseInt(banner_items.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                            if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                                 banner_items.get(u).setCart_list(true);
                                                 break;
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 banner_items.get(u).setCart_list(false);
 
                                             }
@@ -603,7 +568,7 @@ public class Product_list extends Language {
                                 }
                             } else {
 
-                                if (feat_list.size() > 0 && feat_list!=null) {
+                                if (feat_list.size() > 0 && feat_list != null) {
                                     for (int u = 0; u < feat_list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -639,14 +604,14 @@ public class Product_list extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("WIsh list api"+param[0]);
+            logger.info("WIsh list api" + param[0]);
 
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Product_list.this);
-                logger.info("WIsh list api resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Product_list.this);
+                logger.info("WIsh list api resp" + response);
                 Log.d("wish_api", param[0]);
                 Log.d("wish_res", response + "");
             } catch (Exception e) {
@@ -677,15 +642,13 @@ public class Product_list extends Language {
 
                             if (from.equals("best_sell")) {
 
-                                if (list.size()>0) {
+                                if (list.size() > 0) {
                                     for (int u = 0; u < list.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
-                                            if (Integer.parseInt(list.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                 list.get(u).setWish_list(true);
                                                 break;
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 list.get(u).setWish_list(false);
                                             }
                                         }
@@ -693,16 +656,14 @@ public class Product_list extends Language {
 
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            }else if( from.equals("banners")){
-                                if (banner_items.size()>0 &&banner_items!=null) {
+                            } else if (from.equals("banners")) {
+                                if (banner_items.size() > 0 && banner_items != null) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
-                                            if (Integer.parseInt(banner_items.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                 banner_items.get(u).setWish_list(true);
                                                 break;
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 banner_items.get(u).setWish_list(false);
 
                                             }
@@ -710,18 +671,14 @@ public class Product_list extends Language {
                                     }
                                     bestAdapter.notifyDataSetChanged();
                                 }
-                            }
-                            else
-                            {
-                                if (feat_list.size()>0) {
+                            } else {
+                                if (feat_list.size() > 0) {
                                     for (int u = 0; u < feat_list.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
-                                            if (Integer.parseInt(feat_list.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                 feat_list.get(u).setWish_list(true);
                                                 break;
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 feat_list.get(u).setWish_list(false);
 
                                             }
@@ -730,9 +687,6 @@ public class Product_list extends Language {
                                     featuredAdapter.notifyDataSetChanged();
                                 }
                             }
-
-
-
 
 
                         }
@@ -746,8 +700,7 @@ public class Product_list extends Language {
         }
     }
 
-    public void cart_inc()
-    {
+    public void cart_inc() {
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
     }
@@ -762,14 +715,14 @@ public class Product_list extends Language {
 
 
         protected String doInBackground(String... param) {
-            logger.info("Best sellin api"+param[0]);
+            logger.info("Best sellin api" + param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Product_list.this);
-                logger.info("Best sellin api"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Product_list.this);
+                logger.info("Best sellin api" + response);
                 Log.d("prducts_api", param[0]);
-                Log.d("prducts_", response+"");
+                Log.d("prducts_", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -779,16 +732,15 @@ public class Product_list extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("tag", "products_Hai--->  " + resp);
-            scrollNeed=true;
             load_more.setVisibility(View.GONE);
             if (resp != null) {
                 try {
-                    if (val==0) {
+                    if (val == 0) {
                         banner_items = new ArrayList<>();
                     }
                     JSONObject json = new JSONObject(resp);
 
-                    if (json.getInt("success")==1) {
+                    if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
                         for (int h = 0; h < arr.length(); h++) {
                             JSONObject obj = arr.getJSONObject(h);
@@ -800,17 +752,16 @@ public class Product_list extends Language {
                             bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                             bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                             bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                            bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                            bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+                            bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                            bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                             bo.setWish_list(false);
                             bo.setCart_list(false);
                             Object dd = obj.get("option");
                             optionPOS = new ArrayList<>();
-                            if (dd instanceof JSONObject)
-                            {
-                                JSONObject jsonObject=obj.getJSONObject("option");
-                                JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                if (option.length()>0) {
+                            if (dd instanceof JSONObject) {
+                                JSONObject jsonObject = obj.getJSONObject("option");
+                                JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                if (option.length() > 0) {
 
 
                                     for (int k = 0; k < option.length(); k++) {
@@ -822,9 +773,7 @@ public class Product_list extends Language {
                                     }
                                     bo.setSingleOptionPOS(optionPOS);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 bo.setSingleOptionPOS(optionPOS);
                             }
 
@@ -833,8 +782,8 @@ public class Product_list extends Language {
 
                         if (banner_items.size() != 0) {
                             if (val == 0) {
-                                bestAdapter = new CommonAdapter(Product_list.this,banner_items,0,2);
-                                mLayoutManager=new GridLayoutManager(Product_list.this,2);
+                                bestAdapter = new CommonAdapter(Product_list.this, banner_items, 0, 2);
+                                mLayoutManager = new GridLayoutManager(Product_list.this, 2);
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(bestAdapter);
 
@@ -842,7 +791,7 @@ public class Product_list extends Language {
                                 bestAdapter.notifyDataSetChanged();
                             }
                             no_proditems.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
 
@@ -855,15 +804,13 @@ public class Product_list extends Language {
 
                         start = start + 1;
 
-                    }
-                    else
-                    {
+                    } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
-                        Toast.makeText(Product_list.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        errortxt2.setText(array.getString(0) + "");
+                        Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -876,7 +823,7 @@ public class Product_list extends Language {
                                 public void onClick(View view) {
                                     loading_bar.setVisibility(View.VISIBLE);
                                     BANNER banner = new BANNER();
-                                    banner.execute(Appconstatants.BANNER_LINK+banner_id+"&page="+start+"&limit="+limit);
+                                    banner.execute(Appconstatants.BANNER_LINK + banner_id + "&page=" + start + "&limit=" + limit);
 
                                 }
                             })

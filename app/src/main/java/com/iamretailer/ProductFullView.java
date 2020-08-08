@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -79,31 +78,26 @@ public class ProductFullView extends Language {
     TextView cart_count;
     Bundle bundle;
     TextView p_name, productrate;
-    int id;
     LinearLayout menu;
     private int check = 0;
     FrameLayout error_network;
     LinearLayout retry;
     String p_id, product_id;
-    private String model;
     ArrayList<String> image_url;
     public ArrayList<String> zoom_url;
     ArrayList<OptionsPO> optionsPOArrayList;
-    double rate = 0;
     private LinearLayout options;
     private String image;
     WebView description;
     int qty = 0;
     FrameLayout loading;
     TextView product, review;
-    FrameLayout desp_layout;
     FrameLayout review_layout, option_layout;
     ArrayList<SingleOptionPO> rev_list;
     ReviewAdapter reviewAdapter;
     ListView review_list;
     LinearLayout share;
     TextView orginal;
-    double rating = 0;
     TextView add_reviews;
     FrameLayout add_rev_lay;
     TextView view_all;
@@ -118,8 +112,6 @@ public class ProductFullView extends Language {
     TextView no_reviews;
     FrameLayout fullayout;
     String pish, pas, myHtmlString;
-    Typeface text_font;
-
     TextView errortxt1, errortxt2;
     String cur_left = "";
     String cur_right = "";
@@ -154,7 +146,7 @@ public class ProductFullView extends Language {
             change_langs(db.get_lang_code());
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
-           getWindow().getDecorView().setLayoutDirection(fullayout.LAYOUT_DIRECTION_LOCALE);
+           getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
         }
         setContentView(R.layout.product_full_view);
 
@@ -168,68 +160,66 @@ public class ProductFullView extends Language {
         prod_id = bundle.getString("productid");
         pish = "<html><head><style type=\"text/css\">@font-face {font-family: MyFont;src: url(\"file:///android_asset/font/Heebo-Regular.ttf\")}body,li,p,span {font-family: MyFont;font-size: 14px;text-align: justify;color: #415163}</style></head><body>";
         pas = "</body></html>";
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
 
 
         Log.d("Reviews_id", prod_id);
-        productrs1=(TextView)findViewById(R.id.productrs1);
-        originalrs1=(TextView)findViewById(R.id.originalrs1);
+        productrs1= findViewById(R.id.productrs1);
+        originalrs1= findViewById(R.id.originalrs1);
 
-        p_name = (TextView) findViewById(R.id.product_name);
-        productrate = (TextView) findViewById(R.id.productrate);
-        buy = (LinearLayout) findViewById(R.id.buy);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        menu = (LinearLayout) findViewById(R.id.menu);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        share = (LinearLayout) findViewById(R.id.share);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        options = (LinearLayout) findViewById(R.id.options);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        description = (WebView) findViewById(R.id.description);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        product = (TextView) findViewById(R.id.product);
-        add_reviews = (TextView) findViewById(R.id.add_reviews);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        productrs=(TextView)findViewById(R.id.productrs);
-        originalrs=(TextView)findViewById(R.id.originalrs);
-        desp_layout = (FrameLayout) findViewById(R.id.desp_layout);
-        option_layout = (FrameLayout) findViewById(R.id.option_layout);
-        review = (TextView) findViewById(R.id.reviews);
-        review_layout = (FrameLayout) findViewById(R.id.review_layout);
-        review_list = (ListView) findViewById(R.id.review_list);
-        orginal = (TextView) findViewById(R.id.orginal);
-        add_rev_lay = (FrameLayout) findViewById(R.id.add_rev_lay);
-        view_all = (TextView) findViewById(R.id.view_all);
-        post_reviews = (LinearLayout) findViewById(R.id.post_reviews);
-        comment = (EditText) findViewById(R.id.comment);
-        review_section = (LinearLayout) findViewById(R.id.review_section);
-        review_disp = (LinearLayout) findViewById(R.id.review_disp);
-        no_reviews = (TextView) findViewById(R.id.no_review);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        out_of_stock = (TextView) findViewById(R.id.out_of_stock);
-        like = (ImageView) findViewById(R.id.like);
-        un_like = (ImageView) findViewById(R.id.unlike);
-        fav = (FrameLayout) findViewById(R.id.fav);
-        text_font = Typeface.createFromAsset(getAssets(), "font/Heebo-Regular.ttf");
+        p_name = findViewById(R.id.product_name);
+        productrate = findViewById(R.id.productrate);
+        buy = findViewById(R.id.buy);
+        cart_count = findViewById(R.id.cart_count);
+        menu = findViewById(R.id.menu);
+        cart_items = findViewById(R.id.cart_items);
+        share = findViewById(R.id.share);
+        error_network = findViewById(R.id.error_network);
+        options = findViewById(R.id.options);
+        retry = findViewById(R.id.retry);
+        description = findViewById(R.id.description);
+        loading = findViewById(R.id.loading);
+        product = findViewById(R.id.product);
+        add_reviews = findViewById(R.id.add_reviews);
+        loading_bar = findViewById(R.id.loading_bar);
+        productrs= findViewById(R.id.productrs);
+        originalrs= findViewById(R.id.originalrs);
+        option_layout = findViewById(R.id.option_layout);
+        review = findViewById(R.id.reviews);
+        review_layout = findViewById(R.id.review_layout);
+        review_list = findViewById(R.id.review_list);
+        orginal = findViewById(R.id.orginal);
+        add_rev_lay = findViewById(R.id.add_rev_lay);
+        view_all = findViewById(R.id.view_all);
+        post_reviews = findViewById(R.id.post_reviews);
+        comment = findViewById(R.id.comment);
+        review_section = findViewById(R.id.review_section);
+        review_disp = findViewById(R.id.review_disp);
+        no_reviews = findViewById(R.id.no_review);
+        fullayout = findViewById(R.id.fullayout);
+        out_of_stock = findViewById(R.id.out_of_stock);
+        like = findViewById(R.id.like);
+        un_like = findViewById(R.id.unlike);
+        fav = findViewById(R.id.fav);
         typeface=Typeface.createFromAsset(getAssets(),"font/Heebo-Medium.ttf");
         typeface1=Typeface.createFromAsset(getAssets(),"font/Heebo-Regular.ttf");
         cur_left = db.get_cur_Left();
         cur_right=db.get_cur_Right();
-        related_products = (RecyclerView) findViewById(R.id.related_products);
-        related_view = (FrameLayout) findViewById(R.id.related_view);
-        r1 = (ImageView) findViewById(R.id.r1);
-        r2 = (ImageView) findViewById(R.id.r2);
-        r3 = (ImageView) findViewById(R.id.r3);
-        r4 = (ImageView) findViewById(R.id.r4);
-        r5 = (ImageView) findViewById(R.id.r5);
+        related_products = findViewById(R.id.related_products);
+        related_view = findViewById(R.id.related_view);
+        r1 = findViewById(R.id.r1);
+        r2 = findViewById(R.id.r2);
+        r3 = findViewById(R.id.r3);
+        r4 = findViewById(R.id.r4);
+        r5 = findViewById(R.id.r5);
 
 
-        rate1 = (ImageView) findViewById(R.id.rate1);
-        rate2 = (ImageView) findViewById(R.id.rate2);
-        rate3 = (ImageView) findViewById(R.id.rate3);
-        rate4 = (ImageView) findViewById(R.id.rate4);
-        rate5 = (ImageView) findViewById(R.id.rate5);
+        rate1 = findViewById(R.id.rate1);
+        rate2 = findViewById(R.id.rate2);
+        rate3 = findViewById(R.id.rate3);
+        rate4 = findViewById(R.id.rate4);
+        rate5 = findViewById(R.id.rate5);
 
 
         rate1.setOnClickListener(new View.OnClickListener() {
@@ -545,9 +535,9 @@ public class ProductFullView extends Language {
 
     private void coloroption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.optionview, options, false);
-        TextView heading = (TextView) layout.findViewById(R.id.heading);
+        TextView heading = layout.findViewById(R.id.heading);
         heading.setText(optionsPO.getName() + " :");
-        final RecyclerView gridView = (RecyclerView) layout.findViewById(R.id.optiongrid);
+        final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         final ArrayList<SingleOptionPO> colorlist = optionsPO.getValuelist();
         if (colorlist.size() > 0) {
             colorlist.get(0).setImgSel(true);
@@ -597,8 +587,8 @@ public class ProductFullView extends Language {
 
     private void sizeoption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.sizeoption, options, false);
-        final RecyclerView gridView = (RecyclerView) layout.findViewById(R.id.optiongrid);
-        TextView heading = (TextView) layout.findViewById(R.id.heading);
+        final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
+        TextView heading = layout.findViewById(R.id.heading);
         heading.setText(optionsPO.getName() + " :");
         final ArrayList<SingleOptionPO> sizelist = optionsPO.getValuelist();
         if (sizelist.size() > 0) {
@@ -646,9 +636,9 @@ public class ProductFullView extends Language {
 
     private void weightoption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.weightoption, options, false);
-        final Spinner weight_spinner = (Spinner) layout.findViewById(R.id.weight_spinner);
+        final Spinner weight_spinner = layout.findViewById(R.id.weight_spinner);
         final ArrayList<SingleOptionPO> spinner_string = optionsPO.getValuelist();
-        TextView heading = (TextView) layout.findViewById(R.id.heading);
+        TextView heading = layout.findViewById(R.id.heading);
         heading.setText(optionsPO.getName() + " :");
         Log.i("tag", "weight" + optionsPO.getValuelist());
         if (spinner_string != null && spinner_string.size() > 0) {
@@ -683,9 +673,8 @@ public class ProductFullView extends Language {
 
     private void checkbox_option(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.check_box_option, options, false);
-        final LinearLayout checkbox = (LinearLayout) layout.findViewById(R.id.checkbox);
-        TextView heading = (TextView) layout.findViewById(R.id.heading);
-        final RadioGroup checkbox1 = (RadioGroup) layout.findViewById(R.id.checkbox);
+        TextView heading = layout.findViewById(R.id.heading);
+        final RadioGroup checkbox1 = layout.findViewById(R.id.checkbox);
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 15);
 
@@ -718,7 +707,7 @@ public class ProductFullView extends Language {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedId = checkbox1.getCheckedRadioButtonId();
                 optionsPOArrayList.get(pos).setSelected_id(selectedId);
-                RadioButton radioButton = (RadioButton)group.findViewById(checkedId);
+                RadioButton radioButton = group.findViewById(checkedId);
                 int mySelectedIndex = (int) radioButton.getTag();
                 Log.d("dsadad",mySelectedIndex+"");
                 if (check_value.get(mySelectedIndex).getPrice()>0) {
@@ -743,8 +732,8 @@ public class ProductFullView extends Language {
     private void radio_button(final OptionsPO optionsPO, final int pos) {
 
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.radio_option, options, false);
-        final RadioGroup radio = (RadioGroup) layout.findViewById(R.id.radio);
-        TextView heading = (TextView) layout.findViewById(R.id.heading);
+        final RadioGroup radio = layout.findViewById(R.id.radio);
+        TextView heading = layout.findViewById(R.id.heading);
         heading.setText(optionsPO.getName() + " :");
         final ArrayList<SingleOptionPO> radio_values = optionsPO.getValuelist();
         for (int u = 0; u < radio_values.size(); u++) {
@@ -787,7 +776,7 @@ public class ProductFullView extends Language {
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
                 int selectedId = radio.getCheckedRadioButtonId();
                 optionsPOArrayList.get(pos).setSelected_id(selectedId);
-                RadioButton radioButton = (RadioButton)arg0.findViewById(arg1);
+                RadioButton radioButton = arg0.findViewById(arg1);
                 int mySelectedIndex = (int) radioButton.getTag();
                 if (radio_values.get(mySelectedIndex).getPrice()>0) {
                     optionsPOArrayList.get(pos).setPrices(radio_values.get(mySelectedIndex).getPrice());
@@ -810,8 +799,8 @@ public class ProductFullView extends Language {
 
     private void init() {
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        ll_dots = (LinearLayout) findViewById(R.id.indicator);
+        viewPager = findViewById(R.id.viewPager);
+        ll_dots = findViewById(R.id.indicator);
         SliderAdapter sliderAdapter = new SliderAdapter(ProductFullView.this, image_url);
         viewPager.setAdapter(sliderAdapter);
 
@@ -885,12 +874,10 @@ public class ProductFullView extends Language {
                         p_id = jsonObject.isNull("id") ? "" : jsonObject.getString("id");
                         product_id = jsonObject.isNull("product_id") ? "" : jsonObject.getString("product_id");
                         p_name.setText(jsonObject.isNull("name") ? "" : jsonObject.getString("name"));
-                        rate = jsonObject.getDouble("price_excluding_tax");
 
                         image = jsonObject.getString("image");
-                        model = jsonObject.isNull("model") ? "" : jsonObject.getString("model");
                         qty = jsonObject.isNull("quantity") ? 0 : jsonObject.getInt("quantity");
-                        wish_list = jsonObject.isNull("wish_list") ? false : jsonObject.getBoolean("wish_list");
+                        wish_list = !jsonObject.isNull("wish_list") && jsonObject.getBoolean("wish_list");
 
                         if (wish_list) {
                             un_like.setVisibility(View.GONE);
@@ -1009,7 +996,7 @@ public class ProductFullView extends Language {
                             optionsPO.setValue(jsonObject1.isNull("value") ? "" : jsonObject1.getString("value"));
                             optionsPO.setRequired(jsonObject1.isNull("required") ? "" : jsonObject1.getString("required"));
                             JSONArray jsonArray = jsonObject1.getJSONArray("option_value");
-                            ArrayList<SingleOptionPO> op_list = new ArrayList<SingleOptionPO>();
+                            ArrayList<SingleOptionPO> op_list = new ArrayList<>();
                             for (int u = 0; u < jsonArray.length(); u++) {
                                 JSONObject jsonObject2 = jsonArray.getJSONObject(u);
                                 SingleOptionPO single = new SingleOptionPO();
@@ -1340,12 +1327,10 @@ public class ProductFullView extends Language {
         Log.d("Image_share", url);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        List<Intent> targetedShareIntents = new ArrayList<Intent>();
         Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         final PackageManager pm = getPackageManager();
         final List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        final String[] blacklist = new String[]{"com.whatsapp", "com.whatsapp.w4b"};
         try {
             Picasso.with(getApplicationContext()).load(url).into(new Target() {
                 @Override
