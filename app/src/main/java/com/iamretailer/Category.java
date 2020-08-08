@@ -57,38 +57,38 @@ public class Category extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger= AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        dbController=new DBController(Category.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        cat_list = (RecyclerView) findViewById(R.id.cat_list);
-        rootlay = (FrameLayout) findViewById(R.id.rootlay);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        retry=(LinearLayout)findViewById(R.id.retry);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        dbController = new DBController(Category.this);
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
+        cat_list = findViewById(R.id.cat_list);
+        rootlay = findViewById(R.id.rootlay);
+        cart_count = findViewById(R.id.cart_count);
+        cart_items = findViewById(R.id.cart_items);
+        loading = findViewById(R.id.loading);
+        retry = findViewById(R.id.retry);
         Cat_Task cat_task = new Cat_Task();
         cat_task.execute(Appconstatants.CAT_LIST);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        header=(TextView)findViewById(R.id.header);
-        menu=(LinearLayout)findViewById(R.id.menu);
-        error_network=(FrameLayout)findViewById(R.id.error_network);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        header = findViewById(R.id.header);
+        menu = findViewById(R.id.menu);
+        error_network = findViewById(R.id.error_network);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar = findViewById(R.id.loading_bar);
         header.setText(R.string.our_cat);
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
-        height = ((display.getHeight()));
+        height = display.getHeight();
         cat_list.addOnItemTouchListener(new RecyclerItemClickListener(Category.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent u = new Intent(Category.this, Allen.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", cate_list.get(position).getS_id());
-                bundle.putString("cat_name",cate_list.get(position).getStore_name());
+                bundle.putString("cat_name", cate_list.get(position).getStore_name());
                 u.putExtras(bundle);
                 startActivity(u);
 
@@ -109,12 +109,13 @@ public class Category extends Language {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loading.setVisibility(View.VISIBLE);
+                error_network.setVisibility(View.GONE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
                 Cat_Task cat_task = new Cat_Task();
                 cat_task.execute(Appconstatants.CAT_LIST);
-                error_network.setVisibility(View.GONE);
-                loading.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -126,15 +127,16 @@ public class Category extends Language {
         protected void onPreExecute() {
             Log.d("tag", "started");
         }
+
         protected String doInBackground(String... param) {
-            logger.info("Category api"+param[0]);
+            logger.info("Category api" + param[0]);
 
             Log.d("url", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Category.this);
-                logger.info("Category resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Category.this);
+                logger.info("Category resp" + response);
                 Log.d("url response", response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -148,12 +150,10 @@ public class Category extends Language {
             if (resp != null) {
 
                 try {
-                    cate_list = new ArrayList<BrandsPO>();
-
+                    cate_list = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
-                    if (json.getInt("success")==1)
-                    {
+                    if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
                         for (int h = 0; h < arr.length(); h++) {
                             JSONObject obj = arr.getJSONObject(h);
@@ -165,20 +165,18 @@ public class Category extends Language {
 
                         }
 
-                       adapter1 = new BrandzAdapter(Category.this, cate_list, 2,width,height);
+                        adapter1 = new BrandzAdapter(Category.this, cate_list, 2, width, height);
                         cat_list.setAdapter(adapter1);
-                        cat_list.setLayoutManager(new GridLayoutManager(Category.this,3));
+                        cat_list.setLayoutManager(new GridLayoutManager(Category.this, 3));
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
-                    }
-                    else
-                        {
-                         loading.setVisibility(View.GONE);
-                            error_network.setVisibility(View.VISIBLE);
-                            errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
-                        Toast.makeText(Category.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                    } else {
+                        loading.setVisibility(View.GONE);
+                        error_network.setVisibility(View.VISIBLE);
+                        errortxt1.setText(R.string.error_msg);
+                        JSONArray array = json.getJSONArray("error");
+                        errortxt2.setText(array.getString(0) + "");
+                        Toast.makeText(Category.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -218,14 +216,14 @@ public class Category extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api"+param[0]);
+            logger.info("Cart api" + param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Category.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Category.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {
@@ -259,11 +257,9 @@ public class Category extends Language {
                             }
                             cart_count.setText(qty + "");
                         }
-                    }
-                    else
-                    {
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(Category.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(Category.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

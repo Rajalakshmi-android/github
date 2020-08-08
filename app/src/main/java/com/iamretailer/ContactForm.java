@@ -51,14 +51,14 @@ public class ContactForm extends Language {
         Appconstatants.sessiondata=dbController.getSession();
         Appconstatants.Lang=dbController.get_lang_code();
         Appconstatants.CUR=dbController.getCurCode();
-        menu = (LinearLayout) findViewById(R.id.menu);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        header = (TextView) findViewById(R.id.header);
-        full_name = (EditText) findViewById(R.id.full_name);
-        mailid = (EditText) findViewById(R.id.mailid);
-        comments = (EditText) findViewById(R.id.comments);
-        submit = (FrameLayout) findViewById(R.id.submit);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
+        menu = findViewById(R.id.menu);
+        cart_items = findViewById(R.id.cart_items);
+        header = findViewById(R.id.header);
+        full_name = findViewById(R.id.full_name);
+        mailid = findViewById(R.id.mailid);
+        comments = findViewById(R.id.comments);
+        submit = findViewById(R.id.submit);
+        fullayout = findViewById(R.id.fullayout);
 
         header.setText(R.string.contactus);
         cart_items.setVisibility(View.GONE);
@@ -207,7 +207,7 @@ public class ContactForm extends Language {
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay=(LinearLayout)popUpView.findViewById(R.id.okay);
+        LinearLayout okay= popUpView.findViewById(R.id.okay);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

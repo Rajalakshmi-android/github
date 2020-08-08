@@ -61,31 +61,33 @@ public class Category_level extends Language {
         setContentView(R.layout.activity_category_level);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        main_list = (RecyclerView) findViewById(R.id.main_cat_list);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        sub_cat_list = (RecyclerView) findViewById(R.id.sub_cat_list);
-        cat_name = (TextView) findViewById(R.id.cat_name);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        back = findViewById(R.id.menu);
+        header = findViewById(R.id.header);
+        cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
+        main_list = findViewById(R.id.main_cat_list);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        fullayout = findViewById(R.id.fullayout);
+        sub_cat_list = findViewById(R.id.sub_cat_list);
+        cat_name = findViewById(R.id.cat_name);
+        loading_bar = findViewById(R.id.loading_bar);
+        retry = findViewById(R.id.retry);
         controller = new DBController(Category_level.this);
         Appconstatants.sessiondata = controller.getSession();
         Appconstatants.Lang = controller.get_lang_code();
         Appconstatants.CUR = controller.getCurCode();
         bundle = new Bundle();
         bundle = getIntent().getExtras();
-        pos = bundle.getInt("pos");
+        if (bundle != null) {
+            pos = bundle.getInt("pos");
+        }
         lis_pos = pos;
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
-        height = ((display.getHeight()));
+        height = display.getHeight();
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -145,17 +147,7 @@ public class Category_level extends Language {
 
             }
         });
-     /*   sub_cat_list.addOnItemTouchListener(new RecyclerItemClickListener(Category_level.this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent u = new Intent(Category_level.this, Allen.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", cate_list.get(lis_pos).getArrayList().get(position).getS_id());
-                bundle.putString("cat_name", cate_list.get(lis_pos).getArrayList().get(position).getStore_name());
-                u.putExtras(bundle);
-                startActivity(u);
-            }
-        }));*/
+
 
     }
 
@@ -195,7 +187,7 @@ public class Category_level extends Language {
             if (resp != null) {
 
                 try {
-                    cate_list = new ArrayList<BrandsPO>();
+                    cate_list = new ArrayList<>();
 
                     JSONObject json = new JSONObject(resp);
 

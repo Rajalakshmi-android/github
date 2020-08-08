@@ -36,7 +36,6 @@ import stutzen.co.network.Connection;
 
 
 public class Address extends Language {
-    LinearLayout back;
     EditText f_name, l_name, mobile, company, addressone, addressstwo, city, pincode;
     FrameLayout cont;
     Spinner state, country;
@@ -75,8 +74,10 @@ public class Address extends Language {
         Appconstatants.CUR=dbController.getCurCode();
         cc = new Bundle();
         cc = getIntent().getExtras();
-        from = cc.getInt("from");
-        address_id=cc.getString("address_id");
+        from = cc != null ? cc.getInt("from") : 0;
+        if (cc != null) {
+            address_id=cc.getString("address_id");
+        }
         Log.d("from_values",from+"");
         has_ship=cc.getInt("has_ship");
         Appconstatants.Lang=dbController.get_lang_code();
@@ -93,7 +94,7 @@ public class Address extends Language {
         country = findViewById(R.id.country);
         error_network = findViewById(R.id.error_network);
         retry = findViewById(R.id.retry);
-        back = findViewById(R.id.menu);
+        LinearLayout back = findViewById(R.id.menu);
         header = findViewById(R.id.header);
         header.setText(R.string.delivery_add);
         cart_items = findViewById(R.id.cart_items);
@@ -764,27 +765,6 @@ public class Address extends Language {
                     if (json.getInt("success") == 1)
                     {
                         Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
-
-
-                      /*  if (from == 3) {
-
-
-                            Intent intent = new Intent();
-                            intent.putExtra("first", f_name.getText().toString());
-                            intent.putExtra("last_name", l_name.getText().toString());
-                            intent.putExtra("company", company.getText().toString());
-                            intent.putExtra("addressone", addressone.getText().toString());
-                            intent.putExtra("addresstwo", addressstwo.getText().toString());
-                            intent.putExtra("city", city.getText().toString());
-                            intent.putExtra("pincode", pincode.getText().toString());
-                            intent.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("phone",mobile.getText().toString());
-                            setResult(3, intent);
-                            finish();
-
-                        } else {*/
-
                             Intent i;
                             if (has_ship==1)
                             {
@@ -840,20 +820,14 @@ public class Address extends Language {
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                               cont.performClick();
+                                cont.performClick();
                             }
                         })
                         .show();
 
             }
-
-
         }
     }
-
-
-
-
 
     private class SaveBillAddress1 extends AsyncTask<Object, Void, String> {
 
@@ -906,24 +880,11 @@ public class Address extends Language {
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
 
-
                     response = connection.sendHttpPostjson(Appconstatants.bill_address_save, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-
-
 
                     logger.info("Bill Address save new  user api resp"+response);
                 }
-                /*else if (from==1)
-                {
-                    logger.info("Bill Address save old user api"+Appconstatants.bill_address_save+"&existing=1");
-                    JSONObject object=new JSONObject();
-                    object.put("address_id",address_id);
-                    Log.d("Add_req_existing", object.toString());
-                    logger.info("Bill Address save old user api req"+object);
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save+"&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                    Log.d("Add_respex", response);
-                    logger.info("Bill Address save old user api resp"+response);
-                }*/
+
 
 
 
@@ -944,27 +905,6 @@ public class Address extends Language {
                     if (json.getInt("success") == 1)
                     {
                         Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
-
-
-                      /*  if (from == 3) {
-
-
-                            Intent intent = new Intent();
-                            intent.putExtra("first", f_name.getText().toString());
-                            intent.putExtra("last_name", l_name.getText().toString());
-                            intent.putExtra("company", company.getText().toString());
-                            intent.putExtra("addressone", addressone.getText().toString());
-                            intent.putExtra("addresstwo", addressstwo.getText().toString());
-                            intent.putExtra("city", city.getText().toString());
-                            intent.putExtra("pincode", pincode.getText().toString());
-                            intent.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("phone",mobile.getText().toString());
-                            setResult(3, intent);
-                            finish();
-
-                        } else {*/
-
                         Intent i;
                             i = new Intent(Address.this, PaymentMethod.class);
                         i.putExtra("addres_id",address_id);
@@ -980,7 +920,6 @@ public class Address extends Language {
                         i.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
                         i.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
                         startActivity(i);
-                        //  }
 
                     } else {
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
@@ -1023,131 +962,6 @@ public class Address extends Language {
         }
     }
 
-    /*private class AddressListTask extends AsyncTask<Object, Void, String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("Add_list", "started");
-        }
-
-        protected String doInBackground(Object... param) {
-            logger.info("Add_list_api"+Appconstatants.addres_list);
-
-            String response = null;
-            Connection connection = new Connection();
-            try {
-                Log.d("Add_list_api", Appconstatants.addres_list);
-                Log.d("Add_list_api", Appconstatants.sessiondata);
-
-                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Address.this);
-                logger.info("Add_list_resp"+response);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-            return response;
-        }
-
-        protected void onPostExecute(String resp) {
-            Log.i("Add_list", "Add_list--->  " + resp);
-            if (resp != null)
-            {
-
-                try {
-                    JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
-
-                        JSONObject object=json.getJSONObject("data");
-                        JSONArray array=object.getJSONArray("addresses");
-                        if (array.length()>0)
-                        {
-                            JSONObject object1=array.getJSONObject(0);
-                            address_id=object1.isNull("address_id")?"":object1.getString("address_id");
-                            f_name.setText(object1.isNull("firstname")?"":object1.getString("firstname"));
-                            l_name.setText(object1.isNull("lastname")?"":object1.getString("lastname"));
-                            company.setText(object1.isNull("company")?"":object1.getString("company"));
-                            addressone.setText(object1.isNull("address_1")?"":object1.getString("address_1"));
-                            addressstwo.setText(object1.isNull("address_2")?"":object1.getString("address_2"));
-                            pincode.setText(object1.isNull("postcode")?"":object1.getString("postcode"));
-                            city.setText(object1.isNull("city")?"":object1.getString("city"));
-                            mobile.setText(object1.isNull("phone")?"":object1.getString("phone"));
-
-
-                            //first_name=object1.isNull("firstname")?"":object1.getString("firstname");
-                            //last_name=object1.isNull("lastname")?"":object1.getString("lastname");
-                            //cmpy=object1.isNull("company")?"":object1.getString("company");
-                            //add_one=object1.isNull("address_1")?"":object1.getString("address_1");
-                            //add_two=object1.isNull("address_2")?"":object1.getString("address_2");
-                            //  pin_code=object1.isNull("postcode")?"":object1.getString("postcode");
-                            //  city_name=object1.isNull("city")?"":object1.getString("city");
-                            // phone=object1.isNull("phone")?"":object1.getString("phone");
-
-
-                            String zone_id=object1.isNull("zone_id")?"":object1.getString("zone_id");
-                            zone1=object1.isNull("zone")?"":object1.getString("zone");
-                            zone=object1.isNull("zone")?"":object1.getString("zone");
-                            String zone_code=object1.isNull("zone_code")?"":object1.getString("zone_code");
-                            String coun_id=object1.isNull("country_id")?"":object1.getString("country_id");
-                            coun=object1.isNull("country")?"":object1.getString("country");
-
-                            Log.d("country_",coun+"");
-                            for (int y = 0; y < country_list.size(); y++) {
-                                if (coun.equalsIgnoreCase(country_list.get(y).getCount_name())) {
-                                    country.setSelection(y);
-                                }
-                            }
-
-
-                         from=2;
-                        }
-                        else
-                        {
-                            from=5;
-                        }
-                        loading.setVisibility(View.GONE);
-                        error_network.setVisibility(View.GONE);
-
-
-                    } else
-                        {
-                            error_network.setVisibility(View.VISIBLE);
-                            loading.setVisibility(View.GONE);
-                            errortxt1.setText(R.string.error_msg);
-                            JSONArray array=json.getJSONArray("error");
-                            errortxt2.setText(array.get(0)+"");
-                            Toast.makeText(Address.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    CountryTask countryTask = new CountryTask();
-                                    countryTask.execute();
-
-                                }
-                            })
-                            .show();
-                }
-
-            } else {
-                errortxt1.setText(R.string.no_con);
-                errortxt2.setText(R.string.check_network);
-                error_network.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            }
-
-        }
-    }*/
 
     private class CountryTask extends AsyncTask<Object, Void, String> {
 
@@ -1232,12 +1046,6 @@ public class Address extends Language {
                         state.setAdapter(s_adapter);
                         error_network.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
-
-
-                        //StateTask stateTask = new StateTask();
-                        //stateTask.execute(Appconstatants.country_list_api + "&id="+country_list.get(1).getCount_id());
-
-
                     } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);

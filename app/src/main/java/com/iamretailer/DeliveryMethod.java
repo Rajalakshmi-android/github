@@ -45,7 +45,6 @@ public class DeliveryMethod extends Language {
     private EditText comments;
     private FrameLayout error_network;
     private LinearLayout retry;
-    private Bundle bundle;
     private ArrayList<TypePO> methodlist;
     private String fname;
     private String lname;

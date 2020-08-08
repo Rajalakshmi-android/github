@@ -1,121 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_gravity="center"
+android:background="@color/white">
+
+<include layout="@layout/menu_back" />
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@color/white">
+    android:layout_margin="@dimen/dp15"
+    android:orientation="vertical">
 
-    <FrameLayout
+    <ImageView
+        android:layout_width="@dimen/dp70"
+        android:layout_height="@dimen/dp70"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp10"
+        android:autoMirrored="true"
+        android:contentDescription="@null"
+        android:rotationY="@integer/locale_mirror_flip"
+        android:src="@mipmap/order_placed" />
+
+    <com.iamretailer.Common.CustomTextview1
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:gravity="center"
+        android:text="@string/order_places"
+        android:textColor="@color/conf_tex"
+        android:textSize="@dimen/text20sp" />
 
-        <include layout="@layout/menu_back" />
+    <com.iamretailer.Common.CustomTextview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp3"
+        android:gravity="center"
+        android:paddingEnd="@dimen/dp40"
+        android:paddingStart="@dimen/dp40"
+        android:text="@string/order_suc"
+        android:textColor="@color/qty_tex"
+        android:textSize="@dimen/text14sp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp.3dp"
+        android:layout_marginEnd="@dimen/dp40"
+        android:layout_marginStart="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp15"
+        android:background="@color/line_color" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp15"
+        android:gravity="center">
+
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/dp15"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:text="@string/order_id"
+            android:textColor="@color/qty_tex"
+            android:textSize="@dimen/text16sp" />
 
-            <ImageView
-                android:layout_width="@dimen/dp70"
-                android:layout_height="@dimen/dp70"
-                android:layout_gravity="center"
-                android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"
-                android:layout_marginTop="@dimen/dp10"
-                android:src="@mipmap/order_placed" />
-
-            <com.iamretailer.Common.CustomTextview1
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
-                android:gravity="center"
-                android:text="@string/order_places"
-                android:textColor="@color/conf_tex"
-                android:textSize="@dimen/text20sp"
-                />
-
-            <com.iamretailer.Common.CustomTextview
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="@dimen/dp40"
-                android:paddingEnd="@dimen/dp40"
-                android:layout_marginTop="@dimen/dp3"
-                android:text="@string/order_suc"
-                android:textColor="@color/qty_tex"
-                android:textSize="@dimen/text14sp" />
+        <com.iamretailer.Common.CustomTextview1
+            android:id="@+id/orderid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/order_id"
+            android:textSize="@dimen/text16sp" />
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/dp30"
+        android:layout_marginStart="@dimen/dp30"
+        android:layout_marginTop="@dimen/dp15"
+        android:background="@drawable/login_button"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp.3dp"
-                android:layout_marginTop="@dimen/dp15"
-                android:layout_marginStart="@dimen/dp40"
-                android:layout_marginEnd="@dimen/dp40"
-                android:background="@color/line_color" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp15"
-                android:gravity="center">
-
-                <com.iamretailer.Common.CustomTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/order_id"
-                    android:textColor="@color/qty_tex"
-                    android:textSize="@dimen/text16sp" />
-
-                <com.iamretailer.Common.CustomTextview1
-                    android:id="@+id/orderid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/order_id"
-                    android:textSize="@dimen/text16sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/details"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp45"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp15"
-                android:background="@drawable/login_button"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp30"
-                android:gravity="center"
-                >
-
-                <com.iamretailer.Common.CustomTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="@string/cont_shop"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text18sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </FrameLayout>
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/cont_shop"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
 </FrameLayout>
 
 

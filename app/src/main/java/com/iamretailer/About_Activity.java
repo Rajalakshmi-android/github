@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 
 import stutzen.co.network.Connection;
 
-public class About_Activity extends AppCompatActivity {
+public class About_Activity extends Language {
 
     private GridView Grid;
     private ArrayList<OptionsPO> optionsPOArrayList1;
@@ -38,11 +37,12 @@ public class About_Activity extends AppCompatActivity {
     private FrameLayout error_network;
     private LinearLayout search_loading;
     private TextView no_items;
-    private FrameLayout fullayout;
+    private FrameLayout full_layout;
     private TextView errortxt1;
     private TextView errortxt2;
     private LinearLayout loading_bar;
     private AndroidLogger logger;
+    private AboutTask productTask;
 
 
     @Override
@@ -65,18 +65,18 @@ public class About_Activity extends AppCompatActivity {
         loading =findViewById(R.id.loading);
         error_network =findViewById(R.id.error_network);
         loading_bar=findViewById(R.id.loading_bar);
+        String s1=getResources().getString( R.string.about);
         String s2=getResources().getString(R.string.app_name);
-        header.setText(s2);
+        header.setText(s1+" "+s2);
         LinearLayout retry = findViewById(R.id.retry);
         search_loading =findViewById(R.id.search_loading);
         no_items =findViewById(R.id.no_items);
-        fullayout =findViewById(R.id.fullayout);
+        full_layout =findViewById(R.id.fullayout);
         errortxt1 =findViewById(R.id.errortxt1);
         errortxt2 =findViewById(R.id.errortxt2);
 
-        new AboutTask().execute(Appconstatants.ABOUT);
-
-
+        productTask =new AboutTask();
+        productTask.execute(Appconstatants.ABOUT);
 
         bundle = new Bundle();
 
@@ -85,11 +85,11 @@ public class About_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
-                AboutTask productTask = new AboutTask();
+                productTask =new AboutTask();
                 productTask.execute(Appconstatants.ABOUT);
+
             }
         });
-
 
         back.setOnClickListener(new View.OnClickListener() {
 
@@ -157,7 +157,6 @@ public class About_Activity extends AppCompatActivity {
 
                         if (jarray.length()==0)
                         {
-
                             search_loading.setVisibility(View.GONE);
                             no_items.setVisibility(View.VISIBLE);
                             Grid.setVisibility(View.GONE);
@@ -165,13 +164,10 @@ public class About_Activity extends AppCompatActivity {
                         }
                         else {
                             for (int i = 0; i < jarray.length(); i++) {
-
                                 JSONObject jsonObject = jarray.getJSONObject(i);
-
                                 OptionsPO item = new OptionsPO();
                                 item.setId(jsonObject.isNull("id") ? 0 : jsonObject.getInt("id"));
                                 item.setTitle(jsonObject.isNull("title") ? "" : jsonObject.getString("title"));
-
                                 optionsPOArrayList1.add(item);
                             }
 
@@ -208,12 +204,12 @@ public class About_Activity extends AppCompatActivity {
                     e.printStackTrace();
                     loading.setVisibility(View.VISIBLE);
                     loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(full_layout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     loading_bar.setVisibility(View.VISIBLE);
-                                    AboutTask productTask = new AboutTask();
+                                    productTask = new AboutTask();
                                     productTask.execute(Appconstatants.ABOUT );
                                 }
                             })

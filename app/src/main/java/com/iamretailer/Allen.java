@@ -1,6 +1,5 @@
 package com.iamretailer;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,7 +38,6 @@ public class Allen extends Language {
     LinearLayout cart_items;
     DBController db;
     public TextView cart_count;
-    String id;
     Bundle bundle;
     FrameLayout prog_sec;
     LinearLayout menu;
@@ -51,11 +48,8 @@ public class Allen extends Language {
     private String sort_option = "";
     private String sort_order = "";
     private int cat_id;
-    private int from;
     TextView no_items;
     FrameLayout loading;
-    private boolean scrollValue;
-    private boolean scrollNeed = true;
     private int start = 1, limit = 10;
     LinearLayout load_more;
     int val = 0;
@@ -70,15 +64,6 @@ public class Allen extends Language {
     private boolean loadin = false;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     GridLayoutManager mLayoutManager;
-    LinearLayout filter;
-    Dialog alertReviewDialog;
-    LinearLayout  cancels,  filter_load,apply;
-    FrameLayout cancel;
-    EditText filter_edit;
-    RecyclerView filter_list;
-
-    TextView no_brands;
-    Boolean value=true;
 
 
     @Override
@@ -111,8 +96,10 @@ public class Allen extends Language {
         loading_bar = findViewById(R.id.loading_bar);
         bundle = new Bundle();
         bundle = getIntent().getExtras();
-        cat_id = Integer.parseInt(bundle.getString("id"));
-        header.setText(bundle.getString("cat_name"));
+        if (bundle != null) {
+            cat_id = Integer.parseInt(bundle.getString("id"));
+            header.setText(bundle.getString("cat_name"));
+        }
         Log.i("tag", "cad_id..." + cat_id);
         sort_option = "date_added";
         sort_order = "DESC";
@@ -120,25 +107,18 @@ public class Allen extends Language {
 
 
         ProductTask productTask = new ProductTask();
-        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
+        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
 
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                // super.onScrolled(recyclerView, dx, dy);
 
                 if (dy > 0) {
-                    Log.d("Scroll_Check1", "adfadsdsa");
                     visibleItemCount = category.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-                    Log.d("Scroll_Check2", "adfadsdsa");
                     Log.d("Scroll_Check2", visibleItemCount + "adfadsdsa" + totalItemCount + "  " + firstVisibleItem);
 
                     if (!loadin) {
@@ -147,7 +127,7 @@ public class Allen extends Language {
                             val = 1;
                             load_more.setVisibility(View.VISIBLE);
                             ProductTask productTask = new ProductTask();
-                            productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
+                            productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
                         }
                     }
                 }
@@ -155,7 +135,6 @@ public class Allen extends Language {
 
 
         });
-
 
 
         sort.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +183,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
                         mBottomSheetDialog.dismiss();
                     }
                 });
@@ -308,7 +287,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
 
                     }
                 });
@@ -319,15 +298,15 @@ public class Allen extends Language {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start=1;
-                limit=10;
-                val=0;
+                start = 1;
+                limit = 10;
+                val = 0;
                 error_network.setVisibility(View.GONE);
                 sort.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.VISIBLE);
                 no_items.setVisibility(View.GONE);
                 ProductTask productTask = new ProductTask();
-                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id +"&page=" + start + "&limit=" + limit);
+                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
             }
         });
 
@@ -347,7 +326,6 @@ public class Allen extends Language {
 
 
     }
-
 
 
     @Override
@@ -392,7 +370,6 @@ public class Allen extends Language {
         protected void onPostExecute(String resp) {
             Log.i("tag", "products_Hai--->  " + resp);
             load_more.setVisibility(View.GONE);
-            scrollNeed = true;
             if (resp != null) {
                 try {
 
@@ -420,7 +397,6 @@ public class Allen extends Language {
                             bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                             bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
                             bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
-
                             bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                             bo.setWish_list(false);
                             bo.setCart_list(false);
@@ -474,7 +450,6 @@ public class Allen extends Language {
                         loading_bar.setVisibility(View.GONE);
 
 
-
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
 
@@ -519,8 +494,6 @@ public class Allen extends Language {
 
         }
     }
-
-
 
 
     private class CartTask extends AsyncTask<String, Void, String> {

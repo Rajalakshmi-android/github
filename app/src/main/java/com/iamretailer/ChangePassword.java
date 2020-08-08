@@ -3,9 +3,8 @@ package com.iamretailer;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,14 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
+import com.iamretailer.Common.DBController;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.DBController;
 
 import stutzen.co.network.Connection;
 
@@ -29,57 +27,50 @@ import stutzen.co.network.Connection;
 public class ChangePassword extends Language {
 
     FrameLayout change_pwd;
-    EditText pass1,pass2;
+    EditText pass1, pass2;
     DBController db;
     FrameLayout fullayout;
     AndroidLogger logger;
     TextView login_page;
-    private LinearLayout home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        db=new DBController(ChangePassword.this);
-        Appconstatants.sessiondata=db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
-        change_pwd= findViewById(R.id.change_pwd);
-        pass1= findViewById(R.id.pwd1);
-        pass2= findViewById(R.id.pwd2);
-        fullayout= findViewById(R.id.fullayout);
-        login_page= findViewById(R.id.login_page);
-        home= findViewById(R.id.home);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        db = new DBController(ChangePassword.this);
+        Appconstatants.sessiondata = db.getSession();
+        Appconstatants.Lang = db.get_lang_code();
+        Appconstatants.CUR = db.getCurCode();
+        change_pwd = findViewById(R.id.change_pwd);
+        pass1 = findViewById(R.id.pwd1);
+        pass2 = findViewById(R.id.pwd2);
+        fullayout = findViewById(R.id.fullayout);
+        login_page = findViewById(R.id.login_page);
+        LinearLayout home = findViewById(R.id.home);
 
 
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if (pass1.getText().toString().trim().length()==0)
-                {
+                if (pass1.getText().toString().trim().length() == 0) {
                     pass1.setError(getResources().getString(R.string.pass_valid));
                 }
-                if (pass2.getText().toString().trim().length()==0)
-                {
+                if (pass2.getText().toString().trim().length() == 0) {
                     pass2.setError(getResources().getString(R.string.pass_valid));
                 }
-                if (pass1.getText().toString().length()<=5)
-                {
+                if (pass1.getText().toString().length() <= 5) {
                     pass1.setError(getResources().getString(R.string.pass_res));
                 }
-                if (!pass1.getText().toString().equals(pass2.getText().toString()))
-                {
-                    Toast.makeText(ChangePassword.this,R.string.pwd_mis,Toast.LENGTH_SHORT).show();
+                if (!pass1.getText().toString().equals(pass2.getText().toString())) {
+                    Toast.makeText(ChangePassword.this, R.string.pwd_mis, Toast.LENGTH_SHORT).show();
                 }
-                 if (pass1.getText().toString().trim().equals(pass1.getText().toString().trim()) && pass1.getText().toString().length()>5 && pass2.getText().toString().length()>5)
-                {
+                if (pass1.getText().toString().trim().equals(pass1.getText().toString().trim()) && pass1.getText().toString().length() > 5 && pass2.getText().toString().length() > 5) {
 
-                    CHANGE_Task change_task=new CHANGE_Task();
-                    change_task.execute(pass1.getText().toString().trim(),pass2.getText().toString().trim());
+                    CHANGE_Task change_task = new CHANGE_Task();
+                    change_task.execute(pass1.getText().toString().trim(), pass2.getText().toString().trim());
                 }
 
             }
@@ -94,13 +85,13 @@ public class ChangePassword extends Language {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
 
 
-
     }
+
     private class CHANGE_Task extends AsyncTask<String, Void, String> {
         private ProgressDialog pDialog;
 
@@ -117,9 +108,9 @@ public class ChangePassword extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Change pwd api"+Appconstatants.CHANGE_PWD);
+            logger.info("Change pwd api" + Appconstatants.CHANGE_PWD);
 
-            String response = null;
+            String response;
             Connection connection = new Connection();
             try {
                 JSONObject json = new JSONObject();
@@ -127,9 +118,9 @@ public class ChangePassword extends Language {
                 json.put("confirm", param[1]);
                 Log.d("change_p", json.toString());
                 Log.d("session", db.getSession());
-                logger.info("Change pwd api req"+json);
-                response = connection.sendHttpPutjson1(Appconstatants.CHANGE_PWD, json, db.getSession(), Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,ChangePassword.this);
-                logger.info("Change pwd api resp"+response);
+                logger.info("Change pwd api req" + json);
+                response = connection.sendHttpPutjson1(Appconstatants.CHANGE_PWD, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ChangePassword.this);
+                logger.info("Change pwd api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -148,8 +139,8 @@ public class ChangePassword extends Language {
                         finish();
 
                     } else {
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(ChangePassword.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(ChangePassword.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

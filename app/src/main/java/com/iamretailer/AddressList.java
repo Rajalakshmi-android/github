@@ -3,14 +3,12 @@ package com.iamretailer;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import com.iamretailer.Adapter.AddressAdapter;
 import com.iamretailer.Common.Appconstatants;
-
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.AddressPO;
@@ -92,7 +89,7 @@ public class AddressList extends Language {
 
         cc = new Bundle();
         cc = getIntent().getExtras();
-        from=cc.getInt("from");
+        from= cc != null ? cc.getInt("from") : 0;
         has_ship=cc.getInt("has_ship");
         Log.d("asdad",from+"");
         Appconstatants.Lang=dbController.get_lang_code();
