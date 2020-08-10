@@ -321,7 +321,7 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle best = new Bundle();
                 best.putString("view_all", "best_sell");
-                best.putString("head", "Best Selling");
+                best.putString("head",getResources().getString(R.string.bests));
                 intent.putExtras(best);
                 startActivity(intent);
             }
@@ -332,7 +332,7 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle feat = new Bundle();
                 feat.putString("view_all", "feat");
-                feat.putString("head","Feature Products");
+                feat.putString("head",getResources().getString(R.string.featuress));
                 intent.putExtras(feat);
                 startActivity(intent);
             }

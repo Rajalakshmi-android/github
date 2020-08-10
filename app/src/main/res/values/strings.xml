@@ -384,6 +384,8 @@
     <string name="rating">-50%</string>
     <string name="rating1">%</string>
     <string name="kg">/Kg</string>
+    <string name="selc_oun">Select Country</string>
+    <string name="sel_sta">Select State</string>
 
 
 </resources>

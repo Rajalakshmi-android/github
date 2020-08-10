@@ -98,7 +98,7 @@ public class Splash extends Language {
 
 
                     GETCURRENCY getcurrency=new GETCURRENCY();
-                    getcurrency.execute(Appconstatants.CUR_LIST+","+Appconstatants.LICENSE_KEY+","+appId);
+                    getcurrency.execute(Appconstatants.CUR_LIST/*+","+Appconstatants.LICENSE_KEY+","+appId*/);
 
                 } else {
 
@@ -171,7 +171,7 @@ public class Splash extends Language {
                             Appconstatants.sessiondata = dbCon.getSession();
 
                             GETCURRENCY getcurrency=new GETCURRENCY();
-                            getcurrency.execute(Appconstatants.CUR_LIST+","+Appconstatants.LICENSE_KEY+","+appId);
+                            getcurrency.execute(Appconstatants.CUR_LIST/*+","+Appconstatants.LICENSE_KEY+","+appId*/);
 
 
                         } else if(json.getInt("success") == 2) {
@@ -263,11 +263,17 @@ public class Splash extends Language {
                                 String cur_code = object1.isNull("code") ? "" : object1.getString("code");
                                 String cur_left = object1.isNull("symbol_left") ? "" : object1.getString("symbol_left");
                                 String cur_right = object1.isNull("symbol_right") ? "" : object1.getString("symbol_right");
+                                int def=object1.isNull("default")?0:object1.getInt("default");
                                 Log.d("cur_resp3",  "checking");
-                                if (i == 0 && dbCon.get_cur_counts() <= 0) {
+
+                                if (def==1 && dbCon.get_cur_counts() <= 0){
                                     dbCon.drop_app_cur();
                                     dbCon.insert_app_cur(cur_title, cur_code, cur_left, cur_right);
                                 }
+                               /* if (i == 0 && dbCon.get_cur_counts() <= 0) {
+                                    dbCon.drop_app_cur();
+                                    dbCon.insert_app_cur(cur_title, cur_code, cur_left, cur_right);
+                                }*/
                                 Log.d("cur_resp4",  "checking");
                                 dbCon.insert_currencies(cur_title, cur_code, cur_left, cur_right);
                             }

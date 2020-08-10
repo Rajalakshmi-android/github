@@ -129,19 +129,19 @@ public class ConfirmOrder extends Language {
         Appconstatants.CUR = db.getCurCode();
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();
-        order = (FrameLayout) findViewById(R.id.order);
-        back = (LinearLayout) findViewById(R.id.menu);
-        add_edit = (LinearLayout) findViewById(R.id.address_edit);
-        success = (FrameLayout) findViewById(R.id.success);
-        header = (TextView) findViewById(R.id.header);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        payment = (TextView) findViewById(R.id.payment);
-        phone = (TextView) findViewById(R.id.phone);
-        flat_shipping = (TextView) findViewById(R.id.flat_shipping);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
+        order = findViewById(R.id.order);
+        back = findViewById(R.id.menu);
+        add_edit = findViewById(R.id.address_edit);
+        success = findViewById(R.id.success);
+        header = findViewById(R.id.header);
+        cart_items = findViewById(R.id.cart_items);
+        loading = findViewById(R.id.loading);
+        payment = findViewById(R.id.payment);
+        phone = findViewById(R.id.phone);
+        flat_shipping = findViewById(R.id.flat_shipping);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
         cart_items.setVisibility(View.GONE);
         fname = getIntent().getExtras().getString("fname");
         from = getIntent().getExtras().getInt("from");
@@ -160,16 +160,16 @@ public class ConfirmOrder extends Language {
         mobile = getIntent().getExtras().getString("mobile");
         address_id = getIntent().getExtras().getString("address_id");
         shipping = getIntent().getExtras().getString("shipping");
-        cus_name = (TextView) findViewById(R.id.name);
-        cus_address_one = (TextView) findViewById(R.id.address_one);
-        cus_address_two = (TextView) findViewById(R.id.address_two);
-        country_name = (TextView) findViewById(R.id.country);
-        cus_mobile = (TextView) findViewById(R.id.mobile);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        promo_code = (LinearLayout) findViewById(R.id.promo_code);
-        promo_circle = (ImageView) findViewById(R.id.promo_circle);
-        promo_tag = (ImageView) findViewById(R.id.promo_tag);
-        promo_text = (TextView) findViewById(R.id.promo_text);
+        cus_name = findViewById(R.id.name);
+        cus_address_one = findViewById(R.id.address_one);
+        cus_address_two = findViewById(R.id.address_two);
+        country_name = findViewById(R.id.country);
+        cus_mobile = findViewById(R.id.mobile);
+        loading_bar = findViewById(R.id.loading_bar);
+        promo_code = findViewById(R.id.promo_code);
+        promo_circle = findViewById(R.id.promo_circle);
+        promo_tag = findViewById(R.id.promo_tag);
+        promo_text = findViewById(R.id.promo_text);
 
         header.setText(R.string.confirm);
         cus_name.setText(fname + " " + lname);
@@ -184,7 +184,7 @@ public class ConfirmOrder extends Language {
         flat_shipping.setText(shipping);
 
         phone.setText(mobile);
-        subtotal = (TextView) findViewById(R.id.subtotal);
+        subtotal = findViewById(R.id.subtotal);
         promo_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,8 +194,8 @@ public class ConfirmOrder extends Language {
         });
 
 
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        error_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,9 +203,9 @@ public class ConfirmOrder extends Language {
                 onBackPressed();
             }
         });
-        place_list = (LinearLayout) findViewById(R.id.listview);
-        total_list = (LinearLayout) findViewById(R.id.total_list);
-        w_amount = (TextView) findViewById(R.id.amount);
+        place_list = findViewById(R.id.listview);
+        total_list = findViewById(R.id.total_list);
+        w_amount = findViewById(R.id.amount);
 
         ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
         confirmOrderTask.execute(Appconstatants.Confirm_Order);
@@ -281,8 +281,8 @@ public class ConfirmOrder extends Language {
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay = (LinearLayout) popUpView.findViewById(R.id.okay);
-        TextView text = (TextView) popUpView.findViewById(R.id.text);
+        LinearLayout okay = popUpView.findViewById(R.id.okay);
+        TextView text = popUpView.findViewById(R.id.text);
         text.setText(R.string.wal_amount);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,12 +294,11 @@ public class ConfirmOrder extends Language {
 
     private void show_promo() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this,R.style.CustomAlertDialog);
-      //  AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this);
         View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
 
-        final EditText promo_code = (EditText) popUpView.findViewById(R.id.promo_code);
-        LinearLayout apply = (LinearLayout) popUpView.findViewById(R.id.apply);
-        LinearLayout cancel = (LinearLayout) popUpView.findViewById(R.id.cancel);
+        final EditText promo_code = popUpView.findViewById(R.id.promo_code);
+        LinearLayout apply = popUpView.findViewById(R.id.apply);
+        LinearLayout cancel = popUpView.findViewById(R.id.cancel);
 
         dialLo.setView(popUpView);
 
@@ -675,13 +674,13 @@ public class ConfirmOrder extends Language {
         dialog.setCancelable(false);
 
 
-        TextView order_id = (TextView) dialog.findViewById(R.id.orderid);
-        final LinearLayout details = (LinearLayout) dialog.findViewById(R.id.details);
-        TextView header = (TextView) dialog.findViewById(R.id.header);
+        TextView order_id = dialog.findViewById(R.id.orderid);
+        final LinearLayout details = dialog.findViewById(R.id.details);
+        TextView header = dialog.findViewById(R.id.header);
         header.setText(R.string.order_succuess);
-        LinearLayout cart_items = (LinearLayout) dialog.findViewById(R.id.cart_items);
+        LinearLayout cart_items = dialog.findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        LinearLayout back = (LinearLayout) dialog.findViewById(R.id.menu);
+        LinearLayout back = dialog.findViewById(R.id.menu);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -711,13 +710,13 @@ public class ConfirmOrder extends Language {
     private void addLayout(final PlacePO placePO, LinearLayout view_list) {
 
         View convertView = LayoutInflater.from(this).inflate(R.layout.place_list, view_list, false);
-        TextView name = (TextView) convertView.findViewById(R.id.p_name);
-        ImageView imag = (ImageView) convertView.findViewById(R.id.place_img);
-        TextView price = (TextView) convertView.findViewById(R.id.p_total);
-        TextView qunt = (TextView) convertView.findViewById(R.id.p_qty);
-        TextView amount = (TextView) convertView.findViewById(R.id.total);
-        TextView p_option = (TextView) convertView.findViewById(R.id.p_option);
-        TextView grams = (TextView) convertView.findViewById(R.id.grams);
+        TextView name = convertView.findViewById(R.id.p_name);
+        ImageView imag = convertView.findViewById(R.id.place_img);
+        TextView price = convertView.findViewById(R.id.p_total);
+        TextView qunt = convertView.findViewById(R.id.p_qty);
+        TextView amount = convertView.findViewById(R.id.total);
+        TextView p_option = convertView.findViewById(R.id.p_option);
+        TextView grams = convertView.findViewById(R.id.grams);
 
         name.setText(placePO.getProduct_name());
         price.setText(placePO.getPrcie());
@@ -748,8 +747,8 @@ public class ConfirmOrder extends Language {
 
     private void addLayout1(PlacePO placePO, LinearLayout total_list) {
         View convertView = LayoutInflater.from(this).inflate(R.layout.total_item, total_list, false);
-        TextView amount = (TextView) convertView.findViewById(R.id.amount);
-        TextView name = (TextView) convertView.findViewById(R.id.head);
+        TextView amount = convertView.findViewById(R.id.amount);
+        TextView name = convertView.findViewById(R.id.head);
         amount.setText(placePO.getTot_amt_txt());
         name.setText(placePO.getTot_title() + " :");
         Log.i("tag", "Totals " + placePO.getTot_title());

@@ -995,7 +995,7 @@ public class Address extends Language {
                     country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
-                    po1.setCount_name("Select Country");
+                    po1.setCount_name(getApplication().getResources().getString(R.string.selc_oun));
                     po1.setCount_iso_code_2("");
                     po1.setCount_iso_code_3("");
                     country_list.add(po1);
@@ -1038,7 +1038,7 @@ public class Address extends Language {
                         CountryPO po = new CountryPO();
                         po.setZone_id("0");
                         po.setCont_id("0");
-                        po.setCount_name("Select State");
+                        po.setCount_name(getResources().getString(R.string.sel_sta));
                         po.setCount_iso_code_2("");
                         po.setCount_iso_code_3("");
                         state_list.add(po);
