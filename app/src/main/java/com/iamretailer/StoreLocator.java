@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +45,6 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
     String saddress[] = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal"};
     int simg[] = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival};
     private TextView header;
-    private MapFragment mapFrag;
     AndroidLogger logger;
     private TextView cart_count;
     LinearLayout cart_items;
@@ -85,7 +83,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    public Bitmap createBitmapFromLayoutWithText(Context context, int img, String address) {
+    public Bitmap createBitmapFromLayoutWithText(Context context, int img) {
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout view = new LinearLayout(context);
         View dataView = mInflater.inflate(R.layout.marker_view, view, true);
@@ -111,7 +109,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
             marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(lat[i]), Double.parseDouble(lng[i])))
                     .icon(BitmapDescriptorFactory
-                            .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, simg[i], saddress[i]))));
+                            .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, simg[i]))));
         }
         if (map != null) {
             map.getUiSettings().setZoomControlsEnabled(false);
@@ -172,7 +170,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -185,7 +183,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");

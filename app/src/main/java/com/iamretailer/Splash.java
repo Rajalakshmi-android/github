@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.content.res.Configuration;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +33,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 import stutzen.co.network.Connection;
 
@@ -96,13 +95,13 @@ public class Splash extends Language {
                 Log.d("session_datasss", Appconstatants.sessiondata + "");
                 if (Appconstatants.sessiondata != null && Appconstatants.sessiondata.length() > 0)
                 {
-                    //  Log.i("daat", Appconstatants.CUR_LIST.split("/")[2]);
+
 
                     GETCURRENCY getcurrency=new GETCURRENCY();
                     getcurrency.execute(Appconstatants.CUR_LIST+","+Appconstatants.LICENSE_KEY+","+appId);
 
                 } else {
-//
+
                     GetSessionTask task = new GetSessionTask();
                     task.execute(Appconstatants.SESSION_API+","+Appconstatants.LICENSE_KEY+","+appId);
                 }
@@ -194,7 +193,7 @@ public class Splash extends Language {
                                     }
                                 })
                                 .show();
-                        //
+
                         e.printStackTrace();
 
                     }
@@ -368,8 +367,6 @@ public class Splash extends Language {
                         JSONArray array=object.getJSONArray("data");
                         langPOS=new ArrayList<>();
                         dbCon.drop_lang();
-                        int j=0;
-                        j=array.length();
                         if (array.length()>0)
                         {
                             for (int i=0;i<array.length();i++)

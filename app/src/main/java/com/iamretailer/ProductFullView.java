@@ -106,7 +106,6 @@ public class ProductFullView extends Language {
     LinearLayout post_reviews;
     EditText comment;
     String prod_id = "";
-    JSONArray review_arry;
     LinearLayout review_section;
     LinearLayout review_disp;
     TextView no_reviews;
@@ -867,7 +866,7 @@ public class ProductFullView extends Language {
                     JSONObject json = new JSONObject(resp);
                     image_url = new ArrayList<>();
                     zoom_url = new ArrayList<>();
-                    review_arry = new JSONArray();
+
                     optionsPOArrayList = new ArrayList<>();
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
@@ -1024,7 +1023,6 @@ public class ProductFullView extends Language {
 
                             rev_list = new ArrayList<>();
                             JSONArray array = rev_obj.getJSONArray("reviews");
-                            review_arry = array;
 
                             Log.d("size_check", array.length() + "");
 
@@ -1276,7 +1274,7 @@ public class ProductFullView extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
 
                         } else if (dd instanceof JSONObject) {
@@ -1290,7 +1288,7 @@ public class ProductFullView extends Language {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 cart_item.add(bo);
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                             if (list.size()>0 && list!=null) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < cart_item.size(); h++) {

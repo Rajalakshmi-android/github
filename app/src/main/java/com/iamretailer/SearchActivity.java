@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.DBController;
-import com.iamretailer.POJO.OptionsPO;
 
 import stutzen.co.network.Connection;
 
@@ -47,7 +45,6 @@ public class SearchActivity extends Language {
     CommonAdapter adapter1;
     Bundle bundle;
     private TextView cart_count;
-    ArrayList<OptionsPO> optionsPOArrayList;
     TextView header;
     LinearLayout cart_items;
     FrameLayout loading;
@@ -85,23 +82,14 @@ public class SearchActivity extends Language {
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
         loading_bar= findViewById(R.id.loading_bar);
-        optionsPOArrayList = new ArrayList<>();
         header.setText(R.string.search);
         retry = findViewById(R.id.retry);
         search_text = findViewById(R.id.search_text);
         search_loading = findViewById(R.id.search_loading);
-       // load_more=(LinearLayout) findViewById(R.id.load_more);
         no_items = findViewById(R.id.no_items);
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-
-       /* productTask = new SingleProductTask();
-        productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);*/
-
-
-
-        bundle = new Bundle();
 
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,9 +179,6 @@ public class SearchActivity extends Language {
     @Override
     public void onResume() {
         super.onResume();
-
-        /*SingleProductTask productTask = new SingleProductTask();
-        productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name");*/
 
     }
 
@@ -367,7 +352,7 @@ public class SearchActivity extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
                             JSONObject jsonObject = (JSONObject) dd;
@@ -380,7 +365,7 @@ public class SearchActivity extends Language {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 cart_item.add(bo);
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
 
                             if (optionsPOArrayList1.size()>0 && optionsPOArrayList1!=null) {
                                 for (int u = 0; u < optionsPOArrayList1.size(); u++) {

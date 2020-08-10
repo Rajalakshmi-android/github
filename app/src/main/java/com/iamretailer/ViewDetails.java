@@ -14,7 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,13 +48,11 @@ public class ViewDetails extends Language {
     LinearLayout back;
     ArrayList<PlacePO> list1;
     ArrayList<PlacePO> list2;
-    ArrayList<OrdersPO> list;
     FrameLayout no_network;
     LinearLayout retry;
     TextView order_id, order_date, ship_method;
     private DBController db;
     private FrameLayout calls;
-    TextView cancel;
     private TextView status;
     private TextView paymethod;
     private LinearLayout ordertotview;
@@ -68,7 +66,7 @@ public class ViewDetails extends Language {
     LinearLayout del_add_lay;
     LinearLayout ship_info,ship_method_sec;
     TextView phone;
-    TextView cus_name, cus_address_one, cus_address_two, cus_mobile;
+    TextView cus_name, cus_address_one, cus_address_two;
     TextView country_name;
     ImageView del_image;
     private View delivery;
@@ -106,7 +104,6 @@ public class ViewDetails extends Language {
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar= findViewById(R.id.loading_bar);
         del_add_lay= findViewById(R.id.del_add_lay);
-       // status_img=(LinearLayout)findViewById(R.id.status_img);
         ship_info= findViewById(R.id.ship_info);
         ship_method_sec= findViewById(R.id.ship_method_sec);
         phone = findViewById(R.id.phone);
@@ -114,7 +111,7 @@ public class ViewDetails extends Language {
         cus_address_one = findViewById(R.id.address_one);
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
-        cus_mobile = findViewById(R.id.mobile);
+
         del_image= findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);
         shipping= findViewById(R.id.shipping);
@@ -237,7 +234,7 @@ public class ViewDetails extends Language {
                 } else {
                     Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
                 }
-                return;
+                break;
             }
 
         }
@@ -285,13 +282,11 @@ public class ViewDetails extends Language {
                     order_date.setText(CommonFunctions.convert_date(object.isNull("date_added") ? "" : object.getString("date_added")));
                     ship_method.setText(object.isNull("shipping_method") ? "" : object.getString("shipping_method"));
 
-
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
                     if (shipping_firstname.equalsIgnoreCase(""))
                     {
                         Log.i("sfsdfsdf","sfsdfs");
                         del_add_lay.setVisibility(View.GONE);
-                        //status_img.setVisibility(View.GONE);
                         ship_info.setVisibility(View.GONE);
                         ship_method_sec.setVisibility(View.GONE);
                         delivery.setVisibility(View.GONE);
@@ -300,14 +295,12 @@ public class ViewDetails extends Language {
                     else
                     {
                         Log.i("sfsdfsdf","tertretet");
-                      //  del_add.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + "" + object.getString("payment_lastname") + "\n" + object.getString("payment_address_1") + "\n" + object.getString("payment_address_2") + "\n" + object.getString("payment_city") + " - " + object.getString("payment_postcode") + "\n" + object.getString("payment_zone") + "\n" + object.getString("payment_country")+ "\n"+object.getString("telephone")+"");
                         cus_name.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname") );
                         cus_address_one.setText(object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",");
                         cus_address_two.setText(object.getString("payment_city") + ", "+object.getString("payment_zone")+",");
                         country_name.setText(object.getString("payment_country")+" - "+object.getString("payment_postcode")+".");
                         phone.setText(object.getString("telephone"));
                         del_add_lay.setVisibility(View.VISIBLE);
-                      //  status_img.setVisibility(View.VISIBLE);
                         ship_info.setVisibility(View.VISIBLE);
                         if(object.isNull("shipping_method")||object.getString("shipping_method").equalsIgnoreCase("")){
                             ship_method_sec.setVisibility(View.GONE);

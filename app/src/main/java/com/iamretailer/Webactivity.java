@@ -9,8 +9,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,13 +17,11 @@ import android.widget.Toast;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
-import com.iamretailer.POJO.OptionsPO;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 import stutzen.co.network.Connection;
 
@@ -33,24 +29,17 @@ public class Webactivity extends AppCompatActivity {
 
     private DBController dbCon;
     private LinearLayout back;
-    ArrayList<OptionsPO> optionsPOArrayList1;
     Bundle bundle;
-    private TextView cart_count;
-    ArrayList<OptionsPO> optionsPOArrayList;
     TextView header;
     LinearLayout cart_items;
     FrameLayout loading;
     FrameLayout error_network;
     LinearLayout retry;
-    EditText search_text;
     LinearLayout search_loading;
-    TextView no_items;
     FrameLayout fullayout;
-    String text = "";
     TextView errortxt1, errortxt2;
     LinearLayout loading_bar;
     AndroidLogger logger;
-    AboutTask productTask;
     private int id=0;
     private String title="";
     private WebView description;
@@ -73,23 +62,18 @@ public class Webactivity extends AppCompatActivity {
         header = findViewById(R.id.header);
         cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        //description = (TextView) findViewById(R.id.description);
         description = findViewById(R.id.description);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
         loading_bar= findViewById(R.id.loading_bar);
-        optionsPOArrayList = new ArrayList<>();
         retry = findViewById(R.id.retry);
-        search_text = findViewById(R.id.search_text);
         search_loading = findViewById(R.id.search_loading);
-        no_items = findViewById(R.id.no_items);
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         bundle = new Bundle();
         bundle = getIntent().getExtras();
-        /* pish = "<html><body>";
-        pas = "</body></html>";*/
+
 
         pish = "<html><head><style type=\"text/css\">@font-face {font-family: MyFont;src: url(\"file:///android_asset/font/Heebo-Regular.ttf\")}body,li,p,span {font-family: MyFont;font-size: 14px;text-align: justify;color: #415163}</style></head><body>";
         pas = "</body></html>";
@@ -163,7 +147,6 @@ public class Webactivity extends AppCompatActivity {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    optionsPOArrayList1 = new ArrayList<>();
                     if (json.getInt("success") == 1)
                     {
 

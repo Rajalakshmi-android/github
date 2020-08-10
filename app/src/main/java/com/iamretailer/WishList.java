@@ -3,7 +3,6 @@ package com.iamretailer;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,14 +29,13 @@ import com.iamretailer.POJO.ProductsPO;
 
 import stutzen.co.network.Connection;
 
-
 public class WishList extends Language {
 
     LinearLayout back, cart_items;
     TextView cart_count;
     ListView wish_list;
     private ArrayList<ProductsPO> feat_list;
-    FrameLayout error_network, loading, fullayout;
+    FrameLayout error_network, loading, fullayout,success;
     LinearLayout loading_bar ,retry;
     TextView errortxt1, errortxt2;
     Wish_list_adapter wishListAdapter;
@@ -60,6 +58,7 @@ public class WishList extends Language {
         no_items = findViewById(R.id.no_items);
         wish_list = findViewById(R.id.wish_list);
         error_network = findViewById(R.id.error_network);
+        success = findViewById(R.id.success);
         loading = findViewById(R.id.loading);
         loading_bar = findViewById(R.id.loading_bar);
         fullayout = findViewById(R.id.fullayout);
@@ -108,6 +107,7 @@ public class WishList extends Language {
             @Override
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
@@ -184,6 +184,9 @@ public class WishList extends Language {
 
                             }
                             no_items.setVisibility(View.GONE);
+                            wish_list.setVisibility(View.VISIBLE);
+
+
                         } else {
                             no_items.setVisibility(View.VISIBLE);
                             wish_list.setVisibility(View.GONE);
@@ -192,13 +195,15 @@ public class WishList extends Language {
 
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
+                        success.setVisibility(View.VISIBLE);
 
                     } else {
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt1.setText(array.getString(0) + "");
+                        errortxt1.setText(array.getString(0));
                         Toast.makeText(WishList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -206,6 +211,7 @@ public class WishList extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     loading_bar.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
@@ -223,6 +229,7 @@ public class WishList extends Language {
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
+                success.setVisibility(View.GONE);
 
             }
 
@@ -265,7 +272,7 @@ public class WishList extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -276,7 +283,7 @@ public class WishList extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");

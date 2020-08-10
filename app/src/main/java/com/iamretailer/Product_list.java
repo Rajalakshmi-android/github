@@ -55,7 +55,7 @@ public class Product_list extends Language {
     private ArrayList<ProductsPO> fav_item;
     private TextView no_proditems;
     private ArrayList<ProductsPO> cart_item;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
+    int firstVisibleItem, visibleItemCount;
     GridLayoutManager mLayoutManager;
     private boolean loadin = false;
     String banner_id = "";
@@ -156,7 +156,6 @@ public class Product_list extends Language {
                 //  super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
                     visibleItemCount = product_list.getChildCount();
-                    totalItemCount = mLayoutManager.getItemCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
                     if (from.equals("best_sell")) {
 
@@ -522,7 +521,7 @@ public class Product_list extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_counts.setText(0 + "");
+                            cart_counts.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
                             JSONObject jsonObject = (JSONObject) dd;
@@ -535,7 +534,7 @@ public class Product_list extends Language {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 cart_item.add(bo);
                             }
-                            cart_counts.setText(qty + "");
+                            cart_counts.setText(String.valueOf(qty));
 
                             if (from.equals("best_sell")) {
                                 if (list.size() > 0 && list != null) {

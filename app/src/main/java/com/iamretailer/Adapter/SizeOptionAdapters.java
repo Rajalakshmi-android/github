@@ -2,8 +2,6 @@ package com.iamretailer.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.iamretailer.POJO.SingleOptionPO;
@@ -54,7 +51,6 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
             if (items.get(position).isImgSel()) {
 
                 holder.name.setTextColor(ContextCompat.getColor(context, R.color.white));
-                //holder.name.setBackgroundResource(R.drawable.sizegreen);
                 holder.txt_bg.setBackgroundResource(R.drawable.sizegreen);
             } else {
 
@@ -66,7 +62,6 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
         } else {
             if (items.get(position).isImgSel()) {
                 holder.name.setTextColor(ContextCompat.getColor(context, R.color.white));
-               // holder.name.setBackgroundResource(R.drawable.sizegreen);
                 holder.txt_bg.setBackgroundResource(R.drawable.sizegreen);
             } else {
                 holder.name.setTextColor(ContextCompat.getColor(context, R.color.app_text_color));
