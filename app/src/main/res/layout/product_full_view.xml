@@ -157,9 +157,9 @@
                                     android:id="@+id/like"
                                     android:layout_width="@dimen/dp20"
                                     android:layout_height="@dimen/dp20"
+                                    android:contentDescription="@null"
                                     android:src="@mipmap/pro_fill"
-                                    android:visibility="gone"
-                                    android:contentDescription="@null"/>
+                                    android:visibility="gone" />
 
                                 <ImageView
                                     android:id="@+id/unlike"
@@ -191,16 +191,16 @@
                                 android:id="@+id/r2"
                                 android:layout_width="@dimen/dp11"
                                 android:layout_height="@dimen/dp11"
-                                android:contentDescription="@null"
                                 android:layout_marginStart="@dimen/dp2"
+                                android:contentDescription="@null"
                                 android:src="@mipmap/fill" />
 
                             <ImageView
                                 android:id="@+id/r3"
                                 android:layout_width="@dimen/dp11"
                                 android:layout_height="@dimen/dp11"
-                                android:contentDescription="@null"
                                 android:layout_marginStart="@dimen/dp2"
+                                android:contentDescription="@null"
                                 android:src="@mipmap/fill" />
 
                             <ImageView
@@ -509,24 +509,24 @@
                                         android:id="@+id/rate2"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
-                                        android:contentDescription="@null"
                                         android:layout_marginStart="@dimen/dp10"
+                                        android:contentDescription="@null"
                                         android:src="@mipmap/rating_unfill" />
 
                                     <ImageView
                                         android:id="@+id/rate3"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
-                                        android:contentDescription="@null"
                                         android:layout_marginStart="@dimen/dp10"
+                                        android:contentDescription="@null"
                                         android:src="@mipmap/rating_unfill" />
 
                                     <ImageView
                                         android:id="@+id/rate4"
                                         android:layout_width="@dimen/dp25"
                                         android:layout_height="@dimen/dp25"
-                                        android:contentDescription="@null"
                                         android:layout_marginStart="@dimen/dp10"
+                                        android:contentDescription="@null"
                                         android:src="@mipmap/rating_unfill" />
 
                                     <ImageView

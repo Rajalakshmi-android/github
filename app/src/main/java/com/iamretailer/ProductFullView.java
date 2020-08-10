@@ -804,7 +804,7 @@ public class ProductFullView extends Language {
         SliderAdapter sliderAdapter = new SliderAdapter(ProductFullView.this, image_url);
         viewPager.setAdapter(sliderAdapter);
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+   /*     viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -819,7 +819,7 @@ public class ProductFullView extends Language {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        });*/
     }
 
     private void addBottomDots(int currentPage) {
