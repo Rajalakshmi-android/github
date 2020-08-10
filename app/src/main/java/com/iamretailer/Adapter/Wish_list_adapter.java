@@ -81,7 +81,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
 
 
         if (items.get(position).getOff_price().equalsIgnoreCase("0")) {
-            String value=String.format(Locale.getDefault(),"%.2f", items.get(position).getPrice());
+            String value=String.format("%.2f", items.get(position).getPrice());
             holder.p_price.setText(value);
             holder.cur_back.setText(cur_right);
             holder.cur_front.setText(cur_left);

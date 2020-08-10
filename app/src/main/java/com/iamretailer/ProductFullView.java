@@ -1,6 +1,7 @@
 package com.iamretailer;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -46,6 +47,7 @@ import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.Common.Helper;
 import com.iamretailer.Common.LanguageList;
+import com.iamretailer.Common.LocaleHelper;
 import com.iamretailer.Common.RecyclerItemClickListener;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.ProductsPO;
@@ -808,7 +810,7 @@ public class ProductFullView extends Language {
         SliderAdapter sliderAdapter = new SliderAdapter(ProductFullView.this, image_url);
         viewPager.setAdapter(sliderAdapter);
 
-   /*     viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -823,7 +825,7 @@ public class ProductFullView extends Language {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });*/
+        });
     }
 
     private void addBottomDots(int currentPage) {
@@ -974,13 +976,13 @@ public class ProductFullView extends Language {
                         originalrs.setText(cur_left);
                         originalrs1.setText(cur_right);
                         if (jsonObject.getDouble("special") > 0) {
-                            String val=String.format(Locale.getDefault(),"%.2f", sp_price);
+                            String val=String.format("%.2f", sp_price);
                             productrate.setText(val);
-                            String val1=String.format(Locale.getDefault(),"%.2f", price);
+                            String val1=String.format("%.2f", price);
                             orginal.setText(val1);
 
                         } else {
-                            String val=String.format(Locale.getDefault(),"%.2f", price);
+                            String val=String.format("%.2f", price);
                             productrate.setText(val);
                             orginal.setVisibility(View.GONE);
                             originalrs.setVisibility(View.GONE);
@@ -1750,6 +1752,11 @@ public class ProductFullView extends Language {
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
 
     public void cart_call()
     {
@@ -1872,15 +1879,15 @@ public class ProductFullView extends Language {
             if (sp_price>0) {
                 whole_price1=whole_price1+price1 + sp_price;
                 whole_price2=whole_price2+price2 + price;
-                String wp_val=String.format(Locale.getDefault(),"%.2f", whole_price1);
-                String wp_val2=String.format(Locale.getDefault(),"%.2f", whole_price2);
+                String wp_val=String.format("%.2f", whole_price1);
+                String wp_val2=String.format("%.2f", whole_price2);
                 productrate.setText(wp_val);
                 orginal.setText(wp_val2);
             }
             else
             {
                whole_price2=whole_price2+price2 + price;
-                String val=String.format(Locale.getDefault(),"%.2f", whole_price2);
+                String val=String.format("%.2f", whole_price2);
                 productrate.setText(val);
                 orginal.setVisibility(View.GONE);
 

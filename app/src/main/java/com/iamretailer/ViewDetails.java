@@ -432,8 +432,8 @@ public class ViewDetails extends Language {
         name.setText(placePO.getProduct_name());
         double a = Double.parseDouble(placePO.getPrcie());
         double b = Double.parseDouble(placePO.getAmout());
-        String a1=String.format(Locale.getDefault(),"%.2f", a);
-        String b1=String.format(Locale.getDefault(),"%.2f", b);
+        String a1=String.format("%.2f", a);
+        String b1=String.format("%.2f", b);
         price.setText(a1);
         qunt.setText(placePO.getQty());
         amount.setText(b1);
@@ -478,7 +478,7 @@ public class ViewDetails extends Language {
         try {
             tot_title.setText(obj.isNull("title") ? "" : obj.getString("title")+" :");
             double tot = Double.parseDouble(obj.isNull("value") ? "0.00" : obj.getString("value"));
-            String val=String.format(Locale.getDefault(),"%.2f", tot);
+            String val=String.format("%.2f", tot);
             tot_value.setText(val);
         } catch (JSONException e) {
             e.printStackTrace();

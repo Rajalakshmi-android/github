@@ -82,7 +82,7 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         holder.status.setText(items.get(position).getOrder_status());
         holder.order_placed.setText(items.get(position).getOrder_date());
         Log.i("tag", "place_date " + items.get(position).getOrder_date());
-        String val=String.format(Locale.getDefault(),"%.2f", Double.parseDouble(items.get(position).getOrder_total_raw()));
+        String val=String.format("%.2f", Double.parseDouble(items.get(position).getOrder_total_raw()));
 
         holder.order_amount.setText(val);
         Log.i("tag", "place_date " + items.get(position).getOrder_status());

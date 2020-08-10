@@ -668,7 +668,7 @@ public class Wallet extends Language {
 
                         JSONArray jarray = new JSONArray(json.getString("data"));
                         wallet_amount= json.getString("amount");
-                        String value=cur_left+String.format(Locale.getDefault(),"%.2f", Double.parseDouble(wallet_amount))+cur_right;
+                        String value=cur_left+String.format("%.2f", Double.parseDouble(wallet_amount))+cur_right;
                         w_amount.setText(value);
                         list_view.setVisibility(View.VISIBLE);
                         no_items.setVisibility(View.GONE);
