@@ -43,7 +43,6 @@ public class SearchActivity extends Language {
     private LinearLayout back;
     ArrayList<ProductsPO> optionsPOArrayList1;
     CommonAdapter adapter1;
-    Bundle bundle;
     private TextView cart_count;
     TextView header;
     LinearLayout cart_items;
@@ -281,7 +280,8 @@ public class SearchActivity extends Language {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(SearchActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

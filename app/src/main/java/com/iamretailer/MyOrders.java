@@ -180,7 +180,7 @@ public class MyOrders extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -192,7 +192,7 @@ public class MyOrders extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     }
                 } catch (Exception e) {
@@ -309,7 +309,8 @@ public class MyOrders extends Language {
                             loading.setVisibility(View.GONE);
                             error_network.setVisibility(View.VISIBLE);
                             errortxt1.setText(R.string.error_msg);
-                            errortxt2.setText(array.getString(0) + "");
+                            String error=array.getString(0) + "";
+                            errortxt2.setText(error);
                             Toast.makeText(MyOrders.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         }
                     }

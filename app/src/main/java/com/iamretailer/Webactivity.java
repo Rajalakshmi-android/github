@@ -126,7 +126,7 @@ public class Webactivity extends AppCompatActivity {
             logger.info("Product list search api"+param[0]);
 
             Log.d("singleurl", param[0]);
-            String response = null;
+            String response =   null;
             try {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR,Webactivity.this);
@@ -182,7 +182,8 @@ public class Webactivity extends AppCompatActivity {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(Webactivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

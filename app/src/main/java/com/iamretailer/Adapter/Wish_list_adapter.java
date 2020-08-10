@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.iamretailer.WishList;
 import com.iamretailer.Common.Appconstatants;
@@ -30,13 +31,12 @@ import stutzen.co.network.Connection;
 
 
 public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
-    int resource;
-    Context context;
-    ArrayList<ProductsPO> items;
-    LayoutInflater mInflater;
-    DBController dbController;
-    String cur_left = "";
-    String cur_right = "";
+    private int resource;
+    private Context context;
+    private ArrayList<ProductsPO> items;
+    private LayoutInflater mInflater;
+    private String cur_left ;
+    private String cur_right ;
 
     public Wish_list_adapter(Context context, int resource, ArrayList<ProductsPO> items) {
         super(context, resource, items);
@@ -44,32 +44,32 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         this.resource = resource;
         this.context = context;
         this.items = items;
-        dbController = new DBController(context);
-        Appconstatants.CUR=dbController.getCurCode();
+        DBController dbController = new DBController(context);
+        Appconstatants.CUR= dbController.getCurCode();
         cur_left = dbController.get_cur_Left();
-        cur_right=dbController.get_cur_Right();
+        cur_right= dbController.get_cur_Right();
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        LinearLayout alertView = null;
+        LinearLayout alertView ;
         holder = new ViewHolder();
         if (convertView == null) {
-            convertView = mInflater.inflate(resource, alertView, true);
+            convertView = mInflater.inflate(resource, null, true);
             convertView.setTag(holder);
             alertView = (LinearLayout) convertView;
         } else {
             alertView = (LinearLayout) convertView;
         }
 
-        holder.product_name = (TextView) convertView.findViewById(R.id.prod_name);
-        holder.p_img = (ImageView) convertView.findViewById(R.id.prod_img);
-        holder.p_price = (TextView) convertView.findViewById(R.id.prod_price);
-        holder.remove = (ImageView) convertView.findViewById(R.id.remove);
-        holder.cur_front=(TextView)convertView.findViewById(R.id.cur_front);
-        holder.cur_back=(TextView)convertView.findViewById(R.id.cur_back);
-        holder.line=(View)convertView.findViewById(R.id.line);
+        holder.product_name = convertView.findViewById(R.id.prod_name);
+        holder.p_img = convertView.findViewById(R.id.prod_img);
+        holder.p_price = convertView.findViewById(R.id.prod_price);
+        holder.remove = convertView.findViewById(R.id.remove);
+        holder.cur_front= convertView.findViewById(R.id.cur_front);
+        holder.cur_back= convertView.findViewById(R.id.cur_back);
+        holder.line= convertView.findViewById(R.id.line);
 
         holder.product_name.setText(items.get(position).getProduct_name());
         holder.p_price.setText(items.get(position).getOff_price());
@@ -81,7 +81,8 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
 
 
         if (items.get(position).getOff_price().equalsIgnoreCase("0")) {
-            holder.p_price.setText(String.format("%.2f", items.get(position).getPrice()));
+            String value=String.format(Locale.getDefault(),"%.2f", items.get(position).getPrice());
+            holder.p_price.setText(value);
             holder.cur_back.setText(cur_right);
             holder.cur_front.setText(cur_left);
         }
@@ -109,9 +110,12 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
     }
 
     private static class ViewHolder {
-        public TextView product_name;
-        public ImageView p_img, remove;
-        public TextView p_price,cur_front,cur_back;
+        TextView product_name;
+        ImageView p_img;
+        ImageView remove;
+        TextView p_price;
+        TextView cur_front;
+        TextView cur_back;
         View line;
     }
 
@@ -123,7 +127,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         private ProgressDialog pDialog;
         int pos;
 
-        public DeleteTask(int position) {
+        DeleteTask(int position) {
             pos=position;
         }
 
@@ -140,7 +144,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         @Override
         protected String doInBackground(String... param) {
 
-            String response = null;
+            String response ;
             try {
 
                 Connection connection = new Connection();

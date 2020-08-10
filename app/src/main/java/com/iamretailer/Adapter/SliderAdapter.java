@@ -45,7 +45,8 @@ public class SliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_slider, null);
+        final ViewGroup parent = null;
+        View view = inflater.inflate(R.layout.item_slider, parent,false);
         ImageView imageView = (ImageView) view.findViewById(R.id.image);
         Log.d("img_sizeV", imgurl.get(position));
         Picasso.with(view.getContext()).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);

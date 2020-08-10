@@ -244,7 +244,6 @@ public class Registration extends Language {
                         String cus_l_name = json.isNull("lastname") ? "" : json.getString("lastname");
                         String cus_email = json.isNull("email") ? "" : json.getString("email");
                         String cus_mobile = json.isNull("telephone") ? "" : json.getString("telephone");
-                        String cus_grp_id = json.isNull("customer_group_id") ? "" : json.getString("customer_group_id");
                         Log.d("Input_format", cus_email);
 
                         Toast.makeText(getApplicationContext(), R.string.register, Toast.LENGTH_SHORT).show();

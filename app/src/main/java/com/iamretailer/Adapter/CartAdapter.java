@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -122,7 +123,8 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         }else
         {
             holder.spin_qty.setVisibility(View.GONE);
-            holder.qty_count.setText(items.get(position).getCartvalue()+"");
+            String value=items.get(position).getCartvalue()+"";
+            holder.qty_count.setText(value);
         }
 
         if (items.get(position).getProducturl().isEmpty())
@@ -143,7 +145,8 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_prod_name.setText(items.get(position).getProduct_name());
         holder.rupee_back.setText(cur_right);
         holder.rupee_front.setText(cur_left);
-        holder.cart_prod_or_rate.setText(String.format("%.2f", items.get(position).getTotal()));
+        String val=String.format(Locale.getDefault(),"%.2f", items.get(position).getTotal());
+        holder.cart_prod_or_rate.setText(val);
         String op = "";
         for (int j = 0; j < items.get(position).getOptionlist().size(); j++) {
             if (items.get(position).getOptionlist().size() - 1 == j)
@@ -270,7 +273,8 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     public void quantity_change(final int pos,String qtys)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        View dialogView = inflater.inflate(R.layout.show_qty, null);
+        final ViewGroup parent = null;
+        View dialogView = inflater.inflate(R.layout.show_qty,  parent, false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();

@@ -316,7 +316,8 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -451,7 +452,8 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt1.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt1.setText(error);
                         Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -808,7 +810,8 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 

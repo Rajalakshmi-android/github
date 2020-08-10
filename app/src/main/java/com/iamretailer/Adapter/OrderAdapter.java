@@ -17,6 +17,7 @@ import com.iamretailer.R;
 
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class OrderAdapter extends ArrayAdapter<OrdersPO> {
 
@@ -75,13 +76,15 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         holder.symbol1.setText(cur_right);
 
 
-        holder.order_id.setText(items.get(position).getPayment() + "");
-        holder.order.setText(items.get(position).getOrder_id() + "");
-        holder.product.setText(items.get(position).getOrder_products() + "");
-        holder.status.setText(items.get(position).getOrder_status() + "");
+        holder.order_id.setText(items.get(position).getPayment());
+        holder.order.setText(items.get(position).getOrder_id());
+        holder.product.setText(items.get(position).getOrder_products());
+        holder.status.setText(items.get(position).getOrder_status());
         holder.order_placed.setText(items.get(position).getOrder_date());
         Log.i("tag", "place_date " + items.get(position).getOrder_date());
-        holder.order_amount.setText(String.format("%.2f", Double.parseDouble(items.get(position).getOrder_total_raw())));
+        String val=String.format(Locale.getDefault(),"%.2f", Double.parseDouble(items.get(position).getOrder_total_raw()));
+
+        holder.order_amount.setText(val);
         Log.i("tag", "place_date " + items.get(position).getOrder_status());
         if(items.get(position).getOrder_status().equalsIgnoreCase("Pending")){
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.orange_status));

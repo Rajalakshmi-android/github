@@ -15,6 +15,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -431,7 +432,8 @@ public class Splash extends Language {
 
     public void show_alret(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.key_lay, null);
+        final ViewGroup parent = null;
+        View popUpView = getLayoutInflater().inflate(R.layout.key_lay, parent,false);
         TextView text = popUpView.findViewById(R.id.text2);
         text.setOnClickListener(new View.OnClickListener() {
             @Override

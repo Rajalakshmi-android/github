@@ -213,7 +213,8 @@ public class PaymentMethod extends Language {
                         errortxt1.setText(R.string.error_msg);
 
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(PaymentMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 

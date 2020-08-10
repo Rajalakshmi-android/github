@@ -197,7 +197,8 @@ public class Review extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = object.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(Review.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }

@@ -257,7 +257,8 @@ public class MyProfile extends Language {
                         cart.setVisibility(View.GONE);
                         error_lay.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(MyProfile.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {

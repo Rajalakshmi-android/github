@@ -535,7 +535,8 @@ public class ProductFullView extends Language {
     private void coloroption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.optionview, options, false);
         TextView heading = layout.findViewById(R.id.heading);
-        heading.setText(optionsPO.getName() + " :");
+        String text=optionsPO.getName() + " :";
+        heading.setText(text);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         final ArrayList<SingleOptionPO> colorlist = optionsPO.getValuelist();
         if (colorlist.size() > 0) {
@@ -588,7 +589,8 @@ public class ProductFullView extends Language {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.sizeoption, options, false);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         TextView heading = layout.findViewById(R.id.heading);
-        heading.setText(optionsPO.getName() + " :");
+        String text=optionsPO.getName() + " :";
+        heading.setText(text);
         final ArrayList<SingleOptionPO> sizelist = optionsPO.getValuelist();
         if (sizelist.size() > 0) {
             sizelist.get(0).setImgSel(true);
@@ -638,7 +640,8 @@ public class ProductFullView extends Language {
         final Spinner weight_spinner = layout.findViewById(R.id.weight_spinner);
         final ArrayList<SingleOptionPO> spinner_string = optionsPO.getValuelist();
         TextView heading = layout.findViewById(R.id.heading);
-        heading.setText(optionsPO.getName() + " :");
+        String text=optionsPO.getName() + " :";
+        heading.setText(text);
         Log.i("tag", "weight" + optionsPO.getValuelist());
         if (spinner_string != null && spinner_string.size() > 0) {
             SpinnerAdapter adapter1 = new SpinnerAdapter(ProductFullView.this, spinner_string, 0);
@@ -676,14 +679,15 @@ public class ProductFullView extends Language {
         final RadioGroup checkbox1 = layout.findViewById(R.id.checkbox);
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 15);
-
-        heading.setText(optionsPO.getName() + " :");
+        String text=optionsPO.getName() + " :";
+        heading.setText(text);
         final ArrayList<SingleOptionPO> check_value = optionsPO.getValuelist();
 
         for (int u = 0; u < check_value.size(); u++) {
             RadioButton rbn = new RadioButton(ProductFullView.this);
             rbn.setId(check_value.get(u).getProduct_option_value_id());
-            rbn.setText("  " + check_value.get(u).getName());
+            String value="  " + check_value.get(u).getName();
+            rbn.setText(value);
             rbn.setTypeface(typeface);
             rbn.setTextColor(getResources().getColor(R.color.text_select));
             rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
@@ -733,7 +737,8 @@ public class ProductFullView extends Language {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.radio_option, options, false);
         final RadioGroup radio = layout.findViewById(R.id.radio);
         TextView heading = layout.findViewById(R.id.heading);
-        heading.setText(optionsPO.getName() + " :");
+        String text=optionsPO.getName() + " :";
+        heading.setText(text);
         final ArrayList<SingleOptionPO> radio_values = optionsPO.getValuelist();
         for (int u = 0; u < radio_values.size(); u++) {
             RadioButton rbn = new RadioButton(ProductFullView.this);
@@ -969,12 +974,14 @@ public class ProductFullView extends Language {
                         originalrs.setText(cur_left);
                         originalrs1.setText(cur_right);
                         if (jsonObject.getDouble("special") > 0) {
-                            productrate.setText(String.format("%.2f", sp_price));
-                            orginal.setText(String.format("%.2f", price));
+                            String val=String.format(Locale.getDefault(),"%.2f", sp_price);
+                            productrate.setText(val);
+                            String val1=String.format(Locale.getDefault(),"%.2f", price);
+                            orginal.setText(val1);
 
                         } else {
-
-                            productrate.setText(String.format("%.2f", price));
+                            String val=String.format(Locale.getDefault(),"%.2f", price);
+                            productrate.setText(val);
                             orginal.setVisibility(View.GONE);
                             originalrs.setVisibility(View.GONE);
                             originalrs1.setVisibility(View.GONE);
@@ -1071,7 +1078,8 @@ public class ProductFullView extends Language {
                         errortxt1.setText(R.string.error_msg);
                         error_network.setVisibility(View.VISIBLE);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(ProductFullView.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -1193,11 +1201,11 @@ public class ProductFullView extends Language {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         JSONObject jsonObject1 = new JSONObject(jsonObject.getString("product"));
 
-                        int id = jsonObject1.getInt("product_id");
+                       /* int id = jsonObject1.getInt("product_id");
                         String name = jsonObject1.getString("name");
                         int qua = jsonObject1.getInt("quantity");
                         int p_count = jsonObject.getInt("total_product_count");
-                        String total_price = jsonObject.getString("total_price");
+                        String total_price = jsonObject.getString("total_price");*/
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.cart_Add_text), Toast.LENGTH_SHORT).show();
 
                         cart_call();
@@ -1864,13 +1872,16 @@ public class ProductFullView extends Language {
             if (sp_price>0) {
                 whole_price1=whole_price1+price1 + sp_price;
                 whole_price2=whole_price2+price2 + price;
-                productrate.setText(String.format("%.2f", whole_price1));
-                orginal.setText(String.format("%.2f",whole_price2));
+                String wp_val=String.format(Locale.getDefault(),"%.2f", whole_price1);
+                String wp_val2=String.format(Locale.getDefault(),"%.2f", whole_price2);
+                productrate.setText(wp_val);
+                orginal.setText(wp_val2);
             }
             else
             {
                whole_price2=whole_price2+price2 + price;
-                productrate.setText(String.format("%.2f", whole_price2));
+                String val=String.format(Locale.getDefault(),"%.2f", whole_price2);
+                productrate.setText(val);
                 orginal.setVisibility(View.GONE);
 
             }

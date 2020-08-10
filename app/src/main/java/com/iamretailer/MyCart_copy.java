@@ -9,8 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -57,7 +58,6 @@ public class MyCart_copy extends Language {
     public LinearLayout retry;
     private FrameLayout success;
     FrameLayout loading;
-    LinearLayout cart_items;
     TextView header;
     FrameLayout fullayout;
 
@@ -109,10 +109,8 @@ public class MyCart_copy extends Language {
         error_network = (FrameLayout) findViewById(R.id.error_network);
         retry = (LinearLayout) findViewById(R.id.retry);
         loading=(FrameLayout)findViewById(R.id.loading);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
         header=(TextView)findViewById(R.id.header);
         header.setText(R.string.my_Cart);
-     //   cart_items.setVisibility(View.GONE);
         fullayout=(FrameLayout)findViewById(R.id.fullayout);
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
@@ -215,7 +213,8 @@ public class MyCart_copy extends Language {
         });
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, null);
+        final ViewGroup parent = null;
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, parent,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
@@ -229,7 +228,8 @@ public class MyCart_copy extends Language {
         shipping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show_Cal_ship(getLayoutInflater());
+              //  show_Cal_ship(getLayoutInflater());
+                show_Cal_ship();
             }
         });
 
@@ -255,10 +255,6 @@ public class MyCart_copy extends Language {
         }
     }
 
-    public void CartCall() {
-        CartTask cartTask = new CartTask();
-        cartTask.execute(Appconstatants.cart_api);
-    }
 
     public void sumtotal() {
         sum = 0;
@@ -267,7 +263,8 @@ public class MyCart_copy extends Language {
         }
         rupee_front.setText(cur_left);
         rupee_back.setText(cur_right);
-        subtotal.setText(String.format("%.2f", sum));
+        String val=String.format(Locale.getDefault(),"%.2f", sum);
+        subtotal.setText(val);
     }
 
 
@@ -376,7 +373,8 @@ public class MyCart_copy extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String errors=array.getString(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -454,7 +452,7 @@ public class MyCart_copy extends Language {
                             error_network.setVisibility(View.GONE);
                             shopnow.setVisibility(View.VISIBLE);
                             loading.setVisibility(View.GONE);
-                            cart_count.setText(0 +"");
+                            cart_count.setText(String.valueOf(0));
                         } else if (dd instanceof JSONObject) {
                             // It's an object
                             JSONObject jsonObject = (JSONObject) dd;
@@ -507,7 +505,7 @@ public class MyCart_copy extends Language {
                                     bo.setProduct_id(jsonObject1.isNull("product_id") ? "" : jsonObject1.getString("product_id"));
                                     qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 }
-                                cart_count.setText(qty+"");
+                                cart_count.setText(String.valueOf(qty));
                                 adapter = new CartAdapter(MyCart_copy.this, R.layout.cart_list, list);
                                 cart_list.setAdapter(adapter);
                                 success.setVisibility(View.VISIBLE);
@@ -527,7 +525,8 @@ public class MyCart_copy extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String errors=array.getString(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -616,7 +615,8 @@ public class MyCart_copy extends Language {
                     else
                     {
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String errors=array.getString(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -630,7 +630,7 @@ public class MyCart_copy extends Language {
     }
 
 
-    public void show_Cal_ship(LayoutInflater fa)
+    public void show_Cal_ship()
     {
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -742,7 +742,8 @@ public class MyCart_copy extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.get(0)+"");
+                        String errors=array.get(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -841,7 +842,8 @@ public class MyCart_copy extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.get(0)+"");
+                        String errors=array.get(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
 
                     }
@@ -963,7 +965,8 @@ public class MyCart_copy extends Language {
     public void show_Cal_ship_amount(JSONObject jsonObject)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, null);
+        final ViewGroup parent = null;
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, parent,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);
@@ -1014,8 +1017,10 @@ public class MyCart_copy extends Language {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ship_item, shipping_list, false);
         TextView ship_title=(TextView)convertView.findViewById(R.id.ship_title);
         TextView ship_cost=(TextView)convertView.findViewById(R.id.ship_cost);
-        ship_title.setText(key+": ");
-        ship_cost.setText(cost+"");
+        String keys=key+" : ";
+        String costs=cost+"";
+        ship_title.setText(keys);
+        ship_cost.setText(costs);
         shipping_list.addView(convertView);
     }
 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 
@@ -37,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -562,14 +564,6 @@ public class Wallet extends Language {
                                 item.setImage(jsonObject.isNull("image") ? "" : jsonObject.getString("image"));
                                 item.setOffer_rate(jsonObject.isNull("special") ? 0 : jsonObject.getDouble("special"));
                                 item.setModel(jsonObject.isNull("model") ? "" : jsonObject.getString("model"));
-                                JSONArray slide_img = new JSONArray(jsonObject.isNull("images") ? "" : jsonObject.getString("images"));
-                                for (int a = 0; a < slide_img.length(); a++) {
-                                }
-                                JSONArray zoom_img = new JSONArray(jsonObject.isNull("original_images") ? "" : jsonObject.getString("original_images"));
-                                for (int b = 0; b < zoom_img.length(); b++) {
-
-                                }
-
                                 item.setTax(jsonObject.isNull("price_excluding_tax_formated") ? "" : jsonObject.getString("price_excluding_tax_formated"));
                                 item.setPrice(jsonObject.isNull("price") ? "" : jsonObject.getString("price"));
                                 item.setProductrate(jsonObject.isNull("price_formated") ? "" : jsonObject.getString("price_formated"));
@@ -603,7 +597,8 @@ public class Wallet extends Language {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(Wallet.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -673,7 +668,8 @@ public class Wallet extends Language {
 
                         JSONArray jarray = new JSONArray(json.getString("data"));
                         wallet_amount= json.getString("amount");
-                        w_amount.setText(cur_left+String.format("%.2f", Double.parseDouble(wallet_amount))+cur_right);
+                        String value=cur_left+String.format(Locale.getDefault(),"%.2f", Double.parseDouble(wallet_amount))+cur_right;
+                        w_amount.setText(value);
                         list_view.setVisibility(View.VISIBLE);
                         no_items.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
@@ -689,7 +685,8 @@ public class Wallet extends Language {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(Wallet.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -722,7 +719,8 @@ public class Wallet extends Language {
 
     public void showCallPopup(final String product_id, String order){
         final android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(Wallet.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.pay_sucess, null);
+        final ViewGroup parent = null;
+        View popUpView = getLayoutInflater().inflate(R.layout.pay_sucess, parent,false);
         dial.setView(popUpView);
         final android.app.AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -733,7 +731,8 @@ public class Wallet extends Language {
         popupStore.setCancelable(false);
         LinearLayout okay= popUpView.findViewById(R.id.okay);
         TextView text1= popUpView.findViewById(R.id.text1);
-        text1.setText("ORDER ID: "+order);
+        String txt="ORDER ID: "+order;
+        text1.setText(txt);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

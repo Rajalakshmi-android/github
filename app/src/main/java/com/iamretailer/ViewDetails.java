@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import android.widget.FrameLayout;
@@ -25,7 +26,6 @@ import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.OptionsPO;
-import com.iamretailer.POJO.OrdersPO;
 import com.iamretailer.POJO.PlacePO;
 
 
@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -115,7 +116,8 @@ public class ViewDetails extends Language {
         del_image= findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);
         shipping= findViewById(R.id.shipping);
-        header.setText(getResources().getString(R.string.order_ids)+bun.getString("id"));
+        String head=getResources().getString(R.string.order_ids)+bun.getString("id");
+        header.setText(head);
         OrderTask task = new OrderTask();
         task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
         if (bun.getString("status").toLowerCase().equals("placed"))
@@ -123,7 +125,8 @@ public class ViewDetails extends Language {
         else
             del_image.setImageResource(R.mipmap.pending);
         status.setText(bun.getString("status"));
-        order_id.setText("#"+bun.getString("id"));
+        String or_id="#"+bun.getString("id");
+        order_id.setText(or_id);
 
 
         back = findViewById(R.id.menu);
@@ -157,7 +160,8 @@ public class ViewDetails extends Language {
 
     public void showCallPopup() {
         AlertDialog.Builder dial = new AlertDialog.Builder(ViewDetails.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, null);
+        final ViewGroup parent = null;
+        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, parent,false);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -295,10 +299,15 @@ public class ViewDetails extends Language {
                     else
                     {
                         Log.i("sfsdfsdf","tertretet");
-                        cus_name.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname") );
-                        cus_address_one.setText(object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",");
-                        cus_address_two.setText(object.getString("payment_city") + ", "+object.getString("payment_zone")+",");
-                        country_name.setText(object.getString("payment_country")+" - "+object.getString("payment_postcode")+".");
+                        String c_name=object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname");
+                        String c_ad1=object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",";
+                        String c_ad2=object.getString("payment_city") + ", "+object.getString("payment_zone")+",";
+                        String c_country=object.getString("payment_country")+" - "+object.getString("payment_postcode")+".";
+
+                        cus_name.setText(c_name );
+                        cus_address_one.setText(c_ad1);
+                        cus_address_two.setText(c_ad2);
+                        country_name.setText(c_country);
                         phone.setText(object.getString("telephone"));
                         del_add_lay.setVisibility(View.VISIBLE);
                         ship_info.setVisibility(View.VISIBLE);
@@ -370,7 +379,8 @@ public class ViewDetails extends Language {
                         no_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String error=array.getString(0)+"";
+                        errortxt2.setText(error);
                         Toast.makeText(ViewDetails.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -422,9 +432,11 @@ public class ViewDetails extends Language {
         name.setText(placePO.getProduct_name());
         double a = Double.parseDouble(placePO.getPrcie());
         double b = Double.parseDouble(placePO.getAmout());
-        price.setText(String.format("%.2f", a));
+        String a1=String.format(Locale.getDefault(),"%.2f", a);
+        String b1=String.format(Locale.getDefault(),"%.2f", b);
+        price.setText(a1);
         qunt.setText(placePO.getQty());
-        amount.setText(String.format("%.2f", b));
+        amount.setText(b1);
         Log.d("images_s", placePO.getUrl() + "");
 
         StringBuilder sb2 = new StringBuilder();
@@ -466,7 +478,8 @@ public class ViewDetails extends Language {
         try {
             tot_title.setText(obj.isNull("title") ? "" : obj.getString("title")+" :");
             double tot = Double.parseDouble(obj.isNull("value") ? "0.00" : obj.getString("value"));
-            tot_value.setText(String.format("%.2f", tot));
+            String val=String.format(Locale.getDefault(),"%.2f", tot);
+            tot_value.setText(val);
         } catch (JSONException e) {
             e.printStackTrace();
         }
