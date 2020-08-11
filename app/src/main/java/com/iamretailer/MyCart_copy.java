@@ -213,8 +213,8 @@ public class MyCart_copy extends Language {
         });
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        final ViewGroup parent = null;
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, parent,false);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, (ViewGroup)null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
@@ -965,8 +965,7 @@ public class MyCart_copy extends Language {
     public void show_Cal_ship_amount(JSONObject jsonObject)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        final ViewGroup parent = null;
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, parent,false);
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, (ViewGroup)null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);

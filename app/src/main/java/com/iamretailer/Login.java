@@ -401,8 +401,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
     public void showpopup() {
         open = new Dialog(Login.this);
         open.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        final ViewGroup parent = null;
-        popup = getLayoutInflater().inflate(R.layout.forgot_password, parent,false);
+        popup = getLayoutInflater().inflate(R.layout.forgot_password, (ViewGroup)null,false);
         TextView gologin = popup.findViewById(R.id.gologin);
         submit = popup.findViewById(R.id.submit);
         final EditText username = popup.findViewById(R.id.username);

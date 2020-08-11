@@ -37,7 +37,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -212,8 +211,8 @@ public class MyCart extends Language {
         });
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart.this);
-        final ViewGroup parent = null;
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, parent,false);
+        
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, (ViewGroup)null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
@@ -601,10 +600,7 @@ public class MyCart extends Language {
                     if (json.getInt("success") == 1) {
 
                         Object dd = json.get("data");
-                        if (dd instanceof JSONArray) {
-
-
-                        } else if (dd instanceof JSONObject) {
+                         if (dd instanceof JSONObject) {
                             // It's an object
 
                             JSONObject jsonObject = (JSONObject) dd;
@@ -969,8 +965,8 @@ public class MyCart extends Language {
     public void show_Cal_ship_amount(JSONObject jsonObject)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart.this);
-        final ViewGroup parent = null;
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, parent,false);
+        
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, (ViewGroup)null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);

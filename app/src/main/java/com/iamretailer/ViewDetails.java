@@ -38,7 +38,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -160,8 +159,7 @@ public class ViewDetails extends Language {
 
     public void showCallPopup() {
         AlertDialog.Builder dial = new AlertDialog.Builder(ViewDetails.this);
-        final ViewGroup parent = null;
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, parent,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, (ViewGroup)null,false);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

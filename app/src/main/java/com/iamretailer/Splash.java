@@ -432,8 +432,7 @@ public class Splash extends Language {
 
     public void show_alret(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
-        final ViewGroup parent = null;
-        View popUpView = getLayoutInflater().inflate(R.layout.key_lay, parent,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.key_lay, (ViewGroup)null,false);
         TextView text = popUpView.findViewById(R.id.text2);
         text.setOnClickListener(new View.OnClickListener() {
             @Override

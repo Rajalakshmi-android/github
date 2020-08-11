@@ -530,8 +530,7 @@ public class Drawer extends Language {
 
     public void showLogoutPopup() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);
-        final ViewGroup parent = null;
-        View popUpView = getLayoutInflater().inflate(R.layout.logout_view, parent,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.logout_view, (ViewGroup)null,false);
         LinearLayout happy = (LinearLayout) popUpView.findViewById(R.id.happy);
         LinearLayout bad = (LinearLayout) popUpView.findViewById(R.id.bad);
         dialLo.setView(popUpView);

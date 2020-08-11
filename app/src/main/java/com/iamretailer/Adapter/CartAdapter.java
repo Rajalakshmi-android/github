@@ -273,8 +273,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     public void quantity_change(final int pos,String qtys)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        final ViewGroup parent = null;
-        View dialogView = inflater.inflate(R.layout.show_qty,  parent, false);
+        View dialogView = inflater.inflate(R.layout.show_qty,  (ViewGroup)null, false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();

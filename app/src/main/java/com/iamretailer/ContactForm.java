@@ -197,8 +197,7 @@ public class ContactForm extends Language {
 
     public void showCallPopup(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(ContactForm.this);
-        final ViewGroup parent = null;
-        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, parent,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, (ViewGroup)null,false);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

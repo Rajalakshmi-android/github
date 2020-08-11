@@ -276,8 +276,7 @@ public class ConfirmOrder extends Language {
     private void show_promo() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this,R.style.CustomAlertDialog);
       //  AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this);
-        final ViewGroup parent = null;
-        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, parent,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, (ViewGroup)null,false);
 
         final EditText promo_code = popUpView.findViewById(R.id.promo_code);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
