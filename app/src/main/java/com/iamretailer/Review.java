@@ -29,27 +29,23 @@ import stutzen.co.network.Connection;
 
 
 public class Review extends Language {
-    LinearLayout back;
-    TextView header;
-    LinearLayout cart_items;
-    Bundle mm;
-    ArrayList<SingleOptionPO> rev_list;
-    ListView review_list;
+    private ArrayList<SingleOptionPO> rev_list;
+    private ListView review_list;
     private ReviewAdapter reviewAdapter;
-    FrameLayout loading;
-    FrameLayout fullayout;
-    FrameLayout error_network;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private FrameLayout error_network;
     String prod_id;
-    DBController db;
-    LinearLayout retry;
     private boolean scrollValue;
     private boolean scrollNeed = true;
-    private int start = 0, limit = 20;
-    int val = 0;
-    LinearLayout load_more;
-    TextView errortxt1, errortxt2;
+    private int start = 0;
+    private final int  limit = 20;
+    private int val = 0;
+    private LinearLayout load_more;
+    private TextView errortxt1;
+    private TextView errortxt2;
     LinearLayout loading_bar;
-    AndroidLogger logger;
+    private AndroidLogger logger;
 
 
     @Override
@@ -58,28 +54,28 @@ public class Review extends Language {
         setContentView(R.layout.activity_review);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.review_head);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
         review_list = findViewById(R.id.review_list);
         loading = findViewById(R.id.loading);
         fullayout = findViewById(R.id.fullayout);
         error_network = findViewById(R.id.error_network);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         load_more = findViewById(R.id.load_more);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar= findViewById(R.id.loading_bar);
-        db = new DBController(Review.this);
+        DBController db = new DBController(Review.this);
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
-        mm = new Bundle();
-        mm = getIntent().getExtras();
+        Appconstatants.Lang= db.get_lang_code();
+        Appconstatants.CUR= db.getCurCode();
 
-        prod_id = mm.getString("id");
+        Bundle mm = getIntent().getExtras();
+        if(mm !=null)
+            prod_id = mm.getString("id");
         ReviewTASK reviewTASK = new ReviewTASK();
         reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
 

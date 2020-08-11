@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
@@ -43,32 +44,29 @@ import stutzen.co.network.Connection;
 
 public class ViewDetails extends Language {
     Bundle bun;
-    LinearLayout view_list;
+    private LinearLayout view_list;
 
-    LinearLayout back;
-    ArrayList<PlacePO> list1;
-    ArrayList<PlacePO> list2;
-    FrameLayout no_network;
-    LinearLayout retry;
-    TextView order_id, order_date, ship_method;
-    private DBController db;
-    private FrameLayout calls;
-    private TextView status;
+    private FrameLayout no_network;
+    private TextView order_date;
+    private TextView ship_method;
     private TextView paymethod;
     private LinearLayout ordertotview;
-    FrameLayout loading;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    String cur_left = "";
-    String cur_right = "";
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String cur_left = "";
+    private String cur_right = "";
     LinearLayout loading_bar;
-    AndroidLogger logger;
-    LinearLayout del_add_lay;
-    LinearLayout ship_info,ship_method_sec;
-    TextView phone;
-    TextView cus_name, cus_address_one, cus_address_two;
-    TextView country_name;
-    ImageView del_image;
+    private AndroidLogger logger;
+    private LinearLayout del_add_lay;
+    private LinearLayout ship_info;
+    private LinearLayout ship_method_sec;
+    private TextView phone;
+    private TextView cus_name;
+    private TextView cus_address_one;
+    private TextView cus_address_two;
+    private TextView country_name;
     private View delivery;
     private View shipping;
 
@@ -78,25 +76,25 @@ public class ViewDetails extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        db = new DBController(ViewDetails.this);
+        DBController db = new DBController(ViewDetails.this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
+        Appconstatants.Lang= db.get_lang_code();
+        Appconstatants.CUR= db.getCurCode();
         cur_left = db.get_cur_Left();
-        cur_right=db.get_cur_Right();
+        cur_right= db.get_cur_Right();
         bun = new Bundle();
         bun = getIntent().getExtras();
         view_list = findViewById(R.id.listview);
         no_network = findViewById(R.id.error_network);
-        retry = findViewById(R.id.retry);
-        order_id = findViewById(R.id.order_no);
+        LinearLayout retry = findViewById(R.id.retry);
+        TextView order_id = findViewById(R.id.order_no);
         order_date = findViewById(R.id.order_date);
         ship_method = findViewById(R.id.ship_method);
         ordertotview = findViewById(R.id.ordertot);
-        calls = findViewById(R.id.call);
+        FrameLayout calls = findViewById(R.id.call);
         paymethod = findViewById(R.id.paymethod);
-        status = findViewById(R.id.status);
+        TextView status = findViewById(R.id.status);
         TextView header = findViewById(R.id.header);
         loading= findViewById(R.id.loading);
         fullayout= findViewById(R.id.fullayout);
@@ -112,23 +110,32 @@ public class ViewDetails extends Language {
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
 
-        del_image= findViewById(R.id.del_image);
+        ImageView del_image = findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);
         shipping= findViewById(R.id.shipping);
         String head=getResources().getString(R.string.order_ids)+bun.getString("id");
         header.setText(head);
         OrderTask task = new OrderTask();
         task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
-        if (bun.getString("status").toLowerCase().equals("placed"))
-            del_image.setImageResource(R.mipmap.placed);
-        else
-            del_image.setImageResource(R.mipmap.pending);
-        status.setText(bun.getString("status"));
-        String or_id="#"+bun.getString("id");
-        order_id.setText(or_id);
+        if(bun!=null){
+            String val=bun.getString("status");
+            if(val!=null){
+
+                if (val.toLowerCase().equals("placed"))
+                    del_image.setImageResource(R.mipmap.placed);
+                else
+                    del_image.setImageResource(R.mipmap.pending);
+
+            }
 
 
-        back = findViewById(R.id.menu);
+            status.setText(bun.getString("status"));
+            String or_id="#"+bun.getString("id");
+            order_id.setText(or_id);
+        }
+
+
+        LinearLayout back = findViewById(R.id.menu);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,9 +164,9 @@ public class ViewDetails extends Language {
 
     }
 
-    public void showCallPopup() {
+    private void showCallPopup() {
         AlertDialog.Builder dial = new AlertDialog.Builder(ViewDetails.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, (ViewGroup)null,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, null,false);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -194,7 +201,7 @@ public class ViewDetails extends Language {
 
     }
 
-    public void call_action(){
+    private void call_action(){
 
         String ph=getResources().getString(R.string.tel)+getResources().getString(R.string.phone_num);
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
@@ -203,7 +210,7 @@ public class ViewDetails extends Language {
     }
 
 
-    public  boolean isPermissionGranted() {
+    private boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -224,8 +231,9 @@ public class ViewDetails extends Language {
 
 
     @Override
+
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
 
             case 1: {
@@ -273,8 +281,8 @@ public class ViewDetails extends Language {
             if (resp != null) {
 
                 try {
-                    list1 = new ArrayList<>();
-                    list2 = new ArrayList<>();
+                    ArrayList<PlacePO> list1 = new ArrayList<>();
+                    ArrayList<PlacePO> list2 = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success")==1)
                     {
@@ -345,7 +353,7 @@ public class ViewDetails extends Language {
                             list2.add(bo1);
                         }
 
-                        ArrayList<OptionsPO> oplist = new ArrayList<OptionsPO>();
+                        ArrayList<OptionsPO> oplist = new ArrayList<>();
                         for (int u = 0; u < option_array.length(); u++) {
                             JSONObject ob = option_array.getJSONObject(u);
                             OptionsPO boo = new OptionsPO();

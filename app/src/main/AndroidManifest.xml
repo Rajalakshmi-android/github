@@ -143,6 +143,7 @@
         <activity android:name=".Webactivity" />
         <activity android:name=".PaymentAct" />
         <activity android:name=".MyCart"/>
+        <activity android:name=".MyCart_copy"/>
 
     </application>
 

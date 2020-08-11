@@ -26,27 +26,24 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
 
 public class MyOrders extends Language {
 
-    ListView order;
-    OrderAdapter adapter;
-    LinearLayout back;
-    ArrayList<OrdersPO> list;
-    FrameLayout error_network;
-    LinearLayout retry;
-    DBController db;
-    LinearLayout empty;
-    TextView cart_count;
-    LinearLayout shopnow;
-    FrameLayout loading;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
+    private ListView order;
+    private ArrayList<OrdersPO> list;
+    private FrameLayout error_network;
+    private LinearLayout empty;
+    private TextView cart_count;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
     LinearLayout loading_bar;
-    AndroidLogger logger;
+    private AndroidLogger logger;
 
 
     @Override
@@ -55,10 +52,10 @@ public class MyOrders extends Language {
         setContentView(R.layout.activity_my_orders);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = findViewById(R.id.menu);
+        LinearLayout back = findViewById(R.id.menu);
         error_network = findViewById(R.id.error_network);
-        db = new DBController(MyOrders.this);
-        retry = findViewById(R.id.retry);
+        DBController db = new DBController(MyOrders.this);
+        LinearLayout retry = findViewById(R.id.retry);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +68,7 @@ public class MyOrders extends Language {
         order = findViewById(R.id.order_list);
         loading = findViewById(R.id.loading);
         empty = findViewById(R.id.empty);
-        shopnow = findViewById(R.id.shopnow);
+        LinearLayout shopnow = findViewById(R.id.shopnow);
         fullayout = findViewById(R.id.fullayout);
         empty.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
@@ -142,7 +139,7 @@ public class MyOrders extends Language {
         }
     }
 
-    private class CartTask extends AsyncTask<String, Void, String> {
+    private class  CartTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -264,12 +261,17 @@ public class MyOrders extends Language {
                                     bo.setOrder_status(obj.isNull("status") ? "" : obj.getString("status"));
                                     // bo.setOrder_date(obj.isNull("date_added") ? "" : obj.getString("date_added"));
                                     if (!obj.isNull("date_added")) {
-                                        SimpleDateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
+                                        SimpleDateFormat df1 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                                         Date date = df1.parse(obj.getString("date_added"));
-                                        SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy");
-                                        String dateText = df2.format(date);
+                                        SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy",Locale.getDefault());
+                                        if(date!=null){
+                                            String dateText = df2.format(date);
 
-                                        bo.setOrder_date(dateText);
+                                            bo.setOrder_date(dateText);
+                                        }else{
+                                            bo.setOrder_date("");
+                                        }
+
                                     } else {
                                         bo.setOrder_date("");
                                     }
@@ -289,7 +291,7 @@ public class MyOrders extends Language {
                                     bo.setValue(object.isNull("value") ? "" : object.getString("value"));
                                     list.add(bo);
                                 }
-                                adapter = new OrderAdapter(MyOrders.this, R.layout.order_list, list);
+                                OrderAdapter adapter = new OrderAdapter(MyOrders.this, R.layout.order_list, list);
                                 order.setAdapter(adapter);
                             }
                             loading.setVisibility(View.GONE);

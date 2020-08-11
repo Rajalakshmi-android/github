@@ -37,17 +37,12 @@ import stutzen.co.network.Connection;
 
 public class StoreLocator extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap map;
-    private Marker marker;
-    String lat[] = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381"};
-    String lng[] = {"77.799435", "77.9803", "78.119775", "80.270718", "77.756652", "76.955832", "77.4892"};
-    String saddress[] = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal"};
-    int simg[] = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival};
-    private TextView header;
-    AndroidLogger logger;
+    private final String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381"};
+    private final String[] lng = {"77.799435", "77.9803", "78.119775", "80.270718", "77.756652", "76.955832", "77.4892"};
+    String[] saddress = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal"};
+    private final int[] simg = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival};
+    private AndroidLogger logger;
     private TextView cart_count;
-    LinearLayout cart_items;
-    DBController dbController;
 
 
     @Override
@@ -58,9 +53,9 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
         logger=AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID,false);
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maphome)).getMapAsync(this);
         LinearLayout backclick = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.store);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_count = findViewById(R.id.cart_count);
         backclick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,10 +63,10 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
                 onBackPressed();
             }
         });
-        dbController=new DBController(StoreLocator.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
+        DBController dbController = new DBController(StoreLocator.this);
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.CUR= dbController.getCurCode();
 
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +77,10 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    public Bitmap createBitmapFromLayoutWithText(Context context, int img) {
+    private Bitmap createBitmapFromLayoutWithText(Context context, int img) {
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout view = new LinearLayout(context);
+
         View dataView = mInflater.inflate(R.layout.marker_view, view, true);
         ImageView imge = dataView.findViewById(R.id.img);
         imge.setImageResource(img);
@@ -103,20 +99,19 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
         for (int i = 0; i < lat.length; i++) {
-            marker = map.addMarker(new MarkerOptions()
+            Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(lat[i]), Double.parseDouble(lng[i])))
                     .icon(BitmapDescriptorFactory
                             .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, simg[i]))));
         }
-        if (map != null) {
-            map.getUiSettings().setZoomControlsEnabled(false);
-            map.setTrafficEnabled(true);
+        if (googleMap != null) {
+            googleMap.getUiSettings().setZoomControlsEnabled(false);
+            googleMap.setTrafficEnabled(true);
             CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(9.925201, 78.119775));
             CameraUpdate zoom = CameraUpdateFactory.zoomTo(8);
-            map.moveCamera(center);
-            map.animateCamera(zoom);
+            googleMap.moveCamera(center);
+            googleMap.animateCamera(zoom);
         }
     }
 

@@ -18,15 +18,11 @@ import com.logentries.android.AndroidLogger;
 import stutzen.co.network.Connection;
 
 public class PaymentAct extends AppCompatActivity {
-    WebView webView;
-    LinearLayout menu;
-    TextView header;
-    LinearLayout cart_items;
-    DBController controller;
-    FrameLayout loading, error_network;
-    AndroidLogger logger;
-    LinearLayout loading_bar;
-    FrameLayout fullayout;
+    private WebView webView;
+    private FrameLayout loading;
+    private AndroidLogger logger;
+
+
 
 
     @Override
@@ -35,20 +31,17 @@ public class PaymentAct extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        controller = new DBController(PaymentAct.this);
+        DBController controller = new DBController(PaymentAct.this);
         Appconstatants.sessiondata = controller.getSession();
         Appconstatants.Lang = controller.get_lang_code();
         Appconstatants.CUR = controller.getCurCode();
-        menu = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
+        LinearLayout menu = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
         loading = findViewById(R.id.loading);
-        error_network = findViewById(R.id.error_network);
         header.setText(getResources().getString(R.string.pay));
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
         webView = findViewById(R.id.webview);
-        loading_bar = findViewById(R.id.loading_bar);
-        fullayout = findViewById(R.id.fullayout);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

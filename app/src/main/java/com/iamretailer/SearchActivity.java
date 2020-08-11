@@ -38,52 +38,44 @@ import stutzen.co.network.Connection;
 public class SearchActivity extends Language {
 
 
-    private DBController dbCon;
     private RecyclerView Grid;
-    private LinearLayout back;
-    ArrayList<ProductsPO> optionsPOArrayList1;
-    CommonAdapter adapter1;
+    private ArrayList<ProductsPO> optionsPOArrayList1;
+    private CommonAdapter adapter1;
     private TextView cart_count;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    FrameLayout error_network;
-    LinearLayout retry;
-    EditText search_text;
-    LinearLayout search_loading;
-    TextView no_items;
-    FrameLayout fullayout;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private LinearLayout search_loading;
+    private TextView no_items;
+    private FrameLayout fullayout;
     String text = "";
-    TextView errortxt1, errortxt2;
+    private TextView errortxt1;
+    private TextView errortxt2;
     LinearLayout loading_bar;
-    AndroidLogger logger;
-    SingleProductTask productTask;
-    private int start=1,limit=10;
-    private ArrayList<SingleOptionPO> optionPOS;
-    private ArrayList<ProductsPO> cart_item;
-    GridLayoutManager mLayoutManager;
+    private AndroidLogger logger;
+    private SingleProductTask productTask;
+    private final int start=1,limit=10;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-        dbCon = new DBController(SearchActivity.this);
+        DBController dbCon = new DBController(SearchActivity.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
         Appconstatants.sessiondata = dbCon.getSession();
-        Appconstatants.Lang=dbCon.get_lang_code();
-        Appconstatants.CUR=dbCon.getCurCode();
+        Appconstatants.Lang= dbCon.get_lang_code();
+        Appconstatants.CUR= dbCon.getCurCode();
         Log.d("Session", Appconstatants.sessiondata + "Value");
         Grid = findViewById(R.id.grid);
-        back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_count = findViewById(R.id.cart_count);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
         loading_bar= findViewById(R.id.loading_bar);
         header.setText(R.string.search);
-        retry = findViewById(R.id.retry);
-        search_text = findViewById(R.id.search_text);
+        LinearLayout retry = findViewById(R.id.retry);
+        EditText search_text = findViewById(R.id.search_text);
         search_loading = findViewById(R.id.search_loading);
         no_items = findViewById(R.id.no_items);
         fullayout = findViewById(R.id.fullayout);
@@ -247,7 +239,7 @@ public class SearchActivity extends Language {
                                 bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
                                 bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                 bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
-                                optionPOS = new ArrayList<>();
+                                ArrayList<SingleOptionPO> optionPOS = new ArrayList<>();
                                 if (obj.getJSONArray("options").length() > 0) {
 
                                     JSONArray arr1 = obj.getJSONArray("options");
@@ -347,7 +339,7 @@ public class SearchActivity extends Language {
             if (resp != null) {
 
                 try {
-                    cart_item = new ArrayList<>();
+                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -367,7 +359,7 @@ public class SearchActivity extends Language {
                             }
                             cart_count.setText(String.valueOf(qty));
 
-                            if (optionsPOArrayList1.size()>0 && optionsPOArrayList1!=null) {
+                            if (optionsPOArrayList1!=null&&optionsPOArrayList1.size()>0  ) {
                                 for (int u = 0; u < optionsPOArrayList1.size(); u++) {
                                     for (int h = 0; h < cart_item.size(); h++) {
                                         if (Integer.parseInt(optionsPOArrayList1.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -385,7 +377,7 @@ public class SearchActivity extends Language {
                         }
                         if (optionsPOArrayList1!=null) {
                             adapter1 = new CommonAdapter(SearchActivity.this, optionsPOArrayList1,0,3);
-                            mLayoutManager=new GridLayoutManager(SearchActivity.this,2);
+                            GridLayoutManager mLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
                             Grid.setLayoutManager(mLayoutManager);
                             Grid.setAdapter(adapter1);
 

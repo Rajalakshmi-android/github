@@ -71,71 +71,72 @@ import stutzen.co.network.Connection;
 
 
 public class ProductFullView extends Language {
-    ViewPager viewPager;
-    private ImageView[] dots;
-    LinearLayout ll_dots;
+    private LinearLayout ll_dots;
     LinearLayout buy;
-    LinearLayout cart_items;
-    DBController db;
-    TextView cart_count;
-    Bundle bundle;
-    TextView p_name, productrate;
-    LinearLayout menu;
+    private DBController db;
+    private TextView cart_count;
+    private TextView p_name;
+    private TextView productrate;
     private int check = 0;
-    FrameLayout error_network;
-    LinearLayout retry;
-    String p_id, product_id;
-    ArrayList<String> image_url;
+    private FrameLayout error_network;
+    private String p_id;
+    private String product_id;
+    private ArrayList<String> image_url;
     public ArrayList<String> zoom_url;
-    ArrayList<OptionsPO> optionsPOArrayList;
+    private ArrayList<OptionsPO> optionsPOArrayList;
     private LinearLayout options;
     private String image;
-    WebView description;
-    int qty = 0;
-    FrameLayout loading;
-    TextView product, review;
-    FrameLayout review_layout, option_layout;
-    ArrayList<SingleOptionPO> rev_list;
-    ReviewAdapter reviewAdapter;
-    ListView review_list;
-    LinearLayout share;
-    TextView orginal;
-    TextView add_reviews;
-    FrameLayout add_rev_lay;
-    TextView view_all;
-    ImageView rate1, rate2, rate3, rate4, rate5;
-    int count = 0;
-    LinearLayout post_reviews;
-    EditText comment;
+    private WebView description;
+    private int qty = 0;
+    private FrameLayout loading;
+    private TextView product;
+    private TextView review;
+    private FrameLayout review_layout;
+    private FrameLayout option_layout;
+    private ListView review_list;
+    private TextView orginal;
+    private TextView add_reviews;
+    private FrameLayout add_rev_lay;
+    private ImageView rate1;
+    private ImageView rate2;
+    private ImageView rate3;
+    private ImageView rate4;
+    private ImageView rate5;
+    private int count = 0;
+    private EditText comment;
     String prod_id = "";
-    LinearLayout review_section;
-    LinearLayout review_disp;
-    TextView no_reviews;
-    FrameLayout fullayout;
-    String pish, pas, myHtmlString;
-    TextView errortxt1, errortxt2;
-    String cur_left = "";
-    String cur_right = "";
+    private LinearLayout review_section;
+    private LinearLayout review_disp;
+    private TextView no_reviews;
+    private FrameLayout fullayout;
+    private String pish;
+    private String pas;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String cur_left = "";
+    private String cur_right = "";
     LinearLayout loading_bar;
-    TextView out_of_stock;
-    ImageView like, un_like;
-    FrameLayout fav;
-    boolean wish_list = false;
-    AndroidLogger logger;
-    RecyclerView related_products;
-    FrameLayout related_view;
+    private TextView out_of_stock;
+    private ImageView like;
+    private ImageView un_like;
+    private AndroidLogger logger;
+    private RecyclerView related_products;
+    private FrameLayout related_view;
     private ArrayList<ProductsPO> list;
-    CommonAdapter adapter;
-    private ArrayList<SingleOptionPO> optionPOS;
-    private ArrayList<ProductsPO> fav_item;
-    double sp_price, price;
-    TextView productrs,originalrs,productrs1,originalrs1;
-    ImageView r1, r2, r3, r4, r5;
-    Typeface typeface;
-     Typeface typeface1;
-    private ArrayList<ProductsPO> cart_item;
-    LinearLayoutManager layoutManager;
-
+    private CommonAdapter adapter;
+    private double sp_price;
+    private double price;
+    private TextView productrs;
+    private TextView originalrs;
+    private TextView productrs1;
+    private TextView originalrs1;
+    private ImageView r1;
+    private ImageView r2;
+    private ImageView r3;
+    private ImageView r4;
+    private ImageView r5;
+    private Typeface typeface;
+     private Typeface typeface1;
 
 
     @Override
@@ -152,8 +153,7 @@ public class ProductFullView extends Language {
         setContentView(R.layout.product_full_view);
 
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR=db.getCurCode();
@@ -173,12 +173,12 @@ public class ProductFullView extends Language {
         productrate = findViewById(R.id.productrate);
         buy = findViewById(R.id.buy);
         cart_count = findViewById(R.id.cart_count);
-        menu = findViewById(R.id.menu);
-        cart_items = findViewById(R.id.cart_items);
-        share = findViewById(R.id.share);
+        LinearLayout menu = findViewById(R.id.menu);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        LinearLayout share = findViewById(R.id.share);
         error_network = findViewById(R.id.error_network);
         options = findViewById(R.id.options);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         description = findViewById(R.id.description);
         loading = findViewById(R.id.loading);
         product = findViewById(R.id.product);
@@ -192,8 +192,8 @@ public class ProductFullView extends Language {
         review_list = findViewById(R.id.review_list);
         orginal = findViewById(R.id.orginal);
         add_rev_lay = findViewById(R.id.add_rev_lay);
-        view_all = findViewById(R.id.view_all);
-        post_reviews = findViewById(R.id.post_reviews);
+        TextView view_all = findViewById(R.id.view_all);
+        LinearLayout post_reviews = findViewById(R.id.post_reviews);
         comment = findViewById(R.id.comment);
         review_section = findViewById(R.id.review_section);
         review_disp = findViewById(R.id.review_disp);
@@ -202,7 +202,7 @@ public class ProductFullView extends Language {
         out_of_stock = findViewById(R.id.out_of_stock);
         like = findViewById(R.id.like);
         un_like = findViewById(R.id.unlike);
-        fav = findViewById(R.id.fav);
+        FrameLayout fav = findViewById(R.id.fav);
         typeface=Typeface.createFromAsset(getAssets(),"font/Heebo-Medium.ttf");
         typeface1=Typeface.createFromAsset(getAssets(),"font/Heebo-Regular.ttf");
         cur_left = db.get_cur_Left();
@@ -304,8 +304,6 @@ public class ProductFullView extends Language {
 
 
         Appconstatants.sessiondata = db.getSession();
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
         SingleProductTask singleProductTask = new SingleProductTask();
         singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
 
@@ -652,17 +650,17 @@ public class ProductFullView extends Language {
         weight_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                optionsPOArrayList.get(pos).setSelected_id(spinner_string.get(i).getProduct_option_value_id());
-                if (spinner_string.get(i).getPrice()>0) {
-                    optionsPOArrayList.get(pos).setPrices(spinner_string.get(i).getPrice());
-                    optionsPOArrayList.get(pos).setPrefix(spinner_string.get(i).getPrefix());
-                    price_Cal();
-                }
-                else
-                {
-                    optionsPOArrayList.get(pos).setPrices(0);
-                    optionsPOArrayList.get(pos).setPrefix("+");
-                    price_Cal();
+                if(spinner_string!=null) {
+                    optionsPOArrayList.get(pos).setSelected_id(spinner_string.get(i).getProduct_option_value_id());
+                    if (spinner_string.get(i).getPrice() > 0) {
+                        optionsPOArrayList.get(pos).setPrices(spinner_string.get(i).getPrice());
+                        optionsPOArrayList.get(pos).setPrefix(spinner_string.get(i).getPrefix());
+                        price_Cal();
+                    } else {
+                        optionsPOArrayList.get(pos).setPrices(0);
+                        optionsPOArrayList.get(pos).setPrefix("+");
+                        price_Cal();
+                    }
                 }
             }
 
@@ -805,12 +803,12 @@ public class ProductFullView extends Language {
 
     private void init() {
 
-        viewPager = findViewById(R.id.viewPager);
+        ViewPager viewPager = findViewById(R.id.viewPager);
         ll_dots = findViewById(R.id.indicator);
         SliderAdapter sliderAdapter = new SliderAdapter(ProductFullView.this, image_url);
         viewPager.setAdapter(sliderAdapter);
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -829,7 +827,7 @@ public class ProductFullView extends Language {
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new ImageView[image_url.size()];
+        ImageView[] dots = new ImageView[image_url.size()];
 
         ll_dots.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
@@ -883,7 +881,7 @@ public class ProductFullView extends Language {
 
                         image = jsonObject.getString("image");
                         qty = jsonObject.isNull("quantity") ? 0 : jsonObject.getInt("quantity");
-                        wish_list = !jsonObject.isNull("wish_list") && jsonObject.getBoolean("wish_list");
+                        boolean wish_list = !jsonObject.isNull("wish_list") && jsonObject.getBoolean("wish_list");
 
                         if (wish_list) {
                             un_like.setVisibility(View.GONE);
@@ -989,7 +987,7 @@ public class ProductFullView extends Language {
                             originalrs1.setVisibility(View.GONE);
                         }
 
-                        myHtmlString = pish + (jsonObject.isNull("description") ? "" : jsonObject.getString("description")) + pas;
+                        String myHtmlString = pish + (jsonObject.isNull("description") ? "" : jsonObject.getString("description")) + pas;
 
                         description.loadDataWithBaseURL(null, myHtmlString, "text/html", "utf-8", null);
                         description.setBackgroundColor(getResources().getColor(R.color.white));
@@ -1030,7 +1028,7 @@ public class ProductFullView extends Language {
 
                         if (Integer.parseInt(rev_obj.getString("review_total")) != 0) {
 
-                            rev_list = new ArrayList<>();
+                            ArrayList<SingleOptionPO> rev_list = new ArrayList<>();
                             JSONArray array = rev_obj.getJSONArray("reviews");
 
                             Log.d("size_check", array.length() + "");
@@ -1059,7 +1057,7 @@ public class ProductFullView extends Language {
 
                                 }
                             }
-                            reviewAdapter = new ReviewAdapter(ProductFullView.this, R.layout.review_list, rev_list);
+                            ReviewAdapter reviewAdapter = new ReviewAdapter(ProductFullView.this, R.layout.review_list, rev_list);
                             review_list.setAdapter(reviewAdapter);
                             Helper.getListViewSize(review_list);
                             review_disp.setVisibility(View.VISIBLE);
@@ -1200,14 +1198,7 @@ public class ProductFullView extends Language {
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
-                        JSONObject jsonObject = new JSONObject(json.getString("data"));
-                        JSONObject jsonObject1 = new JSONObject(jsonObject.getString("product"));
 
-                       /* int id = jsonObject1.getInt("product_id");
-                        String name = jsonObject1.getString("name");
-                        int qua = jsonObject1.getInt("quantity");
-                        int p_count = jsonObject.getInt("total_product_count");
-                        String total_price = jsonObject.getString("total_price");*/
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.cart_Add_text), Toast.LENGTH_SHORT).show();
 
                         cart_call();
@@ -1279,7 +1270,7 @@ public class ProductFullView extends Language {
             if (resp != null) {
 
                 try {
-                    cart_item = new ArrayList<>();
+                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -1299,7 +1290,7 @@ public class ProductFullView extends Language {
                                 cart_item.add(bo);
                             }
                             cart_count.setText(String.valueOf(qty));
-                            if (list.size()>0 && list!=null) {
+                            if (list!=null&&list.size()>0 ) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < cart_item.size(); h++) {
                                         if (Integer.parseInt(list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -1331,7 +1322,7 @@ public class ProductFullView extends Language {
     }
 
 
-    public void shareItem(String url) {
+    private void shareItem(String url) {
         Log.d("Image_share", url);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -1361,8 +1352,6 @@ public class ProductFullView extends Language {
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));
                             check++;
-                        } else {
-
                         }
 
 
@@ -1391,7 +1380,7 @@ public class ProductFullView extends Language {
     }
 
 
-    public Uri getLocalBitmapUri2(Bitmap bmp) {
+    private Uri getLocalBitmapUri2(Bitmap bmp) {
         Uri bmpUri = null;
         try {
             File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
@@ -1643,7 +1632,7 @@ public class ProductFullView extends Language {
                                     bo.setWish_list(false);
                                     bo.setCart_list(false);
                                     Object dd = obj.get("option");
-                                    optionPOS = new ArrayList<>();
+                                    ArrayList<SingleOptionPO> optionPOS = new ArrayList<>();
                                     if (dd instanceof JSONObject)
                                     {
                                         JSONObject jsonObject=obj.getJSONObject("option");
@@ -1670,7 +1659,7 @@ public class ProductFullView extends Language {
                             }
                             if (list.size() != 0) {
                                 adapter = new CommonAdapter(ProductFullView.this, list,1,6);
-                                layoutManager=new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                                 related_products.setLayoutManager(layoutManager);
                                 related_products.setAdapter(adapter);
                                 related_view.setVisibility(View.VISIBLE);
@@ -1758,7 +1747,7 @@ public class ProductFullView extends Language {
     }
 
 
-    public void cart_call()
+    private void cart_call()
     {
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
@@ -1793,7 +1782,7 @@ public class ProductFullView extends Language {
             Log.i("tag", "products_Hai--->  " + resp);
             if (resp != null) {
                 try {
-                    fav_item = new ArrayList<>();
+                    ArrayList<ProductsPO> fav_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
@@ -1807,7 +1796,7 @@ public class ProductFullView extends Language {
                                 fav_item.add(bo);
                             }
 
-                            if (list.size()>0 && list!=null) {
+                            if ( list!=null&&list.size()>0 ) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < fav_item.size(); h++) {
                                         if (Integer.parseInt(list.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
@@ -1828,13 +1817,11 @@ public class ProductFullView extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-
             }
         }
     }
 
-    public void price_Cal()
+    private void price_Cal()
     {
             double price1 = 0;
             double price2 = 0;

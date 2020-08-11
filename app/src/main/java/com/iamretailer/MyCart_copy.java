@@ -37,51 +37,42 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
+
 
 import stutzen.co.network.Connection;
 
 public class MyCart_copy extends Language {
 
-    public ListView cart_list;
-    CartAdapter adapter;
-    FrameLayout checkout;
-    DBController db;
-    ArrayList<ProductsPO> list;
-    public LinearLayout checkoutview;
-    public LinearLayout shopnow;
-    public LinearLayout button;
-    double sum = 0;
-    TextView subtotal;
-    LinearLayout menu;
-    public FrameLayout error_network;
-    public LinearLayout retry;
+    private ListView cart_list;
+    private DBController db;
+    private ArrayList<ProductsPO> list;
+    private LinearLayout checkoutview;
+    private LinearLayout shopnow;
+    private TextView subtotal;
+    private FrameLayout error_network;
     private FrameLayout success;
-    FrameLayout loading;
-    TextView header;
-    FrameLayout fullayout;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
 
-    TextView errortxt1, errortxt2;
-    String cur_left = "";
-    String cur_right = "";
-    int out_of_stock=0;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String cur_left = "";
+    private String cur_right = "";
+    private int out_of_stock=0;
     LinearLayout loading_bar;
-    AndroidLogger logger;
-    private ArrayList<Object> addressPOS;
-    AlertDialog alertReviewDialog;
-    LinearLayout shipping;
+    private AndroidLogger logger;
+    private AlertDialog alertReviewDialog;
     private ArrayList<CountryPO> country_list;
     private ArrayList<CountryPO> state_list;
-    private CountryAdapter c_adapter;
-    private StateAdapter s_adapter;
-    Spinner country;
-    Spinner state;
-    EditText pin_code;
+    private Spinner country;
+    private Spinner state;
+    private EditText pin_code;
     FrameLayout calculate;
-    AlertDialog show_amount;
-    int has_shopp;
-    TextView rupee_front,rupee_back;
-    TextView cart_count;
+    private AlertDialog show_amount;
+    private int has_shopp;
+    private TextView rupee_front;
+    private TextView rupee_back;
+    private TextView cart_count;
 
     @Override
     protected void onResume() {
@@ -104,18 +95,18 @@ public class MyCart_copy extends Language {
         checkoutview = (LinearLayout) findViewById(R.id.checkoutview);
         subtotal = (TextView) findViewById(R.id.subtotal);
         shopnow = (LinearLayout) findViewById(R.id.shopnow);
-        button = (LinearLayout) findViewById(R.id.home);
-        menu = (LinearLayout) findViewById(R.id.menu);
+        LinearLayout button = (LinearLayout) findViewById(R.id.home);
+        LinearLayout menu = (LinearLayout) findViewById(R.id.menu);
         error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        LinearLayout retry = (LinearLayout) findViewById(R.id.retry);
         loading=(FrameLayout)findViewById(R.id.loading);
-        header=(TextView)findViewById(R.id.header);
+        TextView header = (TextView) findViewById(R.id.header);
         header.setText(R.string.my_Cart);
         fullayout=(FrameLayout)findViewById(R.id.fullayout);
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
         loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        shipping=(LinearLayout)findViewById(R.id.shipping);
+        LinearLayout shipping = (LinearLayout) findViewById(R.id.shipping);
         rupee_front=(TextView)findViewById(R.id.rupee_front);
         rupee_back=(TextView)findViewById(R.id.rupee_back);
         cart_count=(TextView)findViewById(R.id.cart_count);
@@ -125,7 +116,7 @@ public class MyCart_copy extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang=db.get_lang_code();
         Appconstatants.CUR=db.getCurCode();
-        list = new ArrayList<ProductsPO>();
+        list = new ArrayList<>();
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
 
@@ -163,7 +154,7 @@ public class MyCart_copy extends Language {
         });
 
 
-        checkout = (FrameLayout) findViewById(R.id.checkout);
+        FrameLayout checkout = (FrameLayout) findViewById(R.id.checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,7 +205,7 @@ public class MyCart_copy extends Language {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
 
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, (ViewGroup)null,false);
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
@@ -256,8 +247,8 @@ public class MyCart_copy extends Language {
     }
 
 
-    public void sumtotal() {
-        sum = 0;
+    private void sumtotal() {
+        double sum = 0;
         for (int h = 0; h < list.size(); h++) {
             sum = sum + (list.get(h).getTotal());
         }
@@ -308,7 +299,7 @@ public class MyCart_copy extends Language {
 
                 try {
                     JSONObject json = new JSONObject(resp);
-                    addressPOS = new ArrayList<>();
+                    ArrayList<AddressPO> addressPOS = new ArrayList<>();
                     if (json.getInt("success") == 1) {
 
                         JSONObject object = json.getJSONObject("data");
@@ -438,7 +429,7 @@ public class MyCart_copy extends Language {
             Log.i("Cart_list_resp", "CartResp--->  " + resp);
 
             if (resp != null) {
-                list = new ArrayList<ProductsPO>();
+                list = new ArrayList<>();
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
@@ -487,7 +478,7 @@ public class MyCart_copy extends Language {
                                     Log.d("Stock_values",jsonObject1.getBoolean("stock")+"");
 
 
-                                    ArrayList<OptionsPO> oplist = new ArrayList<OptionsPO>();
+                                    ArrayList<OptionsPO> oplist = new ArrayList<>();
                                     for (int u = 0; u < jarray.length(); u++) {
                                         JSONObject ob = jarray.getJSONObject(u);
                                         OptionsPO boo = new OptionsPO();
@@ -506,7 +497,7 @@ public class MyCart_copy extends Language {
                                     qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 }
                                 cart_count.setText(String.valueOf(qty));
-                                adapter = new CartAdapter(MyCart_copy.this, R.layout.cart_list, list);
+                                CartAdapter adapter = new CartAdapter(MyCart_copy.this, R.layout.cart_list, list);
                                 cart_list.setAdapter(adapter);
                                 success.setVisibility(View.VISIBLE);
                                 shopnow.setVisibility(View.GONE);
@@ -597,10 +588,7 @@ public class MyCart_copy extends Language {
                     if (json.getInt("success") == 1) {
 
                         Object dd = json.get("data");
-                        if (dd instanceof JSONArray) {
-
-
-                        } else if (dd instanceof JSONObject) {
+                      if (dd instanceof JSONObject) {
                             // It's an object
 
                             JSONObject jsonObject = (JSONObject) dd;
@@ -630,7 +618,7 @@ public class MyCart_copy extends Language {
     }
 
 
-    public void show_Cal_ship()
+    private void show_Cal_ship()
     {
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -707,7 +695,7 @@ public class MyCart_copy extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    country_list = new ArrayList<CountryPO>();
+                    country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
                     po1.setCount_name("Select Country");
@@ -729,7 +717,7 @@ public class MyCart_copy extends Language {
                             country_list.add(po);
                         }
 
-                        c_adapter = new CountryAdapter(MyCart_copy.this, R.layout.country_row, country_list);
+                        CountryAdapter c_adapter = new CountryAdapter(MyCart_copy.this, R.layout.country_row, country_list);
                         country.setAdapter(c_adapter);
 
 
@@ -804,7 +792,7 @@ public class MyCart_copy extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    state_list = new ArrayList<CountryPO>();
+                    state_list = new ArrayList<>();
                     CountryPO po = new CountryPO();
                     po.setZone_id("0");
                     po.setCont_id("0");
@@ -829,7 +817,7 @@ public class MyCart_copy extends Language {
 
                             state_list.add(po1);
                         }
-                        s_adapter = new StateAdapter(MyCart_copy.this, R.layout.country_row, state_list);
+                        StateAdapter s_adapter = new StateAdapter(MyCart_copy.this, R.layout.country_row, state_list);
                         state.setAdapter(s_adapter);
 
 
@@ -962,10 +950,10 @@ public class MyCart_copy extends Language {
         }
     }
 
-    public void show_Cal_ship_amount(JSONObject jsonObject)
+    private void show_Cal_ship_amount(JSONObject jsonObject)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, (ViewGroup)null,false);
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);

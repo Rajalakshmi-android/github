@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 
@@ -38,45 +37,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
 public class Wallet extends Language {
-    LinearLayout menu;
-    TextView header,cart_count;
-    LinearLayout cart_items;
-    AndroidLogger logger;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
+    private TextView cart_count;
+    private AndroidLogger logger;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
     LinearLayout loading_bar;
-    FrameLayout error_network;
-    FrameLayout loading;
+    private FrameLayout error_network;
+    private FrameLayout loading;
     private ArrayList<OptionsPO> optionsPOArrayList1;
-    TextView no_items;
-    FrameLayout list_view;
+    private TextView no_items;
+    private FrameLayout list_view;
     private WalletAdapter adapter1;
     ListView wallet_list;
-    LinearLayout retry;
     private DBController dbCon;
 
-    public static final int PAYPAL_REQUEST_CODE = 123;
+    private static final int PAYPAL_REQUEST_CODE = 123;
 
     // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
     // or live (ENVIRONMENT_PRODUCTION)
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
-    private String mobile="";
     private ProgressDialog pDialog;
-    private String wallet_amount="0.00";
     private TextView w_amount;
     private int pos=-1;
-    String cur_left = "";
-    String cur_right = "";
-    private LinearLayout cont;
-
-
+    private String cur_left = "";
+    private String cur_right = "";
 
 
     @Override
@@ -85,11 +76,11 @@ public class Wallet extends Language {
         setContentView(R.layout.activity_wallent);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        menu= findViewById(R.id.menu);
-        header= findViewById(R.id.header);
-        cart_items= findViewById(R.id.cart_items);
+        LinearLayout menu = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         fullayout= findViewById(R.id.fullayout);
-        cont= findViewById(R.id.cont);
+        LinearLayout cont = findViewById(R.id.cont);
         header.setText(R.string.wallet_head);
         cart_count= findViewById(R.id.cart_count);
         loading_bar= findViewById(R.id.loading_bar);
@@ -101,7 +92,7 @@ public class Wallet extends Language {
         loading = findViewById(R.id.loading);
         list_view= findViewById(R.id.success);
         wallet_list= findViewById(R.id.wallet_list);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
 
         dbCon = new DBController(Wallet.this);
         Appconstatants.sessiondata = dbCon.getSession();
@@ -188,7 +179,8 @@ public class Wallet extends Language {
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", dbCon.getEmail());
-            preFill.put("contact",mobile );
+            String mobile = "";
+            preFill.put("contact", mobile);
 
             options.put("prefill", preFill);
 
@@ -248,9 +240,9 @@ public class Wallet extends Language {
 
     private class WalletSaveTask extends AsyncTask<Object, Void, String> {
 
-    String product_id;
+    final String product_id;
 
-        public WalletSaveTask(String productid) {
+        WalletSaveTask(String productid) {
             product_id= productid;
         }
 
@@ -667,7 +659,8 @@ public class Wallet extends Language {
                     {
 
                         JSONArray jarray = new JSONArray(json.getString("data"));
-                        wallet_amount= json.getString("amount");
+
+                        String  wallet_amount = json.getString("amount");
                         String value=cur_left+String.format("%.2f", Double.parseDouble(wallet_amount))+cur_right;
                         w_amount.setText(value);
                         list_view.setVisibility(View.VISIBLE);
@@ -717,15 +710,16 @@ public class Wallet extends Language {
         }
     }
 
-    public void showCallPopup(final String product_id, String order){
+    private void showCallPopup(final String product_id, String order){
         final android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(Wallet.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.pay_sucess, (ViewGroup)null,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.pay_sucess, null,false);
         dial.setView(popUpView);
         final android.app.AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(popupStore.getWindow().getAttributes());
         lp.gravity= Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
+
         popupStore.show();
         popupStore.setCancelable(false);
         LinearLayout okay= popUpView.findViewById(R.id.okay);

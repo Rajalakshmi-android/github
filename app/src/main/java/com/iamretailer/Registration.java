@@ -28,19 +28,18 @@ import stutzen.co.network.Connection;
 
 public class Registration extends Language {
 
-    EditText f_name;
-    EditText l_name;
-    EditText email;
-    EditText mobile;
-    EditText passone;
-    EditText passtwo;
+    private EditText f_name;
+    private EditText l_name;
+    private EditText email;
+    private EditText mobile;
+    private EditText passone;
+    private EditText passtwo;
     TextView cont;
-    int checked;
-    DBController dbController;
+    private int checked;
+    private DBController dbController;
     private int from;
-    LinearLayout fullayout;
-    TextView login_page;
-    AndroidLogger logger;
+    private LinearLayout fullayout;
+    private AndroidLogger logger;
 
 
     @Override
@@ -57,7 +56,7 @@ public class Registration extends Language {
         passtwo = findViewById(R.id.passtwo);
         cont = findViewById(R.id.cont);
         fullayout = findViewById(R.id.fullayout);
-        login_page = findViewById(R.id.login_page);
+        TextView login_page = findViewById(R.id.login_page);
 
         dbController = new DBController(Registration.this);
         Appconstatants.sessiondata = dbController.getSession();

@@ -27,24 +27,20 @@ import stutzen.co.network.Connection;
 
 public class Webactivity extends AppCompatActivity {
 
-    private DBController dbCon;
-    private LinearLayout back;
-    Bundle bundle;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    FrameLayout error_network;
-    LinearLayout retry;
-    LinearLayout search_loading;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
+    private TextView header;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private LinearLayout search_loading;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
     LinearLayout loading_bar;
-    AndroidLogger logger;
+    private AndroidLogger logger;
     private int id=0;
     private String title="";
     private WebView description;
     private String pish="";
-    private String pas="",myHtmlString="";
+    private String pas="";
 
 
     @Override
@@ -52,34 +48,37 @@ public class Webactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webactivity);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        dbCon = new DBController(Webactivity.this);
+        DBController dbCon = new DBController(Webactivity.this);
         logger=AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID,false);
         Appconstatants.sessiondata = dbCon.getSession();
-        Appconstatants.Lang=dbCon.get_lang_code();
-        Appconstatants.CUR=dbCon.getCurCode();
+        Appconstatants.Lang= dbCon.get_lang_code();
+        Appconstatants.CUR= dbCon.getCurCode();
         Log.d("Session", Appconstatants.sessiondata + "Value");
-        back = findViewById(R.id.menu);
+        LinearLayout back = findViewById(R.id.menu);
         header = findViewById(R.id.header);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
         description = findViewById(R.id.description);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
         loading_bar= findViewById(R.id.loading_bar);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         search_loading = findViewById(R.id.search_loading);
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 
 
         pish = "<html><head><style type=\"text/css\">@font-face {font-family: MyFont;src: url(\"file:///android_asset/font/Heebo-Regular.ttf\")}body,li,p,span {font-family: MyFont;font-size: 14px;text-align: justify;color: #415163}</style></head><body>";
         pas = "</body></html>";
 
-        id = bundle.getInt("id");
-        title = bundle.getString("title");
+        if(bundle !=null){
+
+            title = bundle.getString("title");
+            id = bundle.getInt("id");
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             header.setText(Html.fromHtml(title, Html.FROM_HTML_MODE_COMPACT));
         } else {
@@ -158,8 +157,8 @@ public class Webactivity extends AppCompatActivity {
                             header.setText(Html.fromHtml(jsonObject.isNull("title") ? "About App" : jsonObject.getString("title")));
                         }
 
-                        myHtmlString =  pish+(jsonObject.isNull("description") ? "" : jsonObject.getString("description")) + pas;
-                        Log.i("string",myHtmlString);
+                        String myHtmlString = pish + (jsonObject.isNull("description") ? "" : jsonObject.getString("description")) + pas;
+                        Log.i("string", myHtmlString);
                         //description.setText(Html.fromHtml(myHtmlString));
                        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             description.setText(Html.fromHtml(myHtmlString, Html.FROM_HTML_MODE_COMPACT));

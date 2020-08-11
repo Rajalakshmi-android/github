@@ -31,36 +31,33 @@ import stutzen.co.network.Connection;
 
 public class Product_list extends Language {
 
-    FrameLayout loading, error_network, fullayout;
-    ArrayList<ProductsPO> list;
-    CommonAdapter bestAdapter;
-    RecyclerView product_list;
-    Bundle bundle;
-    String from = "";
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private FrameLayout fullayout;
+    private ArrayList<ProductsPO> list;
+    private CommonAdapter bestAdapter;
+    private RecyclerView product_list;
+    private String from = "";
     private ArrayList<ProductsPO> feat_list;
     private CommonAdapter featuredAdapter;
-    LinearLayout back;
-    TextView header;
-    LinearLayout cart_items;
-    TextView cart_counts;
-    LinearLayout retry;
+    private TextView cart_counts;
     private int start = 1, limit = 10;
-    LinearLayout load_more;
-    int val = 0;
-    TextView errortxt1, errortxt2;
+    private LinearLayout load_more;
+    private int val = 0;
+    private TextView errortxt1;
+    private TextView errortxt2;
     LinearLayout loading_bar;
-    AndroidLogger logger;
-    DBController dbController;
+    private AndroidLogger logger;
+    private DBController dbController;
     private ArrayList<SingleOptionPO> optionPOS;
-    private ArrayList<ProductsPO> fav_item;
     private TextView no_proditems;
-    private ArrayList<ProductsPO> cart_item;
-    int firstVisibleItem, visibleItemCount;
-    GridLayoutManager mLayoutManager;
+    private int firstVisibleItem;
+    private int visibleItemCount;
+    private GridLayoutManager mLayoutManager;
     private boolean loadin = false;
     String banner_id = "";
-    ArrayList<ProductsPO> banner_items;
-    String title = "";
+    private ArrayList<ProductsPO> banner_items;
+    private String title = "";
     private String head = "";
 
     @Override
@@ -73,20 +70,26 @@ public class Product_list extends Language {
         error_network = findViewById(R.id.error_network);
         fullayout = findViewById(R.id.fullayout);
         product_list = findViewById(R.id.product_list);
-        back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_counts = findViewById(R.id.cart_count);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         load_more = findViewById(R.id.load_more);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         no_proditems = findViewById(R.id.no_proditems);
         loading_bar = findViewById(R.id.loading_bar);
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
-        from = bundle.getString("view_all");
-        head = bundle.getString("head");
+        Bundle bundle = getIntent().getExtras();
+        if(bundle !=null){
+            from = bundle.getString("view_all");
+            head = bundle.getString("head");
+           banner_id = bundle.getString("banner_id");
+          title = bundle.getString("title");
+
+        }
+
+
         dbController = new DBController(Product_list.this);
         Appconstatants.sessiondata = dbController.getSession();
         Appconstatants.Lang = dbController.get_lang_code();
@@ -104,10 +107,6 @@ public class Product_list extends Language {
             }
         });
 
-        if (bundle.getString("banner_id") != null) {
-            banner_id = bundle.getString("banner_id");
-            title = bundle.getString("title");
-        }
 
         if (from.equals("best_sell")) {
             BEST_SELLING best_selling = new BEST_SELLING();
@@ -518,7 +517,7 @@ public class Product_list extends Language {
             if (resp != null) {
 
                 try {
-                    cart_item = new ArrayList<>();
+                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -539,7 +538,7 @@ public class Product_list extends Language {
                             cart_counts.setText(String.valueOf(qty));
 
                             if (from.equals("best_sell")) {
-                                if (list.size() > 0 && list != null) {
+                                if (list != null&&list.size() > 0 ) {
                                     for (int u = 0; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -553,7 +552,7 @@ public class Product_list extends Language {
                                     bestAdapter.notifyDataSetChanged();
                                 }
                             } else if (from.equals("banners")) {
-                                if (banner_items.size() > 0 && banner_items != null) {
+                                if ( banner_items != null&&banner_items.size() > 0) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -569,7 +568,7 @@ public class Product_list extends Language {
                                 }
                             } else {
 
-                                if (feat_list.size() > 0 && feat_list != null) {
+                                if ( feat_list != null&&feat_list.size() > 0 ) {
                                     for (int u = 0; u < feat_list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -626,7 +625,7 @@ public class Product_list extends Language {
             Log.i("tag", "products_Hai--->  " + resp);
             if (resp != null) {
                 try {
-                    fav_item = new ArrayList<>();
+                    ArrayList<ProductsPO> fav_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
@@ -658,7 +657,7 @@ public class Product_list extends Language {
                                     bestAdapter.notifyDataSetChanged();
                                 }
                             } else if (from.equals("banners")) {
-                                if (banner_items.size() > 0 && banner_items != null) {
+                                if ( banner_items != null&&banner_items.size() > 0 ) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
                                             if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
@@ -695,8 +694,6 @@ public class Product_list extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-
             }
         }
     }

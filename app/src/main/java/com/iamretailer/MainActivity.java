@@ -322,6 +322,8 @@ public class MainActivity extends Drawer {
                 Bundle best = new Bundle();
                 best.putString("view_all", "best_sell");
                 best.putString("head",getResources().getString(R.string.bests));
+                best.putString("banner_id","");
+                best.putString("title", "");
                 intent.putExtras(best);
                 startActivity(intent);
             }
@@ -333,6 +335,9 @@ public class MainActivity extends Drawer {
                 Bundle feat = new Bundle();
                 feat.putString("view_all", "feat");
                 feat.putString("head",getResources().getString(R.string.featuress));
+                feat.putString("banner_id","");
+                feat.putString("title", "");
+
                 intent.putExtras(feat);
                 startActivity(intent);
             }

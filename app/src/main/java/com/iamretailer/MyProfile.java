@@ -29,22 +29,21 @@ import stutzen.co.network.Connection;
 
 
 public class MyProfile extends Language {
-    LinearLayout back;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    FrameLayout error_lay;
-    EditText f_name, l_name, email, mobile;
-    FrameLayout lay;
-    TextView cart_count;
-    ImageView cart;
+    private FrameLayout loading;
+    private FrameLayout error_lay;
+    private EditText f_name;
+    private EditText l_name;
+    private EditText email;
+    private EditText mobile;
+    private FrameLayout lay;
+    private ImageView cart;
     FrameLayout update;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    LinearLayout retry;
-    DBController dbcon;
-    String cus_id;
-    AndroidLogger logger;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
+    private DBController dbcon;
+    private String cus_id;
+    private AndroidLogger logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +55,10 @@ public class MyProfile extends Language {
         Appconstatants.sessiondata=dbcon.getSession();
         Appconstatants.Lang=dbcon.get_lang_code();
         Appconstatants.CUR=dbcon.getCurCode();
-        back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.my_Acc);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         f_name = findViewById(R.id.f_name);
         l_name = findViewById(R.id.l_name);
         email = findViewById(R.id.email);
@@ -67,7 +66,7 @@ public class MyProfile extends Language {
         lay = findViewById(R.id.fullayout);
         loading = findViewById(R.id.loading);
         error_lay = findViewById(R.id.error_network);
-        cart_count = findViewById(R.id.cart_count);
+        TextView cart_count = findViewById(R.id.cart_count);
         cart_count.setVisibility(View.GONE);
         cart = findViewById(R.id.cart);
         cart.setImageResource(R.mipmap.edi_pencil);
@@ -75,7 +74,7 @@ public class MyProfile extends Language {
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

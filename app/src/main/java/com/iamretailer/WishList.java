@@ -31,19 +31,18 @@ import stutzen.co.network.Connection;
 
 public class WishList extends Language {
 
-    LinearLayout back, cart_items;
-    TextView cart_count;
-    ListView wish_list;
+    private TextView cart_count;
+    private ListView wish_list;
     private ArrayList<ProductsPO> feat_list;
-    FrameLayout error_network, loading, fullayout,success;
-    LinearLayout loading_bar ,retry;
-    TextView errortxt1, errortxt2;
-    Wish_list_adapter wishListAdapter;
-    Button  shop;
-    TextView header;
-    FrameLayout no_items;
-    AndroidLogger logger;
-    DBController dbController;
+    private FrameLayout error_network;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private FrameLayout success;
+    LinearLayout loading_bar;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private FrameLayout no_items;
+    private AndroidLogger logger;
 
 
     @Override
@@ -52,8 +51,8 @@ public class WishList extends Language {
         setContentView(R.layout.activity_wish_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        back = findViewById(R.id.menu);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout back = findViewById(R.id.menu);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_count = findViewById(R.id.cart_count);
         no_items = findViewById(R.id.no_items);
         wish_list = findViewById(R.id.wish_list);
@@ -64,13 +63,13 @@ public class WishList extends Language {
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        header = findViewById(R.id.header);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.wish_list);
-        dbController=new DBController(WishList.this);
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        retry = findViewById(R.id.retry);
-        shop = findViewById(R.id.shop);
+        DBController dbController = new DBController(WishList.this);
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.CUR= dbController.getCurCode();
+        LinearLayout retry = findViewById(R.id.retry);
+        Button shop = findViewById(R.id.shop);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,7 +178,7 @@ public class WishList extends Language {
                             }
                             if (feat_list.size() != 0) {
 
-                                wishListAdapter = new Wish_list_adapter(WishList.this, R.layout.wish_list_item, feat_list);
+                                Wish_list_adapter wishListAdapter = new Wish_list_adapter(WishList.this, R.layout.wish_list_item, feat_list);
                                 wish_list.setAdapter(wishListAdapter);
 
                             }
@@ -238,7 +237,7 @@ public class WishList extends Language {
     }
 
 
-    public class CartTask extends AsyncTask<String, Void, String> {
+    class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
