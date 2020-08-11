@@ -20,6 +20,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -400,7 +401,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
     public void showpopup() {
         open = new Dialog(Login.this);
         open.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup = getLayoutInflater().inflate(R.layout.forgot_password, null);
+        final ViewGroup parent = null;
+        popup = getLayoutInflater().inflate(R.layout.forgot_password, parent,false);
         TextView gologin = popup.findViewById(R.id.gologin);
         submit = popup.findViewById(R.id.submit);
         final EditText username = popup.findViewById(R.id.username);

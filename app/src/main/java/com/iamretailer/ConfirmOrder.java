@@ -15,9 +15,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -25,9 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iamretailer.Adapter.TotalAdapter;
 import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.PlacePO;
@@ -61,10 +59,8 @@ public class ConfirmOrder extends Language {
     LinearLayout retry;
     ArrayList<PlacePO> list;
     ArrayList<PlacePO> totals;
-    private double sum;
     private String orderid;
     private String pay_type;
-    private TotalAdapter adapter1;
     private LinearLayout total_list;
     private String fname;
     private String lname;
@@ -173,19 +169,26 @@ public class ConfirmOrder extends Language {
         promo_text = findViewById(R.id.promo_text);
 
         header.setText(R.string.confirm);
-        cus_name.setText(fname + " " + lname);
-        if (addresstwo.length() != 0)
-            cus_address_one.setText(addressone + ", " + addresstwo + ",");
-        else
-            cus_address_one.setText(addressone + ",");
-        cus_address_two.setText(city + ", " + state + ",");
-        country_name.setText(country + " - " + pincode + ".");
+        String c_name=fname + " " + lname;
+        cus_name.setText(c_name);
+        if (addresstwo.length() != 0) {
+            String cus_add=addressone + ", " + addresstwo + ",";
+            cus_address_one.setText(cus_add);
+
+        }else {
+            String cus_add=addressone + ",";
+            cus_address_one.setText(cus_add);
+        }
+        String cus_add2=city + ", " + state + ",";
+        cus_address_two.setText(cus_add2);
+        String con_name=country + " - " + pincode + ".";
+        country_name.setText(con_name);
         //  cus_mobile.setText();
         payment.setText(pay);
         flat_shipping.setText(shipping);
 
         phone.setText(mobile);
-        subtotal = findViewById(R.id.subtotal);
+        subtotal = (TextView) findViewById(R.id.subtotal);
         promo_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,33 +272,12 @@ public class ConfirmOrder extends Language {
 
     }
 
-    private void showwalletpopup() {
-
-
-        final android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(ConfirmOrder.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, null);
-        dial.setView(popUpView);
-        final android.app.AlertDialog popupStore = dial.create();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity = Gravity.CENTER;
-        popupStore.getWindow().setAttributes(lp);
-        popupStore.show();
-        popupStore.setCancelable(false);
-        LinearLayout okay = popUpView.findViewById(R.id.okay);
-        TextView text = popUpView.findViewById(R.id.text);
-        text.setText(R.string.wal_amount);
-        okay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupStore.dismiss();
-            }
-        });
-    }
 
     private void show_promo() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this,R.style.CustomAlertDialog);
-        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
+      //  AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this);
+        final ViewGroup parent = null;
+        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, parent,false);
 
         final EditText promo_code = popUpView.findViewById(R.id.promo_code);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
@@ -440,7 +422,8 @@ public class ConfirmOrder extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }
@@ -604,9 +587,9 @@ public class ConfirmOrder extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
 
-                        JSONArray jarray = new JSONArray(json.getString("data"));
                         wallet_amount = Double.parseDouble(json.getString("amount"));
-                        w_amount.setText(cur_left + String.format("%.2f", wallet_amount) + cur_right);
+                        String w_amt=cur_left + String.format(Locale.getDefault(),"%.2f", wallet_amount) + cur_right;
+                        w_amount.setText(w_amt);
 
 
                         success.setVisibility(View.VISIBLE);
@@ -620,7 +603,8 @@ public class ConfirmOrder extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }
@@ -688,8 +672,8 @@ public class ConfirmOrder extends Language {
                 details.performClick();
             }
         });
-
-        order_id.setText("#"+orderid);
+ String v1="#"+orderid;
+        order_id.setText(v1);
 
         details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -751,7 +735,8 @@ public class ConfirmOrder extends Language {
         TextView amount = convertView.findViewById(R.id.amount);
         TextView name = convertView.findViewById(R.id.head);
         amount.setText(placePO.getTot_amt_txt());
-        name.setText(placePO.getTot_title() + " :");
+        String namess=placePO.getTot_title() + " :";
+        name.setText(namess);
         Log.i("tag", "Totals " + placePO.getTot_title());
         total_list.addView(convertView);
     }
@@ -884,13 +869,19 @@ public class ConfirmOrder extends Language {
             country = data.getStringExtra("country");
             state = data.getStringExtra("state");
             mobile = data.getStringExtra("phone");
-            cus_name.setText(data.getStringExtra("first") + " " + data.getStringExtra("last_name"));
-            if (data.getStringExtra("addresstwo").length() != 0)
-                cus_address_one.setText(data.getStringExtra("addressone") + "," + data.getStringExtra("addresstwo") + ",");
-            else
-                cus_address_one.setText(data.getStringExtra("addressone") + ",");
-            cus_address_two.setText(data.getStringExtra("city") + "-" + data.getStringExtra("pincode") + ",");
-            cus_mobile.setText(data.getStringExtra("state") + ",");
+            String c_names=data.getStringExtra("first") + " " + data.getStringExtra("last_name");
+            cus_name.setText(c_names);
+            if (data.getStringExtra("addresstwo").length() != 0) {
+                String cus_add1=data.getStringExtra("addressone") + "," + data.getStringExtra("addresstwo") + ",";
+                cus_address_one.setText(cus_add1);
+            } else {
+                String cus_add1=data.getStringExtra("addressone") + ",";
+                cus_address_one.setText(cus_add1);
+            }
+            String cus_add2=data.getStringExtra("city") + "-" + data.getStringExtra("pincode") + ",";
+            cus_address_two.setText(cus_add2);
+            String cus_state=data.getStringExtra("state") + ",";
+            cus_mobile.setText(cus_state);
             country_name.setText(data.getStringExtra("country"));
             phone.setText(data.getStringExtra("phone"));
 

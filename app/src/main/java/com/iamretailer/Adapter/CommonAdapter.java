@@ -88,10 +88,13 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         holder.product_name.setText(items.get(position).getProduct_name());
 
         if (items.get(position).getProd_offer_rate() > 0) {
-            holder.p_price.setText(cur_left + String.format("%.2f", items.get(position).getProd_offer_rate()) + cur_right);
-            holder.orginal.setText(cur_left + String.format("%.2f", items.get(position).getProd_original_rate()) + cur_right);
+            String special=cur_left + String.format(Locale.getDefault(),"%.2f", items.get(position).getProd_offer_rate()) + cur_right;
+            holder.p_price.setText(special);
+            String or_price=cur_left + String.format(Locale.getDefault(),"%.2f", items.get(position).getProd_original_rate()) + cur_right;
+            holder.orginal.setText(or_price);
         } else {
-            holder.p_price.setText(cur_left + String.format("%.2f", items.get(position).getProd_original_rate()) + cur_right);
+            String special=cur_left + String.format(Locale.getDefault(),"%.2f", items.get(position).getProd_original_rate()) + cur_right;
+            holder.p_price.setText(special);
             holder.orginal.setText("");
         }
 

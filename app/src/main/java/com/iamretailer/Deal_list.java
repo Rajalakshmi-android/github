@@ -238,7 +238,8 @@ public class Deal_list extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(Deal_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -305,7 +306,7 @@ public class Deal_list extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_counts.setText(0 + "");
+                            cart_counts.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -318,7 +319,7 @@ public class Deal_list extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_counts.setText(qty + "");
+                            cart_counts.setText(String.valueOf(qty));
 
                         }
                     }

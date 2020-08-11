@@ -67,7 +67,8 @@ public class About_Activity extends Language {
         loading_bar=findViewById(R.id.loading_bar);
         String s1=getResources().getString( R.string.about);
         String s2=getResources().getString(R.string.app_name);
-        header.setText(s1+" "+s2);
+        String s3=s1+" "+s2;
+        header.setText(s3);
         LinearLayout retry = findViewById(R.id.retry);
         search_loading =findViewById(R.id.search_loading);
         no_items =findViewById(R.id.no_items);
@@ -194,7 +195,8 @@ public class About_Activity extends Language {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(About_Activity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

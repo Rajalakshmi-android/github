@@ -18,6 +18,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -120,6 +121,8 @@ public class Drawer extends Language {
         title=(TextView)view.findViewById(R.id.title);
         String s1=getResources().getString( R.string.about);
         String s2=getResources().getString(R.string.app_name);
+        String s3=s1 + " " + s2;
+        title.setText(s3);
         title.setText(s1+" "+s2);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
@@ -185,7 +188,7 @@ public class Drawer extends Language {
 
             }
         });
-  
+
 
 
     }
@@ -226,8 +229,8 @@ public class Drawer extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count1.setText(0 + "");
-                            //cart_count1.setText(0 + "");
+                            cart_count1.setText(String.valueOf(0));
+
 
                         } else if (dd instanceof JSONObject) {
 
@@ -240,8 +243,8 @@ public class Drawer extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count1.setText(qty + "");
-                            // cart_count1.setText(qty + "");
+                            cart_count1.setText(String.valueOf(qty));
+
                         }
                     }
 
@@ -525,9 +528,10 @@ public class Drawer extends Language {
 
 
 
-    public void showLogoutPopup(){
+    public void showLogoutPopup() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.logout_view, null);
+        final ViewGroup parent = null;
+        View popUpView = getLayoutInflater().inflate(R.layout.logout_view, parent,false);
         LinearLayout happy = (LinearLayout) popUpView.findViewById(R.id.happy);
         LinearLayout bad = (LinearLayout) popUpView.findViewById(R.id.bad);
         dialLo.setView(popUpView);
@@ -636,9 +640,6 @@ public class Drawer extends Language {
                 Log.i("reeeeeee", grantResults.length+"=="+grantResults[0]);
                 if ((grantResults.length == 1) && grantResults[0]  == PackageManager.PERMISSION_GRANTED) {
                     Log.i("reekkk", "inside");
-                    //Intent i = getIntent();
-                    //finish();
-                    //startActivity(i);
                 } else {
                     Log.i("reeaaaaaa", "inside");
                     Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",

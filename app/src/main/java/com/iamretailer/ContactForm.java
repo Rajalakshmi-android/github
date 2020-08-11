@@ -3,15 +3,14 @@ package com.iamretailer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -198,7 +197,8 @@ public class ContactForm extends Language {
 
     public void showCallPopup(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(ContactForm.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, null);
+        final ViewGroup parent = null;
+        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, parent,false);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

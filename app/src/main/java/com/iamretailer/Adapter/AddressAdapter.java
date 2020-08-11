@@ -90,18 +90,22 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
         holder.select_bg=(LinearLayout)convertView.findViewById(R.id.select_bg);
         holder.pos=(TextView)convertView.findViewById(R.id.pos);
         int pos1=position+1;
-        holder.pos.setText(pos1+":");
-
-        holder.cus_name.setText(items.get(position).getF_name()+" "+items.get(position).getL_name());
+        String pos2=pos1+":";
+        holder.pos.setText(pos2);
+        String c_name=items.get(position).getF_name()+" "+items.get(position).getL_name();
+        holder.cus_name.setText(c_name);
 
         if (items.get(position).getAdd_2()!=null || items.get(position).getAdd_2().trim().length()==0) {
-            holder.address_1.setText(items.get(position).getAdd_1()+", "+items.get(position).getAdd_2());
+            String add_1=items.get(position).getAdd_1()+", "+items.get(position).getAdd_2();
+            holder.address_1.setText(add_1);
         }else {
             holder.address_1.setText(items.get(position).getAdd_1());
         }
-        holder.city.setText(items.get(position).getCity()+", "+items.get(position).getZone());
 
-        holder.country.setText(items.get(position).getCountry()+" - "+items.get(position).getPost_code());
+        String city_s=items.get(position).getCity()+", "+items.get(position).getZone();
+        holder.city.setText(city_s);
+        String coun_s=items.get(position).getCountry()+" - "+items.get(position).getPost_code();
+        holder.country.setText(coun_s);
         holder.cus_phone.setText(items.get(position).getPhone());
 
         if (from==1) {

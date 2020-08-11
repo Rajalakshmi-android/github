@@ -459,7 +459,8 @@ public class Allen extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(Allen.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -533,7 +534,7 @@ public class Allen extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -549,7 +550,7 @@ public class Allen extends Language {
                             }
 
 
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                             if (list.size() > 0 && list != null) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < cart_item.size(); h++) {

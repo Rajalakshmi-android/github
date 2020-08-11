@@ -200,7 +200,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
 
                         } else if (dd instanceof JSONObject) {
@@ -212,7 +212,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     }
                 } catch (Exception e) {

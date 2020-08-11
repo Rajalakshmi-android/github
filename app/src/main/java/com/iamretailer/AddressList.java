@@ -252,7 +252,7 @@ public class AddressList extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -263,7 +263,7 @@ public class AddressList extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -366,7 +366,8 @@ public class AddressList extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.get(0) + "");
+                        String error_msg=array.get(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(AddressList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 

@@ -48,7 +48,8 @@ public class PaymentAdapter extends ArrayAdapter<TypePO>
         LinearLayout alertView = null;
         holder = new ViewHolder();
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.payment_item, alertView,true);
+
+            convertView = mInflater.inflate(R.layout.payment_item, null);
             convertView.setTag(holder);
 
         }
@@ -60,8 +61,8 @@ public class PaymentAdapter extends ArrayAdapter<TypePO>
             holder.text.setText(items.get(position).getTitle());
 
         } else {
-            String value=items.get(position).getTitle() + " - " + items.get(position).getAmount();
-            holder.text.setText(value);
+            String textss=items.get(position).getTitle() + " - " + items.get(position).getAmount();
+            holder.text.setText(textss);
 
         }
 

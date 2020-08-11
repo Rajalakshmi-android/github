@@ -207,7 +207,8 @@ public class DeliveryMethod extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(DeliveryMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 

@@ -755,7 +755,7 @@ public class MainActivity extends Drawer {
         final FrameLayout product_loading = convertView. findViewById(R.id.loading);
         final FrameLayout no_network = convertView.findViewById(R.id.error_network);
         LinearLayout retry = convertView.findViewById(R.id.retry);
-        namess.setText(brandsbo.getStore_name()+"");
+        namess.setText(brandsbo.getStore_name());
         Log.i("tag","listview----");
         GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
         cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
@@ -999,9 +999,9 @@ public class MainActivity extends Drawer {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
-                            cart_count1.setText(0 + "");
-                            cart_count_bot.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
+                            cart_count1.setText(String.valueOf(0));
+                            cart_count_bot.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -1017,9 +1017,9 @@ public class MainActivity extends Drawer {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 cart_item.add(bo);
                             }
-                            cart_count.setText(qty + "");
-                            cart_count1.setText(qty + "");
-                            cart_count_bot.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
+                            cart_count1.setText(String.valueOf(qty));
+                            cart_count_bot.setText(String.valueOf(qty));
                         }
 
                         if (feat_list.size()>0 && feat_list!=null) {
