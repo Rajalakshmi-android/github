@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,13 +33,12 @@ import java.util.ArrayList;
 import stutzen.co.network.Connection;
 
 public class AddressAdapter extends ArrayAdapter<AddressPO> {
-    Context context;
-    ArrayList<AddressPO> items;
-    int res;
-    LayoutInflater mInflater;
-    AndroidLogger logger;
-    int from;
-    DBController dbController;
+    private final Context context;
+    private final ArrayList<AddressPO> items;
+    private final int res;
+    private final LayoutInflater mInflater;
+    private final AndroidLogger logger;
+    private final int from;
 
 
     public AddressAdapter(Context context, int resource, ArrayList<AddressPO> items,int from) {
@@ -48,8 +48,8 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
         this.context = context;
         this.items = items;
         this.from=from;
-        dbController=new DBController(context);
-        Appconstatants.CUR=dbController.getCurCode();
+        DBController dbController = new DBController(context);
+        Appconstatants.CUR= dbController.getCurCode();
         logger=AndroidLogger.getLogger(context, Appconstatants.LOG_ID,false);
 
     }
@@ -65,30 +65,29 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
         return position;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder holder;
-        FrameLayout alertView = null;
+        FrameLayout alertView;
         holder = new ViewHolder();
         if (convertView == null) {
-            convertView = mInflater.inflate(res, alertView, true);
+            convertView = mInflater.inflate(res, null, true);
             convertView.setTag(holder);
             alertView = (FrameLayout) convertView;
         } else {
             alertView = (FrameLayout) convertView;
         }
-        holder.cus_name = (TextView) convertView.findViewById(R.id.cus_name);
-        holder.address_1=(TextView)convertView.findViewById(R.id.address_1);
-        holder.city=(TextView)convertView.findViewById(R.id.city);
-        holder.country=(TextView)convertView.findViewById(R.id.country);
-        holder.cus_phone=(TextView)convertView.findViewById(R.id.cus_phone);
-        holder.edit=(LinearLayout)convertView.findViewById(R.id.edit);
-        holder.delete=(LinearLayout)convertView.findViewById(R.id.delete);
-        holder.select=(ImageView) convertView.findViewById(R.id.select);
-        holder.select1=(ImageView) convertView.findViewById(R.id.select1);
-        holder.add=(LinearLayout)convertView.findViewById(R.id.add);
-        holder.select_bg=(LinearLayout)convertView.findViewById(R.id.select_bg);
-        holder.pos=(TextView)convertView.findViewById(R.id.pos);
+        holder.cus_name = convertView.findViewById(R.id.cus_name);
+        holder.address_1= convertView.findViewById(R.id.address_1);
+        holder.city= convertView.findViewById(R.id.city);
+        holder.country= convertView.findViewById(R.id.country);
+        holder.cus_phone= convertView.findViewById(R.id.cus_phone);
+        holder.edit= convertView.findViewById(R.id.edit);
+        holder.delete= convertView.findViewById(R.id.delete);
+        holder.select= convertView.findViewById(R.id.select);
+        holder.select1= convertView.findViewById(R.id.select1);
+        holder.pos= convertView.findViewById(R.id.pos);
         int pos1=position+1;
         String pos2=pos1+":";
         holder.pos.setText(pos2);
@@ -168,9 +167,14 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
 
     private  class ViewHolder {
 
-        public TextView cus_name,address_1,address_2,city,state,country,cus_phone,pos;
+        TextView cus_name;
+        TextView address_1;
+        TextView city;
+        TextView country;
+        TextView cus_phone;
+        TextView pos;
         ImageView select,select1;
-        LinearLayout add,select_bg,edit,delete;
+        LinearLayout edit,delete;
 
     }
 
@@ -178,10 +182,10 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
     private class Address_Del extends AsyncTask<String, Void, String> {
 
         private ProgressDialog pDialog;
-        private int  pos;
+        private final int  pos;
 
 
-        public Address_Del(int position) {
+        Address_Del(int position) {
             pos=position;
         }
 
@@ -202,7 +206,7 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
             logger.info("Delete cart api"+ Appconstatants.cart_update_api);
 
 
-            String response = null;
+            String response;
             Connection connection = new Connection();
             try {
                 JSONObject json = new JSONObject();

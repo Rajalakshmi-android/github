@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,36 +31,31 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
 public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
-    Context context;
-    ArrayList<ProductsPO> items;
-    int res;
-    LayoutInflater mInflater;
-    double single_value;
-    DBController db;
-    String cur_left = "";
-    String cur_right = "";
-    AndroidLogger logger;
-    ArrayList<String> qty_list;
-    SpinnerAdapter1 spinnerAdapter1;
-    AlertDialog alertReviewDialog;
-    LayoutInflater inflater;
+    private final Context context;
+    private final ArrayList<ProductsPO> items;
+    private final int res;
+    private final LayoutInflater mInflater;
+    private final String cur_left;
+    private final String cur_right;
+    private final AndroidLogger logger;
+    private ArrayList<String> qty_list;
+    private AlertDialog alertReviewDialog;
+    private final LayoutInflater inflater;
     public CartAdapter(Activity context, int resource, ArrayList<ProductsPO> items) {
         super(context, resource, items);
         mInflater = LayoutInflater.from(context);
         this.res = resource;
         this.context = context;
         this.items = items;
-        single_value = 0;
-        db = new DBController(getContext());
+        DBController db = new DBController(getContext());
         cur_left = db.get_cur_Left();
-        cur_right=db.get_cur_Right();
-        Appconstatants.CUR=db.getCurCode();
+        cur_right= db.get_cur_Right();
+        Appconstatants.CUR= db.getCurCode();
         logger=AndroidLogger.getLogger(context,Appconstatants.LOG_ID,false);
         inflater =context.getLayoutInflater();
 
@@ -77,13 +73,14 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         return position;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         final ViewHolder holder;
-        LinearLayout alertView = null;
+        LinearLayout alertView;
         holder = new ViewHolder();
         if (convertView == null) {
-            convertView = mInflater.inflate(res, alertView, true);
+            convertView = mInflater.inflate(res, null, true);
             convertView.setTag(holder);
             alertView = (LinearLayout) convertView;
         } else {
@@ -114,7 +111,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
                 qty_list.add("More");
         }
 
-        spinnerAdapter1=new SpinnerAdapter1(context,qty_list);
+        SpinnerAdapter1 spinnerAdapter1 = new SpinnerAdapter1(context, qty_list);
         holder.spin_qty.setAdapter(spinnerAdapter1);
 
         if (items.get(position).getCartvalue()<=3) {
@@ -147,12 +144,12 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.rupee_front.setText(cur_left);
         String val=String.format("%.2f", items.get(position).getTotal());
         holder.cart_prod_or_rate.setText(val);
-        String op = "";
+        StringBuilder op = new StringBuilder();
         for (int j = 0; j < items.get(position).getOptionlist().size(); j++) {
             if (items.get(position).getOptionlist().size() - 1 == j)
-                op = op + items.get(position).getOptionlist().get(j).getName() + ": " + items.get(position).getOptionlist().get(j).getValue();
+                op.append(items.get(position).getOptionlist().get(j).getName()).append(": ").append(items.get(position).getOptionlist().get(j).getValue());
             else
-                op = op + items.get(position).getOptionlist().get(j).getName() + ": " + items.get(position).getOptionlist().get(j).getValue() + ", ";
+                op.append(items.get(position).getOptionlist().get(j).getName()).append(": ").append(items.get(position).getOptionlist().get(j).getValue()).append(", ");
 
         }
 
@@ -178,7 +175,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_value.setText(String.valueOf(items.get(position).getCartvalue()));
         holder.cart_ins.setTag(position);
 
-        single_value = Double.parseDouble(String.valueOf(items.get(position).getProd_offer_rate()));
 
         holder.cart_ins.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,8 +255,12 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     }
 
     private static class ViewHolder {
-        public ImageView cart_img, cart_ins, cart_dec;
-        public TextView cart_prod_name, cart_prod_or_rate,cart_value;
+        ImageView cart_img;
+        ImageView cart_ins;
+        ImageView cart_dec;
+        TextView cart_prod_name;
+        TextView cart_prod_or_rate;
+        TextView cart_value;
         TextView option_list;
         ImageView remove;
         TextView out_of_stock,rupee_front,rupee_back;
@@ -270,10 +270,10 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     }
 
 
-    public void quantity_change(final int pos,String qtys)
+    private void quantity_change(final int pos, String qtys)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        View dialogView = inflater.inflate(R.layout.show_qty,  (ViewGroup)null, false);
+        View dialogView = inflater.inflate(R.layout.show_qty, null, false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
@@ -315,7 +315,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         private String qty;
 
 
-        public CartUpdate(int position) {
+        CartUpdate(int position) {
             pos = position;
         }
 
@@ -334,7 +334,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
         protected String doInBackground(String... param) {
             logger.info("Update cart api"+Appconstatants.cart_update_api);
-            String response = null;
+            String response;
             qty = param[1];
             Connection connection = new Connection();
             try {
@@ -384,12 +384,12 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
     private class Cartdel extends AsyncTask<String, Void, String> {
 
-        private int pos1;
+        private final int pos1;
         private ProgressDialog pDialog;
-        private String qty;
 
 
-        public Cartdel(int position) {
+
+        Cartdel(int position) {
             pos1 = position;
         }
 
@@ -408,9 +408,8 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         protected String doInBackground(String... param) {
 
             logger.info("Delete cart api"+Appconstatants.cart_update_api);
-            qty = param[1];
 
-            String response = null;
+            String response;
             Connection connection = new Connection();
             try {
                 JSONObject json = new JSONObject();

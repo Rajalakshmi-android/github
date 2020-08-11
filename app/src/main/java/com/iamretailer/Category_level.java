@@ -231,7 +231,7 @@ public class Category_level extends Language {
 
                         }
 
-                        adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2, width, height);
+                        adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2);
                         main_list.setAdapter(adapter1);
                         main_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                         cat_name.setText(cate_list.get(pos).getStore_name());

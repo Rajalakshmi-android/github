@@ -369,12 +369,19 @@ public class Splash extends Language {
                                 langPO.setLang_id(object1.isNull("language_id") ? "" : object1.getString("language_id"));
                                 langPO.setLang_name(object1.isNull("name") ? "" : object1.getString("name"));
                                 langPO.setLang_code(object1.isNull("code") ? "" : object1.getString("code"));
+                                int def = object1.isNull("default") ? 0 : object1.getInt("default");
                                 langPOS.add(langPO);
                                 Log.i("Language po",langPOS.size()+"");
-                                if (i == 0 && dbCon.get_lan_c() <= 0) {
+
+                                if (def == 0 && dbCon.get_lan_c() <= 0) {
                                     dbCon.drop_app_lang();
                                     dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
                                 }
+
+                               /* if (i == 0 && dbCon.get_lan_c() <= 0) {
+                                    dbCon.drop_app_lang();
+                                    dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
+                                }*/
                                 dbCon.insert_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
                             }
                         }

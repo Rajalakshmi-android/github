@@ -599,7 +599,7 @@ public class ProductFullView extends Language {
                 optionsPOArrayList.get(pos).setPrices(sizelist.get(0).getPrice());
                 optionsPOArrayList.get(pos).setPrefix(sizelist.get(0).getPrefix());
             }
-            SizeOptionAdapters sizeadapter = new SizeOptionAdapters(ProductFullView.this, sizelist, 1);
+            SizeOptionAdapters sizeadapter = new SizeOptionAdapters(ProductFullView.this, sizelist);
             gridView.setAdapter(sizeadapter);
             gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         }
@@ -614,7 +614,7 @@ public class ProductFullView extends Language {
                 }
                 sizelist.get(i).setImgSel(true);
                 optionsPOArrayList.get(pos).setSelected_id(sizelist.get(i).getProduct_option_value_id());
-                final SizeOptionAdapters sizeadapter = new SizeOptionAdapters(ProductFullView.this, sizelist, 1);
+                final SizeOptionAdapters sizeadapter = new SizeOptionAdapters(ProductFullView.this, sizelist);
                 gridView.setAdapter(sizeadapter);
                 gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                 if (sizelist.get(i).getPrice()>0) {

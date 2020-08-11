@@ -1,7 +1,6 @@
 package com.iamretailer.Adapter;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import com.iamretailer.POJO.CountryPO;
 import com.iamretailer.R;
-
 
 import java.util.ArrayList;
 

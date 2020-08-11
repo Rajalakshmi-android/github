@@ -165,7 +165,7 @@ public class Category extends Language {
 
                         }
 
-                        adapter1 = new BrandzAdapter(Category.this, cate_list, 2, width, height);
+                        adapter1 = new BrandzAdapter(Category.this, cate_list, 2);
                         cat_list.setAdapter(adapter1);
                         cat_list.setLayoutManager(new GridLayoutManager(Category.this, 3));
                         loading.setVisibility(View.GONE);

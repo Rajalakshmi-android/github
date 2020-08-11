@@ -19,30 +19,24 @@ import com.iamretailer.R;
 import java.util.ArrayList;
 
 public class ColorAdapters extends RecyclerView.Adapter<ColorAdapters.MyViewHolder> {
-    private LayoutInflater inflater;
-    private ArrayList<SingleOptionPO> items;
-    Context context;
+    private final LayoutInflater inflater;
+    private final ArrayList<SingleOptionPO> items;
 
     public ColorAdapters(Context ctx, ArrayList<SingleOptionPO> imageModelArrayList) {
 
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
-        this.context = ctx;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.color_list_item, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        Log.d("value_","asdfadf");
-
         try {
             GradientDrawable drawable = (GradientDrawable) holder.color.getBackground();
             drawable.setColor(Color.parseColor(items.get(position).getName()));
@@ -68,15 +62,15 @@ public class ColorAdapters extends RecyclerView.Adapter<ColorAdapters.MyViewHold
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        LinearLayout colortic;
-        TextView color;
-        FrameLayout text_bg;
+        final LinearLayout colortic;
+        final TextView color;
+        final FrameLayout text_bg;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
-            colortic = (LinearLayout) itemView.findViewById(R.id.colortic);
-            text_bg = (FrameLayout) itemView.findViewById(R.id.txt_bg);
-            color = (TextView) itemView.findViewById(R.id.colortxt);
+            colortic = itemView.findViewById(R.id.colortic);
+            text_bg = itemView.findViewById(R.id.txt_bg);
+            color = itemView.findViewById(R.id.colortxt);
 
         }
     }

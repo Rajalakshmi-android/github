@@ -18,25 +18,23 @@ import com.iamretailer.R;
 import java.util.ArrayList;
 
 public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.MyViewHolder> {
-    private LayoutInflater inflater;
-    private ArrayList<SingleOptionPO> items;
-    Context context;
-    int from;
+    private final LayoutInflater inflater;
+    private final ArrayList<SingleOptionPO> items;
+    private final Context context;
 
-    public SizeOptionAdapters(Context ctx, ArrayList<SingleOptionPO> imageModelArrayList,int i) {
+    public SizeOptionAdapters(Context ctx, ArrayList<SingleOptionPO> imageModelArrayList) {
 
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
         this.context = ctx;
-        this.from=i;
+
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.option, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+        return new MyViewHolder(view);
     }
 
 
@@ -79,13 +77,13 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView name;
-        public FrameLayout txt_bg;
+        final TextView name;
+        final FrameLayout txt_bg;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.child);
-            txt_bg = (FrameLayout) itemView.findViewById(R.id.text_bg);
+            name = itemView.findViewById(R.id.child);
+            txt_bg = itemView.findViewById(R.id.text_bg);
 
         }
     }

@@ -16,14 +16,13 @@ import java.util.ArrayList;
 
 public class SpinnerAdapter extends BaseAdapter {
 
-    private final int from;
-    private Context context;
-    private ArrayList<SingleOptionPO> items;
+    private final Context context;
+    private final ArrayList<SingleOptionPO> items;
 
     public SpinnerAdapter(Context context, ArrayList<SingleOptionPO> stateData, int from) {
         this.context = context;
         this.items = stateData;
-        this.from = from;
+        int from1 = from;
     }
 
     @Override
@@ -52,19 +51,19 @@ public class SpinnerAdapter extends BaseAdapter {
         return getCustomView(pos, cnvtView, prnt, 1);
     }
 
-    public View getCustomView(int position, View convertView, ViewGroup parent, int loc) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View mySpinner = inflater.inflate(R.layout.drop_downitem, parent, false);
-        TextView main_text = (TextView) mySpinner.findViewById(R.id.name);
+    private View getCustomView(int position, View convertView, ViewGroup parent, int loc) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View mySpinner = null;
+        if (inflater != null) {
+            mySpinner = inflater.inflate(R.layout.drop_downitem, parent, false);
+        }
+        TextView main_text = mySpinner.findViewById(R.id.name);
         main_text.setText(items.get(position).getName());
 
         return mySpinner;
     }
 
-    static class ViewHolder {
+    private class ViewHolder {
         public TextView name;
     }
-
-
 }

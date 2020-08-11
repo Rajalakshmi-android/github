@@ -87,9 +87,10 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
             holder.prod_offer_rate.setText(val);
             holder.orginal_rate.setText("");
         }
-
-
-        Picasso.with(getContext()).load(items.get(position).getImage()).into(holder.prdoct_img);
+        if (items.get(position).getImage().length()>0)
+         Picasso.with(getContext()).load(items.get(position).getImage()).into(holder.prdoct_img);
+        else
+            Picasso.with(context).load(R.mipmap.place_holder).into(holder.prdoct_img);
 
 
         if (from==1) {
@@ -98,7 +99,6 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
 
             } else {
                 holder.select.setVisibility(View.GONE);
-
             }
         }
         else
@@ -106,26 +106,16 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
             holder.select.setVisibility(View.GONE);
         }
 
-
         return alertView;
     }
 
 
-
     private  class ViewHolder {
-
         ImageView select;
         public TextView product_name;
         public TextView prod_offer_rate, orginal_rate;
         public ImageView prdoct_img;
-
-
     }
-
-
-
-
-
 }
 
 

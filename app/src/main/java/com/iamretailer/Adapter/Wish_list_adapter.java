@@ -13,19 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Common.Appconstatants;
+import com.iamretailer.Common.DBController;
+import com.iamretailer.POJO.ProductsPO;
 import com.iamretailer.R;
+import com.iamretailer.WishList;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
-
-import com.iamretailer.WishList;
-import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.DBController;
-import com.iamretailer.POJO.ProductsPO;
 
 import stutzen.co.network.Connection;
 
@@ -35,8 +33,8 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
     private Context context;
     private ArrayList<ProductsPO> items;
     private LayoutInflater mInflater;
-    private String cur_left ;
-    private String cur_right ;
+    private String cur_left;
+    private String cur_right;
 
     public Wish_list_adapter(Context context, int resource, ArrayList<ProductsPO> items) {
         super(context, resource, items);
@@ -45,15 +43,15 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         this.context = context;
         this.items = items;
         DBController dbController = new DBController(context);
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.CUR = dbController.getCurCode();
         cur_left = dbController.get_cur_Left();
-        cur_right= dbController.get_cur_Right();
+        cur_right = dbController.get_cur_Right();
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        LinearLayout alertView ;
+        LinearLayout alertView;
         holder = new ViewHolder();
         if (convertView == null) {
             convertView = mInflater.inflate(resource, null, true);
@@ -67,9 +65,9 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         holder.p_img = convertView.findViewById(R.id.prod_img);
         holder.p_price = convertView.findViewById(R.id.prod_price);
         holder.remove = convertView.findViewById(R.id.remove);
-        holder.cur_front= convertView.findViewById(R.id.cur_front);
-        holder.cur_back= convertView.findViewById(R.id.cur_back);
-        holder.line= convertView.findViewById(R.id.line);
+        holder.cur_front = convertView.findViewById(R.id.cur_front);
+        holder.cur_back = convertView.findViewById(R.id.cur_back);
+        holder.line = convertView.findViewById(R.id.line);
 
         holder.product_name.setText(items.get(position).getProduct_name());
         holder.p_price.setText(items.get(position).getOff_price());
@@ -81,17 +79,15 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
 
 
         if (items.get(position).getOff_price().equalsIgnoreCase("0")) {
-            String value=String.format("%.2f", items.get(position).getPrice());
+            String value = String.format("%.2f", items.get(position).getPrice());
             holder.p_price.setText(value);
             holder.cur_back.setText(cur_right);
             holder.cur_front.setText(cur_left);
-        }
-        else {
+        } else {
             holder.cur_back.setText("");
             holder.cur_front.setText("");
             holder.p_price.setText(items.get(position).getOff_price());
         }
-
 
 
         holder.remove.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +98,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
             }
         });
 
-        if(position==getCount()-1)
+        if (position == getCount() - 1)
             holder.line.setVisibility(View.GONE);
 
 
@@ -120,15 +116,12 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
     }
 
 
-
-
-
     private class DeleteTask extends AsyncTask<String, Void, String> {
         private ProgressDialog pDialog;
         int pos;
 
         DeleteTask(int position) {
-            pos=position;
+            pos = position;
         }
 
 
@@ -144,12 +137,12 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         @Override
         protected String doInBackground(String... param) {
 
-            String response ;
+            String response;
             try {
 
                 Connection connection = new Connection();
 
-                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,context);
+                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, context);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -168,7 +161,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
                     if (json.getInt("success") == 1) {
                         items.remove(pos);
                         notifyDataSetChanged();
-                        ((WishList)getContext()).wish_list();
+                        ((WishList) getContext()).wish_list();
                         Toast.makeText(context, R.string.dele_wish, Toast.LENGTH_SHORT).show();
 
                     } else {

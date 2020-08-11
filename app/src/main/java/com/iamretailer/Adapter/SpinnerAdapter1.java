@@ -59,7 +59,7 @@ public class SpinnerAdapter1 extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View mySpinner = inflater.inflate(R.layout.drop_downitem1, parent, false);
-        TextView main_text = (TextView) mySpinner.findViewById(R.id.name);
+        TextView main_text = mySpinner.findViewById(R.id.name);
         main_text.setText(items.get(position));
 
         if (position==3) {

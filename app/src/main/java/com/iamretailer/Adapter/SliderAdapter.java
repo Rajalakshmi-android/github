@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
 
 
 public class SliderAdapter extends PagerAdapter {
-    private Context context;
-    private ArrayList<String> imgurl;
+    private final Context context;
+    private final ArrayList<String> imgurl;
 
     public SliderAdapter(Context context, ArrayList<String> imgurl) {
         this.context = context;
@@ -37,19 +38,28 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
+    @NonNull
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public Object instantiateItem(ViewGroup container, final int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_slider, (ViewGroup)null,false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        View view = null;
+        if (inflater != null) {
+            view = inflater.inflate(R.layout.item_slider, null,false);
+        }
+        ImageView imageView = null;
+        if (view != null) {
+            imageView = view.findViewById(R.id.image);
+        }
         Log.d("img_sizeV", imgurl.get(position));
-        Picasso.with(view.getContext()).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
-
+        if (imgurl.get(position).length()>0)
+         Picasso.with(context).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
+        else
+            Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).noFade().into(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +79,7 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         ViewPager viewPager = (ViewPager) container;
         View view = (View) object;
         viewPager.removeView(view);

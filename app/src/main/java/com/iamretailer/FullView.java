@@ -90,7 +90,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);
-        pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist, 0);
+        pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist);
         horizontalListView.setAdapter(pointerAdapter);
         datalist.get(0).setImgSel(true);
 

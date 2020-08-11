@@ -11,22 +11,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import com.iamretailer.Allen;
-import com.iamretailer.Category_level;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.BrandsPO;
-import com.iamretailer.ProductFullView;
 import com.iamretailer.R;
 import com.logentries.android.AndroidLogger;
+
+import java.util.ArrayList;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -53,9 +49,8 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
     @Override
     public Sub_Category_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.sub_cat_list, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
 
-        return holder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -114,11 +109,11 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            arrow = (ImageView) itemView.findViewById(R.id.arrow);
-            arrow1 = (ImageView) itemView.findViewById(R.id.arrow1);
-            sub = (LinearLayout) itemView.findViewById(R.id.sub);
-            sub_product_list = (RecyclerView) itemView.findViewById(R.id.sub_product_list);
+            name = itemView.findViewById(R.id.name);
+            arrow = itemView.findViewById(R.id.arrow);
+            arrow1 = itemView.findViewById(R.id.arrow1);
+            sub = itemView.findViewById(R.id.sub);
+            sub_product_list = itemView.findViewById(R.id.sub_product_list);
 
         }
 
