@@ -36,28 +36,32 @@ import stutzen.co.network.Connection;
 
 
 public class Address extends Language {
-    EditText f_name, l_name, mobile, company, addressone, addressstwo, city, pincode;
-    FrameLayout cont;
-    Spinner state, country;
-    FrameLayout error_network;
-    LinearLayout retry;
-    ArrayList<CountryPO> country_list;
-    ArrayList<CountryPO> state_list;
-    DBController dbController;
+    private EditText f_name;
+    private EditText l_name;
+    private EditText mobile;
+    private EditText company;
+    private EditText addressone;
+    private EditText addressstwo;
+    private EditText city;
+    private EditText pincode;
+    private FrameLayout cont;
+    private Spinner state;
+    private Spinner country;
+    private FrameLayout error_network;
+    private ArrayList<CountryPO> country_list;
+    private ArrayList<CountryPO> state_list;
     private int from = 0;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    ProgressDialog pDialog1;
-    Bundle cc;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
+    private FrameLayout loading;
+    private ProgressDialog pDialog1;
+    private Bundle cc;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
     private String address_id = "";
-    AndroidLogger logger;
-    StateAdapter s_adapter;
-    CountryAdapter c_adapter;
-    int has_ship;
+    private AndroidLogger logger;
+    private StateAdapter s_adapter;
+    private int has_ship;
     private int add_ids = 0;
 
 
@@ -66,7 +70,7 @@ public class Address extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        dbController = new DBController(Address.this);
+        DBController dbController = new DBController(Address.this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         if (Appconstatants.sessiondata == null || Appconstatants.sessiondata.length() <= 0)
             Appconstatants.sessiondata = dbController.getSession();
@@ -93,11 +97,11 @@ public class Address extends Language {
         state = findViewById(R.id.state);
         country = findViewById(R.id.country);
         error_network = findViewById(R.id.error_network);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         LinearLayout back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.delivery_add);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         fullayout = findViewById(R.id.fullayout);
         cart_items.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
@@ -960,7 +964,7 @@ public class Address extends Language {
 
                             country_list.add(po);
                         }
-                         c_adapter = new CountryAdapter(Address.this, R.layout.country_row, country_list);
+                        CountryAdapter c_adapter = new CountryAdapter(Address.this, R.layout.country_row, country_list);
                         country.setAdapter(c_adapter);
 
                         if (from == 1) {

@@ -15,7 +15,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,11 +24,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +53,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -65,49 +61,39 @@ import stutzen.co.network.Connection;
 import static android.support.design.widget.TabLayout.OnClickListener;
 
 public class MainActivity extends Drawer {
-    LinearLayout cart_items;
-    DBController db;
-    public TextView cart_count;
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle toggle;
-    LinearLayout sidemenu;
-    FrameLayout drawerview;
+    private DBController db;
+    private TextView cart_count;
+    private DrawerLayout drawerLayout;
     private int backcount;
     private RecyclerView grid;
-    private ArrayList<BrandsPO> seller_list, cate_list2;
-    private BrandzAdapter adapter1;
+    private ArrayList<BrandsPO> seller_list;
     private FrameLayout fullayout;
     private ArrayList<BannerBo> banner_list;
     private ArrayList<BannerBo> banner2;
-    JazzyViewPager baner2;
+    private JazzyViewPager baner2;
     private ArrayList<ProductsPO> list;
-    RecyclerView horizontalListView;
-    RecyclerView best_selling_list;
-    FrameLayout loading;
-    TextView cart_count1;
+    private RecyclerView horizontalListView;
+    private RecyclerView best_selling_list;
+    private FrameLayout loading;
+    private TextView cart_count1;
     private ArrayList<ProductsPO> feat_list;
-    PageIndicatorView indicatorView;
-    LinearLayout search;
-    LinearLayout view_all_feat, view_all_best;
-    LinearLayout loading_bar;
-    int level = 0;
-    AndroidLogger logger;
-    TextView no_items, no_items1;
-    CommonAdapter bestAdapters;
+    private PageIndicatorView indicatorView;
+    private LinearLayout view_all_feat;
+    private LinearLayout view_all_best;
+    private LinearLayout loading_bar;
+    private int level = 0;
+    private AndroidLogger logger;
+    private TextView no_items;
+    private TextView no_items1;
+    private CommonAdapter bestAdapters;
     private ArrayList<SingleOptionPO> optionPOS;
-    CommonAdapter featuredProduct;
+    private CommonAdapter featuredProduct;
     private LoopingViewPager pager;
-    private ArrayList<ProductsPO> cart_item;
-    private GridLayoutManager mLayoutManager;
-    LinearLayout categ_preloader,most_preloader,newly_preloader;
-    private LinearLayout cate_bottom;
-    private LinearLayout contact;
-    private LinearLayout cart_bottom;
+    private LinearLayout categ_preloader;
+    private LinearLayout most_preloader;
+    private LinearLayout newly_preloader;
     private TextView cart_count_bot;
-    private LinearLayout deal_bottom;
-    private ArrayList<BrandsPO> seller_lists;
     private LinearLayout category;
-    private ArrayList<ProductsPO> productbO;
 
 
     @Override
@@ -130,10 +116,10 @@ public class MainActivity extends Drawer {
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         grid = findViewById(R.id.grid);
         fullayout = findViewById(R.id.fullayout);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         drawerLayout = findViewById(R.id.drawer);
-        sidemenu = findViewById(R.id.sidemenu);
-        drawerview = findViewById(R.id.drawerview);
+        LinearLayout sidemenu = findViewById(R.id.sidemenu);
+        FrameLayout drawerview = findViewById(R.id.drawerview);
         cart_count = findViewById(R.id.cart_count);
         horizontalListView = findViewById(R.id.features_list);
         best_selling_list = findViewById(R.id.best_selling_list);
@@ -141,7 +127,7 @@ public class MainActivity extends Drawer {
         loading = findViewById(R.id.loading);
         cart_count1 = findViewById(R.id.cart_count1);
         pager = findViewById(R.id.pager);
-        search = findViewById(R.id.search);
+        LinearLayout search = findViewById(R.id.search);
         indicatorView = findViewById(R.id.dots);
         view_all_feat = findViewById(R.id.view_all_feat);
         view_all_best = findViewById(R.id.view_all_best);
@@ -151,10 +137,10 @@ public class MainActivity extends Drawer {
         categ_preloader= findViewById(R.id.categ_preloader);
         most_preloader= findViewById(R.id.most_preloader);
         newly_preloader= findViewById(R.id.newly_preloader);
-        cate_bottom = findViewById(R.id.cate_bottom);
-        contact = findViewById(R.id.contact);
-        cart_bottom = findViewById(R.id.cart_bottom);
-        deal_bottom = findViewById(R.id.deal_bottom);
+        LinearLayout cate_bottom = findViewById(R.id.cate_bottom);
+        LinearLayout contact = findViewById(R.id.contact);
+        LinearLayout cart_bottom = findViewById(R.id.cart_bottom);
+        LinearLayout deal_bottom = findViewById(R.id.deal_bottom);
         cart_count_bot = findViewById(R.id.cart_count_bot);
         category = findViewById(R.id.category);
 
@@ -207,7 +193,7 @@ public class MainActivity extends Drawer {
         });
 
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -217,7 +203,7 @@ public class MainActivity extends Drawer {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        drawerview(drawerview, drawerLayout, MainActivity.this);
+        drawerview(drawerview, drawerLayout);
 
         grid.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -304,11 +290,9 @@ public class MainActivity extends Drawer {
                 } else {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 212);
                 }
-            } else {
-
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
 
@@ -438,6 +422,7 @@ public class MainActivity extends Drawer {
 
                             int size = arr.length();
                             Log.i("category size",arr.length()+"");
+                            ArrayList<BrandsPO> cate_list2;
                             if (size <= 3) {
                                 Log.i("tag","step11-----");
                                 for (int h = 0; h < arr.length(); h++) {
@@ -491,9 +476,9 @@ public class MainActivity extends Drawer {
                             }
 
                         }
-                        adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1,0,0);
+                        BrandzAdapter adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1, 0, 0);
                         grid.setAdapter(adapter1);
-                        mLayoutManager=new GridLayoutManager(MainActivity.this,4);
+                        GridLayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 4);
                         grid.setLayoutManager(mLayoutManager);
                         categ_preloader.setVisibility(View.GONE);
                         grid.setVisibility(View.VISIBLE);
@@ -676,7 +661,7 @@ public class MainActivity extends Drawer {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
                 try {
-                    seller_lists = new ArrayList<>();
+                    ArrayList<BrandsPO> seller_lists = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
@@ -701,9 +686,9 @@ public class MainActivity extends Drawer {
                                 }
                             }
                             category.removeAllViews();
-                            if(seller_lists!=null&&seller_lists.size()>0){
-                                for(int i=0;i<seller_lists.size();i++){
-                                    addLayoutss(seller_lists.get(i),category,i);
+                            if(seller_lists !=null&& seller_lists.size()>0){
+                                for(int i = 0; i< seller_lists.size(); i++){
+                                    addLayoutss(seller_lists.get(i),category);
                                 }
                             }else{
                                 category.setVisibility(View.GONE);
@@ -750,7 +735,7 @@ public class MainActivity extends Drawer {
         }
     }
 
-    private void addLayoutss(final BrandsPO brandsbo, LinearLayout payment_list, int pos) {
+    private void addLayoutss(final BrandsPO brandsbo, LinearLayout payment_list) {
         View convertView = LayoutInflater.from(this).inflate(R.layout.categlist, payment_list, false);
         TextView namess = convertView.findViewById(R.id.name);
         LinearLayout view_all = convertView.findViewById(R.id.view_all);
@@ -795,10 +780,12 @@ public class MainActivity extends Drawer {
 
 
     private class GetProductTask extends AsyncTask<String, Void, String> {
-        TextView no_proditem;
-        RecyclerView product_lists;
-        FrameLayout product_successs,product_loadings,no_network;
-        public GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading,FrameLayout no_net) {
+        final TextView no_proditem;
+        final RecyclerView product_lists;
+        final FrameLayout product_successs;
+        final FrameLayout product_loadings;
+        final FrameLayout no_network;
+        GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading, FrameLayout no_net) {
             no_proditem=no_proditems;
             product_lists=product_list;
             product_successs=product_success;
@@ -833,7 +820,7 @@ public class MainActivity extends Drawer {
             if (resp != null) {
 
                 try {
-                    productbO = new ArrayList<>();
+                    ArrayList<ProductsPO> productbO = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
@@ -854,7 +841,7 @@ public class MainActivity extends Drawer {
                                         bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                        bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                        bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         Log.i("jhfdgdhfg",dd+"dfddf");
                                         optionPOS = new ArrayList<>();
@@ -899,7 +886,7 @@ public class MainActivity extends Drawer {
                                         bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                        bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                        bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         optionPOS = new ArrayList<>();
                                         if (dd instanceof JSONArray) {
@@ -999,7 +986,7 @@ public class MainActivity extends Drawer {
             if (resp != null) {
 
                 try {
-                    cart_item = new ArrayList<>();
+                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -1027,7 +1014,7 @@ public class MainActivity extends Drawer {
                             cart_count_bot.setText(String.valueOf(qty));
                         }
 
-                        if (feat_list.size()>0 && feat_list!=null) {
+                        if (feat_list!=null && feat_list.size()>0  ) {
                             for (int u = 0; u < feat_list.size(); u++) {
                                 for (int h = 0; h < cart_item.size(); h++) {
                                     if (Integer.parseInt(feat_list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -1043,7 +1030,7 @@ public class MainActivity extends Drawer {
                             featuredProduct.notifyDataSetChanged();
                         }
 
-                        if (list.size()>0 && list!=null) {
+                        if (list!=null  && list.size()>0 ) {
                             for (int u = 0; u < list.size(); u++) {
                                 for (int h = 0; h < cart_item.size(); h++) {
                                     if (Integer.parseInt(list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -1086,56 +1073,27 @@ public class MainActivity extends Drawer {
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
 
-        try {
-            Field mScroller;
-            android.view.animation.Interpolator sInterpolator = new DecelerateInterpolator();
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(pager.getContext(), sInterpolator);
-            mScroller.set(pager, scroller);
-        } catch (NoSuchFieldException e) {
-
-        } catch (IllegalArgumentException e) {
-
-        } catch (IllegalAccessException e) {
-
-        }
 
 
     }
 
-    private void banner2(JazzyViewPager.TransitionEffect effect) {
+    private void banner2() {
 
         baner2.setAdapter(new MainAdapter2());
-        baner2.setTransitionEffect(effect);
+        baner2.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
         //baner2.setPageMargin(30);
 
-        try {
-            Field mScroller;
-            android.view.animation.Interpolator sInterpolator = new DecelerateInterpolator();
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(baner2.getContext(), sInterpolator);
-            mScroller.set(baner2, scroller);
-        } catch (NoSuchFieldException e) {
-
-        } catch (IllegalArgumentException e) {
-
-        } catch (IllegalAccessException e) {
-
-        }
     }
 
 
     private class MainAdapter2 extends PagerAdapter {
+        @NonNull
         @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
+        public Object instantiateItem(@NonNull ViewGroup container, final int position) {
             final ImageView imgDisplay;
-
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.banner_roundview2, container, false);
             imgDisplay = viewLayout.findViewById(R.id.browsebackground);
-
             LinearLayout banner= viewLayout.findViewById(R.id.banners);
             banner.setOnClickListener(new OnClickListener() {
                 @Override
@@ -1164,7 +1122,7 @@ public class MainActivity extends Drawer {
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object obj) {
+        public void destroyItem(@NonNull ViewGroup container, int position,@NonNull Object obj) {
             container.removeView(baner2.findViewFromObject(position));
         }
 
@@ -1174,7 +1132,7 @@ public class MainActivity extends Drawer {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object obj) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object obj) {
             if (view instanceof OutlineContainer) {
                 return ((OutlineContainer) view).getChildAt(0) == obj;
             } else {
@@ -1183,26 +1141,6 @@ public class MainActivity extends Drawer {
         }
     }
 
-    public class FixedSpeedScroller extends Scroller {
-
-        private int mDuration = 1000;
-
-
-        public FixedSpeedScroller(Context context, android.view.animation.Interpolator interpolator) {
-            super(context, interpolator);
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy) {
-
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-    }
 
     private class FEATURE_TASK extends AsyncTask<String, Void, String> {
 
@@ -1258,7 +1196,7 @@ public class MainActivity extends Drawer {
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getInt("rating"));
                                     bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
                                     bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
-                                    bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                    bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
 
                                     Object dd = obj.get("option");
@@ -1404,7 +1342,7 @@ public class MainActivity extends Drawer {
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                     bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
                                     bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
-                                    bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                    bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
                                     Object dd = obj.get("option");
                                     optionPOS = new ArrayList<>();
@@ -1459,7 +1397,7 @@ public class MainActivity extends Drawer {
                             view_all_best.setVisibility(View.GONE);
 
                         }
-                        banner2(JazzyViewPager.TransitionEffect.Standard);
+                        banner2();
 
                         FEATURE_TASK feature_task = new FEATURE_TASK();
                         feature_task.execute(Appconstatants.Feature_api + "&limit=5");

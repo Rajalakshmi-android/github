@@ -31,32 +31,30 @@ import java.util.ArrayList;
 import stutzen.co.network.Connection;
 
 public class FullView extends Language implements Imagefragment.OnFragmentInteractionListener {
-    HorizontalListView horizontalListView;
-    ViewPager viewPager;
-    PagerAdapter pagerAdapter;
-    PointerAdapter pointerAdapter;
+    private HorizontalListView horizontalListView;
+    private ViewPager viewPager;
+    private PointerAdapter pointerAdapter;
     private ArrayList<ImgBo> datalist;
-    Bundle bundle;
-    ArrayList<String> img;
-    TextView cart_count;
-    AndroidLogger logger;
-    DBController dbController;
+    private ArrayList<String> img;
+    private TextView cart_count;
+    private AndroidLogger logger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_view);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        bundle = new Bundle();
+        Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
         if (bundle != null) {
             img = bundle.getStringArrayList("url");
         }
 
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        dbController=new DBController(FullView.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
+        DBController dbController = new DBController(FullView.this);
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.CUR= dbController.getCurCode();
         LinearLayout menu = findViewById(R.id.menu);
         horizontalListView = findViewById(R.id.horizlist);
         cart_count= findViewById(R.id.cart_count);
@@ -87,10 +85,10 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         });
 
         viewPager = findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);
-        pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist);
+        pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist, 0);
         horizontalListView.setAdapter(pointerAdapter);
         datalist.get(0).setImgSel(true);
 

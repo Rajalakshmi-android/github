@@ -26,12 +26,12 @@ import stutzen.co.network.Connection;
 
 public class ChangePassword extends Language {
 
-    FrameLayout change_pwd;
-    EditText pass1, pass2;
-    DBController db;
-    FrameLayout fullayout;
-    AndroidLogger logger;
-    TextView login_page;
+    private FrameLayout change_pwd;
+    private EditText pass1;
+    private EditText pass2;
+    private DBController db;
+    private FrameLayout fullayout;
+    private AndroidLogger logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class ChangePassword extends Language {
         pass1 = findViewById(R.id.pwd1);
         pass2 = findViewById(R.id.pwd2);
         fullayout = findViewById(R.id.fullayout);
-        login_page = findViewById(R.id.login_page);
+        TextView login_page = findViewById(R.id.login_page);
         LinearLayout home = findViewById(R.id.home);
 
 

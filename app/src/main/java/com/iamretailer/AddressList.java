@@ -31,28 +31,23 @@ import stutzen.co.network.Connection;
 
 public class AddressList extends Language {
 
-    LinearLayout back;
-    FrameLayout loading, error_network;
-    LinearLayout  add_new_address;
-    AndroidLogger logger;
-    String address_id = "";
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    LinearLayout retry;
-    ArrayList<AddressPO> addressPOS;
-    ListView address_list;
-    AddressAdapter addressAdapter;
-    ProgressDialog pDialog1;
-    int from;
-    Bundle cc;
-    int pos;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout cont;
-    DBController dbController;
-    int has_ship;
-    TextView no_address;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private AndroidLogger logger;
+    private String address_id = "";
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
+    private ArrayList<AddressPO> addressPOS;
+    private ListView address_list;
+    private AddressAdapter addressAdapter;
+    private ProgressDialog pDialog1;
+    private int from;
+    private int pos;
+    private FrameLayout cont;
+    private int has_ship;
+    private TextView no_address;
     private TextView cart_count;
 
     @Override
@@ -61,22 +56,22 @@ public class AddressList extends Language {
         setContentView(R.layout.activity_address_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = findViewById(R.id.menu);
+        LinearLayout back = findViewById(R.id.menu);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
         cont = findViewById(R.id.cont);
-        add_new_address = findViewById(R.id.add_new_address);
+        LinearLayout add_new_address = findViewById(R.id.add_new_address);
         fullayout = findViewById(R.id.fullayout);
         loading_bar = findViewById(R.id.loading_bar);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         address_list = findViewById(R.id.address_list);
-        header= findViewById(R.id.header);
+        TextView header = findViewById(R.id.header);
         no_address= findViewById(R.id.no_address);
-        dbController = new DBController(getApplicationContext());
+        DBController dbController = new DBController(getApplicationContext());
 
-        cart_items= findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_count= findViewById(R.id.cart_count);
 
         cart_items.setOnClickListener(new View.OnClickListener() {
@@ -87,14 +82,13 @@ public class AddressList extends Language {
         });
 
 
-        cc = new Bundle();
-        cc = getIntent().getExtras();
+        Bundle cc = getIntent().getExtras();
         from= cc != null ? cc.getInt("from") : 0;
-        has_ship=cc.getInt("has_ship");
+        has_ship= cc != null ? cc.getInt("has_ship"):0;
         Log.d("asdad",from+"");
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.CUR=dbController.getCurCode();
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.CUR= dbController.getCurCode();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,7 +211,7 @@ public class AddressList extends Language {
         cartTask.execute(Appconstatants.cart_api);
     }
 
-    public class CartTask extends AsyncTask<String, Void, String> {
+    class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {

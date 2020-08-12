@@ -32,38 +32,41 @@ import stutzen.co.network.Connection;
 
 public class Allen extends Language {
     private RecyclerView category;
-    CommonAdapter adapter;
-    ArrayList<ProductsPO> list;
-    TextView product_count;
-    LinearLayout cart_items;
-    DBController db;
-    public TextView cart_count;
-    Bundle bundle;
-    FrameLayout prog_sec;
-    LinearLayout menu;
-    FrameLayout error_network;
-    LinearLayout retry;
-    LinearLayout sort;
+    private CommonAdapter adapter;
+    private ArrayList<ProductsPO> list;
+    private TextView product_count;
+    private LinearLayout cart_items;
+    private DBController db;
+    private TextView cart_count;
+    private Bundle bundle;
+    private FrameLayout prog_sec;
+    private LinearLayout menu;
+    private FrameLayout error_network;
+    private LinearLayout retry;
+    private LinearLayout sort;
     private TextView sort_name;
     private String sort_option = "";
     private String sort_order = "";
     private int cat_id;
-    TextView no_items;
-    FrameLayout loading;
+    private TextView no_items;
+    private FrameLayout loading;
     private int start = 1, limit = 10;
-    LinearLayout load_more;
-    int val = 0;
-    TextView header;
-    FrameLayout fullayout;
-    ArrayList<SingleOptionPO> optionPOS;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
+    private LinearLayout load_more;
+    private int val = 0;
+    private TextView header;
+    private FrameLayout fullayout;
+    private ArrayList<SingleOptionPO> optionPOS;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
+    private AndroidLogger logger;
     private ArrayList<ProductsPO> fav_item;
     private ArrayList<ProductsPO> cart_item;
     private boolean loadin = false;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-    GridLayoutManager mLayoutManager;
+    private int firstVisibleItem;
+    private int visibleItemCount;
+    private int totalItemCount;
+    private GridLayoutManager mLayoutManager;
 
 
     @Override
@@ -551,7 +554,7 @@ public class Allen extends Language {
 
 
                             cart_count.setText(String.valueOf(qty));
-                            if (list.size() > 0 && list != null) {
+                            if (list != null && list.size() > 0 ) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < cart_item.size(); h++) {
                                         if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -643,8 +646,6 @@ public class Allen extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-
             }
         }
     }

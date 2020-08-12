@@ -20,7 +20,6 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -69,28 +68,25 @@ import stutzen.co.network.Connection;
 
 public class Login extends Language implements GoogleApiClient.OnConnectionFailedListener {
 
-    TextView register, forget;
-    FrameLayout login;
-    EditText username, password;
-    DBController db;
-    String cus_id;
+    private FrameLayout login;
+    private EditText username;
+    private EditText password;
+    private DBController db;
+    private String cus_id;
     private int from;
-    Dialog open;
-    LinearLayout fullayout;
-    View popup;
-    LinearLayout guest;
-    AndroidLogger logger;
+    private Dialog open;
+    private LinearLayout fullayout;
+    private View popup;
+    private AndroidLogger logger;
     private CallbackManager callbackManager;
-    LoginButton loginButton;
-    SignInButton signInButton;
+    private LoginButton loginButton;
     private GoogleSignInClient googleSignInClient;
-    LinearLayout facebook, gmail_login;
     private GoogleApiClient mGoogleApiClient;
-    int has_ship;
+    private int has_ship;
     private ProgressDialog pDialog;
-    LinearLayout pass;
-    ImageView hide, show;
-    FrameLayout submit;
+    private ImageView hide;
+    private ImageView show;
+    private FrameLayout submit;
 
 
     @Override
@@ -99,23 +95,23 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         setContentView(R.layout.login);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        register = findViewById(R.id.registor);
+        TextView register = findViewById(R.id.registor);
 
-        forget = findViewById(R.id.forget_pass);
+        TextView forget = findViewById(R.id.forget_pass);
         login = findViewById(R.id.login);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         fullayout = findViewById(R.id.fullayout);
-        guest = findViewById(R.id.guest);
+        LinearLayout guest = findViewById(R.id.guest);
         db = new DBController(Login.this);
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
-        facebook = findViewById(R.id.facebook);
-        gmail_login = findViewById(R.id.gmail_login);
+        LinearLayout facebook = findViewById(R.id.facebook);
+        LinearLayout gmail_login = findViewById(R.id.gmail_login);
 
         loginButton = findViewById(R.id.login_button);
-        pass = findViewById(R.id.pass);
+        LinearLayout pass = findViewById(R.id.pass);
         hide = findViewById(R.id.hide);
         show = findViewById(R.id.show);
 
@@ -131,7 +127,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
         String serverClientId = getString(R.string.server_client_id);
 
-        signInButton = findViewById(R.id.sign_in_button);
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 //    .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
                 .requestServerAuthCode(serverClientId)
@@ -331,17 +327,11 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         cus_id = jsonObject.isNull("customer_id") ? "" : jsonObject.getString("customer_id");
-                        String cus_grp_id = jsonObject.isNull("customer_group_id") ? "" : jsonObject.getString("customer_group_id");
-                        String cus_store = jsonObject.isNull("store_id") ? "" : jsonObject.getString("store_id");
-                        String cus_lang = jsonObject.isNull("language_id") ? "" : jsonObject.getString("language_id");
+
                         String cus_f_name = jsonObject.isNull("firstname") ? "" : jsonObject.getString("firstname");
                         String cus_l_name = jsonObject.isNull("lastname") ? "" : jsonObject.getString("lastname");
                         String cus_email = jsonObject.isNull("email") ? "" : jsonObject.getString("email");
                         String cus_mobile = jsonObject.isNull("telephone") ? "" : jsonObject.getString("telephone");
-                        String cus_add_id = jsonObject.isNull("address_id") ? "" : jsonObject.getString("address_id");
-                        String cus_wish = jsonObject.isNull("wishlist_total") ? "" : jsonObject.getString("wishlist_total");
-                        String cus_msg = jsonObject.isNull("message") ? "" : jsonObject.getString("message");
-                        int cus_cart_count = jsonObject.getInt("cart_count_products");
                         Toast.makeText(Login.this, "User Logged In", Toast.LENGTH_SHORT).show();
                         db.user_data(cus_id, cus_f_name + " " + cus_l_name, cus_email, cus_mobile);
                         if (from == 2) {
@@ -398,10 +388,10 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
     }
 
-    public void showpopup() {
+    private void showpopup() {
         open = new Dialog(Login.this);
         open.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup = getLayoutInflater().inflate(R.layout.forgot_password, (ViewGroup)null,false);
+        popup = getLayoutInflater().inflate(R.layout.forgot_password, null,false);
         TextView gologin = popup.findViewById(R.id.gologin);
         submit = popup.findViewById(R.id.submit);
         final EditText username = popup.findViewById(R.id.username);
@@ -538,10 +528,12 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 // final String token = GoogleAuthUtil.getToken(Login.this, account, "");
-                Toast.makeText(Login.this, account.getEmail() + "", Toast.LENGTH_LONG).show();
-                Log.d("error_124", "signInResult:failed code=m" + account.getEmail() + "");
-                Log.d("error_token", "signInResult:failed code=id" + account.getIdToken() + "");
-                Log.d("error_124", "signInResult:failed code=seid" + account.getServerAuthCode() + "");
+                if(account!=null) {
+                    Toast.makeText(Login.this, account.getEmail() + "", Toast.LENGTH_LONG).show();
+                    Log.d("error_124", "signInResult:failed code=m" + account.getEmail() + "");
+                    Log.d("error_token", "signInResult:failed code=id" + account.getIdToken() + "");
+                    Log.d("error_124", "signInResult:failed code=seid" + account.getServerAuthCode() + "");
+                }
                 //SocialLogin socialLogin = new SocialLogin();
                 //socialLogin.execute("google", account.getIdToken(), account.getEmail());
 
@@ -556,27 +548,30 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 Toast.makeText(Login.this, "error", Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == 1) {
-            int fromm = data.getExtras().getInt("from");
-            if (fromm == 2) {
-                Intent intent = new Intent(Login.this, Address.class);
-                intent.putExtra("from", 2);
-                intent.putExtra("has_ship", has_ship);
-                startActivity(intent);
-                finish();
-            } else if (fromm == 1) {
-                Intent intent = new Intent(Login.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else if (fromm == 3) {
-                Intent intent = new Intent(Login.this, MyOrders.class);
-                startActivity(intent);
-                finish();
-            } else if (fromm == 4) {
-                finish();
-            } else if (fromm == 5) {
-                Intent intent = new Intent(Login.this, MyProfile.class);
-                startActivity(intent);
-                finish();
+            if(data.getExtras()!=null) {
+                int fromm = data.getExtras().getInt("from");
+                if (fromm == 2) {
+                    Intent intent = new Intent(Login.this, Address.class);
+                    intent.putExtra("from", 2);
+                    intent.putExtra("has_ship", has_ship);
+                    startActivity(intent);
+                    finish();
+                } else if (fromm == 1) {
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (fromm == 3) {
+                    Intent intent = new Intent(Login.this, MyOrders.class);
+                    startActivity(intent);
+                    finish();
+                } else if (fromm == 4) {
+                    finish();
+                } else if (fromm == 5) {
+                    Intent intent = new Intent(Login.this, MyProfile.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         }
     }
@@ -595,10 +590,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                             Log.d("last_name exp", e.toString() + "");
                         }
                         try {
-                            String first_name = object.getString("first_name");
-                            String last_name = object.getString("last_name");
+
                             String email = object.getString("email");
-                            String id = object.getString("id");
 
 
                             AccessToken token = AccessToken.getCurrentAccessToken();
@@ -674,17 +667,10 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         cus_id = jsonObject.isNull("customer_id") ? "" : jsonObject.getString("customer_id");
-                        String cus_grp_id = jsonObject.isNull("customer_group_id") ? "" : jsonObject.getString("customer_group_id");
-                        String cus_store = jsonObject.isNull("store_id") ? "" : jsonObject.getString("store_id");
-                        String cus_lang = jsonObject.isNull("language_id") ? "" : jsonObject.getString("language_id");
                         String cus_f_name = jsonObject.isNull("firstname") ? "" : jsonObject.getString("firstname");
                         String cus_l_name = jsonObject.isNull("lastname") ? "" : jsonObject.getString("lastname");
                         String cus_email = jsonObject.isNull("email") ? "" : jsonObject.getString("email");
                         String cus_mobile = jsonObject.isNull("telephone") ? "" : jsonObject.getString("telephone");
-                        String cus_add_id = jsonObject.isNull("address_id") ? "" : jsonObject.getString("address_id");
-                        String cus_wish = jsonObject.isNull("wishlist_total") ? "" : jsonObject.getString("wishlist_total");
-                        String cus_msg = jsonObject.isNull("message") ? "" : jsonObject.getString("message");
-                        //   int cus_cart_count = jsonObject.getInt("cart_count_products");
                         Toast.makeText(Login.this, "User Logged In", Toast.LENGTH_SHORT).show();
                         db.user_data(cus_id, cus_f_name + " " + cus_l_name, cus_email, cus_mobile);
                         if (from == 2) {
@@ -827,14 +813,11 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
             //Toast.makeText(this, "Already Logged In", Toast.LENGTH_SHORT).show();
             googleSignInClient.signOut();
             //onLoggedIn(alreadyloggedAccount);
-        } else {
-            //Log.d(TAG, "Not logged in");
         }
 
     }
 
     public String AccessToken() {
-        String accessToken = "";
         StringBuilder strBuild = new StringBuilder();
 
         String authURL = "https://accounts.google.com/o/oauth2/token?";

@@ -34,23 +34,21 @@ import stutzen.co.network.Connection;
 
 public class Category_level extends Language {
 
-    LinearLayout back, cart_items;
-    TextView header, cart_count;
-    RecyclerView main_list;
-    ArrayList<BrandsPO> cate_list, cate_list2, cate_list3;
-    BrandzAdapter adapter1;
-    FrameLayout loading, error_network, fullayout;
-    TextView errortxt1, errortxt2;
-    RecyclerView sub_cat_list;
-    Sub_Category_Adapter categoryAdapter;
-    TextView cat_name;
-    LinearLayout loading_bar;
-    LinearLayout retry;
-    int lis_pos = 0;
-    AndroidLogger logger;
-    Bundle bundle;
-    int pos;
-    DBController controller;
+    private TextView cart_count;
+    private RecyclerView main_list;
+    private ArrayList<BrandsPO> cate_list;
+    private BrandzAdapter adapter1;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private RecyclerView sub_cat_list;
+    private Sub_Category_Adapter categoryAdapter;
+    private TextView cat_name;
+    private LinearLayout loading_bar;
+    private AndroidLogger logger;
+    private int pos;
     private int width;
     private int height;
 
@@ -61,9 +59,9 @@ public class Category_level extends Language {
         setContentView(R.layout.activity_category_level);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_count = findViewById(R.id.cart_count);
         main_list = findViewById(R.id.main_cat_list);
         loading = findViewById(R.id.loading);
@@ -74,17 +72,15 @@ public class Category_level extends Language {
         sub_cat_list = findViewById(R.id.sub_cat_list);
         cat_name = findViewById(R.id.cat_name);
         loading_bar = findViewById(R.id.loading_bar);
-        retry = findViewById(R.id.retry);
-        controller = new DBController(Category_level.this);
+        LinearLayout retry = findViewById(R.id.retry);
+        DBController controller = new DBController(Category_level.this);
         Appconstatants.sessiondata = controller.getSession();
         Appconstatants.Lang = controller.get_lang_code();
         Appconstatants.CUR = controller.getCurCode();
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             pos = bundle.getInt("pos");
         }
-        lis_pos = pos;
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
@@ -110,7 +106,6 @@ public class Category_level extends Language {
             @Override
             public void onItemClick(View view, int position) {
 
-                lis_pos = position;
                 cat_name.setText(cate_list.get(position).getStore_name());
                 for (int j = 0; j < cate_list.size(); j++) {
                     cate_list.get(j).setSelect(false);
@@ -201,7 +196,7 @@ public class Category_level extends Language {
                             bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
 
                             JSONArray array = obj.getJSONArray("categories");
-                            cate_list2 = new ArrayList<>();
+                            ArrayList<BrandsPO> cate_list2 = new ArrayList<>();
                             for (int g = 0; g < array.length(); g++) {
                                 JSONObject object = array.getJSONObject(g);
                                 BrandsPO po = new BrandsPO();
@@ -210,7 +205,7 @@ public class Category_level extends Language {
                                 po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
 
                                 JSONArray array1 = object.getJSONArray("categories");
-                                cate_list3 = new ArrayList<>();
+                                ArrayList<BrandsPO> cate_list3 = new ArrayList<>();
                                 for (int i = 0; i < array1.length(); i++) {
                                     JSONObject object1 = array1.getJSONObject(i);
                                     BrandsPO po1 = new BrandsPO();
@@ -231,7 +226,7 @@ public class Category_level extends Language {
 
                         }
 
-                        adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2);
+                        adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2, width, height);
                         main_list.setAdapter(adapter1);
                         main_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                         cat_name.setText(cate_list.get(pos).getStore_name());

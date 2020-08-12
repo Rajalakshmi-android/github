@@ -33,21 +33,16 @@ import stutzen.co.network.Connection;
 
 public class Category extends Language {
 
-    RecyclerView cat_list;
-    ArrayList<BrandsPO> cate_list;
-    BrandzAdapter adapter1;
-    FrameLayout rootlay;
-    TextView cart_count;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    TextView header;
-    LinearLayout menu;
-    FrameLayout error_network;
-    LinearLayout retry;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
-    DBController dbController;
+    private RecyclerView cat_list;
+    private ArrayList<BrandsPO> cate_list;
+    private FrameLayout rootlay;
+    private TextView cart_count;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
+    private AndroidLogger logger;
     private int width;
     private int height;
 
@@ -58,22 +53,22 @@ public class Category extends Language {
         setContentView(R.layout.activity_category);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        dbController = new DBController(Category.this);
+        DBController dbController = new DBController(Category.this);
         Appconstatants.sessiondata = dbController.getSession();
         Appconstatants.Lang = dbController.get_lang_code();
         Appconstatants.CUR = dbController.getCurCode();
         cat_list = findViewById(R.id.cat_list);
         rootlay = findViewById(R.id.rootlay);
         cart_count = findViewById(R.id.cart_count);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         loading = findViewById(R.id.loading);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         Cat_Task cat_task = new Cat_Task();
         cat_task.execute(Appconstatants.CAT_LIST);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        header = findViewById(R.id.header);
-        menu = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout menu = findViewById(R.id.menu);
         error_network = findViewById(R.id.error_network);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
@@ -165,7 +160,7 @@ public class Category extends Language {
 
                         }
 
-                        adapter1 = new BrandzAdapter(Category.this, cate_list, 2);
+                        BrandzAdapter adapter1 = new BrandzAdapter(Category.this, cate_list, 2, width, height);
                         cat_list.setAdapter(adapter1);
                         cat_list.setLayoutManager(new GridLayoutManager(Category.this, 3));
                         loading.setVisibility(View.GONE);

@@ -2,7 +2,6 @@ package com.iamretailer;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -50,37 +49,32 @@ import stutzen.co.network.Connection;
 
 public class Drawer extends Language {
 
-    LinearLayout myorders;
+    private LinearLayout myorders;
     TextView login;
     TextView email;
     DBController dbCon;
-    LinearLayout callus;
-    LinearLayout gorateus;
-    LinearLayout goshare;
+    private LinearLayout callus;
+    private LinearLayout gorateus;
+    private LinearLayout goshare;
     LinearLayout gologout;
-    LinearLayout home;
-    LinearLayout home1;
+    private LinearLayout home1;
     LinearLayout wish;
-    TextView cart_count1;
+    private TextView cart_count1;
     LinearLayout change_pwd;
-    LinearLayout track_order;
-    LinearLayout my_profile;
-    FrameLayout user;
-    AndroidLogger logger;
+    private LinearLayout track_order;
+    private LinearLayout my_profile;
+    private AndroidLogger logger;
     LinearLayout address;
-    LinearLayout language;
-    ArrayList<LangPO> langs;
-    ArrayList<CurPO> curs;
-    LangAdapter langAdapter;
-    CurAdapter curAdapter;
-    ListView lang_list;
-    ListView cur_list;
-    int pos=0;
-    LinearLayout wallet;
-    LinearLayout store;
-    LinearLayout aboutus;
-    LinearLayout currency;
-    TextView title;
+    private LinearLayout language;
+    private ArrayList<LangPO> langs;
+    private ArrayList<CurPO> curs;
+    private LangAdapter langAdapter;
+    private CurAdapter curAdapter;
+    private int pos=0;
+    private LinearLayout wallet;
+    private LinearLayout store;
+    private LinearLayout aboutus;
+    private LinearLayout currency;
 
 
     @Override
@@ -95,11 +89,10 @@ public class Drawer extends Language {
 
     }
 
-    public void drawerview(FrameLayout view, final DrawerLayout layout, Context context){
+    public void drawerview(FrameLayout view, final DrawerLayout layout){
 
         login =(TextView)view.findViewById(R.id.loginview);
         myorders =(LinearLayout) view.findViewById(R.id.myorders);
-      /*  my_cart =(LinearLayout) view.findViewById(R.id.my_cart);*/
         callus = (LinearLayout)view. findViewById(R.id.callus);
         gorateus = (LinearLayout)view. findViewById(R.id.gorateus);
         goshare = (LinearLayout)view. findViewById(R.id.goshare);
@@ -118,12 +111,11 @@ public class Drawer extends Language {
         store=(LinearLayout)view.findViewById(R.id.store);
         aboutus=(LinearLayout)view.findViewById(R.id.aboutus);
         currency=(LinearLayout)view.findViewById(R.id.currency);
-        title=(TextView)view.findViewById(R.id.title);
+        TextView title = (TextView) view.findViewById(R.id.title);
         String s1=getResources().getString( R.string.about);
         String s2=getResources().getString(R.string.app_name);
         String s3=s1 + " " + s2;
         title.setText(s3);
-        title.setText(s1+" "+s2);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
         if(dbCon.getLoginCount()>0){
@@ -169,17 +161,17 @@ public class Drawer extends Language {
 
         layout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(@NonNull View drawerView) {
 
             }
 
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerClosed(@NonNull View drawerView) {
 
             }
 
@@ -269,10 +261,7 @@ public class Drawer extends Language {
                     intent.putExtra("from", 1);
                     startActivity(intent);
                 }
-                else
-                {
 
-                }
             }
         });
         wallet.setOnClickListener(new View.OnClickListener() {
@@ -443,7 +432,7 @@ public class Drawer extends Language {
 
         LinearLayout no = (LinearLayout) popUpView.findViewById(R.id.no);
         LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
-        lang_list=(ListView)popUpView.findViewById(R.id.lang_list);
+        ListView lang_list = (ListView) popUpView.findViewById(R.id.lang_list);
         langs=dbCon.get_lan_list();
         Log.i("tag","fgdfngdkfgndfkg "+langs.size());
         langAdapter=new LangAdapter(Drawer.this,R.layout.lang_list,langs);
@@ -499,7 +488,7 @@ public class Drawer extends Language {
         });
     }
 
-    public void change_lang(String languageToLoad) {
+    private void change_lang(String languageToLoad) {
 
         ArrayList<String> lang_list= LanguageList.getLang_list();
         String set_lan="en";
@@ -528,7 +517,7 @@ public class Drawer extends Language {
 
 
 
-    public void showLogoutPopup() {
+    private void showLogoutPopup() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);
         View popUpView = getLayoutInflater().inflate(R.layout.logout_view, (ViewGroup)null,false);
         LinearLayout happy = (LinearLayout) popUpView.findViewById(R.id.happy);
@@ -701,7 +690,7 @@ public class Drawer extends Language {
 
         LinearLayout no = (LinearLayout) popUpView.findViewById(R.id.no);
         LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
-        cur_list=(ListView)popUpView.findViewById(R.id.cur_list);
+        ListView cur_list = (ListView) popUpView.findViewById(R.id.cur_list);
         curs=dbCon.get_cur_list();
         curAdapter=new CurAdapter(Drawer.this,R.layout.lang_list,curs);
         cur_list.setAdapter(curAdapter);

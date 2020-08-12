@@ -15,11 +15,11 @@ import com.iamretailer.Common.Validation;
 
 
 public class GuestCheckout extends Language {
-    FrameLayout cont;
-    EditText f_name,l_name,email,mobile;
-    DBController db;
-    TextView login;
-    int has_ship;
+    private EditText f_name;
+    private EditText l_name;
+    private EditText email;
+    private EditText mobile;
+    private int has_ship;
 
 
     @Override
@@ -27,18 +27,18 @@ public class GuestCheckout extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_checkout);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        db=new DBController(GuestCheckout.this);
-        Appconstatants.sessiondata=db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
+        DBController db = new DBController(GuestCheckout.this);
+        Appconstatants.sessiondata= db.getSession();
+        Appconstatants.Lang= db.get_lang_code();
         f_name= findViewById(R.id.f_name);
         l_name= findViewById(R.id.l_name);
         email= findViewById(R.id.mail_id);
         mobile= findViewById(R.id.mobile);
-        login= findViewById(R.id.login);
+        TextView login = findViewById(R.id.login);
 
         has_ship=getIntent().getIntExtra("has_ship",1);
 
-        cont= findViewById(R.id.cont);
+        FrameLayout cont = findViewById(R.id.cont);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

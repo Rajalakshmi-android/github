@@ -1,6 +1,5 @@
 package com.iamretailer;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -45,22 +44,21 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 import stutzen.co.network.Connection;
 
 public class ConfirmOrder extends Language {
 
-    LinearLayout place_list;
-    FrameLayout order;
-    LinearLayout back, add_edit;
-    TextView cus_name, cus_address_one, cus_address_two, cus_mobile;
-    FrameLayout error_network;
-    LinearLayout retry;
-    ArrayList<PlacePO> list;
-    ArrayList<PlacePO> totals;
+    private LinearLayout place_list;
+    private FrameLayout order;
+    private TextView cus_name;
+    private TextView cus_address_one;
+    private TextView cus_address_two;
+    private TextView cus_mobile;
+    private FrameLayout error_network;
+    private ArrayList<PlacePO> totals;
     private String orderid;
-    private String pay_type;
     private LinearLayout total_list;
     private String fname;
     private String lname;
@@ -74,44 +72,40 @@ public class ConfirmOrder extends Language {
     private String pay, mobile;
     private FrameLayout success;
     private DBController db;
-    //  private TextView phone;
-    TextView header;
-    LinearLayout cart_items;
-    TextView country_name;
-    TextView subtotal;
-    FrameLayout loading;
-    TextView payment;
-    TextView phone;
-    TextView flat_shipping;
-    FrameLayout fullayout;
+    private TextView country_name;
+    private TextView subtotal;
+    private FrameLayout loading;
+    private TextView phone;
+    private FrameLayout fullayout;
 
-    TextView errortxt1, errortxt2;
-    String cur_left = "";
-    String cur_right = "";
-    LinearLayout loading_bar;
-    LinearLayout promo_code;
-    String address_id;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String cur_left = "";
+    private String cur_right = "";
+    private LinearLayout loading_bar;
+    private String address_id;
 
-    AndroidLogger logger;
-    String order_id = "";
-    String shipping;
-    double pay_tot = 0.00;
-    ImageView promo_tag, promo_circle;
-    TextView promo_text;
+    private AndroidLogger logger;
+    private String order_id = "";
+    private double pay_tot = 0.00;
+    private ImageView promo_tag;
+    private ImageView promo_circle;
+    private TextView promo_text;
 
     //Paypal integration need -->Request code and Client Id
 
     //Paypal
-    public static final int PAYPAL_REQUEST_CODE = 123;
+    private static final int PAYPAL_REQUEST_CODE = 123;
 
     // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
     // or live (ENVIRONMENT_PRODUCTION)
-    private static PayPalConfiguration config = new PayPalConfiguration()
+    private static final PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
     private Double wallet_amount = 0.00;
     private int from;
     private TextView w_amount;
+
     //------paypal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,61 +121,60 @@ public class ConfirmOrder extends Language {
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();
         order = findViewById(R.id.order);
-        back = findViewById(R.id.menu);
-        add_edit = findViewById(R.id.address_edit);
+        LinearLayout back = findViewById(R.id.menu);
+        LinearLayout add_edit = findViewById(R.id.address_edit);
         success = findViewById(R.id.success);
-        header = findViewById(R.id.header);
-        cart_items = findViewById(R.id.cart_items);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         loading = findViewById(R.id.loading);
-        payment = findViewById(R.id.payment);
+        TextView payment = findViewById(R.id.payment);
         phone = findViewById(R.id.phone);
-        flat_shipping = findViewById(R.id.flat_shipping);
+        TextView flat_shipping = findViewById(R.id.flat_shipping);
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         cart_items.setVisibility(View.GONE);
-        fname = getIntent().getExtras().getString("fname");
-        from = getIntent().getExtras().getInt("from");
-        lname = getIntent().getExtras().getString("lname");
-        company = getIntent().getExtras().getString("company");
-        addressone = getIntent().getExtras().getString("addressone");
-        addresstwo = getIntent().getExtras().getString("addresstwo");
-        city = getIntent().getExtras().getString("city");
-        pincode = getIntent().getExtras().getString("pincode");
-        country = getIntent().getExtras().getString("country");
-        state = getIntent().getExtras().getString("state");
-        pay = getIntent().getExtras().getString("payment_method");
-
-        Log.i("payment", pay + " bmbmnmnbmb  " + from + "jgljgkgkjlk" + pay.toLowerCase());
-
+        if (getIntent().getExtras() != null) {
+            fname = getIntent().getExtras().getString("fname");
+            from = getIntent().getExtras().getInt("from");
+            lname = getIntent().getExtras().getString("lname");
+            company = getIntent().getExtras().getString("company");
+            addressone = getIntent().getExtras().getString("addressone");
+            addresstwo = getIntent().getExtras().getString("addresstwo");
+            city = getIntent().getExtras().getString("city");
+            pincode = getIntent().getExtras().getString("pincode");
+            country = getIntent().getExtras().getString("country");
+            state = getIntent().getExtras().getString("state");
+            pay = getIntent().getExtras().getString("payment_method");
+        }
         mobile = getIntent().getExtras().getString("mobile");
         address_id = getIntent().getExtras().getString("address_id");
-        shipping = getIntent().getExtras().getString("shipping");
+        String shipping = getIntent().getExtras().getString("shipping");
         cus_name = findViewById(R.id.name);
         cus_address_one = findViewById(R.id.address_one);
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
         cus_mobile = findViewById(R.id.mobile);
         loading_bar = findViewById(R.id.loading_bar);
-        promo_code = findViewById(R.id.promo_code);
+        LinearLayout promo_code = findViewById(R.id.promo_code);
         promo_circle = findViewById(R.id.promo_circle);
         promo_tag = findViewById(R.id.promo_tag);
         promo_text = findViewById(R.id.promo_text);
 
         header.setText(R.string.confirm);
-        String c_name=fname + " " + lname;
+        String c_name = fname + " " + lname;
         cus_name.setText(c_name);
         if (addresstwo.length() != 0) {
-            String cus_add=addressone + ", " + addresstwo + ",";
+            String cus_add = addressone + ", " + addresstwo + ",";
             cus_address_one.setText(cus_add);
 
-        }else {
-            String cus_add=addressone + ",";
+        } else {
+            String cus_add = addressone + ",";
             cus_address_one.setText(cus_add);
         }
-        String cus_add2=city + ", " + state + ",";
+        String cus_add2 = city + ", " + state + ",";
         cus_address_two.setText(cus_add2);
-        String con_name=country + " - " + pincode + ".";
+        String con_name = country + " - " + pincode + ".";
         country_name.setText(con_name);
         //  cus_mobile.setText();
         payment.setText(pay);
@@ -199,7 +192,7 @@ public class ConfirmOrder extends Language {
 
 
         error_network = findViewById(R.id.error_network);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,11 +216,11 @@ public class ConfirmOrder extends Language {
                     PlaceOrderTask OrderTask = new PlaceOrderTask();
                     OrderTask.execute(Appconstatants.Place_Order);
 
-                }else if(pay.toLowerCase().contains(getResources().getString(R.string.razorpay).toLowerCase()) || pay.toLowerCase().contains("razorpay")){
+                } else if (pay.toLowerCase().contains(getResources().getString(R.string.razorpay).toLowerCase()) || pay.toLowerCase().contains("razorpay")) {
                     OrderTask OrderTask = new OrderTask();
                     OrderTask.execute(order_id);
 
-                }else {
+                } else {
                     getPayment(order_id);
                 }
 
@@ -274,10 +267,8 @@ public class ConfirmOrder extends Language {
 
 
     private void show_promo() {
-        AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this,R.style.CustomAlertDialog);
-      //  AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, (ViewGroup)null,false);
-
+        AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this, R.style.CustomAlertDialog);
+        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
         final EditText promo_code = popUpView.findViewById(R.id.promo_code);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
         LinearLayout cancel = popUpView.findViewById(R.id.cancel);
@@ -350,8 +341,8 @@ public class ConfirmOrder extends Language {
 
                 try {
                     JSONObject json = new JSONObject(resp);
-                    totals = new ArrayList<PlacePO>();
-                    list = new ArrayList<PlacePO>();
+                    totals = new ArrayList<>();
+                    ArrayList<PlacePO> list = new ArrayList<>();
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         order_id = jsonObject.getString("order_id");
@@ -369,7 +360,7 @@ public class ConfirmOrder extends Language {
                             po.setAmout(jsonObject1.isNull("total") ? "" : jsonObject1.getString("total"));
                             po.setUrl(jsonObject1.isNull("image") ? "" : jsonObject1.getString("image"));
 
-                            ArrayList<OptionsPO> oplist = new ArrayList<OptionsPO>();
+                            ArrayList<OptionsPO> oplist = new ArrayList<>();
                             for (int u = 0; u < jarray.length(); u++) {
                                 JSONObject ob = jarray.getJSONObject(u);
                                 OptionsPO boo = new OptionsPO();
@@ -388,7 +379,6 @@ public class ConfirmOrder extends Language {
                             placePO.setTot_amt_txt(object.isNull("text") ? "" : object.getString("text"));
                             totals.add(placePO);
                         }
-                        pay_type = jsonObject.getString("payment");
                         orderid = jsonObject.getString("order_id");
 
                         place_list.removeAllViews();
@@ -421,7 +411,7 @@ public class ConfirmOrder extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.getString(0) + "";
+                        String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
@@ -500,7 +490,7 @@ public class ConfirmOrder extends Language {
 
                 try {
                     JSONObject json = new JSONObject(resp);
-                    totals = new ArrayList<PlacePO>();
+                    totals = new ArrayList<>();
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         orderid = jsonObject.getInt("order_id") + "";
@@ -587,7 +577,7 @@ public class ConfirmOrder extends Language {
                     if (json.getInt("success") == 1) {
 
                         wallet_amount = Double.parseDouble(json.getString("amount"));
-                        String w_amt=cur_left + String.format(Locale.getDefault(),"%.2f", wallet_amount) + cur_right;
+                        String w_amt = cur_left + String.format("%.2f", wallet_amount) + cur_right;
                         w_amount.setText(w_amt);
 
 
@@ -602,7 +592,7 @@ public class ConfirmOrder extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.getString(0) + "";
+                        String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
@@ -671,7 +661,7 @@ public class ConfirmOrder extends Language {
                 details.performClick();
             }
         });
- String v1="#"+orderid;
+        String v1 = "#" + orderid;
         order_id.setText(v1);
 
         details.setOnClickListener(new View.OnClickListener() {
@@ -680,7 +670,7 @@ public class ConfirmOrder extends Language {
 
                 Intent i = new Intent(ConfirmOrder.this, MainActivity.class);
                 startActivity(i);
-              //  dialog.dismiss();
+                //  dialog.dismiss();
 
             }
         });
@@ -700,7 +690,7 @@ public class ConfirmOrder extends Language {
         TextView qunt = convertView.findViewById(R.id.p_qty);
         TextView amount = convertView.findViewById(R.id.total);
         TextView p_option = convertView.findViewById(R.id.p_option);
-        TextView grams = convertView.findViewById(R.id.grams);
+
 
         name.setText(placePO.getProduct_name());
         price.setText(placePO.getPrcie());
@@ -734,7 +724,7 @@ public class ConfirmOrder extends Language {
         TextView amount = convertView.findViewById(R.id.amount);
         TextView name = convertView.findViewById(R.id.head);
         amount.setText(placePO.getTot_amt_txt());
-        String namess=placePO.getTot_title() + " :";
+        String namess = placePO.getTot_title() + " :";
         name.setText(namess);
         Log.i("tag", "Totals " + placePO.getTot_title());
         total_list.addView(convertView);
@@ -868,18 +858,18 @@ public class ConfirmOrder extends Language {
             country = data.getStringExtra("country");
             state = data.getStringExtra("state");
             mobile = data.getStringExtra("phone");
-            String c_names=data.getStringExtra("first") + " " + data.getStringExtra("last_name");
+            String c_names = data.getStringExtra("first") + " " + data.getStringExtra("last_name");
             cus_name.setText(c_names);
             if (data.getStringExtra("addresstwo").length() != 0) {
-                String cus_add1=data.getStringExtra("addressone") + "," + data.getStringExtra("addresstwo") + ",";
+                String cus_add1 = data.getStringExtra("addressone") + "," + data.getStringExtra("addresstwo") + ",";
                 cus_address_one.setText(cus_add1);
             } else {
-                String cus_add1=data.getStringExtra("addressone") + ",";
+                String cus_add1 = data.getStringExtra("addressone") + ",";
                 cus_address_one.setText(cus_add1);
             }
-            String cus_add2=data.getStringExtra("city") + "-" + data.getStringExtra("pincode") + ",";
+            String cus_add2 = data.getStringExtra("city") + "-" + data.getStringExtra("pincode") + ",";
             cus_address_two.setText(cus_add2);
-            String cus_state=data.getStringExtra("state") + ",";
+            String cus_state = data.getStringExtra("state") + ",";
             cus_mobile.setText(cus_state);
             country_name.setText(data.getStringExtra("country"));
             phone.setText(data.getStringExtra("phone"));
@@ -891,7 +881,7 @@ public class ConfirmOrder extends Language {
     //--------------------------------------Razor Pay integration-----------------------------
 
 
-    public void startPayment(String orid) {
+    private void startPayment(String orid) {
         final Activity activity = this;
 
         final Checkout co = new Checkout();
@@ -909,8 +899,8 @@ public class ConfirmOrder extends Language {
             preFill.put("contact", mobile);
             options.put("prefill", preFill);
             options.put("order_id", orid);
-            options.put("amount",  pay_tot*100);
-            Log.i("razorpay",options.toString()+" ");
+            options.put("amount", pay_tot * 100);
+            Log.i("razorpay", options.toString() + " ");
 
             co.open(activity, options);
         } catch (JSONException e) {

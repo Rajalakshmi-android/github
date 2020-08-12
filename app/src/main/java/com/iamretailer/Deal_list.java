@@ -31,26 +31,24 @@ import stutzen.co.network.Connection;
 
 public class Deal_list extends Language {
 
-    FrameLayout loading, error_network, fullayout;
-    ArrayList<ProductsPO> list;
-    CommonAdapter bestAdapter;
-    RecyclerView product_list;
-    LinearLayout back;
-    TextView header;
-    LinearLayout cart_items;
-    TextView cart_counts;
-    LinearLayout retry;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private FrameLayout fullayout;
+    private ArrayList<ProductsPO> list;
+    private CommonAdapter bestAdapter;
+    private RecyclerView product_list;
+    private TextView cart_counts;
     private int start = 1, limit = 10;
-    LinearLayout load_more;
-    int val = 0;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
-    DBController dbController;
-    private ArrayList<SingleOptionPO> optionPOS;
+    private LinearLayout load_more;
+    private int val = 0;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private LinearLayout loading_bar;
+    private AndroidLogger logger;
     private boolean loadin = false;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-    GridLayoutManager mLayoutManager;
+    private int firstVisibleItem;
+    private int visibleItemCount;
+    private GridLayoutManager mLayoutManager;
 
 
     @Override
@@ -63,16 +61,16 @@ public class Deal_list extends Language {
         error_network = findViewById(R.id.error_network);
         fullayout = findViewById(R.id.fullayout);
         product_list = findViewById(R.id.product_list);
-        back = findViewById(R.id.menu);
-        header = findViewById(R.id.header);
-        cart_items = findViewById(R.id.cart_items);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_counts = findViewById(R.id.cart_count);
-        retry = findViewById(R.id.retry);
+        LinearLayout retry = findViewById(R.id.retry);
         load_more = findViewById(R.id.load_more);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
-        dbController = new DBController(Deal_list.this);
+        DBController dbController = new DBController(Deal_list.this);
         Appconstatants.sessiondata = dbController.getSession();
         Appconstatants.Lang = dbController.get_lang_code();
         Appconstatants.CUR = dbController.getCurCode();
@@ -117,7 +115,6 @@ public class Deal_list extends Language {
                 //super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
                     visibleItemCount = product_list.getChildCount();
-                    totalItemCount = mLayoutManager.getItemCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
 
                     if (!loadin) {
@@ -194,7 +191,7 @@ public class Deal_list extends Language {
                             bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
                             bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                             Object dd = obj.get("option");
-                            optionPOS = new ArrayList<>();
+                            ArrayList<SingleOptionPO> optionPOS = new ArrayList<>();
                             if (dd instanceof JSONObject) {
                                 JSONObject jsonObject = obj.getJSONObject("option");
                                 JSONArray option = jsonObject.getJSONArray("product_option_value");

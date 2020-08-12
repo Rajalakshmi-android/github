@@ -10,7 +10,6 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -32,12 +31,12 @@ import stutzen.co.network.Connection;
 
 public class ContactForm extends Language {
 
-    LinearLayout menu, cart_items;
-    TextView header;
-    EditText full_name, mailid, comments;
-    FrameLayout submit, fullayout;
-    AndroidLogger logger;
-    DBController dbController;
+    private EditText full_name;
+    private EditText mailid;
+    private EditText comments;
+    private FrameLayout submit;
+    private FrameLayout fullayout;
+    private AndroidLogger logger;
 
 
     @Override
@@ -46,13 +45,13 @@ public class ContactForm extends Language {
         setContentView(R.layout.activity_contact_form);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        dbController=new DBController(ContactForm.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        menu = findViewById(R.id.menu);
-        cart_items = findViewById(R.id.cart_items);
-        header = findViewById(R.id.header);
+        DBController dbController = new DBController(ContactForm.this);
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.CUR= dbController.getCurCode();
+        LinearLayout menu = findViewById(R.id.menu);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        TextView header = findViewById(R.id.header);
         full_name = findViewById(R.id.full_name);
         mailid = findViewById(R.id.mailid);
         comments = findViewById(R.id.comments);
@@ -195,9 +194,9 @@ public class ContactForm extends Language {
         }
     }
 
-    public void showCallPopup(){
+    private void showCallPopup(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(ContactForm.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, (ViewGroup)null,false);
+        View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, null);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
