@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/indicator_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <com.iamretailer.Common.CustomTextview
+            android:id="@+id/isb_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minWidth="14dp"
+            android:padding="@dimen/dp10"
+            android:text="Indicator"
+            android:textSize="@dimen/text13sp" />
+
+    </LinearLayout>
+
+    <com.iamretailer.Common.seekbar.ArrowView
+        android:id="@+id/indicator_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp15"
+
+        android:id="@+id/item_select">
+        <ImageView
+            android:layout_width="@dimen/dp18"
+            android:id="@+id/select"
+            android:padding="@dimen/dp2"
+            android:layout_height="@dimen/dp18"
+            android:src="@mipmap/filter_unchec"/>
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text_color"
+            android:textSize="@dimen/text14sp"
+            android:id="@+id/sub_name"
+            android:layout_marginStart="@dimen/dp5"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:id="@+id/price_view">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5">
+        <com.iamretailer.Common.widget.RangeSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_values"
+            android:layout_marginTop="@dimen/dp5"
+            app:rsb_indicator_height="wrap_content"
+            app:rsb_gravity="center"
+            app:rsb_mode="range"
+            android:padding="@dimen/dp3"
+            app:rsb_progress_height="@dimen/dp1"
+            app:rsb_tick_mark_mode="number"
+            app:rsb_indicator_radius="@dimen/dp1"
+            app:rsb_thumb_height="@dimen/dp18"
+            app:rsb_thumb_width="@dimen/dp18"
+            app:rsb_progress_color="@color/colorAccent"
+            app:rsb_indicator_background_color="@color/app_view_color"
+
+
+
+
+
+            />
+            <com.iamretailer.Common.CustomTextview
+                android:id="@+id/textMin1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/price_values"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginStart="@dimen/dp10"
+                android:textSize="@dimen/text13sp"
+                android:textColor="@color/colorAccent"/>
+
+            <com.iamretailer.Common.CustomTextview
+                android:id="@+id/textMax1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/price_values"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp10"
+                android:textSize="@dimen/text13sp"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

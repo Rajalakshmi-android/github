@@ -144,6 +144,8 @@
         <activity android:name=".PaymentAct" />
         <activity android:name=".MyCart"/>
         <activity android:name=".MyCart_copy"/>
+        <activity android:name=".Filter"/>
+
 
     </application>
 

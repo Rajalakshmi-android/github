@@ -386,6 +386,8 @@
     <string name="kg">/Kg</string>
     <string name="selc_oun">Select Country</string>
     <string name="sel_sta">Select State</string>
+    <string name="fil_bg">Filter By</string>
+    <string name="clear_all">Clear All</string>
 
 
 </resources>

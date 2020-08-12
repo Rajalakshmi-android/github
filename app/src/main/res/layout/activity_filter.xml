@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Filter"
+    android:id="@+id/fullayout"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <include
+        layout="@layout/menu_back"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp45">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="2">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.9">
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scrollbars="none"
+                            android:listSelector="@android:color/transparent"
+                            android:id="@+id/main_filter"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1">
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scrollbars="none"
+                            android:listSelector="@android:color/transparent"
+                            android:id="@+id/sub_filter"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp45"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:id="@+id/apply_filter"
+                android:background="@color/colorAccent"
+                >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    android:background="#8bffffff"
+                    android:id="@+id/blur_lay">
+
+                </FrameLayout>
+                <com.iamretailer.Common.CustomTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text16sp"
+                    android:text="@string/apply"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"/>
+            </FrameLayout>
+            <include
+                layout="@layout/error_layout"/>
+            <include
+                layout="@layout/loading"
+               />
+        </FrameLayout>
+    </FrameLayout>
+    </LinearLayout>
+</FrameLayout>
