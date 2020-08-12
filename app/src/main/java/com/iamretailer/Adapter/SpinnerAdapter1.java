@@ -9,18 +9,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.iamretailer.POJO.SingleOptionPO;
 import com.iamretailer.R;
-
 
 import java.util.ArrayList;
 
 public class SpinnerAdapter1 extends BaseAdapter {
 
     
-    private Context context;
-    private ArrayList<String> items;
-    Typeface typeface;
+    private final Context context;
+    private final ArrayList<String> items;
+    private final Typeface typeface;
 
     public SpinnerAdapter1(Context context, ArrayList<String> stateData) {
         this.context = context;
@@ -55,10 +53,13 @@ public class SpinnerAdapter1 extends BaseAdapter {
         return getCustomView(pos, cnvtView, prnt, 1);
     }
 
-    public View getCustomView(int position, View convertView, ViewGroup parent, int loc) {
+    private View getCustomView(int position, View convertView, ViewGroup parent, int loc) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View mySpinner = inflater.inflate(R.layout.drop_downitem1, parent, false);
+        View mySpinner = null;
+        if (inflater != null) {
+            mySpinner = inflater.inflate(R.layout.drop_downitem1, parent, false);
+        }
         TextView main_text = mySpinner.findViewById(R.id.name);
         main_text.setText(items.get(position));
 
@@ -70,10 +71,4 @@ public class SpinnerAdapter1 extends BaseAdapter {
 
         return mySpinner;
     }
-
-    static class ViewHolder {
-        public TextView name;
-    }
-
-
 }

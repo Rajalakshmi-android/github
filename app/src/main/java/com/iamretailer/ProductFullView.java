@@ -644,7 +644,7 @@ public class ProductFullView extends Language {
         heading.setText(text);
         Log.i("tag", "weight" + optionsPO.getValuelist());
         if (spinner_string != null && spinner_string.size() > 0) {
-            SpinnerAdapter adapter1 = new SpinnerAdapter(ProductFullView.this, spinner_string, 0);
+            SpinnerAdapter adapter1 = new SpinnerAdapter(ProductFullView.this, spinner_string);
             weight_spinner.setAdapter(adapter1);
         }
         weight_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -388,6 +388,9 @@
     <string name="sel_sta">Select State</string>
     <string name="fil_bg">Filter By</string>
     <string name="clear_all">Clear All</string>
+    <string name="price_range">Price Range</string>
+    <string name="from">From:</string>
+    <string name="too">To:</string>
 
 
 </resources>

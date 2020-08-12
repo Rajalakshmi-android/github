@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -17,39 +18,35 @@ import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.BrandsPO;
 import com.iamretailer.R;
-import com.logentries.android.AndroidLogger;
 
 import java.util.ArrayList;
 
 
 public class Sub_Product_Adapter extends RecyclerView.Adapter<Sub_Product_Adapter.MyViewHolder> {
 
-    private LayoutInflater inflater;
-    private ArrayList<BrandsPO> list;
-    Context context;
-    DBController dbController;
-    AndroidLogger logger;
-    private int val;
+    private final LayoutInflater inflater;
+    private final ArrayList<BrandsPO> list;
+    private final Context context;
 
     public Sub_Product_Adapter(Context ctx, ArrayList<BrandsPO> imageModelArrayList) {
 
         inflater = LayoutInflater.from(ctx);
         this.list = imageModelArrayList;
         this.context = ctx;
-        dbController = new DBController(context);
+        DBController dbController = new DBController(context);
         Appconstatants.CUR = dbController.getCurCode();
-        logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
     }
 
+    @NonNull
     @Override
-    public Sub_Product_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Sub_Product_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.sub_product_list, parent, false);
 
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final Sub_Product_Adapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final Sub_Product_Adapter.MyViewHolder holder, final int position) {
 
 
         if (Build.VERSION.SDK_INT >= 24) {
@@ -58,7 +55,7 @@ public class Sub_Product_Adapter extends RecyclerView.Adapter<Sub_Product_Adapte
             holder.name.setText(Html.fromHtml(list.get(position).getStore_name()));
         }
 
-        val = list.size() - 1;
+        int val = list.size() - 1;
 
         if (val == position) {
             holder.view_line.setVisibility(View.GONE);
@@ -89,11 +86,11 @@ public class Sub_Product_Adapter extends RecyclerView.Adapter<Sub_Product_Adapte
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        View view_line;
-        LinearLayout sub_product_list;
-        TextView name;
+        final View view_line;
+        final LinearLayout sub_product_list;
+        final TextView name;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             sub_product_list = itemView.findViewById(R.id.sub_product_list);

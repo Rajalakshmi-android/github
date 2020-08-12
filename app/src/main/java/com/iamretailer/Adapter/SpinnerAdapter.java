@@ -19,10 +19,9 @@ public class SpinnerAdapter extends BaseAdapter {
     private final Context context;
     private final ArrayList<SingleOptionPO> items;
 
-    public SpinnerAdapter(Context context, ArrayList<SingleOptionPO> stateData, int from) {
+    public SpinnerAdapter(Context context, ArrayList<SingleOptionPO> stateData) {
         this.context = context;
         this.items = stateData;
-        int from1 = from;
     }
 
     @Override
@@ -57,13 +56,12 @@ public class SpinnerAdapter extends BaseAdapter {
         if (inflater != null) {
             mySpinner = inflater.inflate(R.layout.drop_downitem, parent, false);
         }
-        TextView main_text = mySpinner.findViewById(R.id.name);
+        TextView main_text = null;
+        if (mySpinner != null) {
+            main_text = mySpinner.findViewById(R.id.name);
+        }
         main_text.setText(items.get(position).getName());
 
         return mySpinner;
-    }
-
-    private class ViewHolder {
-        public TextView name;
     }
 }

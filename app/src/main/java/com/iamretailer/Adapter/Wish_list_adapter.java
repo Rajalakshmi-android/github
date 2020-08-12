@@ -3,6 +3,7 @@ package com.iamretailer.Adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,12 @@ import stutzen.co.network.Connection;
 
 
 public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
-    private int resource;
-    private Context context;
-    private ArrayList<ProductsPO> items;
-    private LayoutInflater mInflater;
-    private String cur_left;
-    private String cur_right;
+    private final int resource;
+    private final Context context;
+    private final ArrayList<ProductsPO> items;
+    private final LayoutInflater mInflater;
+    private final String cur_left;
+    private final String cur_right;
 
     public Wish_list_adapter(Context context, int resource, ArrayList<ProductsPO> items) {
         super(context, resource, items);
@@ -48,8 +49,9 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         cur_right = dbController.get_cur_Right();
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         final ViewHolder holder;
         LinearLayout alertView;
         holder = new ViewHolder();
@@ -118,7 +120,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
 
     private class DeleteTask extends AsyncTask<String, Void, String> {
         private ProgressDialog pDialog;
-        int pos;
+        final int pos;
 
         DeleteTask(int position) {
             pos = position;

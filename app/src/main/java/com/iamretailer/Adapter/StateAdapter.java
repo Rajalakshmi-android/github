@@ -1,6 +1,7 @@
 package com.iamretailer.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +31,20 @@ public class StateAdapter extends ArrayAdapter<CountryPO> {
 
     @Override
     public View getDropDownView(int position, View convertView,
-                                ViewGroup parent) {
+                                @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
 
     private View createItemView(int position, View convertView, ViewGroup parent) {
         final View view = mInflater.inflate(mResource, parent, false);
 
-        TextView textView = (TextView) view.findViewById(R.id.txt);
+        TextView textView = view.findViewById(R.id.txt);
 
         if (position==0)
         {

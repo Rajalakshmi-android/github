@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -20,7 +21,6 @@ import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.BrandsPO;
 import com.iamretailer.R;
-import com.logentries.android.AndroidLogger;
 
 import java.util.ArrayList;
 
@@ -29,11 +29,9 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adapter.MyViewHolder> {
 
-    private LayoutInflater inflater;
-    private ArrayList<BrandsPO> list;
-    Context context;
-    DBController dbController;
-    AndroidLogger logger;
+    private final LayoutInflater inflater;
+    private final ArrayList<BrandsPO> list;
+    private final Context context;
     private Sub_Product_Adapter productAdapter;
 
     public Sub_Category_Adapter(Context ctx, ArrayList<BrandsPO> imageModelArrayList) {
@@ -41,20 +39,20 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
         inflater = LayoutInflater.from(ctx);
         this.list = imageModelArrayList;
         this.context = ctx;
-        dbController = new DBController(context);
+        DBController dbController = new DBController(context);
         Appconstatants.CUR = dbController.getCurCode();
-        logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
     }
 
+    @NonNull
     @Override
-    public Sub_Category_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Sub_Category_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.sub_cat_list, parent, false);
 
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final Sub_Category_Adapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final Sub_Category_Adapter.MyViewHolder holder, final int position) {
 
 
         if (Build.VERSION.SDK_INT >= 24) {
@@ -102,12 +100,13 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        RecyclerView sub_product_list;
-        TextView name;
-        ImageView arrow,arrow1;
-        LinearLayout sub;
+        final RecyclerView sub_product_list;
+        final TextView name;
+        final ImageView arrow;
+        final ImageView arrow1;
+        final LinearLayout sub;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             arrow = itemView.findViewById(R.id.arrow);

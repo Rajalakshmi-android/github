@@ -1,6 +1,7 @@
 package com.iamretailer.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 
 public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.MyViewHolder> {
 
-    private LayoutInflater inflater;
-    private ArrayList<FilterPO> items;
-    Context context;
+    private final LayoutInflater inflater;
+    private final ArrayList<FilterPO> items;
+    private final Context context;
 
 
     public FilterMainAdapter(Context ctx, ArrayList<FilterPO> imageModelArrayList) {
@@ -27,18 +28,18 @@ public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.My
         this.context = ctx;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         view = inflater.inflate(R.layout.filter_item, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        holder.filter_name.setText(items.get(position).getFilter_name());
+        holder.filter_name.setText(getCapsSentences(items.get(position).getFilter_name()));
 
         if (items.get(position).isSelected())
         {
@@ -70,7 +71,8 @@ public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.My
             else
             {
                 holder.count.setVisibility(View.VISIBLE);
-                holder.count_tex.setText(cc+"");
+                String vv=cc+"";
+                holder.count_tex.setText(vv);
             }
 
 
@@ -83,21 +85,39 @@ public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.My
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView bg_img;
-        TextView filter_name,count_tex;
-        LinearLayout bg_view,count;
+        final ImageView bg_img;
+        final TextView filter_name;
+        final TextView count_tex;
+        final LinearLayout bg_view;
+        final LinearLayout count;
 
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
 
-            bg_img = (ImageView) itemView.findViewById(R.id.bg_image);
-            filter_name = (TextView) itemView.findViewById(R.id.filter_name);
-            bg_view=(LinearLayout) itemView.findViewById(R.id.bg_view);
-            count=(LinearLayout)itemView.findViewById(R.id.count);
-            count_tex=(TextView)itemView.findViewById(R.id.count_tex);
+            bg_img = itemView.findViewById(R.id.bg_image);
+            filter_name = itemView.findViewById(R.id.filter_name);
+            bg_view= itemView.findViewById(R.id.bg_view);
+            count= itemView.findViewById(R.id.count);
+            count_tex= itemView.findViewById(R.id.count_tex);
 
         }
+    }
+
+
+    private String getCapsSentences(String tagName) {
+        String[] splits = tagName.toLowerCase().split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < splits.length; i++) {
+            String eachWord = splits[i];
+            if (i > 0 && eachWord.length() > 0) {
+                sb.append(" ");
+            }
+            String cap = eachWord.substring(0, 1).toUpperCase()
+                    + eachWord.substring(1);
+            sb.append(cap);
+        }
+        return sb.toString();
     }
 }
 
