@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import android.widget.FrameLayout;
@@ -166,7 +165,7 @@ public class ViewDetails extends Language {
 
     private void showCallPopup() {
         AlertDialog.Builder dial = new AlertDialog.Builder(ViewDetails.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, null,false);
+        View popUpView = View.inflate(ViewDetails.this,R.layout.call_popup, null);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

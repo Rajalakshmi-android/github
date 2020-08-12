@@ -712,7 +712,7 @@ public class Wallet extends Language {
 
     private void showCallPopup(final String product_id, String order){
         final android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(Wallet.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.pay_sucess, null,false);
+        View popUpView = View.inflate(Wallet.this,R.layout.pay_sucess, null);
         dial.setView(popUpView);
         final android.app.AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

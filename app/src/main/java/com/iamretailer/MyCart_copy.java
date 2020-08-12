@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -953,7 +952,7 @@ public class MyCart_copy extends Language {
     private void show_Cal_ship_amount(JSONObject jsonObject)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, null,false);
+        View dialogView = View.inflate(MyCart_copy.this,R.layout.ship_cal_amt, null);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);
