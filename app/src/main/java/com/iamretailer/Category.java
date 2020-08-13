@@ -1,6 +1,7 @@
 package com.iamretailer;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -77,8 +78,10 @@ public class Category extends Language {
         no_items1=findViewById(R.id.no_items1);
         header.setText(R.string.our_cat);
         Display display = getWindowManager().getDefaultDisplay();
-        width = display.getWidth();
-        height = display.getHeight();
+        Point point = new Point();
+        display.getSize(point);
+        width = point.x;
+        height =point.y;
         cat_list.addOnItemTouchListener(new RecyclerItemClickListener(Category.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -185,6 +188,8 @@ public class Category extends Language {
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
+                        no_items1.setVisibility(View.GONE);
+                        cat_list.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
                         String error_msg=array.getString(0) + "";
@@ -197,6 +202,8 @@ public class Category extends Language {
                     e.printStackTrace();
                     loading.setVisibility(View.VISIBLE);
                     loading_bar.setVisibility(View.GONE);
+                    no_items1.setVisibility(View.GONE);
+                    cat_list.setVisibility(View.GONE);
                     Snackbar.make(rootlay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
@@ -213,6 +220,8 @@ public class Category extends Language {
 
             } else {
                 loading.setVisibility(View.GONE);
+                no_items1.setVisibility(View.GONE);
+                cat_list.setVisibility(View.GONE);
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);

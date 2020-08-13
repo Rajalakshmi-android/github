@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamretailer.Common.Appconstatants;
+import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.PlacePO;
@@ -91,27 +91,17 @@ public class ConfirmOrder extends Language {
     private ImageView promo_tag;
     private ImageView promo_circle;
     private TextView promo_text;
-
-    //Paypal integration need -->Request code and Client Id
-
-    //Paypal
     private static final int PAYPAL_REQUEST_CODE = 123;
-
-    // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
-    // or live (ENVIRONMENT_PRODUCTION)
     private static final PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
-    private Double wallet_amount = 0.00;
-    private int from;
-    private TextView w_amount;
 
     //------paypal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
-        //CommonFunctions.updateAndroidSecurityProvider(this);
+        CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
 
         db = new DBController(ConfirmOrder.this);
@@ -136,7 +126,6 @@ public class ConfirmOrder extends Language {
         cart_items.setVisibility(View.GONE);
         if (getIntent().getExtras() != null) {
             fname = getIntent().getExtras().getString("fname");
-            from = getIntent().getExtras().getInt("from");
             lname = getIntent().getExtras().getString("lname");
             company = getIntent().getExtras().getString("company");
             addressone = getIntent().getExtras().getString("addressone");
@@ -176,12 +165,11 @@ public class ConfirmOrder extends Language {
         cus_address_two.setText(cus_add2);
         String con_name = country + " - " + pincode + ".";
         country_name.setText(con_name);
-        //  cus_mobile.setText();
         payment.setText(pay);
         flat_shipping.setText(shipping);
 
         phone.setText(mobile);
-        subtotal = (TextView) findViewById(R.id.subtotal);
+        subtotal = findViewById(R.id.subtotal);
         promo_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +190,6 @@ public class ConfirmOrder extends Language {
         });
         place_list = findViewById(R.id.listview);
         total_list = findViewById(R.id.total_list);
-        w_amount = findViewById(R.id.amount);
 
         ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
         confirmOrderTask.execute(Appconstatants.Confirm_Order);
@@ -210,7 +197,6 @@ public class ConfirmOrder extends Language {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("dfhkdhg", pay_tot + "dkghklgd" + wallet_amount + pay.toLowerCase() + "fgdhfdh" + from);
                 if (pay.toLowerCase().contains(getResources().getString(R.string.cod).toLowerCase()) || pay.toLowerCase().contains("cod")) {
 
                     PlaceOrderTask OrderTask = new PlaceOrderTask();
@@ -540,96 +526,6 @@ public class ConfirmOrder extends Language {
     }
 
 
-    private class WalletTask extends AsyncTask<String, Void, String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("Tag", "started");
-        }
-
-        protected String doInBackground(String... param) {
-
-            logger.info("Product list search api" + param[0]);
-
-            Log.d("singleurl", param[0]);
-            String response = null;
-            try {
-                Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
-                logger.info("Product list search resp" + response);
-                Log.d("list_products", param[0]);
-                Log.d("list_products", Appconstatants.sessiondata);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-            return response;
-        }
-
-        protected void onPostExecute(String resp) {
-            Log.i("tag", "SingleProducts--->  " + resp);
-            if (resp != null) {
-                try {
-                    JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1) {
-
-                        wallet_amount = Double.parseDouble(json.getString("amount"));
-                        String w_amt = cur_left + String.format("%.2f", wallet_amount) + cur_right;
-                        w_amount.setText(w_amt);
-
-
-                        success.setVisibility(View.VISIBLE);
-                        error_network.setVisibility(View.GONE);
-                        loading.setVisibility(View.GONE);
-
-
-                    } else {
-                        success.setVisibility(View.GONE);
-                        error_network.setVisibility(View.VISIBLE);
-                        loading.setVisibility(View.GONE);
-                        errortxt1.setText(R.string.error_msg);
-                        JSONArray array = json.getJSONArray("error");
-                        String error_msg = array.getString(0) + "";
-                        errortxt2.setText(error_msg);
-                        Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    error_network.setVisibility(View.GONE);
-                    success.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
-                                    confirmOrderTask.execute(Appconstatants.Confirm_Order);
-
-                                }
-                            })
-                            .show();
-
-
-                }
-
-            } else {
-                success.setVisibility(View.GONE);
-                errortxt1.setText(R.string.no_con);
-                errortxt2.setText(R.string.check_network);
-                error_network.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            }
-
-        }
-    }
 
 
     private void details() {
@@ -792,9 +688,6 @@ public class ConfirmOrder extends Language {
 
 
                     } else {
-                      /*  promo_circle.setImageResource(R.mipmap.promo_circle_fill);
-                        promo_tag.setImageResource(R.mipmap.promo_tag);
-                        promo_text.setTextColor(getResources().getColor(R.color.green));*/
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
                     }

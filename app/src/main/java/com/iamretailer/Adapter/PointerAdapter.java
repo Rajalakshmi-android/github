@@ -47,7 +47,7 @@ public class PointerAdapter extends ArrayAdapter<ImgBo> {
         holder.bg = convertView.findViewById(R.id.background);
         if (detail != null) {
             if (detail.isImgSel()) {
-                holder.bg.setAlpha(0.0f);
+             //   holder.bg.setAlpha(0.0f);
                 // holder.name.setBackgroundColor(Color.parseColor("#80f05c5b"));
             } else {
                 //holder.name.setBackgroundColor(Color.parseColor("#80ffffff"));

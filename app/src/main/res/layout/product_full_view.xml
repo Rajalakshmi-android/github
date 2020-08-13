@@ -431,7 +431,7 @@
                                     android:orientation="vertical">
 
 
-                                    <ListView
+                                    <com.iamretailer.Common.ExpandableHeightListView
                                         android:id="@+id/review_list"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"

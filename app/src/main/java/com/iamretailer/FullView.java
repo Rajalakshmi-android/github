@@ -77,12 +77,6 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
             bo.setUrl(img.get(i));
             datalist.add(bo);
         }
-        cart_items.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FullView.this,MyCart.class));
-            }
-        });
 
         viewPager = findViewById(R.id.pager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
@@ -133,10 +127,10 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
 
     }
 
-    public class PagerAdapter extends FragmentPagerAdapter {
+    class PagerAdapter extends FragmentPagerAdapter {
 
 
-        public PagerAdapter(FragmentManager fm) {
+        PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

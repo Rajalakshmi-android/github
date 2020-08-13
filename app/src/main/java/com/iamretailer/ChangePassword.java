@@ -61,7 +61,7 @@ public class ChangePassword extends Language {
                 if (pass2.getText().toString().trim().length() == 0) {
                     pass2.setError(getResources().getString(R.string.pass_valid));
                 }
-                if (pass1.getText().toString().length() <= 5) {
+                if (pass1.getText().toString().trim().length() <= 5) {
                     pass1.setError(getResources().getString(R.string.pass_res));
                 }
                 if (!pass1.getText().toString().equals(pass2.getText().toString())) {
@@ -149,9 +149,7 @@ public class ChangePassword extends Language {
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-
                                     change_pwd.performClick();
-
                                 }
                             })
                             .show();

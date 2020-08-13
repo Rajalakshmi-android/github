@@ -99,7 +99,7 @@ public class AddressList extends Language {
         });
 
         if(from==1){
-            address_list.setPadding(0,0,0,50);
+            address_list.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.dp40));
         }else{
             address_list.setPadding(0,0,0,0);
         }

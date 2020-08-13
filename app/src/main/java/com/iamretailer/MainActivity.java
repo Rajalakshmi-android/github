@@ -94,6 +94,7 @@ public class MainActivity extends Drawer {
     private LinearLayout newly_preloader;
     private TextView cart_count_bot;
     private LinearLayout category;
+    private ArrayList<ProductsPO> fav_item;
 
 
     @Override
@@ -336,6 +337,12 @@ public class MainActivity extends Drawer {
         backcount = 0;
 
 
+
+        if (db.getLoginCount() > 0) {
+            WISH_LIST wish_list = new WISH_LIST();
+            wish_list.execute(Appconstatants.Wishlist_Get);
+        }
+
         Log.i("resume", "login&logout.............");
         if (db.getLoginCount() > 0) {
 
@@ -481,8 +488,8 @@ public class MainActivity extends Drawer {
                         categ_preloader.setVisibility(View.GONE);
                         grid.setVisibility(View.VISIBLE);
 
-                        GetCategoryTask cattask = new GetCategoryTask();
-                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);
+                        BEST_SELLING best_selling=new BEST_SELLING();
+                        best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
 
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -692,7 +699,10 @@ public class MainActivity extends Drawer {
                                 category.setVisibility(View.GONE);
                             }
                         }
-                        loading.setVisibility(View.GONE);
+
+
+
+
 
                     } else {
                         loading.setVisibility(View.GONE);
@@ -1240,6 +1250,9 @@ public class MainActivity extends Drawer {
 
                         }
 
+                        GetCategoryTask cattask = new GetCategoryTask();
+                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);
+
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
 
@@ -1508,4 +1521,91 @@ public class MainActivity extends Drawer {
             }
         }
     }
+
+    private class WISH_LIST extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("Tag", "started");
+        }
+
+        protected String doInBackground(String... param) {
+            logger.info("WIsh list api" + param[0]);
+
+
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
+                logger.info("WIsh list api resp" + response);
+                Log.d("wish_api", param[0]);
+                Log.d("wish_res", response + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("tag", "products_Hai--->  " + resp);
+            if (resp != null) {
+                try {
+                    fav_item = new ArrayList<>();
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        JSONArray array = json.getJSONArray("data");
+                        Log.d("wish_res", "ddsadsa");
+
+                        if (array.length() > 0) {
+                            for (int h = 0; h < array.length(); h++) {
+                                JSONObject obj = array.getJSONObject(h);
+                                ProductsPO bo = new ProductsPO();
+                                bo.setProduct_id(obj.isNull("product_id") ? "" : obj.getString("product_id"));
+                                fav_item.add(bo);
+                            }
+
+                            if (list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
+                                    for (int h = 0; h < fav_item.size(); h++) {
+                                        if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            list.get(u).setWish_list(true);
+                                            break;
+                                        } else {
+                                            list.get(u).setWish_list(false);
+                                        }
+                                    }
+                                }
+                                bestAdapters.notifyDataSetChanged();
+                            }
+
+
+                            if (feat_list!=null && feat_list.size()>0  ) {
+                                for (int u = 0; u < feat_list.size(); u++) {
+                                    for (int h = 0; h < fav_item.size(); h++) {
+                                        if (Integer.parseInt(feat_list.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            feat_list.get(u).setWish_list(true);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            feat_list.get(u).setWish_list(false);
+                                        }
+                                    }
+                                }
+                                featuredProduct.notifyDataSetChanged();
+                            }
+
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+            }
+        }
+    }
+
 }

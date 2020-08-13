@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.iamretailer.Adapter.FilterMainAdapter;
 import com.iamretailer.Adapter.FilterSubAdapter;
 import com.iamretailer.Common.Appconstatants;
+import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.RecyclerItemClickListener;
 import com.iamretailer.POJO.BrandsPO;
 import com.iamretailer.POJO.FilterPO;
@@ -58,26 +59,27 @@ public class Filter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+        CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        menu=(LinearLayout)findViewById(R.id.menu);
-        back=(ImageView)findViewById(R.id.back);
+        menu= findViewById(R.id.menu);
+        back= findViewById(R.id.back);
         back.setImageResource(R.mipmap.filter_close);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
+        cart_items= findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        header=(TextView)findViewById(R.id.header);
+        header= findViewById(R.id.header);
         header.setText(getResources().getString(R.string.fil_bg));
-        sub_filter=(RecyclerView) findViewById(R.id.sub_filter);
-        main_filter=(RecyclerView) findViewById(R.id.main_filter);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        retry=(LinearLayout)findViewById(R.id.retry);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        error_network=(FrameLayout)findViewById(R.id.error_network);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        apply_filter=(FrameLayout)findViewById(R.id.apply_filter);
-        blur_lay=(FrameLayout)findViewById(R.id.blur_lay);
-        clear=(LinearLayout)findViewById(R.id.clear);
+        sub_filter= findViewById(R.id.sub_filter);
+        main_filter= findViewById(R.id.main_filter);
+        loading_bar= findViewById(R.id.loading_bar);
+        retry= findViewById(R.id.retry);
+        loading= findViewById(R.id.loading);
+        error_network= findViewById(R.id.error_network);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        fullayout= findViewById(R.id.fullayout);
+        apply_filter= findViewById(R.id.apply_filter);
+        blur_lay= findViewById(R.id.blur_lay);
+        clear= findViewById(R.id.clear);
         Intent intent = getIntent();
 
 
@@ -89,7 +91,9 @@ public class Filter extends AppCompatActivity {
             }
         });
         filter_list=new ArrayList<>();
-        filter_list= (ArrayList<FilterPO>) intent.getExtras().getSerializable("filter_data");
+        if (intent.getExtras()!=null) {
+            filter_list= (ArrayList<FilterPO>) intent.getExtras().getSerializable("filter_data");
+        }
         if (filter_list.size()>0)
         {
             mainAdapter=new FilterMainAdapter(Filter.this,filter_list);

@@ -159,7 +159,7 @@ public class Drawer extends Language {
         }
         setListener();
 
-        layout.setDrawerListener(new DrawerLayout.DrawerListener() {
+        layout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 

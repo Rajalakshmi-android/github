@@ -49,6 +49,7 @@ public class Deal_list extends Language {
     private int firstVisibleItem;
     private int visibleItemCount;
     private GridLayoutManager mLayoutManager;
+    private TextView no_proditems;
 
 
     @Override
@@ -70,6 +71,7 @@ public class Deal_list extends Language {
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
+        no_proditems=findViewById(R.id.no_proditems);
         DBController dbController = new DBController(Deal_list.this);
         Appconstatants.sessiondata = dbController.getSession();
         Appconstatants.Lang = dbController.get_lang_code();
@@ -102,6 +104,8 @@ public class Deal_list extends Language {
                 start = 1;
                 limit = 10;
                 loadin = false;
+                no_proditems.setVisibility(View.GONE);
+                product_list.setVisibility(View.GONE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
                 DEAL_LIST deal = new DEAL_LIST();
@@ -112,7 +116,6 @@ public class Deal_list extends Language {
         product_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
                     visibleItemCount = product_list.getChildCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
@@ -222,6 +225,13 @@ public class Deal_list extends Language {
                             } else {
                                 bestAdapter.notifyDataSetChanged();
                             }
+                            no_proditems.setVisibility(View.GONE);
+                            product_list.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            no_proditems.setVisibility(View.VISIBLE);
+                            product_list.setVisibility(View.GONE);
                         }
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
@@ -233,6 +243,7 @@ public class Deal_list extends Language {
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
+                        no_proditems.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
                         String error_msg=array.getString(0) + "";
@@ -244,6 +255,7 @@ public class Deal_list extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     loading_bar.setVisibility(View.GONE);
+                    no_proditems.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
@@ -258,6 +270,7 @@ public class Deal_list extends Language {
                 }
             } else {
                 loading.setVisibility(View.GONE);
+                no_proditems.setVisibility(View.GONE);
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);

@@ -998,7 +998,7 @@ public class Address extends Language {
                         state_list.add(po);
                         s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
                         state.setAdapter(s_adapter);
-                        success.setVisibility(View.GONE);
+                        success.setVisibility(View.VISIBLE);
                         error_network.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
                     } else {

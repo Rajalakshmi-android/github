@@ -57,7 +57,7 @@ public class GuestCheckout extends Language {
                 {
                     f_name.setError(getResources().getString(R.string.valid_name));
                 }
-                if (f_name.getText().toString().length()<=2)
+                if (f_name.getText().toString().trim().length()<=2)
                 {
                     f_name.setError(getResources().getString(R.string.valid_name));
                 }

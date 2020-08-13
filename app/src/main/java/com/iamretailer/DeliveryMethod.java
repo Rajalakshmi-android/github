@@ -54,6 +54,7 @@ public class DeliveryMethod extends Language {
     private PaymentAdapter payadapter;
     private String paycode = "";
     private String paymentname = "";
+    private FrameLayout success;
 
 
     @Override
@@ -62,7 +63,7 @@ public class DeliveryMethod extends Language {
         setContentView(R.layout.activity_delivery_method);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        if (getIntent().getExtras()!=null) {
+        if (getIntent().getExtras() != null) {
             fname = getIntent().getExtras().getString("fname");
             from = getIntent().getExtras().getInt("from");
             lname = getIntent().getExtras().getString("lname");
@@ -93,6 +94,7 @@ public class DeliveryMethod extends Language {
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
+        success = findViewById(R.id.success);
 
 
         DeliveryMethodList paymentListTask = new DeliveryMethodList();
@@ -134,6 +136,7 @@ public class DeliveryMethod extends Language {
             public void onClick(View view) {
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 DeliveryMethodList paymentListTask = new DeliveryMethodList();
                 paymentListTask.execute();
             }
@@ -199,6 +202,7 @@ public class DeliveryMethod extends Language {
                             }
                         }
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.VISIBLE);
                         error_network.setVisibility(View.GONE);
 
                     } else {
@@ -208,6 +212,7 @@ public class DeliveryMethod extends Language {
                         JSONArray array = json.getJSONArray("error");
                         String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
+                        success.setVisibility(View.GONE);
                         Toast.makeText(DeliveryMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -216,6 +221,7 @@ public class DeliveryMethod extends Language {
                     loading.setVisibility(View.VISIBLE);
                     error_network.setVisibility(View.GONE);
                     loading_bar.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
@@ -232,6 +238,7 @@ public class DeliveryMethod extends Language {
 
             } else {
                 errortxt1.setText(R.string.no_con);
+                success.setVisibility(View.GONE);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.GONE);

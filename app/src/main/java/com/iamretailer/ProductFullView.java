@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +46,7 @@ import com.iamretailer.Adapter.SpinnerAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.ExpandableHeightListView;
 import com.iamretailer.Common.Helper;
 import com.iamretailer.Common.LanguageList;
 import com.iamretailer.Common.LocaleHelper;
@@ -93,7 +95,7 @@ public class ProductFullView extends Language {
     private TextView review;
     private FrameLayout review_layout;
     private FrameLayout option_layout;
-    private ListView review_list;
+    private ExpandableHeightListView review_list;
     private TextView orginal;
     private TextView add_reviews;
     private FrameLayout add_rev_lay;
@@ -1059,7 +1061,7 @@ public class ProductFullView extends Language {
                             }
                             ReviewAdapter reviewAdapter = new ReviewAdapter(ProductFullView.this, R.layout.review_list, rev_list);
                             review_list.setAdapter(reviewAdapter);
-                            Helper.getListViewSize(review_list);
+                            review_list.setExpanded(true);
                             review_disp.setVisibility(View.VISIBLE);
                             no_reviews.setVisibility(View.GONE);
 
