@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="@dimen/dp5"
-                        android:text="@string/no_items"
+                        android:text="@string/no_data_found"
                         android:textColor="@color/app_text_color"
                         android:textSize="@dimen/text15sp"
                         android:visibility="gone" />

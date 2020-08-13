@@ -1,53 +1,32 @@
 package com.iamretailer;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.all.All;
 import com.iamretailer.Adapter.CommonAdapter;
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
-import com.iamretailer.Common.RecyclerItemClickListener;
-import com.iamretailer.POJO.BrandsPO;
+import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.FilterPO;
+import com.iamretailer.POJO.ProductsPO;
 import com.iamretailer.POJO.SingleOptionPO;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.DBController;
-import com.iamretailer.POJO.ProductsPO;
 
 import stutzen.co.network.Connection;
 
@@ -71,11 +50,8 @@ public class Allen extends Language {
     private String sort_option = "";
     private String sort_order = "";
     private int cat_id;
-    private int from;
     TextView no_items;
     FrameLayout loading;
-    private boolean scrollValue;
-    private boolean scrollNeed = true;
     private int start = 1, limit = 10;
     LinearLayout load_more;
     int val = 0;
@@ -90,14 +66,6 @@ public class Allen extends Language {
     private boolean loadin = false;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     GridLayoutManager mLayoutManager;
-    LinearLayout filter;
-    Dialog alertReviewDialog;
-    LinearLayout cancels, filter_load, apply;
-    FrameLayout cancel;
-    EditText filter_edit;
-    RecyclerView filter_list;
-
-    TextView no_brands;
     Boolean value = true;
     ArrayList<FilterPO> filterPOS;
     String manufacturer = "", option_value = "", pr = "";
@@ -116,26 +84,26 @@ public class Allen extends Language {
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        category = (RecyclerView) findViewById(R.id.category_list);
-        sort_name = (TextView) findViewById(R.id.sort_name);
-        product_count = (TextView) findViewById(R.id.product_count);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        menu = (LinearLayout) findViewById(R.id.menu);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        sort = (LinearLayout) findViewById(R.id.sort);
-        prog_sec = (FrameLayout) findViewById(R.id.prog_sec);
-        no_items = (TextView) findViewById(R.id.no_items);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        load_more = (LinearLayout) findViewById(R.id.load_more);
-        header = (TextView) findViewById(R.id.header);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        filter_show = (LinearLayout) findViewById(R.id.filter_show);
-        filter_lay = (LinearLayout) findViewById(R.id.filter_lay);
+        category = findViewById(R.id.category_list);
+        sort_name = findViewById(R.id.sort_name);
+        product_count = findViewById(R.id.product_count);
+        cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
+        menu = findViewById(R.id.menu);
+        error_network = findViewById(R.id.error_network);
+        retry = findViewById(R.id.retry);
+        sort = findViewById(R.id.sort);
+        prog_sec = findViewById(R.id.prog_sec);
+        no_items = findViewById(R.id.no_items);
+        loading = findViewById(R.id.loading);
+        load_more = findViewById(R.id.load_more);
+        header = findViewById(R.id.header);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        loading_bar = findViewById(R.id.loading_bar);
+        filter_show = findViewById(R.id.filter_show);
+        filter_lay = findViewById(R.id.filter_lay);
 
         bundle = new Bundle();
         bundle = getIntent().getExtras();
@@ -161,7 +129,6 @@ public class Allen extends Language {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                // super.onScrolled(recyclerView, dx, dy);
 
                 if (dy > 0) {
                     Log.d("Scroll_Check1", "adfadsdsa");
@@ -206,14 +173,14 @@ public class Allen extends Language {
                 View sheetView = Allen.this.getLayoutInflater().inflate(R.layout.sortview, null);
                 mBottomSheetDialog.setContentView(sheetView);
                 LinearLayout htl, lth, newest, poupular, nameaz, nameza, modelaz, modelza;
-                lth = (LinearLayout) sheetView.findViewById(R.id.low_to_high);
-                htl = (LinearLayout) sheetView.findViewById(R.id.high_to_low);
-                newest = (LinearLayout) sheetView.findViewById(R.id.newest);
-                nameaz = (LinearLayout) sheetView.findViewById(R.id.nameaz);
-                nameza = (LinearLayout) sheetView.findViewById(R.id.nameza);
-                modelaz = (LinearLayout) sheetView.findViewById(R.id.modelaz);
-                modelza = (LinearLayout) sheetView.findViewById(R.id.modelza);
-                poupular = (LinearLayout) sheetView.findViewById(R.id.popular);
+                lth = sheetView.findViewById(R.id.low_to_high);
+                htl = sheetView.findViewById(R.id.high_to_low);
+                newest = sheetView.findViewById(R.id.newest);
+                nameaz = sheetView.findViewById(R.id.nameaz);
+                nameza = sheetView.findViewById(R.id.nameza);
+                modelaz = sheetView.findViewById(R.id.modelaz);
+                modelza = sheetView.findViewById(R.id.modelza);
+                poupular = sheetView.findViewById(R.id.popular);
                 mBottomSheetDialog.show();
 
                 nameaz.setOnClickListener(new View.OnClickListener() {
@@ -539,7 +506,6 @@ public class Allen extends Language {
         protected void onPostExecute(String resp) {
             Log.i("tag", "products_Hai--->  " + resp);
             load_more.setVisibility(View.GONE);
-            scrollNeed = true;
             if (resp != null) {
                 try {
 

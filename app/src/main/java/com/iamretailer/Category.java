@@ -45,6 +45,7 @@ public class Category extends Language {
     private AndroidLogger logger;
     private int width;
     private int height;
+    private TextView no_items1;
 
 
     @Override
@@ -73,6 +74,7 @@ public class Category extends Language {
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
+        no_items1=findViewById(R.id.no_items1);
         header.setText(R.string.our_cat);
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
@@ -106,6 +108,8 @@ public class Category extends Language {
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
+                cat_list.setVisibility(View.GONE);
+                no_items1.setVisibility(View.GONE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
                 Cat_Task cat_task = new Cat_Task();
@@ -150,19 +154,32 @@ public class Category extends Language {
 
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
-                        for (int h = 0; h < arr.length(); h++) {
-                            JSONObject obj = arr.getJSONObject(h);
-                            BrandsPO bo = new BrandsPO();
-                            bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
-                            bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
-                            bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
-                            cate_list.add(bo);
+
+                        if (arr.length()>0) {
+                            for (int h = 0; h < arr.length(); h++) {
+                                JSONObject obj = arr.getJSONObject(h);
+                                BrandsPO bo = new BrandsPO();
+                                bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
+                                bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
+                                cate_list.add(bo);
+
+                            }
+                            BrandzAdapter adapter1 = new BrandzAdapter(Category.this, cate_list, 2, width, height);
+                            cat_list.setAdapter(adapter1);
+                            cat_list.setLayoutManager(new GridLayoutManager(Category.this, 3));
+                            no_items1.setVisibility(View.GONE);
+                            cat_list.setVisibility(View.VISIBLE);
+
+                        }
+                        else
+                        {
+                            no_items1.setVisibility(View.VISIBLE);
+                            cat_list.setVisibility(View.GONE);
 
                         }
 
-                        BrandzAdapter adapter1 = new BrandzAdapter(Category.this, cate_list, 2, width, height);
-                        cat_list.setAdapter(adapter1);
-                        cat_list.setLayoutManager(new GridLayoutManager(Category.this, 3));
+
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                     } else {

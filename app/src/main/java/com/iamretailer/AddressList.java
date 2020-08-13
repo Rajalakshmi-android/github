@@ -49,6 +49,7 @@ public class AddressList extends Language {
     private int has_ship;
     private TextView no_address;
     private TextView cart_count;
+    private FrameLayout success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class AddressList extends Language {
         address_list = findViewById(R.id.address_list);
         TextView header = findViewById(R.id.header);
         no_address= findViewById(R.id.no_address);
+        success=findViewById(R.id.success);
         DBController dbController = new DBController(getApplicationContext());
 
         LinearLayout cart_items = findViewById(R.id.cart_items);
@@ -351,6 +353,7 @@ public class AddressList extends Language {
                             no_address.setVisibility(View.VISIBLE);
                             address_list.setVisibility(View.GONE);
                         }
+                        success.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
 
@@ -358,6 +361,7 @@ public class AddressList extends Language {
                     } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
                         String error_msg=array.get(0) + "";
@@ -369,6 +373,7 @@ public class AddressList extends Language {
                     e.printStackTrace();
                     loading.setVisibility(View.VISIBLE);
                     error_network.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
@@ -386,6 +391,7 @@ public class AddressList extends Language {
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
             }
 
         }

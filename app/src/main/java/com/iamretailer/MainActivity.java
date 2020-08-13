@@ -105,14 +105,12 @@ public class MainActivity extends Drawer {
         if (db.get_lan_c()>0)
         {
             change_langs(db.get_lang_code());
-            Log.i("tag","jgdljgldfjgldjg "+db.get_lang_code());
         }
         Appconstatants.Lang=db.get_lang_code();
         setContentView(R.layout.activity_main);
         if (Appconstatants.sessiondata == null || Appconstatants.sessiondata.length() == 0)
             Appconstatants.sessiondata = db.getSession();
         Appconstatants.CUR=db.getCurCode();
-        Log.d("Curen_code",Appconstatants.CUR+"asdad"+db.getCurCode()+"");
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         grid = findViewById(R.id.grid);
         fullayout = findViewById(R.id.fullayout);
@@ -245,7 +243,7 @@ public class MainActivity extends Drawer {
 
 
 
-        cart_items.setOnClickListener(new OnClickListener() {
+           cart_items.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, MyCart.class));
@@ -333,8 +331,8 @@ public class MainActivity extends Drawer {
 
     public void onResume() {
         super.onResume();
-        BEST_SELLING best_selling = new BEST_SELLING();
-        best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
+        CartTask cartTask = new CartTask();
+        cartTask.execute(Appconstatants.cart_api);
         backcount = 0;
 
 
@@ -1064,24 +1062,15 @@ public class MainActivity extends Drawer {
 
         }
     }
-
-
-
-
     private void setupJazziness() {
-
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
-
-
-
     }
 
     private void banner2() {
 
         baner2.setAdapter(new MainAdapter2());
         baner2.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
-        //baner2.setPageMargin(30);
 
     }
 
