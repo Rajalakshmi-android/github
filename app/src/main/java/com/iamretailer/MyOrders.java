@@ -306,6 +306,7 @@ public class MyOrders extends Language {
                             Intent i = new Intent(MyOrders.this, Login.class);
                             i.putExtra("from", 3);
                             startActivityForResult(i, 3);
+                            finish();
                             Toast.makeText(MyOrders.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         } else {
                             loading.setVisibility(View.GONE);

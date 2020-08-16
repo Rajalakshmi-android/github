@@ -119,10 +119,10 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         callbackManager = CallbackManager.Factory.create();
         from = getIntent().getIntExtra("from", 0);
         has_ship = getIntent().getIntExtra("has_ship", 1);
-        if (from == 1 || from == 3 || from == 4) {
-            guest.setVisibility(View.GONE);
-        } else {
+        if (from == 2) {
             guest.setVisibility(View.VISIBLE);
+        } else {
+            guest.setVisibility(View.GONE);
         }
 
         String serverClientId = getString(R.string.server_client_id);
@@ -341,8 +341,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                         } else if (from == 1) {
                             finish();
                         } else if (from == 3) {
-                            Intent intent = new Intent();
-                            setResult(3, intent);
+                            startActivity(new Intent(getApplicationContext(), MyOrders.class));
                             finish();
 
                         } else if (from == 4) {

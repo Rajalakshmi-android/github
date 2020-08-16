@@ -48,7 +48,7 @@ public class CountryAdapter extends ArrayAdapter<CountryPO> {
         if (position==0)
         {
             textView.setTextColor(mContext.getResources().getColor(R.color.plceholder));
-            textView.setPadding(0,0,0,0);
+
         }
         textView.setText(items.get(position).getCount_name());
 

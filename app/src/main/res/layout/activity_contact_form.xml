@@ -174,7 +174,7 @@
                                 <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/comments"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dp130"
+                                    android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/dp6"
                                     android:background="@android:color/transparent"
                                     android:gravity="top"

@@ -24,7 +24,7 @@
                 android:layout_marginStart="@dimen/dp10"
                 android:textStyle="bold"
                 android:id="@+id/filter_name"
-                android:textSize="@dimen/text16sp"
+                android:textSize="@dimen/text14sp"
                 android:text=""
                 android:layout_gravity="start|center_vertical"
                 android:textColor="@color/app_text_color" />

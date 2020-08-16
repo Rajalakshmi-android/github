@@ -246,7 +246,7 @@ public class Registration extends Language {
                         Log.d("Input_format", cus_email);
 
                         Toast.makeText(getApplicationContext(), R.string.register, Toast.LENGTH_SHORT).show();
-                        dbController.user_data(cus_id, cus_f_name + cus_l_name, cus_email, cus_mobile);
+                        dbController.user_data(cus_id, cus_f_name +" "+ cus_l_name, cus_email, cus_mobile);
                         f_name.setText("");
                         l_name.setText("");
                         email.setText("");
