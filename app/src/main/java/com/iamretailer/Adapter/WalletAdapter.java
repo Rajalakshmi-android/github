@@ -15,6 +15,7 @@ import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.R;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class WalletAdapter extends ArrayAdapter<OptionsPO> {
     private final Context context;
@@ -71,12 +72,12 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
 
         holder.product_name.setText(items.get(position).getName());
         if(items.get(position).getOffer_rate() > 0) {
-            String val=cur_left + String.format("%.2f", items.get(position).getOffer_rate())+cur_right;
-            String val1=cur_left + String.format("%.2f", items.get(position).getRate())+cur_right;
+            String val=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getOffer_rate())+cur_right;
+            String val1=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getRate())+cur_right;
             holder.prod_offer_rate.setText(val);
             holder.orginal_rate.setText(val1);
         }else{
-            String val=cur_left + String.format("%.2f", items.get(position).getRate())+cur_right;
+            String val=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getRate())+cur_right;
             holder.prod_offer_rate.setText(val);
             holder.orginal_rate.setText("");
         }

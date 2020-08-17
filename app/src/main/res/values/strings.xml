@@ -393,6 +393,7 @@
     <string name="too">To:</string>
     <string name="no_categories_found">No Categories found</string>
     <string name="no_data_found">No Data found !!</string>
+    <string name="no_filter">No filter found</string>
 
 
 </resources>

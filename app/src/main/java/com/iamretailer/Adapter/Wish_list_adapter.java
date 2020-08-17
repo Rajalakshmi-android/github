@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -81,7 +82,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
 
 
         if (items.get(position).getOff_price().equalsIgnoreCase("0")) {
-            String value = String.format("%.2f", items.get(position).getPrice());
+            String value = String.format(Locale.ENGLISH,"%.2f", items.get(position).getPrice());
             holder.p_price.setText(value);
             holder.cur_back.setText(cur_right);
             holder.cur_front.setText(cur_left);

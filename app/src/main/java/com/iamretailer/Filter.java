@@ -54,6 +54,7 @@ public class Filter extends AppCompatActivity {
     int selected=0,clear_data=0;
     LinearLayout clear;
     int cancel_check=0;
+    int cat_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class Filter extends AppCompatActivity {
         filter_list=new ArrayList<>();
         if (intent.getExtras()!=null) {
             filter_list= (ArrayList<FilterPO>) intent.getExtras().getSerializable("filter_data");
+            cat_id=intent.getIntExtra("cat_id",0);
         }
         if (filter_list.size()>0)
         {
@@ -110,7 +112,7 @@ public class Filter extends AppCompatActivity {
         else
         {
             FilterTask filterTask=new FilterTask();
-            filterTask.execute(Appconstatants.Filter_Api);
+            filterTask.execute(Appconstatants.Filter_Api+cat_id);
         }
 
         main_filter.addOnItemTouchListener(new RecyclerItemClickListener(Filter.this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -257,7 +259,7 @@ public class Filter extends AppCompatActivity {
                 }
 
                 FilterTask filterTask=new FilterTask();
-                filterTask.execute(Appconstatants.Filter_Api);
+                filterTask.execute(Appconstatants.Filter_Api+cat_id);
 
             }
         });
@@ -269,7 +271,7 @@ public class Filter extends AppCompatActivity {
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
                 FilterTask filterTask=new FilterTask();
-                filterTask.execute(Appconstatants.Filter_Api);
+                filterTask.execute(Appconstatants.Filter_Api+cat_id);
 
 
             }
@@ -408,13 +410,14 @@ public class Filter extends AppCompatActivity {
 
                                     }
                                     filterPO.setFilterPOS(filter_sub_list);
+                                    if (array1.length()>0)
                                     filter_list.add(filterPO);
                                 }
 
                                 if (filterPO.getFilter_name().equalsIgnoreCase("price_range"))
                                 {
                                     JSONArray array1=arr.getJSONArray("price_range");
-                                    filter_sub_list=new ArrayList<>();
+                                        filter_sub_list=new ArrayList<>();
                                         FilterPO filterPO1=new FilterPO();
                                         filterPO1.setFilter_name("price_range");
                                         filterPO1.setSeek_min(Float.parseFloat(String.valueOf(array1.get(0))));
@@ -425,6 +428,7 @@ public class Filter extends AppCompatActivity {
 
 
                                     filterPO.setFilterPOS(filter_sub_list);
+                                    if (filterPO1.getSeek_min()>0 &&filterPO1.getSeek_max()>filterPO1.getSeek_min())
                                     filter_list.add(filterPO);
                                 }
 
@@ -449,16 +453,21 @@ public class Filter extends AppCompatActivity {
                         check_list=new ArrayList<>();
                         check_list=filter_list;
 
+                        if (filter_list.size()>0) {
 
-                        mainAdapter=new FilterMainAdapter(Filter.this,filter_list);
-                        main_filter.setLayoutManager(new LinearLayoutManager(Filter.this,LinearLayoutManager.VERTICAL,false));
-                        filter_list.get(main_list_pos).setSelected(true);
-                        main_filter.setAdapter(mainAdapter);
+                            mainAdapter = new FilterMainAdapter(Filter.this, filter_list);
+                            main_filter.setLayoutManager(new LinearLayoutManager(Filter.this, LinearLayoutManager.VERTICAL, false));
+                            filter_list.get(main_list_pos).setSelected(true);
+                            main_filter.setAdapter(mainAdapter);
 
 
-                        filterSubAdapter=new FilterSubAdapter(Filter.this,filter_list.get(main_list_pos).getFilterPOS());
-                        sub_filter.setLayoutManager(new LinearLayoutManager(Filter.this,LinearLayoutManager.VERTICAL,false));
-                        sub_filter.setAdapter(filterSubAdapter);
+                            filterSubAdapter = new FilterSubAdapter(Filter.this, filter_list.get(main_list_pos).getFilterPOS());
+                            sub_filter.setLayoutManager(new LinearLayoutManager(Filter.this, LinearLayoutManager.VERTICAL, false));
+                            sub_filter.setAdapter(filterSubAdapter);
+                        }else
+                        {
+                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.no_filter),Toast.LENGTH_LONG).show();
+                        }
 
 
 
@@ -487,6 +496,8 @@ public class Filter extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     loading_bar.setVisibility(View.VISIBLE);
+                                    FilterTask filterTask=new FilterTask();
+                                    filterTask.execute(Appconstatants.Filter_Api+cat_id);
 
                                 }
                             })

@@ -36,6 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 
 
 import stutzen.co.network.Connection;
@@ -253,7 +254,7 @@ public class MyCart_copy extends Language {
         }
         rupee_front.setText(cur_left);
         rupee_back.setText(cur_right);
-        String val=String.format("%.2f", sum);
+        String val=String.format(Locale.ENGLISH,"%.2f", sum);
         subtotal.setText(val);
     }
 

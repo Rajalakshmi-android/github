@@ -981,13 +981,13 @@ public class ProductFullView extends Language {
                         originalrs.setText(cur_left);
                         originalrs1.setText(cur_right);
                         if (jsonObject.getDouble("special") > 0) {
-                            String val=String.format("%.2f", sp_price);
+                            String val=String.format(Locale.ENGLISH,"%.2f", sp_price);
                             productrate.setText(val);
-                            String val1=String.format("%.2f", price);
+                            String val1=String.format(Locale.ENGLISH,"%.2f", price);
                             orginal.setText(val1);
 
                         } else {
-                            String val=String.format("%.2f", price);
+                            String val=String.format(Locale.ENGLISH,"%.2f", price);
                             productrate.setText(val);
                             orginal.setVisibility(View.GONE);
                             originalrs.setVisibility(View.GONE);
@@ -1873,15 +1873,15 @@ public class ProductFullView extends Language {
             if (sp_price>0) {
                 whole_price1=whole_price1+price1 + sp_price;
                 whole_price2=whole_price2+price2 + price;
-                String wp_val=String.format("%.2f", whole_price1);
-                String wp_val2=String.format("%.2f", whole_price2);
+                String wp_val=String.format(Locale.ENGLISH,"%.2f", whole_price1);
+                String wp_val2=String.format(Locale.ENGLISH,"%.2f", whole_price2);
                 productrate.setText(wp_val);
                 orginal.setText(wp_val2);
             }
             else
             {
                whole_price2=whole_price2+price2 + price;
-                String val=String.format("%.2f", whole_price2);
+                String val=String.format(Locale.ENGLISH,"%.2f", whole_price2);
                 productrate.setText(val);
                 orginal.setVisibility(View.GONE);
 

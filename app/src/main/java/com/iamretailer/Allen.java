@@ -157,6 +157,7 @@ public class Allen extends Language {
             public void onClick(View v) {
                 Intent i2 = new Intent(Allen.this, Filter.class);
                 i2.putExtra("filter_data", filterPOS);
+                i2.putExtra("cat_id",cat_id);
                 startActivityForResult(i2, 1);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
 
@@ -586,9 +587,6 @@ public class Allen extends Language {
                         loading.setVisibility(View.GONE);
                         loading_bar.setVisibility(View.GONE);
 
-
-                        CartTask cartTask = new CartTask();
-                        cartTask.execute(Appconstatants.cart_api);
 
                     } else {
                         error_network.setVisibility(View.VISIBLE);

@@ -59,7 +59,7 @@ public class Product_list extends Language {
     private ArrayList<ProductsPO> banner_items;
     private String title = "";
     private String head = "";
-
+    private boolean cart=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,8 +201,11 @@ public class Product_list extends Language {
     @Override
     public void onResume() {
         super.onResume();
-        CartTask cartTask = new CartTask();
-        cartTask.execute(Appconstatants.cart_api);
+        if (!cart)
+        {
+            CartTask cartTask = new CartTask();
+            cartTask.execute(Appconstatants.cart_api);
+        }
 
 
         if (dbController.getLoginCount() > 0) {
@@ -300,9 +303,13 @@ public class Product_list extends Language {
                         } else {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
-
+                        if (cart)
+                        {
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
+                        cart=false;
+                        }
+
                         //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
@@ -442,8 +449,13 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.GONE);
 
                         start = start + 1;
-                        CartTask cartTask = new CartTask();
-                        cartTask.execute(Appconstatants.cart_api);
+                        if (cart)
+                        {
+                            CartTask cartTask = new CartTask();
+                            cartTask.execute(Appconstatants.cart_api);
+                            cart=false;
+                        }
+
 
 
                     } else {
@@ -793,8 +805,13 @@ public class Product_list extends Language {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
 
-                        CartTask cartTask = new CartTask();
-                        cartTask.execute(Appconstatants.cart_api);
+                        if (cart)
+                        {
+                            CartTask cartTask = new CartTask();
+                            cartTask.execute(Appconstatants.cart_api);
+                            cart=false;
+                        }
+
                         //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);

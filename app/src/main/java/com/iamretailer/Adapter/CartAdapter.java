@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
@@ -142,7 +143,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_prod_name.setText(items.get(position).getProduct_name());
         holder.rupee_back.setText(cur_right);
         holder.rupee_front.setText(cur_left);
-        String val=String.format("%.2f", items.get(position).getTotal());
+        String val=String.format(Locale.ENGLISH,"%.2f", items.get(position).getTotal());
         holder.cart_prod_or_rate.setText(val);
         StringBuilder op = new StringBuilder();
         for (int j = 0; j < items.get(position).getOptionlist().size(); j++) {

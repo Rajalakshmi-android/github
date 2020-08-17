@@ -88,6 +88,8 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:singleLine="true"
+                        android:paddingStart="@dimen/dp4"
+                        android:paddingEnd="@dimen/dp4"
                         android:textColor="@color/app_text_color"
                         />
                     <LinearLayout
