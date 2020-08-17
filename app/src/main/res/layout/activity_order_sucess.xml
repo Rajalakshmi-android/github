@@ -19,9 +19,7 @@ android:background="@color/white">
         android:layout_height="@dimen/dp70"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp10"
-        android:autoMirrored="true"
         android:contentDescription="@null"
-        android:rotationY="@integer/locale_mirror_flip"
         android:src="@mipmap/order_placed" />
 
     <com.iamretailer.Common.CustomTextview1

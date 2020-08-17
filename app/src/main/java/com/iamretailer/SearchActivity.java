@@ -54,16 +54,17 @@ public class SearchActivity extends Language {
     private AndroidLogger logger;
     private SingleProductTask productTask;
     private final int start=1,limit=10;
-
+    private ArrayList<ProductsPO> fav_item;
+    private DBController db;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-        DBController dbCon = new DBController(SearchActivity.this);
+        db = new DBController(SearchActivity.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        Appconstatants.sessiondata = dbCon.getSession();
-        Appconstatants.Lang= dbCon.get_lang_code();
-        Appconstatants.CUR= dbCon.getCurCode();
+        Appconstatants.sessiondata = db.getSession();
+        Appconstatants.Lang= db.get_lang_code();
+        Appconstatants.CUR= db.getCurCode();
         Log.d("Session", Appconstatants.sessiondata + "Value");
         Grid = findViewById(R.id.grid);
         LinearLayout back = findViewById(R.id.menu);
@@ -139,14 +140,12 @@ public class SearchActivity extends Language {
                 }
                 else
                 {
-                    search_loading.setVisibility(View.VISIBLE);
+                    search_loading.setVisibility(View.GONE);
+                    error_network.setVisibility(View.GONE);
                     Grid.setVisibility(View.GONE);
                     no_items.setVisibility(View.GONE);
 
                     text = "";
-                     productTask = new SingleProductTask();
-                    productTask.execute(Appconstatants.SEARCH + "" + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
-
 
                 }
 
@@ -154,10 +153,18 @@ public class SearchActivity extends Language {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(text.equalsIgnoreCase("")){
+                    search_loading.setVisibility(View.GONE);
+                    Grid.setVisibility(View.GONE);
+                    no_items.setVisibility(View.GONE);
+                }else{
+                    search_loading.setVisibility(View.VISIBLE);
+                    Grid.setVisibility(View.GONE);
+                    no_items.setVisibility(View.GONE);
 
-                search_loading.setVisibility(View.VISIBLE);
-                Grid.setVisibility(View.GONE);
-                no_items.setVisibility(View.GONE);
+                }
+
+
             }
         });
 
@@ -170,10 +177,83 @@ public class SearchActivity extends Language {
     @Override
     public void onResume() {
         super.onResume();
-
+        CartTask cartTask = new CartTask();
+        cartTask.execute(Appconstatants.cart_api);
+        if (db.getLoginCount() > 0) {
+            WISH_LIST wish_list = new WISH_LIST();
+            wish_list.execute(Appconstatants.Wishlist_Get);
+        }
     }
 
+    private class WISH_LIST extends AsyncTask<String, Void, String> {
 
+        @Override
+        protected void onPreExecute() {
+            Log.d("Tag", "started");
+        }
+
+        protected String doInBackground(String... param) {
+            logger.info("WIsh list api" + param[0]);
+
+
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
+                logger.info("WIsh list api resp" + response);
+                Log.d("wish_api", param[0]);
+                Log.d("wish_res", response + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("tag", "products_Hai--->  " + resp);
+            if (resp != null) {
+                try {
+                    fav_item = new ArrayList<>();
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        JSONArray array = json.getJSONArray("data");
+                        Log.d("wish_res", "ddsadsa");
+
+                        if (array.length() > 0) {
+                            for (int h = 0; h < array.length(); h++) {
+                                JSONObject obj = array.getJSONObject(h);
+                                ProductsPO bo = new ProductsPO();
+                                bo.setProduct_id(obj.isNull("product_id") ? "" : obj.getString("product_id"));
+                                fav_item.add(bo);
+                            }
+
+                            if (optionsPOArrayList1!=null&&optionsPOArrayList1.size() > 0) {
+                                for (int u = 0; u < optionsPOArrayList1.size(); u++) {
+                                    for (int h = 0; h < fav_item.size(); h++) {
+                                        if (Integer.parseInt(optionsPOArrayList1.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            optionsPOArrayList1.get(u).setWish_list(true);
+                                            break;
+                                        } else {
+                                            optionsPOArrayList1.get(u).setWish_list(false);
+                                        }
+                                    }
+                                }
+                                adapter1.notifyDataSetChanged();
+                            }
+
+
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+            }
+        }
+    }
 
     private class SingleProductTask extends AsyncTask<String, Void, String> {
 
@@ -259,9 +339,27 @@ public class SearchActivity extends Language {
                             }
 
 
-                            CartTask cartTask = new CartTask();
-                            cartTask.execute(Appconstatants.cart_api);
 
+                            if (optionsPOArrayList1!=null) {
+                                adapter1 = new CommonAdapter(SearchActivity.this, optionsPOArrayList1,0,3);
+                                GridLayoutManager mLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
+                                Grid.setLayoutManager(mLayoutManager);
+                                Grid.setAdapter(adapter1);
+
+                            }
+                            else
+                            {
+                                adapter1.notifyDataSetChanged();
+                            }
+                            search_loading.setVisibility(View.GONE);
+                            if (text.length()>0)
+                                Grid.setVisibility(View.VISIBLE);
+                            else
+                                Grid.setVisibility(View.VISIBLE);
+
+
+                            no_items.setVisibility(View.GONE);
+                            loading.setVisibility(View.GONE);
                         }
                         error_network.setVisibility(View.GONE);
 
@@ -372,29 +470,11 @@ public class SearchActivity extends Language {
                                         }
                                     }
                                 }
+                                adapter1.notifyDataSetChanged();
                             }
 
                         }
-                        if (optionsPOArrayList1!=null) {
-                            adapter1 = new CommonAdapter(SearchActivity.this, optionsPOArrayList1,0,3);
-                            GridLayoutManager mLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
-                            Grid.setLayoutManager(mLayoutManager);
-                            Grid.setAdapter(adapter1);
 
-                        }
-                        else
-                        {
-                            adapter1.notifyDataSetChanged();
-                        }
-                        search_loading.setVisibility(View.GONE);
-                        if (text.length()>0)
-                            Grid.setVisibility(View.VISIBLE);
-                        else
-                            Grid.setVisibility(View.VISIBLE);
-
-
-                        no_items.setVisibility(View.GONE);
-                        loading.setVisibility(View.GONE);
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(SearchActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();

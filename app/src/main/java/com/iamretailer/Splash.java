@@ -361,6 +361,8 @@ public class Splash extends Language {
                         JSONArray array = object.getJSONArray("data");
                         ArrayList<LangPO> langPOS = new ArrayList<>();
                         dbCon.drop_lang();
+                        int j;
+                        j=array.length();
                         if (array.length() > 0) {
                             for (int i = 0; i < array.length(); i++) {
                                 LangPO langPO = new LangPO();
@@ -375,6 +377,17 @@ public class Splash extends Language {
                                 if (def == 1 && dbCon.get_lan_c() <= 0) {
                                     dbCon.drop_app_lang();
                                     dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
+                                }
+                                if (j==(i+1))
+                                {
+                                    LangPO langPO1=new LangPO();
+
+                                    langPO1.setLang_id("asa");
+                                    langPO1.setLang_name("Arabic");
+                                    langPO1.setLang_code("ar-gb");
+                                    langPOS.add(langPO1);
+                                    dbCon.insert_lang("asa","Arabic","ar-gb");
+
                                 }
 
                                /* if (i == 0 && dbCon.get_lan_c() <= 0) {

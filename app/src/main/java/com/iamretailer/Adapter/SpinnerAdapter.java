@@ -62,6 +62,7 @@ public class SpinnerAdapter extends BaseAdapter {
         }
         main_text.setText(items.get(position).getName());
 
+
         return mySpinner;
     }
 }

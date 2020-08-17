@@ -537,6 +537,7 @@ public class ProductFullView extends Language {
     private void coloroption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.optionview, options, false);
         TextView heading = layout.findViewById(R.id.heading);
+        Log.i("kfkfkskfk",optionsPO.getName() +"");
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
@@ -591,6 +592,7 @@ public class ProductFullView extends Language {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.sizeoption, options, false);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         TextView heading = layout.findViewById(R.id.heading);
+        Log.i("fsdfsdfsdfdsf",optionsPO.getName() +"");
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         final ArrayList<SingleOptionPO> sizelist = optionsPO.getValuelist();
@@ -642,6 +644,7 @@ public class ProductFullView extends Language {
         final Spinner weight_spinner = layout.findViewById(R.id.weight_spinner);
         final ArrayList<SingleOptionPO> spinner_string = optionsPO.getValuelist();
         TextView heading = layout.findViewById(R.id.heading);
+        Log.i("afsafaf",optionsPO.getName() +"");
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         Log.i("tag", "weight" + optionsPO.getValuelist());
@@ -682,6 +685,7 @@ public class ProductFullView extends Language {
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(15, 15, 15, 15);
         String text=optionsPO.getName() + " :";
+        Log.i("sdsadad",optionsPO.getName() +"");
         heading.setText(text);
         final ArrayList<SingleOptionPO> check_value = optionsPO.getValuelist();
 
@@ -740,6 +744,7 @@ public class ProductFullView extends Language {
         final RadioGroup radio = layout.findViewById(R.id.radio);
         TextView heading = layout.findViewById(R.id.heading);
         String text=optionsPO.getName() + " :";
+        Log.i("fsfsdfsfd",optionsPO.getName() +"");
         heading.setText(text);
         final ArrayList<SingleOptionPO> radio_values = optionsPO.getValuelist();
         for (int u = 0; u < radio_values.size(); u++) {

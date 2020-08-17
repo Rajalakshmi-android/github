@@ -50,12 +50,15 @@ public class Deal_list extends Language {
     private int visibleItemCount;
     private GridLayoutManager mLayoutManager;
     private TextView no_proditems;
+    private DBController db;
+    private ArrayList<ProductsPO> fav_item;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+        db = new DBController(Deal_list.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         loading = findViewById(R.id.loading);
@@ -72,10 +75,9 @@ public class Deal_list extends Language {
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
         no_proditems=findViewById(R.id.no_proditems);
-        DBController dbController = new DBController(Deal_list.this);
-        Appconstatants.sessiondata = dbController.getSession();
-        Appconstatants.Lang = dbController.get_lang_code();
-        Appconstatants.CUR = dbController.getCurCode();
+        Appconstatants.sessiondata = db.getSession();
+        Appconstatants.Lang = db.get_lang_code();
+        Appconstatants.CUR = db.getCurCode();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,8 +144,80 @@ public class Deal_list extends Language {
         super.onResume();
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
+        if (db.getLoginCount() > 0) {
+            WISH_LIST wish_list = new WISH_LIST();
+            wish_list.execute(Appconstatants.Wishlist_Get);
+        }
     }
+    private class WISH_LIST extends AsyncTask<String, Void, String> {
 
+        @Override
+        protected void onPreExecute() {
+            Log.d("Tag", "started");
+        }
+
+        protected String doInBackground(String... param) {
+            logger.info("WIsh list api" + param[0]);
+
+
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
+                logger.info("WIsh list api resp" + response);
+                Log.d("wish_api", param[0]);
+                Log.d("wish_res", response + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("tag", "products_Hai--->  " + resp);
+            if (resp != null) {
+                try {
+                    fav_item = new ArrayList<>();
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        JSONArray array = json.getJSONArray("data");
+                        Log.d("wish_res", "ddsadsa");
+
+                        if (array.length() > 0) {
+                            for (int h = 0; h < array.length(); h++) {
+                                JSONObject obj = array.getJSONObject(h);
+                                ProductsPO bo = new ProductsPO();
+                                bo.setProduct_id(obj.isNull("product_id") ? "" : obj.getString("product_id"));
+                                fav_item.add(bo);
+                            }
+
+                            if (list!=null&&list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
+                                    for (int h = 0; h < fav_item.size(); h++) {
+                                        if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            list.get(u).setWish_list(true);
+                                            break;
+                                        } else {
+                                            list.get(u).setWish_list(false);
+                                        }
+                                    }
+                                }
+                                bestAdapter.notifyDataSetChanged();
+                            }
+
+
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+            }
+        }
+    }
     private class DEAL_LIST extends AsyncTask<String, Void, String> {
 
         @Override
