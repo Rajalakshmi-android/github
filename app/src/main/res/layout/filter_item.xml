@@ -53,6 +53,8 @@
                 android:layout_height="@dimen/dp15"
                 android:src="@mipmap/filternormal"
                 android:id="@+id/bg_image"
+                android:autoMirrored="true"
+                android:rotationY="@integer/locale_mirror_flip"
                 android:layout_marginEnd="@dimen/dp10"
                 android:padding="@dimen/dp2"
                 android:layout_gravity="center_vertical|end"/>
