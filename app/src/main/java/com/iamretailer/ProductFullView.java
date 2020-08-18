@@ -1453,14 +1453,14 @@ public class ProductFullView extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Toast.makeText(ProductFullView.this, R.string.post_suc, Toast.LENGTH_SHORT).show();
-                        rate1.setImageResource(R.mipmap.un_fill);
-                        rate2.setImageResource(R.mipmap.un_fill);
-                        rate3.setImageResource(R.mipmap.un_fill);
-                        rate4.setImageResource(R.mipmap.un_fill);
-                        rate5.setImageResource(R.mipmap.un_fill);
+                        rate1.setImageResource(R.mipmap.rating_unfill);
+                        rate2.setImageResource(R.mipmap.rating_unfill);
+                        rate3.setImageResource(R.mipmap.rating_unfill);
+                        rate4.setImageResource(R.mipmap.rating_unfill);
+                        rate5.setImageResource(R.mipmap.rating_unfill);
                         count = 0;
                         comment.setText("");
-                        // SingleProductTask singleProductTask = new SingleProductTask();
+                        // SingleProductTask singleProductTask = new Single ProductTask();
                         // singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
                     } else {
                         JSONArray array = json.getJSONArray("error");

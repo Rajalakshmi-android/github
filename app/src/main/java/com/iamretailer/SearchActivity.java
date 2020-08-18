@@ -88,8 +88,12 @@ public class SearchActivity extends Language {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
-                SingleProductTask productTask = new SingleProductTask();
-                productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
+                productTask = new SingleProductTask();
+                try {
+                    productTask.execute(Appconstatants.SEARCH + URLEncoder.encode(text, "UTF-8") + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -359,9 +363,10 @@ public class SearchActivity extends Language {
 
 
                             no_items.setVisibility(View.GONE);
-                            loading.setVisibility(View.GONE);
+
                         }
                         error_network.setVisibility(View.GONE);
+                        loading.setVisibility(View.GONE);
 
                     } else
                         {
