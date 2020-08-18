@@ -143,6 +143,6 @@ public class Appconstatants {
 
     public static String razorpay=domain+"index.php?route=rest/razorpay/order";
 
-    public static String Filter_Api=domain+"index.php?route=rest/filter/filteroption&path=20";
+    public static String Filter_Api=domain+"index.php?route=rest/filter/filteroption&path=";
 
 }

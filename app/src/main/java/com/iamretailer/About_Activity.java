@@ -212,7 +212,7 @@ public class About_Activity extends Language {
                                 public void onClick(View view) {
                                     loading_bar.setVisibility(View.VISIBLE);
                                     productTask = new AboutTask();
-                                    productTask.execute(Appconstatants.ABOUT );
+                                    productTask.execute(Appconstatants.ABOUT);
                                 }
                             })
                             .show();

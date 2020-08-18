@@ -40,15 +40,15 @@ public class OrderEdit extends Language {
         Appconstatants.Lang= dbController.get_lang_code();
         Appconstatants.CUR= dbController.getCurCode();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        LinearLayout back = (LinearLayout) findViewById(R.id.menu);
-        LinearLayout cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        LinearLayout retry = (LinearLayout) findViewById(R.id.retry);
+        LinearLayout back = findViewById(R.id.menu);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        fullayout = findViewById(R.id.fullayout);
+        loading_bar = findViewById(R.id.loading_bar);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        LinearLayout retry = findViewById(R.id.retry);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

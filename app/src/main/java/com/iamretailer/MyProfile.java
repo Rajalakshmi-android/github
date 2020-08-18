@@ -272,6 +272,7 @@ public class MyProfile extends Language {
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    loading_bar.setVisibility(View.VISIBLE);
                                     GET_PROFILE profile = new GET_PROFILE();
                                     profile.execute(Appconstatants.MY_PROFILE);
 

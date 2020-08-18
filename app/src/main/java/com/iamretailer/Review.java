@@ -39,7 +39,7 @@ public class Review extends Language {
     private boolean scrollValue;
     private boolean scrollNeed = true;
     private int start = 0;
-    private final int  limit = 20;
+    private int  limit = 20;
     private int val = 0;
     private LinearLayout load_more;
     private TextView errortxt1;
@@ -89,8 +89,12 @@ public class Review extends Language {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
+                val=0;
+                start=0;
+                limit=20;
 
                 ReviewTASK reviewTASK = new ReviewTASK();
                 reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);

@@ -630,8 +630,8 @@ public class Drawer extends Language {
                     Log.i("reekkk", "inside");
                 } else {
                     Log.i("reeaaaaaa", "inside");
-                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
-                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.per_enable),
+                            Snackbar.LENGTH_INDEFINITE).setAction(getResources().getString(R.string.enable),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

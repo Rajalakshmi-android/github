@@ -132,6 +132,7 @@ public class Product_list extends Language {
                 limit = 10;
                 val = 0;
                 loadin = false;
+                cart=true;
                 no_proditems.setVisibility(View.GONE);
                 if (from.equals("best_sell")) {
                     BEST_SELLING best_selling = new BEST_SELLING();

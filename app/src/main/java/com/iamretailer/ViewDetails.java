@@ -239,10 +239,10 @@ public class ViewDetails extends Language {
             case 1: {
 
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.per_grant), Toast.LENGTH_SHORT).show();
                     call_action();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.per_den), Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

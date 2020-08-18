@@ -279,7 +279,7 @@ public class MainActivity extends Drawer {
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale
                                 (MainActivity.this, android.Manifest.permission.CALL_PHONE)) {
-                    Snackbar.make(findViewById(android.R.id.content), "Please Grant Permissions", Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.per_msg), Snackbar.LENGTH_INDEFINITE).setAction(getResources().getString(R.string.enable),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

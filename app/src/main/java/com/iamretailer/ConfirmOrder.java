@@ -798,7 +798,7 @@ public class ConfirmOrder extends Language {
             co.open(activity, options);
         } catch (JSONException e) {
             Log.d("sss_", e.toString());
-            Toast.makeText(ConfirmOrder.this, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ConfirmOrder.this, getResources().getString(R.string.err_pay) + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -807,7 +807,7 @@ public class ConfirmOrder extends Language {
     @SuppressWarnings("unused")
     public void onPaymentSuccess(String razorpayPaymentID) {
 
-        Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.pay_sucess) + razorpayPaymentID, Toast.LENGTH_SHORT).show();
 
         PaymentSuccess OrderTask = new PaymentSuccess();
         OrderTask.execute(razorpayPaymentID);
@@ -818,7 +818,7 @@ public class ConfirmOrder extends Language {
     @SuppressWarnings("unused")
     public void onPaymentError(int code, String response) {
         try {
-            Toast.makeText(this, "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.pay_fail) + code + " " + response, Toast.LENGTH_SHORT).show();
             Log.d("Razor_resp", response + "");
         } catch (Exception e) {
             Log.e("Pay_status_erro", "Exception in onPaymentError", e);
@@ -826,7 +826,7 @@ public class ConfirmOrder extends Language {
 
         new AlertDialog.Builder(ConfirmOrder.this)
                 .setCancelable(false)
-                .setMessage("Payment Transaction Failed ")
+                .setMessage(getResources().getString(R.string.pay_failed))
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
@@ -888,7 +888,7 @@ public class ConfirmOrder extends Language {
                     } else {
                         new AlertDialog.Builder(ConfirmOrder.this)
                                 .setCancelable(false)
-                                .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                                .setMessage(getResources().getString(R.string.pay_msg))
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         dialog.dismiss();
@@ -903,7 +903,7 @@ public class ConfirmOrder extends Language {
                     e.printStackTrace();
                     new AlertDialog.Builder(ConfirmOrder.this)
                             .setCancelable(false)
-                            .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                            .setMessage(getResources().getString(R.string.pay_msg))
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     dialog.dismiss();
@@ -915,7 +915,7 @@ public class ConfirmOrder extends Language {
             } else {
                 new AlertDialog.Builder(ConfirmOrder.this)
                         .setCancelable(false)
-                        .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                        .setMessage(getResources().getString(R.string.pay_msg))
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();
@@ -982,7 +982,7 @@ public class ConfirmOrder extends Language {
                     } else {
                         new AlertDialog.Builder(ConfirmOrder.this)
                                 .setCancelable(false)
-                                .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                                .setMessage(getResources().getString(R.string.pay_msg))
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         dialog.dismiss();
@@ -997,7 +997,7 @@ public class ConfirmOrder extends Language {
                     e.printStackTrace();
                     new AlertDialog.Builder(ConfirmOrder.this)
                             .setCancelable(false)
-                            .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                            .setMessage(getResources().getString(R.string.pay_msg))
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     dialog.dismiss();
@@ -1009,7 +1009,7 @@ public class ConfirmOrder extends Language {
             } else {
                 new AlertDialog.Builder(ConfirmOrder.this)
                         .setCancelable(false)
-                        .setMessage("Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990")
+                        .setMessage(getResources().getString(R.string.pay_msg))
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();

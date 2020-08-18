@@ -1,5 +1,6 @@
 package com.iamretailer;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.LocaleHelper;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
@@ -46,6 +48,9 @@ public class Webactivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
+        }
         setContentView(R.layout.activity_webactivity);
         CommonFunctions.updateAndroidSecurityProvider(this);
         DBController dbCon = new DBController(Webactivity.this);
@@ -211,5 +216,10 @@ public class Webactivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 }
