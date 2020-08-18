@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -686,37 +687,33 @@ public class ProductFullView extends Language {
         TextView heading = layout.findViewById(R.id.heading);
         String text=optionsPO.getName() + " :";
         Log.i("fsfsdfsfd",optionsPO.getName() +"");
+        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         heading.setText(text);
         final ArrayList<SingleOptionPO> radio_values = optionsPO.getValuelist();
         for (int u = 0; u < radio_values.size(); u++) {
             RadioButton rbn = new RadioButton(ProductFullView.this);
-            Log.i("hishihfi","rrrrrr");
-            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
-            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            rbn.setTypeface(typeface);
-            rbn.setLayoutParams(params);
-            rbn.setPadding((int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15));
-
             rbn.setId(radio_values.get(u).getProduct_option_value_id());
-            rbn.setText(radio_values.get(u).getName());
+            String value="  " + radio_values.get(u).getName();
+            rbn.setText(value);
+            rbn.setTypeface(typeface);
             rbn.setTextColor(getResources().getColor(R.color.text_select));
-
-
-
-            if (u==0)
-            {
-
+            Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
+            drawable.setBounds(0, 0, 50, 50);
+            rbn.setCompoundDrawables(drawable, null, null, null);
+            rbn.setButtonDrawable(null);
+            rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+            if (u==0) {
                 rbn.setChecked(true);
                 optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id());
                 optionsPOArrayList.get(pos).setPrices(radio_values.get(u).getPrice());
                 optionsPOArrayList.get(pos).setPrefix(radio_values.get(u).getPrefix());
             }
-            else
-            {
+            else {
                 rbn.setChecked(false);
-
             }
             rbn.setTypeface(typeface);
+            rbn.setLayoutParams(params);
             rbn.setTag(u);
             radio.addView(rbn);
         }
@@ -764,9 +761,11 @@ public class ProductFullView extends Language {
             rbn.setText(value);
             rbn.setTypeface(typeface);
             rbn.setTextColor(getResources().getColor(R.color.text_select));
-            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
-
-            rbn.setPadding((int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15));
+            Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
+            drawable.setBounds(0, 0, 50, 50);
+            rbn.setCompoundDrawables(drawable, null, null, null);
+            rbn.setButtonDrawable(null);
+            rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
             if (u==0) {
                 rbn.setChecked(true);
                 optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());

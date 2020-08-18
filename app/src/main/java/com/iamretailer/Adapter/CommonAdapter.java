@@ -379,7 +379,6 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                         try {
                             items.get(pos).setWish_list(true);
                             notifyDataSetChanged();
-                            Toast.makeText(context, R.string.dele_wish, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             Log.d("ee",e.toString());
 
@@ -391,8 +390,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                     try {
                         items.get(pos).setWish_list(true);
                         notifyDataSetChanged();
-                        Toast.makeText(context, R.string.dele_wish, Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
+                      } catch (Exception ex) {
                         Log.d("ee",ex.toString());
 
                     }
@@ -402,8 +400,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                 try {
                     items.get(pos).setWish_list(true);
                     notifyDataSetChanged();
-                    Toast.makeText(context, R.string.dele_wish, Toast.LENGTH_SHORT).show();
-                } catch (Exception ex) {
+                      } catch (Exception ex) {
                     Log.d("ee",ex.toString());
                 }
                 Toast.makeText(context, R.string.error_net, Toast.LENGTH_SHORT).show();
