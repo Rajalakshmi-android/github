@@ -38,6 +38,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
     private ArrayList<String> img;
     private TextView cart_count;
     private AndroidLogger logger;
+    private Integer pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         bundle = getIntent().getExtras();
         if (bundle != null) {
             img = bundle.getStringArrayList("url");
+            pos = bundle.getInt("image");
         }
 
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
@@ -81,10 +83,10 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         viewPager = findViewById(R.id.pager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(pos);
         pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist);
         horizontalListView.setAdapter(pointerAdapter);
-        datalist.get(0).setImgSel(true);
+        datalist.get(pos).setImgSel(true);
 
         horizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

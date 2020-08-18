@@ -678,65 +678,6 @@ public class ProductFullView extends Language {
         options.addView(layout);
     }
 
-    private void checkbox_option(final OptionsPO optionsPO, final int pos) {
-        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.check_box_option, options, false);
-        TextView heading = layout.findViewById(R.id.heading);
-        final RadioGroup checkbox1 = layout.findViewById(R.id.checkbox);
-        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(15, 15, 15, 15);
-        String text=optionsPO.getName() + " :";
-        Log.i("sdsadad",optionsPO.getName() +"");
-        heading.setText(text);
-        final ArrayList<SingleOptionPO> check_value = optionsPO.getValuelist();
-
-        for (int u = 0; u < check_value.size(); u++) {
-            RadioButton rbn = new RadioButton(ProductFullView.this);
-            rbn.setId(check_value.get(u).getProduct_option_value_id());
-            String value="  " + check_value.get(u).getName();
-            rbn.setText(value);
-            rbn.setTypeface(typeface);
-            rbn.setTextColor(getResources().getColor(R.color.text_select));
-            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
-            if (u==0) {
-                rbn.setChecked(true);
-                optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());
-                optionsPOArrayList.get(pos).setPrices(check_value.get(u).getPrice());
-                optionsPOArrayList.get(pos).setPrefix(check_value.get(u).getPrefix());
-            }
-            else {
-                rbn.setChecked(false);
-            }
-            rbn.setLayoutParams(params);
-            rbn.setTag(u);
-            checkbox1.addView(rbn);
-        }
-
-        checkbox1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int selectedId = checkbox1.getCheckedRadioButtonId();
-                optionsPOArrayList.get(pos).setSelected_id(selectedId);
-                RadioButton radioButton = group.findViewById(checkedId);
-                int mySelectedIndex = (int) radioButton.getTag();
-                Log.d("dsadad",mySelectedIndex+"");
-                if (check_value.get(mySelectedIndex).getPrice()>0) {
-                    optionsPOArrayList.get(pos).setPrices(check_value.get(mySelectedIndex).getPrice());
-                    optionsPOArrayList.get(pos).setPrefix(check_value.get(mySelectedIndex).getPrefix());
-                    price_Cal();
-                }
-                else
-                {
-                    optionsPOArrayList.get(pos).setPrices(0);
-                    optionsPOArrayList.get(pos).setPrefix("+");
-                    price_Cal();
-                }
-
-            }
-        });
-
-
-        options.addView(layout);
-    }
 
     private void radio_button(final OptionsPO optionsPO, final int pos) {
 
@@ -750,7 +691,7 @@ public class ProductFullView extends Language {
         for (int u = 0; u < radio_values.size(); u++) {
             RadioButton rbn = new RadioButton(ProductFullView.this);
             Log.i("hishihfi","rrrrrr");
-            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.radiobutton_selector));
+            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
             RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rbn.setTypeface(typeface);
             rbn.setLayoutParams(params);
@@ -806,6 +747,68 @@ public class ProductFullView extends Language {
 
 
     }
+    private void checkbox_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.check_box_option, options, false);
+        TextView heading = layout.findViewById(R.id.heading);
+        final RadioGroup checkbox1 = layout.findViewById(R.id.checkbox);
+        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        String text=optionsPO.getName() + " :";
+        Log.i("sdsadad",optionsPO.getName() +"");
+        heading.setText(text);
+        final ArrayList<SingleOptionPO> check_value = optionsPO.getValuelist();
+
+        for (int u = 0; u < check_value.size(); u++) {
+            RadioButton rbn = new RadioButton(ProductFullView.this);
+            rbn.setId(check_value.get(u).getProduct_option_value_id());
+            String value="  " + check_value.get(u).getName();
+            rbn.setText(value);
+            rbn.setTypeface(typeface);
+            rbn.setTextColor(getResources().getColor(R.color.text_select));
+            rbn.setButtonDrawable(getResources().getDrawable(R.drawable.raidobuttonstyle));
+
+            rbn.setPadding((int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15),(int) getApplicationContext().getResources().getDimension(R.dimen.dp15));
+            if (u==0) {
+                rbn.setChecked(true);
+                optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());
+                optionsPOArrayList.get(pos).setPrices(check_value.get(u).getPrice());
+                optionsPOArrayList.get(pos).setPrefix(check_value.get(u).getPrefix());
+            }
+            else {
+                rbn.setChecked(false);
+            }
+            rbn.setTypeface(typeface);
+            rbn.setLayoutParams(params);
+            rbn.setTag(u);
+            checkbox1.addView(rbn);
+        }
+
+        checkbox1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedId = checkbox1.getCheckedRadioButtonId();
+                optionsPOArrayList.get(pos).setSelected_id(selectedId);
+                RadioButton radioButton = group.findViewById(checkedId);
+                int mySelectedIndex = (int) radioButton.getTag();
+                Log.d("dsadad",mySelectedIndex+"");
+                if (check_value.get(mySelectedIndex).getPrice()>0) {
+                    optionsPOArrayList.get(pos).setPrices(check_value.get(mySelectedIndex).getPrice());
+                    optionsPOArrayList.get(pos).setPrefix(check_value.get(mySelectedIndex).getPrefix());
+                    price_Cal();
+                }
+                else
+                {
+                    optionsPOArrayList.get(pos).setPrices(0);
+                    optionsPOArrayList.get(pos).setPrefix("+");
+                    price_Cal();
+                }
+
+            }
+        });
+
+
+        options.addView(layout);
+    }
+
 
 
     private void init() {
@@ -1636,7 +1639,7 @@ public class ProductFullView extends Language {
                                     bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                                     bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                    bo.setWish_list(false);
+                                    bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
                                     Object dd = obj.get("option");
                                     ArrayList<SingleOptionPO> optionPOS = new ArrayList<>();

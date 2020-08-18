@@ -17,7 +17,7 @@
             android:layout_marginTop="@dimen/dp0"
             android:text="@string/select"
             android:textColor="@color/app_text_color"
-            android:textSize="@dimen/text16sp" />
+            android:textSize="@dimen/text14sp" />
 
         <RadioGroup
             android:id="@+id/checkbox"

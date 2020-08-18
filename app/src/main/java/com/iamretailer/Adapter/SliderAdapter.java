@@ -60,12 +60,15 @@ public class SliderAdapter extends PagerAdapter {
          Picasso.with(context).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
         else
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).noFade().into(imageView);
+
+        Log.i("image url",imgurl.get(position)+"  "+position);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent data = new Intent(view.getContext(), FullView.class);
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("url", ((ProductFullView) context).zoom_url);
+                bundle.putInt("image", position);
                 data.putExtras(bundle);
                 view.getContext().startActivity(data);
             }

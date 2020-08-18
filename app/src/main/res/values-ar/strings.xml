@@ -300,9 +300,9 @@
     <string name="razorpay">رازورباي</string>
     <string name="colrs">اللون</string>
     <string name="colss">الألوان</string>
-    <string name="radio">مذياع</string>
+    <string name="radio">radio</string>
     <string name="size">بحجم</string>
-    <string name="chelk_box">خانة الاختيار</string>
+    <string name="chelk_box">checkbox</string>
     <string name="pay_type">يجب تحديد نوع الدفع</string>
     <string name="store">فروعنا</string>
     <string name="store1">متاجرنا</string>

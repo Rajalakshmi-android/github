@@ -1565,7 +1565,7 @@ public class MainActivity extends Drawer {
                                 fav_item.add(bo);
                             }
 
-                            if (list.size() > 0) {
+                            if (list!=null&&list.size() > 0) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < fav_item.size(); h++) {
                                         if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {

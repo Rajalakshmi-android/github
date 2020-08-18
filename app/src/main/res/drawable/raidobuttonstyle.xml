@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@mipmap/radio_green"></item>
-    <item android:state_checked="false" android:drawable="@mipmap/radio_gray"></item>
+    <item android:state_checked="true"
+        android:drawable="@mipmap/radio_green"
+        android:height="100dp"
+        android:width="100dp"
+       >
+
+
+    </item>
+    <item android:state_checked="false"
+        android:drawable="@mipmap/radio_gray">
+
+    </item>
 </selector>

@@ -37,6 +37,7 @@ public class ContactForm extends Language {
     private FrameLayout submit;
     private FrameLayout fullayout;
     private AndroidLogger logger;
+    private DBController dbController;
 
 
     @Override
@@ -45,7 +46,7 @@ public class ContactForm extends Language {
         setContentView(R.layout.activity_contact_form);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        DBController dbController = new DBController(ContactForm.this);
+        dbController = new DBController(ContactForm.this);
         Appconstatants.sessiondata= dbController.getSession();
         Appconstatants.Lang= dbController.get_lang_code();
         Appconstatants.CUR= dbController.getCurCode();
@@ -146,8 +147,10 @@ public class ContactForm extends Language {
                     JSONObject json1 = new JSONObject(resp);
                     if (json1.getInt("success") == 1) {
                         showCallPopup();
-                        full_name.setText("");
-                        mailid.setText("");
+                        if(dbController.getLoginCount()>0){
+                            mailid.setText(dbController.getEmail());
+                            full_name.setText(dbController.getName());
+                        }
                         comments.setText("");
 
                     } else if (json1.getInt("success") == 0) {

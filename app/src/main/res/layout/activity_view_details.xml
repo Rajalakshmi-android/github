@@ -331,7 +331,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:gravity="start|center_vertical"
                                     android:text="@string/shpp"
-                                    android:textColor="@color/text_color1"
+                                    android:textColor="@color/conf_tex"
                                     android:textSize="@dimen/text13sp" />
 
                                 <com.iamretailer.Common.CustomTextview
@@ -341,7 +341,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:gravity="start|center_vertical"
                                     android:paddingStart="@dimen/dp5"
-                                    android:textColor="@color/conf_tex"
+                                    android:textColor="@color/text_color1"
+
                                     android:textSize="@dimen/text13sp" />
 
                             </LinearLayout>
