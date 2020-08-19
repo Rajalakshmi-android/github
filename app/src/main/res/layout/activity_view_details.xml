@@ -314,7 +314,8 @@
                                     android:layout_gravity="center"
                                     android:layout_marginStart="@dimen/dp5"
                                     android:gravity="center"
-                                    android:src="@mipmap/pending" />
+                                    android:src="@mipmap/pending"
+                                    android:visibility="gone"/>
 
                             </LinearLayout>
 

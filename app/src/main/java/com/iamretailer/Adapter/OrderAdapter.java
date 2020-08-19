@@ -88,8 +88,6 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         Log.i("tag", "place_date " + items.get(position).getOrder_status());
         if(items.get(position).getOrder_status().equalsIgnoreCase("Pending")){
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.orange_status));
-            holder.image.setImageResource(R.mipmap.pending_my);
-            holder.image.setVisibility(View.VISIBLE);
 
         }else if(items.get(position).getOrder_status().equalsIgnoreCase("Failed")){
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.red));
@@ -97,8 +95,7 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
 
         }else if(items.get(position).getOrder_status().equalsIgnoreCase("Success")){
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.green_status));
-            holder.image.setImageResource(R.mipmap.success);
-            holder.image.setVisibility(View.VISIBLE);
+
         }
         else{
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
