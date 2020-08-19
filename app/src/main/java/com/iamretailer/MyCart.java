@@ -72,6 +72,7 @@ public class MyCart extends Language {
     private TextView rupee_front;
     private TextView rupee_back;
     private TextView cart_count;
+    private LinearLayout shipping;
 
     @Override
     protected void onResume() {
@@ -105,7 +106,7 @@ public class MyCart extends Language {
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
-        LinearLayout shipping = findViewById(R.id.shipping);
+        shipping = findViewById(R.id.shipping);
         rupee_front = findViewById(R.id.rupee_front);
         rupee_back = findViewById(R.id.rupee_back);
         cart_count = findViewById(R.id.cart_count);
@@ -121,6 +122,7 @@ public class MyCart extends Language {
         shopnow.setVisibility(View.GONE);
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -444,6 +446,10 @@ public class MyCart extends Language {
                             JSONObject jsonObject = (JSONObject) dd;
 
                             has_shopp = jsonObject.isNull("has_shipping") ? 0 : jsonObject.getInt("has_shipping");
+                            if (has_shopp==1)
+                                shipping.setVisibility(View.VISIBLE);
+                            else
+                                shipping.setVisibility(View.GONE);
 
                             JSONArray array = new JSONArray(jsonObject.getString("products"));
 
