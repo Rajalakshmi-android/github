@@ -182,7 +182,6 @@ public class Deal_list extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
-                        Log.d("wish_res", "ddsadsa");
 
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {
@@ -310,7 +309,6 @@ public class Deal_list extends Language {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
-                        Log.d("prducts_arra", arr.length() + "");
 
                         start = start + 1;
 

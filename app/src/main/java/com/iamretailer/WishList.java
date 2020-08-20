@@ -163,7 +163,6 @@ public class WishList extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
-                        Log.d("wish_res", "ddsadsa");
 
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {

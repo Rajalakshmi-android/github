@@ -178,7 +178,6 @@ public class Category_level extends Language {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Category_level.this);
                 logger.info("Category_level resp" + response);
-                Log.d("url response", response);
                 Log.d("url_resp_Cat", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -214,7 +213,6 @@ public class Category_level extends Language {
                                 for (int g = 0; g < array.length(); g++) {
                                     JSONObject object = array.getJSONObject(g);
                                     BrandsPO po = new BrandsPO();
-                                    Log.d("url_resp_Catname", object.getString("name") + "");
                                     po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
                                     po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
 
@@ -223,7 +221,6 @@ public class Category_level extends Language {
                                     for (int i = 0; i < array1.length(); i++) {
                                         JSONObject object1 = array1.getJSONObject(i);
                                         BrandsPO po1 = new BrandsPO();
-                                        Log.d("url_resp_Catname111", object1.getString("name") + "");
                                         po1.setS_id(object1.isNull("category_id") ? "" : object1.getString("category_id"));
                                         po1.setStore_name(object1.isNull("name") ? "" : object1.getString("name"));
                                         cate_list3.add(po1);
@@ -235,7 +232,6 @@ public class Category_level extends Language {
                                 }
 
                                 bo.setArrayList(cate_list2);
-                                Log.d("url_resp_Cats", cate_list2.size() + "");
                                 cate_list.add(bo);
 
                             }

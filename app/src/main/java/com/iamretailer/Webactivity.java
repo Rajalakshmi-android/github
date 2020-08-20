@@ -129,7 +129,6 @@ public class Webactivity extends AppCompatActivity {
 
             logger.info("Product list search api"+param[0]);
 
-            Log.d("singleurl", param[0]);
             String response =   null;
             try {
                 Connection connection = new Connection();

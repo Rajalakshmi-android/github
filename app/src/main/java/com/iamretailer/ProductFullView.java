@@ -168,7 +168,6 @@ public class ProductFullView extends Language {
         errortxt2 = findViewById(R.id.errortxt2);
 
 
-        Log.d("Reviews_id", prod_id);
         productrs1= findViewById(R.id.productrs1);
         originalrs1= findViewById(R.id.originalrs1);
 
@@ -538,7 +537,6 @@ public class ProductFullView extends Language {
     private void coloroption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.optionview, options, false);
         TextView heading = layout.findViewById(R.id.heading);
-        Log.i("kfkfkskfk",optionsPO.getName() +"");
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
@@ -593,7 +591,6 @@ public class ProductFullView extends Language {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.sizeoption, options, false);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         TextView heading = layout.findViewById(R.id.heading);
-        Log.i("fsdfsdfsdfdsf",optionsPO.getName() +"");
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         final ArrayList<SingleOptionPO> sizelist = optionsPO.getValuelist();
@@ -645,10 +642,8 @@ public class ProductFullView extends Language {
         final Spinner weight_spinner = layout.findViewById(R.id.weight_spinner);
         final ArrayList<SingleOptionPO> spinner_string = optionsPO.getValuelist();
         TextView heading = layout.findViewById(R.id.heading);
-        Log.i("afsafaf",optionsPO.getName() +"");
         String text=optionsPO.getName() + " :";
         heading.setText(text);
-        Log.i("tag", "weight" + optionsPO.getValuelist());
         if (spinner_string != null && spinner_string.size() > 0) {
             SpinnerAdapter adapter1 = new SpinnerAdapter(ProductFullView.this, spinner_string);
             weight_spinner.setAdapter(adapter1);
@@ -686,7 +681,6 @@ public class ProductFullView extends Language {
         final RadioGroup radio = layout.findViewById(R.id.radio);
         TextView heading = layout.findViewById(R.id.heading);
         String text=optionsPO.getName() + " :";
-        Log.i("fsfsdfsfd",optionsPO.getName() +"");
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         heading.setText(text);
@@ -750,7 +744,6 @@ public class ProductFullView extends Language {
         final RadioGroup checkbox1 = layout.findViewById(R.id.checkbox);
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         String text=optionsPO.getName() + " :";
-        Log.i("sdsadad",optionsPO.getName() +"");
         heading.setText(text);
         final ArrayList<SingleOptionPO> check_value = optionsPO.getValuelist();
 
@@ -788,7 +781,6 @@ public class ProductFullView extends Language {
                 optionsPOArrayList.get(pos).setSelected_id(selectedId);
                 RadioButton radioButton = group.findViewById(checkedId);
                 int mySelectedIndex = (int) radioButton.getTag();
-                Log.d("dsadad",mySelectedIndex+"");
                 if (check_value.get(mySelectedIndex).getPrice()>0) {
                     optionsPOArrayList.get(pos).setPrices(check_value.get(mySelectedIndex).getPrice());
                     optionsPOArrayList.get(pos).setPrefix(check_value.get(mySelectedIndex).getPrefix());
@@ -863,7 +855,6 @@ public class ProductFullView extends Language {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR,ProductFullView.this);
                 logger.info("Single product resp" + response);
-                Log.d("products_vapi", param[0]);
                 Log.d("products_vv", response);
                 Log.d("products_ses", Appconstatants.sessiondata);
             } catch (Exception e) {
@@ -945,7 +936,6 @@ public class ProductFullView extends Language {
                             r4.setImageResource(R.mipmap.star_unfill);
                             r5.setImageResource(R.mipmap.star_unfill);
                         }
-                        Log.d("quantity_aa", qty + "");
                         JSONArray slide_img = new JSONArray(jsonObject.getString("images"));
 
                         if (qty > 0) {
@@ -1040,7 +1030,6 @@ public class ProductFullView extends Language {
                             ArrayList<SingleOptionPO> rev_list = new ArrayList<>();
                             JSONArray array = rev_obj.getJSONArray("reviews");
 
-                            Log.d("size_check", array.length() + "");
 
                             if (array.length() < 5) {
 
@@ -1125,19 +1114,15 @@ public class ProductFullView extends Language {
     private void DrawOptions() {
         options.removeAllViews();
         for (int i = 0; i < optionsPOArrayList.size(); i++) {
-            Log.i("inputtt", optionsPOArrayList.get(i).getName() + "---" + optionsPOArrayList.get(i).getType());
             if ((optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colrs)) || optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colss))) && optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
-                Log.i("input_color", optionsPOArrayList.get(i).getName() + "---" + optionsPOArrayList.get(i).getValuelist().size());
                 coloroption(optionsPOArrayList.get(i), i);
             } else if (optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.size))) {
-                Log.i("input_size", optionsPOArrayList.get(i).getName() + "---" + optionsPOArrayList.get(i).getValuelist().size());
                 sizeoption(optionsPOArrayList.get(i), i);
             } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.chelk_box))) {
                 checkbox_option(optionsPOArrayList.get(i), i);
             } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
                 radio_button(optionsPOArrayList.get(i), i);
             } else {
-                Log.i("inputtt", optionsPOArrayList.get(i).getName() + "---" + optionsPOArrayList.get(i).getValuelist().size());
                 weightoption(optionsPOArrayList.get(i), i);
 
             }
@@ -1172,11 +1157,9 @@ public class ProductFullView extends Language {
 
 
                 JSONObject object = new JSONObject();
-                Log.d("Cart_S", String.valueOf(optionsPOArrayList.size()));
 
 
                 for (int y = 0; y < optionsPOArrayList.size(); y++) {
-                    Log.i("optionval", optionsPOArrayList.size() + "-" + optionsPOArrayList.get(y).getProduct_option_id() + "");
                     try {
                         object.put(String.valueOf(optionsPOArrayList.get(y).getProduct_option_id()), optionsPOArrayList.get(y).getSelected_id());
                     } catch (JSONException e1) {
@@ -1332,7 +1315,6 @@ public class ProductFullView extends Language {
 
 
     private void shareItem(String url) {
-        Log.d("Image_share", url);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -1377,7 +1359,6 @@ public class ProductFullView extends Language {
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
                 }
             });
-            Log.d("Values_", check + "");
             if (check == 0) {
                 Toast.makeText(ProductFullView.this, R.string.no_whats, Toast.LENGTH_LONG).show();
             }
@@ -1446,7 +1427,6 @@ public class ProductFullView extends Language {
 
         protected void onPostExecute(String resp) {
             pDialog.dismiss();
-            Log.i("Login", "Login--?" + resp);
             Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {
@@ -1795,7 +1775,6 @@ public class ProductFullView extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
-                        Log.d("wish_res", "ddsadsa");
 
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {
@@ -1837,10 +1816,7 @@ public class ProductFullView extends Language {
              double whole_price1=0;
             double whole_price2=0;
             for (int y = 0; y < optionsPOArrayList.size(); y++) {
-                Log.i("optionval", optionsPOArrayList.size() + "-" + optionsPOArrayList.get(y).getProduct_option_id() + "");
                 // whole=whole+optionsPOArrayList.get(y).getPrices();
-                Log.d("adsadda", optionsPOArrayList.get(y).getPrefix() + "");
-                Log.d("adsadda", optionsPOArrayList.get(y).getPrices() + "");
                 if (optionsPOArrayList.get(y).getPrices()>0) {
                     if (sp_price > 0) {
                         if (optionsPOArrayList.get(y).getPrefix().equalsIgnoreCase("-")) {
@@ -1862,7 +1838,6 @@ public class ProductFullView extends Language {
                 }
                 else
                 {
-                    Log.d("adsadda", optionsPOArrayList.get(y).getPrices() + "");
                     if (sp_price > 0) {
                             price1 = 0;
                             price2 = 0;

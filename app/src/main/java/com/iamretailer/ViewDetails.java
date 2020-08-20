@@ -128,13 +128,8 @@ public class ViewDetails extends Language {
         BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         behavior.setPeekHeight(height);
-
-
-        Log.i("tag","fhgfghfhgf---"+maxHeight+ " === "+height);
-
         del=(TextView)mBottomSheetDialog.findViewById(R.id.del);
         horizontalListView =(RecyclerView) mBottomSheetDialog. findViewById(R.id.track_list);
-       // track_list=(LinearLayout)mBottomSheetDialog.findViewById(R.id.track_list);
         track_lay=(LinearLayout)mBottomSheetDialog.findViewById(R.id.track_lay);
         delete=(LinearLayout)mBottomSheetDialog.findViewById(R.id.delete);
         delete.setPadding(0,maxHeight,0,0);
@@ -368,7 +363,6 @@ public class ViewDetails extends Language {
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
                     if (shipping_firstname.equalsIgnoreCase(""))
                     {
-                        Log.i("sfsdfsdf","sfsdfs");
                         del_add_lay.setVisibility(View.GONE);
                         ship_info.setVisibility(View.GONE);
                         ship_method_sec.setVisibility(View.GONE);
@@ -377,7 +371,6 @@ public class ViewDetails extends Language {
                     }
                     else
                     {
-                        Log.i("sfsdfsdf","tertretet");
                         String c_name=object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname");
                         String c_ad1=object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",";
                         String c_ad2=object.getString("payment_city") + ", "+object.getString("payment_zone")+",";
@@ -401,7 +394,6 @@ public class ViewDetails extends Language {
                     }
 
                     JSONArray arr = new JSONArray(object.getString("products"));
-                    Log.d("Order_size", String.valueOf(arr.length()));
 
                     for (int h = 0; h < arr.length(); h++) {
                         JSONObject obj = arr.getJSONObject(h);
@@ -451,7 +443,6 @@ public class ViewDetails extends Language {
                     }
 
                         JSONArray arr1 = new JSONArray(object.getString("histories"));
-                        Log.d("Order_size", String.valueOf(arr1.length()));
 
                         for (int h = 0; h < arr1.length(); h++) {
                             JSONObject obj = arr1.getJSONObject(h);
@@ -479,12 +470,7 @@ public class ViewDetails extends Language {
                         featuredProduct = new TrackingAdapter(ViewDetails.this, list3);
                         horizontalListView.setAdapter(featuredProduct);
                         horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                       /* track_list.removeAllViews();
-                        Log.i("tag","list3------ "+list3.size());
-                        for (int i = 0; i < list3.size(); i++) {
 
-                            addLayout1(list3.get(i), track_list,i);
-                        }*/
                     loading.setVisibility(View.GONE);
                     no_network.setVisibility(View.GONE);
                     }
@@ -552,17 +538,14 @@ public class ViewDetails extends Language {
         price.setText(a1);
         qunt.setText(placePO.getQty());
         amount.setText(b1);
-        Log.d("images_s", placePO.getUrl() + "");
 
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
-            Log.d("option_list", placePO.getOptionlist().get(h).getValue() + "");
             sb2.append(placePO.getOptionlist().get(h).getValue());
             if (h != placePO.getOptionlist().size() - 1)
                 sb2.append(",");
         }
-        Log.d("option_list", String.valueOf(sb2));
         if (sb2.length()>0)
         {
             p_option.setVisibility(View.VISIBLE);

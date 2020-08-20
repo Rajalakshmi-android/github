@@ -152,7 +152,6 @@ public class Filter extends AppCompatActivity {
                                 clear_data++;
                             }
                         }
-                       Log.d("asdadad","adsada"+selected);
                     }
 
                 }
@@ -220,7 +219,6 @@ public class Filter extends AppCompatActivity {
                         clear_data++;
                     }
                 }
-                Log.d("asdadad","adsada"+clear_data);
             }
 
         }
@@ -292,7 +290,6 @@ public class Filter extends AppCompatActivity {
                         clear_data++;
                     }
                 }
-                Log.d("asdadad","adsada"+selected);
             }
 
         }
@@ -342,7 +339,6 @@ public class Filter extends AppCompatActivity {
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Filter.this);
                 logger.info("Category_level resp"+response);
                 Log.d("url response", response+"");
-                Log.d("url_resp_",response+"");
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -364,7 +360,6 @@ public class Filter extends AppCompatActivity {
                         JSONObject arr = json.getJSONObject("data");
 
                         JSONArray array=arr.getJSONArray("options");
-                        Log.d("adsadsasd",array.length()+"");
 
                         for (int h=0;h<array.length();h++)
                         {

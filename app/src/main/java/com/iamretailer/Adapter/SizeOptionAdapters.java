@@ -42,8 +42,6 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Log.d("value_","asdfadf");
-
 
         if (items.get(position).getImga_url().isEmpty()) {
             if (items.get(position).isImgSel()) {
@@ -76,7 +74,7 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
         return items.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         final TextView name;
         final FrameLayout txt_bg;
 

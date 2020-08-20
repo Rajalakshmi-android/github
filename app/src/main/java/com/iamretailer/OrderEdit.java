@@ -108,7 +108,6 @@ public class OrderEdit extends Language {
                     if (json.getInt("success")==1) {
 
                         JSONArray arr = new JSONArray(json.getString("data"));
-                        Log.i("arrayss ",arr.length()+" ");
                     }
                     else
                     {

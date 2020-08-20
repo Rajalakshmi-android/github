@@ -83,7 +83,6 @@ public class Address extends Language {
         if (cc != null) {
             address_id = cc.getString("address_id");
         }
-        Log.d("from_values", from + "");
         has_ship = cc.getInt("has_ship");
         Appconstatants.Lang = dbController.get_lang_code();
         f_name = findViewById(R.id.full_name);
@@ -419,8 +418,6 @@ public class Address extends Language {
                             && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
                             ) {
 
-                        Log.d("from_valuess_s", from + "");
-
                         if (has_ship == 1 || from == 4) {
                             AddressTask addressTask = new AddressTask();
                             addressTask.execute(f_name.getText().toString().trim(),
@@ -459,7 +456,6 @@ public class Address extends Language {
 
         @Override
         protected void onPreExecute() {
-            Log.d("Add_Save", "started");
             pDialog1 = new ProgressDialog(Address.this);
             pDialog1.setMessage(getResources().getString(R.string.loading_wait));
             pDialog1.setCancelable(false);
@@ -487,8 +483,6 @@ public class Address extends Language {
                 Log.d("Add_save", json.toString());
                 Log.d("Add_save", Appconstatants.address_save);
                 Log.d("Add_save", Appconstatants.sessiondata);
-
-                Log.d("From", from + "");
 
                 if (from == 3) {
                     logger.info("Address save guest api" + Appconstatants.guest_api);
@@ -572,9 +566,8 @@ public class Address extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("Add_Save", "ADD_save--->  " + resp);
+            Log.i("Add_Save", "ADD_save--->  " + resp+"");
             if (resp != null) {
-                Log.i("werhgi", resp + "");
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
@@ -622,7 +615,6 @@ public class Address extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.i("hgkfhk", e.toString() + "");
                     if (pDialog1 != null && pDialog1.isShowing())
                         pDialog1.dismiss();
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)

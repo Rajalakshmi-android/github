@@ -239,18 +239,14 @@ public class MyOrders extends Language {
                         if (dd instanceof JSONObject) {
                             error_network.setVisibility(View.GONE);
                             empty.setVisibility(View.VISIBLE);
-                            Log.i("tag", "empty.....");
                         } else if (dd instanceof JSONArray) {
-                            Log.i("tag", "data.....");
                             JSONArray arr = new JSONArray(json.getString("data"));
-                            Log.d("Order_size", String.valueOf(arr.length()));
 
                             if (arr.length() == 0) {
 
                                 error_network.setVisibility(View.GONE);
                                 empty.setVisibility(View.VISIBLE);
                                 loading.setVisibility(View.GONE);
-                                Log.i("tag", "empty.....");
                             } else {
 
                                 for (int h = 0; h < arr.length(); h++) {

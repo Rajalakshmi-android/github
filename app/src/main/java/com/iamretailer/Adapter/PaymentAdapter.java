@@ -35,7 +35,6 @@ public class PaymentAdapter extends ArrayAdapter<TypePO>
     }
     public void setChild1(int newClickedChildPosition) {
         this.pos = newClickedChildPosition;
-        Log.i("pos", pos + "");
     }
 
     @NonNull
@@ -63,7 +62,7 @@ public class PaymentAdapter extends ArrayAdapter<TypePO>
         if (position == pos) {
             holder.paymentimage.setImageResource(R.mipmap.addres_selects);
             notifyDataSetChanged();
-            Log.i("pos11", pos + "");
+
 
         } else {
             holder.paymentimage.setImageResource(R.mipmap.gray_circle1);

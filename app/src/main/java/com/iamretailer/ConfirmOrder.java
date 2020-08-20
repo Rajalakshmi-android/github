@@ -95,6 +95,7 @@ public class ConfirmOrder extends Language {
     private static final PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
+    private String pay_code;
 
     //------paypal
     @Override
@@ -135,6 +136,7 @@ public class ConfirmOrder extends Language {
             country = getIntent().getExtras().getString("country");
             state = getIntent().getExtras().getString("state");
             pay = getIntent().getExtras().getString("payment_method");
+            pay_code = getIntent().getExtras().getString("payment_code");
         }
         mobile = getIntent().getExtras().getString("mobile");
         address_id = getIntent().getExtras().getString("address_id");
@@ -197,12 +199,12 @@ public class ConfirmOrder extends Language {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pay.toLowerCase().contains(getResources().getString(R.string.cod).toLowerCase()) || pay.toLowerCase().contains("cod")) {
+                if (pay_code.equalsIgnoreCase("cod")) {
 
                     PlaceOrderTask OrderTask = new PlaceOrderTask();
                     OrderTask.execute(Appconstatants.Place_Order);
 
-                } else if (pay.toLowerCase().contains(getResources().getString(R.string.razorpay).toLowerCase()) || pay.toLowerCase().contains("razorpay")) {
+                } else if (pay_code.equalsIgnoreCase("razorpay")) {
                     OrderTask OrderTask = new OrderTask();
                     OrderTask.execute(order_id);
 
@@ -302,7 +304,6 @@ public class ConfirmOrder extends Language {
         protected String doInBackground(String... param) {
             logger.info("Confirm order api" + param[0]);
             Log.d("Order_url", param[0]);
-            Log.i("Order_url111", " " + param[0] + " " + Appconstatants.sessiondata + " " + Appconstatants.key1 + "  " + Appconstatants.key + "  " + Appconstatants.value + "   " + Appconstatants.Lang + "  " + Appconstatants.CUR);
             String response = null;
             try {
                 Connection connection = new Connection();
@@ -314,7 +315,6 @@ public class ConfirmOrder extends Language {
                 e.printStackTrace();
                 return null;
             }
-            Log.i("tag", "postmethod");
             return response;
 
 
@@ -453,7 +453,6 @@ public class ConfirmOrder extends Language {
 
         protected String doInBackground(String... param) {
             logger.info("Place order api" + param[0]);
-            Log.d("Order_url", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
@@ -595,12 +594,10 @@ public class ConfirmOrder extends Language {
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
-            Log.d("option_list", placePO.getOptionlist().get(h).getValue() + "");
             sb2.append(placePO.getOptionlist().get(h).getValue());
             if (h != placePO.getOptionlist().size() - 1)
                 sb2.append(",");
         }
-        Log.d("option_list", String.valueOf(sb2));
         if (sb2.length() > 0) {
             p_option.setVisibility(View.VISIBLE);
         } else {
@@ -609,7 +606,6 @@ public class ConfirmOrder extends Language {
         p_option.setText(String.valueOf(sb2));
         if (placePO.getUrl().length() != 0 && placePO.getUrl() != null)
             Picasso.with(ConfirmOrder.this).load(placePO.getUrl()).placeholder(R.mipmap.place_holder).into(imag);
-        Log.i("tag", "image_view" + placePO.getUrl());
         view_list.addView(convertView);
 
 
@@ -622,7 +618,6 @@ public class ConfirmOrder extends Language {
         amount.setText(placePO.getTot_amt_txt());
         String namess = placePO.getTot_title() + " :";
         name.setText(namess);
-        Log.i("tag", "Totals " + placePO.getTot_title());
         total_list.addView(convertView);
     }
 
@@ -797,7 +792,6 @@ public class ConfirmOrder extends Language {
 
             co.open(activity, options);
         } catch (JSONException e) {
-            Log.d("sss_", e.toString());
             Toast.makeText(ConfirmOrder.this, getResources().getString(R.string.err_pay) + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }

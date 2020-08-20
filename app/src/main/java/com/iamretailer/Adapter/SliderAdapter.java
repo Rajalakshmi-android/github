@@ -49,19 +49,17 @@ public class SliderAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = null;
         if (inflater != null) {
-            view = inflater.inflate(R.layout.item_slider, null,false);
+            view = inflater.inflate(R.layout.item_slider, null, false);
         }
         ImageView imageView = null;
         if (view != null) {
             imageView = view.findViewById(R.id.image);
         }
-        Log.d("img_sizeV", imgurl.get(position));
-        if (imgurl.get(position).length()>0)
-         Picasso.with(context).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
+        if (imgurl.get(position).length() > 0)
+            Picasso.with(context).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
         else
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).noFade().into(imageView);
 
-        Log.i("image url",imgurl.get(position)+"  "+position);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

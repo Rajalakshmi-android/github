@@ -89,7 +89,6 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
                 float density = context.getResources().getDisplayMetrics().density;
                 int px = 10 * Math.round(density);
                 Picasso.with(context).load(items.get(position).getBg_img_url()).transform(new CircleTransforms(px, 0)).fit().placeholder(R.mipmap.place_holder).into(holder.bg_img);
-                Log.i("tag", "image_url--- " + items.get(position).getBg_img_url());
             }
         } else {
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(holder.bg_img);

@@ -320,7 +320,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
-            Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
@@ -426,7 +425,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     username.setError(getResources().getString(R.string.empty_field));
                 } else {
                     if (Patterns.EMAIL_ADDRESS.matcher(username.getText().toString()).matches()) {
-                        Log.i("tag", "starting password" + username.getText().toString().trim());
                         PASSWORD password = new PASSWORD();
                         password.execute(username.getText().toString().trim());
 
@@ -476,7 +474,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         protected void onPostExecute(String resp) {
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
-            Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
@@ -659,7 +656,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         protected void onPostExecute(String resp) {
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
-            Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
@@ -765,11 +761,9 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         protected void onPostExecute(String resp) {
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
-            Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    Log.d("Tokens_", json.toString() + "");
                     Log.d("Tokens_s", json.getString("access_token"));
                     String access_token = json.getString("access_token");
                     SocialLogin socialLogin = new SocialLogin();

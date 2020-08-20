@@ -119,7 +119,6 @@ public class Drawer extends Language {
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
         if(dbCon.getLoginCount()>0){
-            Log.i("jhfg","hgfdjkghfdkghf"+dbCon.getName()+" -- "+dbCon.getEmail());
             email.setVisibility(View.VISIBLE);
             email.setText(dbCon.getName());
             login.setVisibility(View.GONE);
@@ -138,7 +137,6 @@ public class Drawer extends Language {
           //  wallet.setVisibility(View.GONE);
         }
 
-        Log.d("adsd",dbCon.get_lan_c()+"");
         if (dbCon.get_lan_lists()>1)
         {
             language.setVisibility(View.VISIBLE);
@@ -147,7 +145,6 @@ public class Drawer extends Language {
         {
             language.setVisibility(View.GONE);
         }
-        Log.d("adsd",dbCon.get_cur_count()+"");
         if (dbCon.get_cur_count()>1)
         {
             currency.setVisibility(View.VISIBLE);
@@ -434,7 +431,6 @@ public class Drawer extends Language {
         LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
         ListView lang_list = (ListView) popUpView.findViewById(R.id.lang_list);
         langs=dbCon.get_lan_list();
-        Log.i("tag","fgdfngdkfgndfkg "+langs.size());
         langAdapter=new LangAdapter(Drawer.this,R.layout.lang_list,langs);
         lang_list.setAdapter(langAdapter);
         if (dbCon.get_lan_c()>0)

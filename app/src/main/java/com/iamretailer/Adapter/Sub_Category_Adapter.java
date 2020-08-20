@@ -66,27 +66,26 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
             @Override
             public void onClick(View v) {
 
-                if(list.get(position).getArrayList1()!=null && list.get(position).getArrayList1().size()>0) {
-                    if(holder.arrow.getVisibility()==View.VISIBLE){
+                if (list.get(position).getArrayList1() != null && list.get(position).getArrayList1().size() > 0) {
+                    if (holder.arrow.getVisibility() == View.VISIBLE) {
                         holder.arrow.setVisibility(View.GONE);
                         holder.arrow1.setVisibility(View.VISIBLE);
                         holder.sub_product_list.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         holder.arrow.setVisibility(View.VISIBLE);
                         holder.arrow1.setVisibility(View.GONE);
                         holder.sub_product_list.setVisibility(View.GONE);
                     }
                     productAdapter = new Sub_Product_Adapter(context, list.get(position).getArrayList1());
-                    Log.i("tag", "valuessss----- " + list.get(position).getArrayList1());
                     holder.sub_product_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                     holder.sub_product_list.setAdapter(productAdapter);
-                }else{
+                } else {
                     Intent u = new Intent(context, Allen.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("id", list.get(position).getS_id());
                     bundle.putString("cat_name", list.get(position).getStore_name());
                     u.putExtras(bundle);
-                   context.startActivity(u);
+                    context.startActivity(u);
                 }
             }
         });

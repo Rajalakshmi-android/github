@@ -118,7 +118,6 @@ public class DeliveryMethod extends Language {
                 payadapter.notifyDataSetChanged();
                 paycode = methodlist.get(arg2).getCode();
                 paymentname = methodlist.get(arg2).getTitle();
-                Log.i("asdsadasasdasd sadsadas", methodlist.get(arg2).getTitle() + "");
 
             }
         });

@@ -107,7 +107,6 @@ public class PaymentMethod extends Language {
 
                 paycode = paylist.get(arg2).getCode();
                 paymentname = paylist.get(arg2).getTitle();
-                Log.i("asdsadasasdasd sadsadas", paylist.get(arg2).getTitle() + "");
 
             }
         });
@@ -299,6 +298,7 @@ public class PaymentMethod extends Language {
                         i.putExtra("state", state);
                         i.putExtra("mobile", mobile);
                         i.putExtra("payment_method", paymentname);
+                        i.putExtra("payment_code", paycode);
                         i.putExtra("shipping", shipping);
                         startActivity(i);
 

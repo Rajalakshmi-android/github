@@ -36,7 +36,7 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         mInflater = LayoutInflater.from(context);
         DBController dbController = new DBController(context);
         cur_left = dbController.get_cur_Left();
-        cur_right= dbController.get_cur_Right();
+        cur_right = dbController.get_cur_Right();
     }
 
     public int getViewTypeCount() {
@@ -81,23 +81,20 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         holder.product.setText(items.get(position).getOrder_products());
         holder.status.setText(items.get(position).getOrder_status());
         holder.order_placed.setText(items.get(position).getOrder_date());
-        Log.i("tag", "place_date " + items.get(position).getOrder_date());
-        String val=String.format(Locale.ENGLISH,"%.2f", Double.parseDouble(items.get(position).getOrder_total_raw()));
+        String val = String.format(Locale.ENGLISH, "%.2f", Double.parseDouble(items.get(position).getOrder_total_raw()));
 
         holder.order_amount.setText(val);
-        Log.i("tag", "place_date " + items.get(position).getOrder_status());
-        if(items.get(position).getOrder_status().equalsIgnoreCase("Pending")){
+        if (items.get(position).getOrder_status().equalsIgnoreCase("Pending")) {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.orange_status));
 
-        }else if(items.get(position).getOrder_status().equalsIgnoreCase("Failed")){
+        } else if (items.get(position).getOrder_status().equalsIgnoreCase("Failed")) {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.red));
             holder.image.setVisibility(View.GONE);
 
-        }else if(items.get(position).getOrder_status().equalsIgnoreCase("Success")){
+        } else if (items.get(position).getOrder_status().equalsIgnoreCase("Success")) {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.green_status));
 
-        }
-        else{
+        } else {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
             holder.image.setVisibility(View.GONE);
         }

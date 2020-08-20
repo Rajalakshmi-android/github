@@ -50,7 +50,6 @@ public class Splash extends Language {
         super.onCreate(savedInstanceState);
         dbCon = new DBController(Splash.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        Log.d("dfsa", dbCon.get_lang_code() + "");
         setContentView(R.layout.splash);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -62,10 +61,8 @@ public class Splash extends Language {
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
-                Log.d("debug_s", "UserId: = " + userId);
                 pushid = userId;
                 if (registrationId != null) {
-                    Log.d("debug_s", "registrationId:=" + registrationId);
                     pushregid = registrationId;
                 }
             }
@@ -241,14 +238,11 @@ public class Splash extends Language {
                     JSONObject object = new JSONObject(resp);
                     if (object.getInt("success") == 1) {
 
-                        Log.d("cur_resp1", "checking");
-
                         JSONObject object2 = object.getJSONObject("data");
 
                         dbCon.drop_curs();
                         JSONArray cur_list = object2.getJSONArray("currencies");
                         if (cur_list.length() > 0) {
-                            Log.d("cur_resp2", "checking");
                             for (int i = 0; i < cur_list.length(); i++) {
                                 JSONObject object1 = cur_list.getJSONObject(i);
                                 String cur_title = object1.isNull("title") ? "" : object1.getString("title");
@@ -256,7 +250,6 @@ public class Splash extends Language {
                                 String cur_left = object1.isNull("symbol_left") ? "" : object1.getString("symbol_left");
                                 String cur_right = object1.isNull("symbol_right") ? "" : object1.getString("symbol_right");
                                 int def = object1.isNull("default") ? 0 : object1.getInt("default");
-                                Log.d("cur_resp3", "checking");
 
                                 if (def == 1 && dbCon.get_cur_counts() <= 0) {
                                     dbCon.drop_app_cur();
@@ -266,7 +259,6 @@ public class Splash extends Language {
                                     dbCon.drop_app_cur();
                                     dbCon.insert_app_cur(cur_title, cur_code, cur_left, cur_right);
                                 }*/
-                                Log.d("cur_resp4", "checking");
                                 dbCon.insert_currencies(cur_title, cur_code, cur_left, cur_right);
                             }
                         }
@@ -371,7 +363,6 @@ public class Splash extends Language {
                                 langPO.setLang_code(object1.isNull("code") ? "" : object1.getString("code"));
                                 int def = object1.isNull("default") ? 0 : object1.getInt("default");
                                 langPOS.add(langPO);
-                                Log.i("Language po",langPOS.size()+"");
 
                                 if (def == 1 && dbCon.get_lan_c() <= 0) {
                                     dbCon.drop_app_lang();

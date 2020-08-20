@@ -157,12 +157,9 @@ public class MyCart extends Language {
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("values__chec1", out_of_stock + "");
                 for (int j = 0; j < list.size(); j++) {
-                    Log.d("values__chec1", out_of_stock + "");
                     if (!list.get(j).isOut_of_stock())
                         out_of_stock++;
-                    Log.d("values__chec2", out_of_stock + "");
                 }
 
                 if (out_of_stock == 0) {
@@ -181,7 +178,6 @@ public class MyCart extends Language {
                     }
 
                 } else {
-                    Log.d("values__chec3", out_of_stock + "");
                     out_of_stock = 0;
                     Toast.makeText(MyCart.this, R.string.out_stock, Toast.LENGTH_SHORT).show();
                 }
@@ -462,7 +458,6 @@ public class MyCart extends Language {
                                 loading.setVisibility(View.GONE);
 
                             } else {
-                                Log.d("size", String.valueOf(array.length()));
 
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonObject1 = array.getJSONObject(i);
@@ -476,7 +471,6 @@ public class MyCart extends Language {
                                     po.setProd_offer_rate(jsonObject1.getDouble("price_raw"));
                                     po.setTotal(jsonObject1.getDouble("total_raw"));
                                     po.setOut_of_stock(jsonObject1.getBoolean("stock"));
-                                    Log.d("Stock_values", jsonObject1.getBoolean("stock") + "");
 
 
                                     ArrayList<OptionsPO> oplist = new ArrayList<>();
@@ -505,7 +499,6 @@ public class MyCart extends Language {
                                 shopnow.setVisibility(View.GONE);
                                 error_network.setVisibility(View.GONE);
                                 loading.setVisibility(View.GONE);
-                                Log.d("size", String.valueOf(list.size()));
                                 sumtotal();
                             }
 
@@ -896,7 +889,6 @@ public class MyCart extends Language {
 
         protected void onPostExecute(String resp) {
             pDialog.dismiss();
-            Log.i("cal_Api", "cal_Api--?" + resp);
             Log.d("cal_Api", resp + "");
             if (resp != null) {
                 try {

@@ -79,14 +79,12 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.items_bg.getLayoutParams();
             params.width = (int) context.getResources().getDimension(R.dimen.dp150);
             params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            if(position==0){
+            if (position == 0) {
                 params.setMarginStart((int) context.getResources().getDimension(R.dimen.dp10));
 
             }
             params.setMarginEnd((int) context.getResources().getDimension(R.dimen.dp10));
             holder.items_bg.setLayoutParams(params);
-
-
 
 
         } else {
@@ -97,12 +95,12 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         holder.product_name.setText(items.get(position).getProduct_name());
 
         if (items.get(position).getProd_offer_rate() > 0) {
-            String special=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getProd_offer_rate()) + cur_right;
+            String special = cur_left + String.format(Locale.ENGLISH, "%.2f", items.get(position).getProd_offer_rate()) + cur_right;
             holder.p_price.setText(special);
-            String or_price=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getProd_original_rate()) + cur_right;
+            String or_price = cur_left + String.format(Locale.ENGLISH, "%.2f", items.get(position).getProd_original_rate()) + cur_right;
             holder.orginal.setText(or_price);
         } else {
-            String special=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getProd_original_rate()) + cur_right;
+            String special = cur_left + String.format(Locale.ENGLISH, "%.2f", items.get(position).getProd_original_rate()) + cur_right;
             holder.p_price.setText(special);
             holder.orginal.setText("");
         }
@@ -123,7 +121,6 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductFullView.class);
-                Log.i("tag", "product_id" + items.get(position).getProduct_id());
                 Bundle nn = new Bundle();
                 nn.putString("productid", items.get(position).getProduct_id());
                 intent.putExtras(nn);
@@ -157,7 +154,6 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         holder.add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("optionbo", items.get(position).getSingleOptionPOS().size() + "");
 
                 if (items.get(position).getSingleOptionPOS().size() > 0) {
                     Intent intent = new Intent(context, ProductFullView.class);
@@ -300,7 +296,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                             notifyDataSetChanged();
                             Toast.makeText(context, R.string.wish_add, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
-                            Log.d("ee",e.toString());
+                            Log.d("ee", e.toString());
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -308,7 +304,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                             items.get(pos).setWish_list(false);
                             notifyDataSetChanged();
                         } catch (Exception e) {
-                            Log.d("ee",e.toString());
+                            Log.d("ee", e.toString());
                         }
                         Toast.makeText(context, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
@@ -320,7 +316,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                         items.get(pos).setWish_list(false);
                         notifyDataSetChanged();
                     } catch (Exception ex) {
-                        Log.d("ee",e.toString());
+                        Log.d("ee", e.toString());
                     }
                 }
             } else {
@@ -328,7 +324,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                     items.get(pos).setWish_list(false);
                     notifyDataSetChanged();
                 } catch (Exception e) {
-                    Log.d("ee",e.toString());
+                    Log.d("ee", e.toString());
                 }
                 Toast.makeText(context, R.string.error_net, Toast.LENGTH_SHORT).show();
             }
@@ -372,7 +368,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                             notifyDataSetChanged();
                             Toast.makeText(context, R.string.dele_wish, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
-                            Log.d("ee",e.toString());
+                            Log.d("ee", e.toString());
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -380,7 +376,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                             items.get(pos).setWish_list(true);
                             notifyDataSetChanged();
                         } catch (Exception e) {
-                            Log.d("ee",e.toString());
+                            Log.d("ee", e.toString());
 
                         }
                         Toast.makeText(context, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -390,8 +386,8 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                     try {
                         items.get(pos).setWish_list(true);
                         notifyDataSetChanged();
-                      } catch (Exception ex) {
-                        Log.d("ee",ex.toString());
+                    } catch (Exception ex) {
+                        Log.d("ee", ex.toString());
 
                     }
                     Toast.makeText(context, R.string.error_msg, Toast.LENGTH_SHORT).show();
@@ -400,8 +396,8 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                 try {
                     items.get(pos).setWish_list(true);
                     notifyDataSetChanged();
-                      } catch (Exception ex) {
-                    Log.d("ee",ex.toString());
+                } catch (Exception ex) {
+                    Log.d("ee", ex.toString());
                 }
                 Toast.makeText(context, R.string.error_net, Toast.LENGTH_SHORT).show();
             }
@@ -417,7 +413,6 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             pDialog.setMessage(context.getResources().getString(R.string.loading_wait));
             pDialog.setCancelable(false);
             pDialog.show();
-            Log.d("Cart", "started");
         }
 
         protected String doInBackground(Object... param) {

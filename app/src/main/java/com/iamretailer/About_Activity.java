@@ -105,7 +105,6 @@ public class About_Activity extends Language {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(About_Activity.this, Webactivity.class);
-                Log.i("tag", "product_id" + optionsPOArrayList1.get(i).getId());
                 bundle.putInt("id", optionsPOArrayList1.get(i).getId());
                 bundle.putString("title", optionsPOArrayList1.get(i).getTitle());
                 intent.putExtras(bundle);
@@ -128,7 +127,6 @@ public class About_Activity extends Language {
 
             logger.info("Product list search api"+param[0]);
 
-            Log.d("singleurl", param[0]);
             String response;
             try {
                 Connection connection = new Connection();

@@ -87,7 +87,6 @@ public class AddressList extends Language {
         Bundle cc = getIntent().getExtras();
         from= cc != null ? cc.getInt("from") : 0;
         has_ship= cc != null ? cc.getInt("has_ship"):0;
-        Log.d("asdad",from+"");
         Appconstatants.Lang= dbController.get_lang_code();
         Appconstatants.sessiondata= dbController.getSession();
         Appconstatants.CUR= dbController.getCurCode();

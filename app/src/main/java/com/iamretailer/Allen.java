@@ -109,7 +109,6 @@ public class Allen extends Language {
         bundle = getIntent().getExtras();
         cat_id = Integer.parseInt(bundle.getString("id"));
         header.setText(bundle.getString("cat_name"));
-        Log.i("tag", "cad_id..." + cat_id);
         sort_option = "date_added";
         sort_order = "DESC";
         sort_name.setText(R.string.news);
@@ -131,12 +130,9 @@ public class Allen extends Language {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
                 if (dy > 0) {
-                    Log.d("Scroll_Check1", "adfadsdsa");
                     visibleItemCount = category.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-                    Log.d("Scroll_Check2", "adfadsdsa");
-                    Log.d("Scroll_Check2", visibleItemCount + "adfadsdsa" + totalItemCount + "  " + firstVisibleItem);
 
                     if (!loadin) {
                         if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
@@ -361,7 +357,6 @@ public class Allen extends Language {
         if (resultCode == RESULT_OK) {
 
             filterPOS = (ArrayList<FilterPO>) data.getSerializableExtra("filter_array");
-            Log.d("asdaddasasa", filterPOS.size() + "fsadfdaf");
             option_value = "";
             for (int y = 0; y < filterPOS.size(); y++) {
                 if (filterPOS.get(y).getFilter_name().equalsIgnoreCase("brand")) {
@@ -380,7 +375,6 @@ public class Allen extends Language {
                         if (filterPOS.get(y).getFilterPOS().size() > 0) {
                             if (filterPOS.get(y).getFilterPOS().get(k).isSelected()) {
                                 option_value = option_value + filterPOS.get(y).getFilterPOS().get(k).getSub_id() + ",";
-                                Log.d("manufacturer_op", filterPOS.get(y).getFilterPOS().get(k).getSub_id() + "dfdghdf");
                             }
                         }
 
@@ -389,9 +383,6 @@ public class Allen extends Language {
                 }
 
             }
-            Log.d("manufacturer", manufacturer + "");
-            Log.d("manufacturer_pr", pr + "");
-            Log.d("manufacturer_op", option_value + "dfdghdf");
             no_items.setVisibility(View.GONE);
             prog_sec.setVisibility(View.VISIBLE);
             val = 0;
@@ -406,7 +397,6 @@ public class Allen extends Language {
                             selected++;
                         }
                     }
-                    Log.d("asdadad", "adsada" + selected);
                 }
 
             }
@@ -430,7 +420,6 @@ public class Allen extends Language {
                                 selected++;
                             }
                         }
-                        Log.d("asdadad", "adsada" + selected);
                     }
 
                 }
@@ -512,9 +501,7 @@ public class Allen extends Language {
 
                     if (val == 0) {
                         list = new ArrayList<>();
-                        Log.d("check_ar_in", val + "");
-                        Log.d("check_pagecount", start + "");
-                    }
+                        }
 
                     JSONObject json = new JSONObject(resp);
 
@@ -555,7 +542,6 @@ public class Allen extends Language {
                             }
                             list.add(bo);
                         }
-                        Log.d("check_list_size", list.size() + "");
 
 
                         if (list.size() != 0) {
@@ -748,7 +734,6 @@ public class Allen extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
-                        Log.d("wish_res", "ddsadsa");
 
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {

@@ -47,6 +47,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     private ArrayList<String> qty_list;
     private AlertDialog alertReviewDialog;
     private final LayoutInflater inflater;
+
     public CartAdapter(Activity context, int resource, ArrayList<ProductsPO> items) {
         super(context, resource, items);
         mInflater = LayoutInflater.from(context);
@@ -55,10 +56,10 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         this.items = items;
         DBController db = new DBController(getContext());
         cur_left = db.get_cur_Left();
-        cur_right= db.get_cur_Right();
-        Appconstatants.CUR= db.getCurCode();
-        logger=AndroidLogger.getLogger(context,Appconstatants.LOG_ID,false);
-        inflater =context.getLayoutInflater();
+        cur_right = db.get_cur_Right();
+        Appconstatants.CUR = db.getCurCode();
+        logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
+        inflater = context.getLayoutInflater();
 
 
     }
@@ -95,19 +96,18 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_value = convertView.findViewById(R.id.cart_value);
         holder.remove = convertView.findViewById(R.id.remove);
         holder.option_list = convertView.findViewById(R.id.option_list);
-        holder.out_of_stock= convertView.findViewById(R.id.out_of_stock);
-        holder.qty= convertView.findViewById(R.id.qty);
-        holder.option= convertView.findViewById(R.id.option);
-        holder.rupee_front= convertView.findViewById(R.id.rupee_front);
-        holder.rupee_back= convertView.findViewById(R.id.rupee_back);
-        holder.spin_qty= convertView.findViewById(R.id.spin_qty);
-        holder.qty_count= convertView.findViewById(R.id.qty_count);
+        holder.out_of_stock = convertView.findViewById(R.id.out_of_stock);
+        holder.qty = convertView.findViewById(R.id.qty);
+        holder.option = convertView.findViewById(R.id.option);
+        holder.rupee_front = convertView.findViewById(R.id.rupee_front);
+        holder.rupee_back = convertView.findViewById(R.id.rupee_back);
+        holder.spin_qty = convertView.findViewById(R.id.spin_qty);
+        holder.qty_count = convertView.findViewById(R.id.qty_count);
 
-        qty_list=new ArrayList<>();
-        for (int i=1;i<=4;i++)
-        {
-            if (i!=4)
-                qty_list.add("0"+i);
+        qty_list = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            if (i != 4)
+                qty_list.add("0" + i);
             else
                 qty_list.add("More");
         }
@@ -115,13 +115,12 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         SpinnerAdapter1 spinnerAdapter1 = new SpinnerAdapter1(context, qty_list);
         holder.spin_qty.setAdapter(spinnerAdapter1);
 
-        if (items.get(position).getCartvalue()<=3) {
+        if (items.get(position).getCartvalue() <= 3) {
             holder.spin_qty.setSelection(items.get(position).getCartvalue() - 1);
             holder.qty_count.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             holder.spin_qty.setVisibility(View.GONE);
-            String value=items.get(position).getCartvalue()+"";
+            String value = items.get(position).getCartvalue() + "";
             holder.qty_count.setText(value);
         }
 
@@ -133,8 +132,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         if (items.get(position).isOut_of_stock()) {
             holder.out_of_stock.setVisibility(View.GONE);
             holder.qty.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.out_of_stock.setVisibility(View.VISIBLE);
             holder.qty.setVisibility(View.GONE);
         }
@@ -143,7 +141,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_prod_name.setText(items.get(position).getProduct_name());
         holder.rupee_back.setText(cur_right);
         holder.rupee_front.setText(cur_left);
-        String val=String.format(Locale.ENGLISH,"%.2f", items.get(position).getTotal());
+        String val = String.format(Locale.ENGLISH, "%.2f", items.get(position).getTotal());
         holder.cart_prod_or_rate.setText(val);
         StringBuilder op = new StringBuilder();
         for (int j = 0; j < items.get(position).getOptionlist().size(); j++) {
@@ -157,19 +155,14 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < items.get(position).getOptionlist().size(); h++) {
-            Log.d("option_list", items.get(position).getOptionlist().get(h).getValue() + "");
             sb2.append(items.get(position).getOptionlist().get(h).getValue());
             if (h != items.get(position).getOptionlist().size() - 1)
                 sb2.append(",");
         }
-        Log.d("option_list", String.valueOf(sb2));
 
-        if (sb2.length()>0)
-        {
+        if (sb2.length() > 0) {
             holder.option.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             holder.option.setVisibility(View.GONE);
         }
         holder.option_list.setText(String.valueOf(sb2));
@@ -180,8 +173,8 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_ins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    CartUpdate cartUpdate = new CartUpdate(position);
-                    cartUpdate.execute(items.get(position).getKey(), String.valueOf(items.get(position).getCartvalue() + 1));
+                CartUpdate cartUpdate = new CartUpdate(position);
+                cartUpdate.execute(items.get(position).getKey(), String.valueOf(items.get(position).getCartvalue() + 1));
 
 
             }
@@ -190,12 +183,11 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
             @Override
             public void onClick(View view) {
 
-                    CartUpdate cartUpdate = new CartUpdate(position);
-                    cartUpdate.execute(items.get(position).getKey(), String.valueOf(items.get(position).getCartvalue() - 1));
+                CartUpdate cartUpdate = new CartUpdate(position);
+                cartUpdate.execute(items.get(position).getKey(), String.valueOf(items.get(position).getCartvalue() - 1));
 
             }
         });
-
 
 
         holder.remove.setOnClickListener(new View.OnClickListener() {
@@ -207,24 +199,18 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         });
 
 
-
-
-
         holder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                Log.d("asdad","adfdadsd");
-                if (i!=3) {
+                if (i != 3) {
 
                     if (items.get(position).getCartvalue() - 1 != i) {
                         CartUpdate cartUpdate = new CartUpdate(position);
                         cartUpdate.execute(items.get(position).getKey(), qty_list.get(i));
                     }
-                }
-                else
-                {
-               //     quantity_change(position);
-                    holder.spin_qty.setSelection(items.get(position).getCartvalue()-1);
+                } else {
+                    //     quantity_change(position);
+                    holder.spin_qty.setSelection(items.get(position).getCartvalue() - 1);
 
                 }
 
@@ -239,14 +225,14 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.qty_count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // quantity_change(position);
+                // quantity_change(position);
             }
         });
 
         holder.cart_value.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantity_change(position,items.get(position).getCartvalue()+"");
+                quantity_change(position, items.get(position).getCartvalue() + "");
 
             }
         });
@@ -264,24 +250,23 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         TextView cart_value;
         TextView option_list;
         ImageView remove;
-        TextView out_of_stock,rupee_front,rupee_back;
-        LinearLayout qty,option;
+        TextView out_of_stock, rupee_front, rupee_back;
+        LinearLayout qty, option;
         Spinner spin_qty;
         TextView qty_count;
     }
 
 
-    private void quantity_change(final int pos, String qtys)
-    {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
+    private void quantity_change(final int pos, String qtys) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
         View dialogView = inflater.inflate(R.layout.show_qty, null, false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
-        alertReviewDialog=dialogBuilder.create();
+        alertReviewDialog = dialogBuilder.create();
         alertReviewDialog.setCancelable(false);
-        LinearLayout cancel= dialogView.findViewById(R.id.cancel);
-        final EditText qty= dialogView.findViewById(R.id.qty);
-        LinearLayout apply= dialogView.findViewById(R.id.apply);
+        LinearLayout cancel = dialogView.findViewById(R.id.cancel);
+        final EditText qty = dialogView.findViewById(R.id.qty);
+        LinearLayout apply = dialogView.findViewById(R.id.apply);
         qty.setText(qtys);
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -293,13 +278,11 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (qty.getText().length()>0 && Integer.parseInt(qty.getText().toString())>0) {
+                if (qty.getText().length() > 0 && Integer.parseInt(qty.getText().toString()) > 0) {
                     alertReviewDialog.dismiss();
                     CartUpdate cartUpdate = new CartUpdate(pos);
                     cartUpdate.execute(items.get(pos).getKey(), qty.getText().toString());
-                }
-                else
-                {
+                } else {
                     qty.setError(context.getResources().getString(R.string.qty_e));
                 }
             }
@@ -323,10 +306,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         @Override
         protected void onPreExecute() {
 
-            Log.d("Login", "started");
-
-
-
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage(getContext().getResources().getString(R.string.loading_wait));
             pDialog.setCancelable(false);
@@ -334,7 +313,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Update cart api"+Appconstatants.cart_update_api);
+            logger.info("Update cart api" + Appconstatants.cart_update_api);
             String response;
             qty = param[1];
             Connection connection = new Connection();
@@ -346,9 +325,9 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
                 Log.d("cart", json.toString());
                 Log.d("session", Appconstatants.sessiondata);
-                logger.info("Update cart api req"+json);
-                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata,Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,getContext());
-                logger.info("Update cart api res"+response);
+                logger.info("Update cart api req" + json);
+                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getContext());
+                logger.info("Update cart api res" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -367,10 +346,10 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
                         items.get(pos).setCartvalue(Integer.parseInt(qty));
                         notifyDataSetChanged();
                         ((MyCart) getContext()).CartCall();
-                        Toast.makeText(getContext(),getContext().getResources().getString(R.string.items_update), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.items_update), Toast.LENGTH_SHORT).show();
                     } else {
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(getContext(),array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(getContext(), array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -389,7 +368,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         private ProgressDialog pDialog;
 
 
-
         Cartdel(int position) {
             pos1 = position;
         }
@@ -398,7 +376,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         @Override
         protected void onPreExecute() {
 
-            Log.d("delete", "started");
 
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage(getContext().getResources().getString(R.string.loading_wait));
@@ -408,7 +385,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Delete cart api"+Appconstatants.cart_update_api);
+            logger.info("Delete cart api" + Appconstatants.cart_update_api);
 
             String response;
             Connection connection = new Connection();
@@ -421,9 +398,9 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
                 Log.d("del_", json.toString());
                 Log.d("del_session", Appconstatants.sessiondata);
-                logger.info("Delete cart api"+json);
-                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,getContext());
-                logger.info("Delete cart api"+response);
+                logger.info("Delete cart api" + json);
+                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getContext());
+                logger.info("Delete cart api" + response);
                 Log.d("del_s", Appconstatants.cart_update_api);
                 Log.d("del_r", response + "");
             } catch (Exception e) {
@@ -441,13 +418,13 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
-                         items.remove(pos1);
+                        items.remove(pos1);
                         notifyDataSetChanged();
                         ((MyCart) getContext()).CartCall();
                         Toast.makeText(getContext(), R.string.remove, Toast.LENGTH_SHORT).show();
                     } else {
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(getContext(),array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(getContext(), array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

@@ -102,16 +102,14 @@ public class MainActivity extends Drawer {
         super.onCreate(savedInstanceState);
         db = new DBController(MainActivity.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        Log.i("tag","jgdljgldfjgldjg1111 "+db.get_lang_code());
-        if (db.get_lan_c()>0)
-        {
+        if (db.get_lan_c() > 0) {
             change_langs(db.get_lang_code());
         }
-        Appconstatants.Lang=db.get_lang_code();
+        Appconstatants.Lang = db.get_lang_code();
         setContentView(R.layout.activity_main);
         if (Appconstatants.sessiondata == null || Appconstatants.sessiondata.length() == 0)
             Appconstatants.sessiondata = db.getSession();
-        Appconstatants.CUR=db.getCurCode();
+        Appconstatants.CUR = db.getCurCode();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         grid = findViewById(R.id.grid);
         fullayout = findViewById(R.id.fullayout);
@@ -133,9 +131,9 @@ public class MainActivity extends Drawer {
         loading_bar = findViewById(R.id.loading_bar);
         no_items = findViewById(R.id.no_items);
         no_items1 = findViewById(R.id.no_items1);
-        categ_preloader= findViewById(R.id.categ_preloader);
-        most_preloader= findViewById(R.id.most_preloader);
-        newly_preloader= findViewById(R.id.newly_preloader);
+        categ_preloader = findViewById(R.id.categ_preloader);
+        most_preloader = findViewById(R.id.most_preloader);
+        newly_preloader = findViewById(R.id.newly_preloader);
         LinearLayout cate_bottom = findViewById(R.id.cate_bottom);
         LinearLayout contact = findViewById(R.id.contact);
         LinearLayout cart_bottom = findViewById(R.id.cart_bottom);
@@ -146,7 +144,7 @@ public class MainActivity extends Drawer {
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(seller_list!=null&&seller_list.size()>0){
+                if (seller_list != null && seller_list.size() > 0) {
 
                     if (level == 0) {
                         Intent intent = new Intent(MainActivity.this, Category.class);
@@ -158,7 +156,7 @@ public class MainActivity extends Drawer {
                         intent.putExtras(pos);
                         startActivity(intent);
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.pl_loading), Toast.LENGTH_SHORT).show();
                 }
 
@@ -167,11 +165,9 @@ public class MainActivity extends Drawer {
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dbCon.getLoginCount()>0) {
+                if (dbCon.getLoginCount() > 0) {
                     startActivity(new Intent(getApplicationContext(), MyProfile.class));
-                }
-                else
-                {
+                } else {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     intent.putExtra("from", 7);
                     startActivity(intent);
@@ -243,8 +239,7 @@ public class MainActivity extends Drawer {
         }));
 
 
-
-           cart_items.setOnClickListener(new OnClickListener() {
+        cart_items.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, MyCart.class));
@@ -278,7 +273,7 @@ public class MainActivity extends Drawer {
             if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale
-                                (MainActivity.this, android.Manifest.permission.CALL_PHONE)) {
+                        (MainActivity.this, android.Manifest.permission.CALL_PHONE)) {
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.per_msg), Snackbar.LENGTH_INDEFINITE).setAction(getResources().getString(R.string.enable),
                             new View.OnClickListener() {
                                 @Override
@@ -304,8 +299,8 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle best = new Bundle();
                 best.putString("view_all", "best_sell");
-                best.putString("head",getResources().getString(R.string.bests));
-                best.putString("banner_id","");
+                best.putString("head", getResources().getString(R.string.bests));
+                best.putString("banner_id", "");
                 best.putString("title", "");
                 intent.putExtras(best);
                 startActivity(intent);
@@ -317,15 +312,14 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle feat = new Bundle();
                 feat.putString("view_all", "feat");
-                feat.putString("head",getResources().getString(R.string.featuress));
-                feat.putString("banner_id","");
+                feat.putString("head", getResources().getString(R.string.featuress));
+                feat.putString("banner_id", "");
                 feat.putString("title", "");
 
                 intent.putExtras(feat);
                 startActivity(intent);
             }
         });
-
 
 
     }
@@ -337,13 +331,11 @@ public class MainActivity extends Drawer {
         backcount = 0;
 
 
-
         if (db.getLoginCount() > 0) {
             WISH_LIST wish_list = new WISH_LIST();
             wish_list.execute(Appconstatants.Wishlist_Get);
         }
 
-        Log.i("resume", "login&logout.............");
         if (db.getLoginCount() > 0) {
 
             email.setText(db.getName());
@@ -393,10 +385,9 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
-                Log.d("cat_url_res", response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -426,24 +417,20 @@ public class MainActivity extends Drawer {
                             }
 
                             int size = arr.length();
-                            Log.i("category size",arr.length()+"");
                             ArrayList<BrandsPO> cate_list2;
                             if (size <= 3) {
-                                Log.i("tag","step11-----");
                                 for (int h = 0; h < arr.length(); h++) {
                                     JSONObject obj = arr.getJSONObject(h);
                                     BrandsPO bo = new BrandsPO();
                                     bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
                                     bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
-                                    Log.d("values_1s", obj.getJSONArray("categories").length() + "");
 
                                     JSONArray array = obj.getJSONArray("categories");
                                     cate_list2 = new ArrayList<>();
                                     for (int g = 0; g < array.length(); g++) {
                                         JSONObject object = array.getJSONObject(g);
                                         BrandsPO po = new BrandsPO();
-                                        Log.d("url_resp_Catname", object.getString("name") + "");
                                         po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
                                         po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
                                         cate_list2.add(po);
@@ -454,7 +441,6 @@ public class MainActivity extends Drawer {
 
                                 }
                             } else {
-                                Log.i("tag","step-----");
                                 for (int h = 0; h < 4; h++) {
                                     JSONObject obj = arr.getJSONObject(h);
                                     BrandsPO bo = new BrandsPO();
@@ -466,7 +452,6 @@ public class MainActivity extends Drawer {
                                     for (int g = 0; g < array.length(); g++) {
                                         JSONObject object = array.getJSONObject(g);
                                         BrandsPO po = new BrandsPO();
-                                        Log.d("url_resp_Catname", object.getString("name") + "");
                                         po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
                                         po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
                                         cate_list2.add(po);
@@ -488,7 +473,7 @@ public class MainActivity extends Drawer {
                         categ_preloader.setVisibility(View.GONE);
                         grid.setVisibility(View.VISIBLE);
 
-                        BEST_SELLING best_selling=new BEST_SELLING();
+                        BEST_SELLING best_selling = new BEST_SELLING();
                         best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
 
                     } else {
@@ -544,7 +529,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Banner api :" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -574,7 +559,7 @@ public class MainActivity extends Drawer {
                                 BannerBo bo = new BannerBo();
                                 bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
                                 bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                bo.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
+                                bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
                                 banner_list.add(bo);
 
@@ -582,7 +567,7 @@ public class MainActivity extends Drawer {
                                     BannerBo bo1 = new BannerBo();
                                     bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
                                     bo1.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                    bo.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
+                                    bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
                                     banner2.add(bo);
                                 }
@@ -590,8 +575,6 @@ public class MainActivity extends Drawer {
 
                             }
                         }
-                        Log.d("banner2_", banner2.size() + "");
-                        Log.d("banner2_", banner_list.size() + "");
 
                         loading.setVisibility(View.GONE);
                         setupJazziness();
@@ -652,7 +635,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
                 Log.d("cat_url_res", response);
@@ -662,6 +645,7 @@ public class MainActivity extends Drawer {
             }
             return response;
         }
+
         protected void onPostExecute(String resp) {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
@@ -671,7 +655,7 @@ public class MainActivity extends Drawer {
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
                         if (arr.length() > 0) {
-                            if(arr.length()<5){
+                            if (arr.length() < 5) {
                                 for (int h = 0; h < arr.length(); h++) {
 
                                     JSONObject obj = arr.getJSONObject(h);
@@ -680,7 +664,7 @@ public class MainActivity extends Drawer {
                                     bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     seller_lists.add(bo);
                                 }
-                            }else{
+                            } else {
                                 for (int h = 0; h < 5; h++) {
 
                                     JSONObject obj = arr.getJSONObject(h);
@@ -691,17 +675,14 @@ public class MainActivity extends Drawer {
                                 }
                             }
                             category.removeAllViews();
-                            if(seller_lists !=null&& seller_lists.size()>0){
-                                for(int i = 0; i< seller_lists.size(); i++){
-                                    addLayoutss(seller_lists.get(i),category);
+                            if (seller_lists != null && seller_lists.size() > 0) {
+                                for (int i = 0; i < seller_lists.size(); i++) {
+                                    addLayoutss(seller_lists.get(i), category);
                                 }
-                            }else{
+                            } else {
                                 category.setVisibility(View.GONE);
                             }
                         }
-
-
-
 
 
                     } else {
@@ -748,27 +729,25 @@ public class MainActivity extends Drawer {
         TextView namess = convertView.findViewById(R.id.name);
         LinearLayout view_all = convertView.findViewById(R.id.view_all);
         final TextView no_proditems = convertView.findViewById(R.id.no_proditems);
-        final RecyclerView product_list = convertView. findViewById(R.id.product_list);
-        final FrameLayout product_success = convertView. findViewById(R.id.success);
-        final FrameLayout product_loading = convertView. findViewById(R.id.loading);
+        final RecyclerView product_list = convertView.findViewById(R.id.product_list);
+        final FrameLayout product_success = convertView.findViewById(R.id.success);
+        final FrameLayout product_loading = convertView.findViewById(R.id.loading);
         final FrameLayout no_network = convertView.findViewById(R.id.error_network);
         LinearLayout retry = convertView.findViewById(R.id.retry);
         namess.setText(brandsbo.getStore_name());
-        Log.i("tag","listview----");
-        GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
-        cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+        GetProductTask cattask = new GetProductTask(no_proditems, product_list, product_success, product_loading, no_network);
+        cattask.execute(Appconstatants.CATEGORY_PRODUCT + brandsbo.getS_id());
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 product_success.setVisibility(View.GONE);
                 product_loading.setVisibility(View.VISIBLE);
                 no_network.setVisibility(View.GONE);
-                GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
-                cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+                GetProductTask cattask = new GetProductTask(no_proditems, product_list, product_success, product_loading, no_network);
+                cattask.execute(Appconstatants.CATEGORY_PRODUCT + brandsbo.getS_id());
 
             }
         });
-
 
 
         view_all.setOnClickListener(new View.OnClickListener() {
@@ -793,14 +772,16 @@ public class MainActivity extends Drawer {
         final FrameLayout product_successs;
         final FrameLayout product_loadings;
         final FrameLayout no_network;
+
         GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading, FrameLayout no_net) {
-            no_proditem=no_proditems;
-            product_lists=product_list;
-            product_successs=product_success;
-            product_loadings=product_loading;
-            no_network=no_net;
+            no_proditem = no_proditems;
+            product_lists = product_list;
+            product_successs = product_success;
+            product_loadings = product_loading;
+            no_network = no_net;
 
         }
+
         @Override
         protected void onPreExecute() {
             Log.d("tag", "started");
@@ -813,16 +794,16 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
-                Log.d("cat_url_res", response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
             return response;
         }
+
         protected void onPostExecute(String resp) {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
@@ -837,8 +818,7 @@ public class MainActivity extends Drawer {
                             JSONArray arr = new JSONArray(json.getString("data"));
 
                             if (arr.length() > 0) {
-                                Log.i("mfnmd",arr.length()+"");
-                                if(arr.length()<10){
+                                if (arr.length() < 10) {
                                     for (int h = 0; h < arr.length(); h++) {
                                         JSONObject obj = arr.getJSONObject(h);
                                         ProductsPO bo = new ProductsPO();
@@ -851,15 +831,12 @@ public class MainActivity extends Drawer {
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                         bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                         JSONArray dd = obj.getJSONArray("option");
-                                        Log.i("jhfdgdhfg",dd+"dfddf");
                                         optionPOS = new ArrayList<>();
-                                        if (dd instanceof JSONArray){
-                                            Log.i("khghgjhg","lkhkjhjkhkj");
+                                        if (dd instanceof JSONArray) {
                                             JSONArray jsonObject = obj.getJSONArray("option");
-                                            if(jsonObject.length()>0){
+                                            if (jsonObject.length() > 0) {
                                                 JSONObject object = jsonObject.getJSONObject(0);
                                                 JSONArray option = object.getJSONArray("product_option_value");
-                                                Log.i("khghgjhg",option.length()+"");
                                                 if (option.length() > 0) {
 
 
@@ -871,10 +848,10 @@ public class MainActivity extends Drawer {
 
                                                     }
                                                     bo.setSingleOptionPOS(optionPOS);
-                                                }else{
+                                                } else {
                                                     bo.setSingleOptionPOS(optionPOS);
                                                 }
-                                            }else{
+                                            } else {
                                                 bo.setSingleOptionPOS(optionPOS);
                                             }
 
@@ -883,7 +860,7 @@ public class MainActivity extends Drawer {
                                         }
                                         productbO.add(bo);
                                     }
-                                }else{
+                                } else {
                                     for (int h = 0; h < 10; h++) {
                                         JSONObject obj = arr.getJSONObject(h);
                                         ProductsPO bo = new ProductsPO();
@@ -920,7 +897,7 @@ public class MainActivity extends Drawer {
                             }
                             if (productbO.size() != 0) {
 
-                                bestAdapters = new CommonAdapter(MainActivity.this, productbO,1,1);
+                                bestAdapters = new CommonAdapter(MainActivity.this, productbO, 1, 1);
                                 product_lists.setAdapter(bestAdapters);
                                 product_lists.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 product_loadings.setVisibility(View.GONE);
@@ -942,8 +919,7 @@ public class MainActivity extends Drawer {
                             no_proditem.setVisibility(View.VISIBLE);
                             product_lists.setVisibility(View.GONE);
                         }
-                    }
-                    else {
+                    } else {
                         no_network.setVisibility(View.VISIBLE);
                         product_loadings.setVisibility(View.GONE);
                         JSONArray array = json.getJSONArray("error");
@@ -977,7 +953,7 @@ public class MainActivity extends Drawer {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
@@ -1022,15 +998,13 @@ public class MainActivity extends Drawer {
                             cart_count_bot.setText(String.valueOf(qty));
                         }
 
-                        if (feat_list!=null && feat_list.size()>0  ) {
+                        if (feat_list != null && feat_list.size() > 0) {
                             for (int u = 0; u < feat_list.size(); u++) {
                                 for (int h = 0; h < cart_item.size(); h++) {
-                                    if (Integer.parseInt(feat_list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                    if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                         feat_list.get(u).setCart_list(true);
                                         break;
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         feat_list.get(u).setCart_list(false);
                                     }
                                 }
@@ -1038,24 +1012,21 @@ public class MainActivity extends Drawer {
                             featuredProduct.notifyDataSetChanged();
                         }
 
-                        if (list!=null  && list.size()>0 ) {
+                        if (list != null && list.size() > 0) {
                             for (int u = 0; u < list.size(); u++) {
                                 for (int h = 0; h < cart_item.size(); h++) {
-                                    if (Integer.parseInt(list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                    if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                         list.get(u).setCart_list(true);
                                         break;
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         list.get(u).setCart_list(false);
                                     }
                                 }
                             }
 
 
-                           bestAdapters.notifyDataSetChanged();
+                            bestAdapters.notifyDataSetChanged();
                         }
-
 
 
                     } else {
@@ -1072,6 +1043,7 @@ public class MainActivity extends Drawer {
 
         }
     }
+
     private void setupJazziness() {
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
@@ -1093,11 +1065,11 @@ public class MainActivity extends Drawer {
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.banner_roundview2, container, false);
             imgDisplay = viewLayout.findViewById(R.id.browsebackground);
-            LinearLayout banner= viewLayout.findViewById(R.id.banners);
+            LinearLayout banner = viewLayout.findViewById(R.id.banners);
             banner.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Appconstatants.need_brand_product==1) {
+                    if (Appconstatants.need_brand_product == 1) {
                         Intent intent = new Intent(MainActivity.this, Product_list.class);
                         Bundle best = new Bundle();
                         best.putString("view_all", "banners");
@@ -1110,7 +1082,6 @@ public class MainActivity extends Drawer {
                 }
             });
 
-            Log.i("banner_image", banner2.get(position).getImage());
             if (banner2.get(position).getImage().length() > 0 && banner2.get(position).getImage() != null)
                 Picasso.with(getApplicationContext()).load(banner2.get(position).getImage()).placeholder(R.mipmap.place_holder).into(imgDisplay);
             else
@@ -1121,7 +1092,7 @@ public class MainActivity extends Drawer {
         }
 
         @Override
-        public void destroyItem(@NonNull ViewGroup container, int position,@NonNull Object obj) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object obj) {
             container.removeView(baner2.findViewFromObject(position));
         }
 
@@ -1154,7 +1125,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 Log.d("prducts_api", param[0]);
                 logger.info("Feature Product api :" + response);
                 Log.d("prducts_", response + "");
@@ -1193,18 +1164,17 @@ public class MainActivity extends Drawer {
                                     bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                                     bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getInt("rating"));
-                                    bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                                    bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+                                    bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                    bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                     bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
 
                                     Object dd = obj.get("option");
                                     optionPOS = new ArrayList<>();
-                                    if (dd instanceof JSONObject)
-                                    {
-                                        JSONObject jsonObject=obj.getJSONObject("option");
-                                        JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                        if (option.length()>0) {
+                                    if (dd instanceof JSONObject) {
+                                        JSONObject jsonObject = obj.getJSONObject("option");
+                                        JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                        if (option.length() > 0) {
 
 
                                             for (int k = 0; k < option.length(); k++) {
@@ -1216,9 +1186,7 @@ public class MainActivity extends Drawer {
                                             }
                                             bo.setSingleOptionPOS(optionPOS);
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         bo.setSingleOptionPOS(optionPOS);
                                     }
                                     feat_list.add(bo);
@@ -1226,8 +1194,8 @@ public class MainActivity extends Drawer {
 
                             }
 
-                            if (feat_list.size() != 0 && feat_list!=null) {
-                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list,1,1);
+                            if (feat_list.size() != 0 && feat_list != null) {
+                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list, 1, 1);
                                 horizontalListView.setAdapter(featuredProduct);
                                 horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items1.setVisibility(View.GONE);
@@ -1238,7 +1206,7 @@ public class MainActivity extends Drawer {
                                 no_items1.setVisibility(View.VISIBLE);
                                 horizontalListView.setVisibility(View.GONE);
                                 view_all_feat.setVisibility(View.GONE);
-                              newly_preloader.setVisibility(View.GONE);
+                                newly_preloader.setVisibility(View.GONE);
                             }
 
 
@@ -1308,7 +1276,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Best selling api:" + response);
                 Log.d("prducts_api", param[0]);
                 Log.d("prducts_", response + "");
@@ -1342,17 +1310,16 @@ public class MainActivity extends Drawer {
                                     bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                                     bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                    bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                                    bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+                                    bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                    bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                     bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
                                     Object dd = obj.get("option");
                                     optionPOS = new ArrayList<>();
-                                    if (dd instanceof JSONObject)
-                                    {
-                                        JSONObject jsonObject=obj.getJSONObject("option");
-                                        JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                        if (option.length()>0) {
+                                    if (dd instanceof JSONObject) {
+                                        JSONObject jsonObject = obj.getJSONObject("option");
+                                        JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                        if (option.length() > 0) {
 
 
                                             for (int k = 0; k < option.length(); k++) {
@@ -1364,9 +1331,7 @@ public class MainActivity extends Drawer {
                                             }
                                             bo.setSingleOptionPOS(optionPOS);
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         bo.setSingleOptionPOS(optionPOS);
                                     }
                                     list.add(bo);
@@ -1376,14 +1341,14 @@ public class MainActivity extends Drawer {
                             }
 
 
-                            if (list.size() != 0 && list!=null) {
-                                bestAdapters = new CommonAdapter(MainActivity.this, list,1,1);
+                            if (list.size() != 0 && list != null) {
+                                bestAdapters = new CommonAdapter(MainActivity.this, list, 1, 1);
                                 best_selling_list.setAdapter(bestAdapters);
                                 best_selling_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items.setVisibility(View.GONE);
                                 best_selling_list.setVisibility(View.VISIBLE);
                                 view_all_best.setVisibility(View.VISIBLE);
-                               most_preloader.setVisibility(View.GONE);
+                                most_preloader.setVisibility(View.GONE);
                                 best_selling_list.setVisibility(View.VISIBLE);
                             } else {
                                 no_items.setVisibility(View.VISIBLE);
@@ -1403,7 +1368,6 @@ public class MainActivity extends Drawer {
 
                         FEATURE_TASK feature_task = new FEATURE_TASK();
                         feature_task.execute(Appconstatants.Feature_api + "&limit=5");
-
 
 
                         loading.setVisibility(View.GONE);
@@ -1450,13 +1414,11 @@ public class MainActivity extends Drawer {
 
     private void change_langs(String languageToLoad) {
 
-        ArrayList<String> lang_list= LanguageList.getLang_list();
-        String set_lan="en";
+        ArrayList<String> lang_list = LanguageList.getLang_list();
+        String set_lan = "en";
 
-        for (int h=0;h<lang_list.size();h++)
-        {
-            if (languageToLoad.contains(lang_list.get(h)))
-            {
+        for (int h = 0; h < lang_list.size(); h++) {
+            if (languageToLoad.contains(lang_list.get(h))) {
                 set_lan = lang_list.get(h);
 
             }
@@ -1483,12 +1445,10 @@ public class MainActivity extends Drawer {
     }
 
 
-    public void cart_inc()
-    {
+    public void cart_inc() {
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
     }
-
 
 
     @Override
@@ -1496,7 +1456,7 @@ public class MainActivity extends Drawer {
         switch (requestCode) {
             case 212: {
 
-                if (grantResults[0]== PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i("reekkk", "Permission_granted");
 
                 } else {
@@ -1555,7 +1515,6 @@ public class MainActivity extends Drawer {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
-                        Log.d("wish_res", "ddsadsa");
 
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {
@@ -1565,7 +1524,7 @@ public class MainActivity extends Drawer {
                                 fav_item.add(bo);
                             }
 
-                            if (list!=null&&list.size() > 0) {
+                            if (list != null && list.size() > 0) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < fav_item.size(); h++) {
                                         if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
@@ -1580,15 +1539,13 @@ public class MainActivity extends Drawer {
                             }
 
 
-                            if (feat_list!=null && feat_list.size()>0  ) {
+                            if (feat_list != null && feat_list.size() > 0) {
                                 for (int u = 0; u < feat_list.size(); u++) {
                                     for (int h = 0; h < fav_item.size(); h++) {
-                                        if (Integer.parseInt(feat_list.get(u).getProduct_id())==Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                        if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                             feat_list.get(u).setWish_list(true);
                                             break;
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             feat_list.get(u).setWish_list(false);
                                         }
                                     }

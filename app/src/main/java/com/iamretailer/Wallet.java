@@ -513,7 +513,6 @@ public class Wallet extends Language {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
                 logger.info("Product list search resp"+response);
-                Log.d("list_products", param[0]);
                 Log.d("list_products", Appconstatants.sessiondata);
 
 
@@ -633,7 +632,6 @@ public class Wallet extends Language {
 
             logger.info("Product list search api"+param[0]);
 
-            Log.d("singleurl", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
