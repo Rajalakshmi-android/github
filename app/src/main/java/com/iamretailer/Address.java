@@ -202,9 +202,6 @@ public class Address extends Language {
                     if (!Validation.validateName(f_name.getText().toString().trim())) {
                         f_name.setError(getResources().getString(R.string.valid_name));
                     }
-                    if (f_name.getText().toString().trim().length() <= 2) {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
                     if (l_name.getText().toString().trim().equals("")) {
                         l_name.setError(getResources().getString(R.string.l_na));
                     }
@@ -247,9 +244,8 @@ public class Address extends Language {
                         Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
                     }
 
-                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length() >= 2
-
-                            && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
+                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) &&
+                            !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                             && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
                             && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
                             && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
@@ -270,9 +266,7 @@ public class Address extends Language {
                     if (!Validation.validateName(f_name.getText().toString().trim())) {
                         f_name.setError(getResources().getString(R.string.valid_name));
                     }
-                    if (f_name.getText().toString().trim().length() <= 2) {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
+
                     if (l_name.getText().toString().trim().equals("")) {
                         l_name.setError(getResources().getString(R.string.l_na));
                     }
@@ -315,8 +309,7 @@ public class Address extends Language {
                         Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
                     }
                     if (add_ids != 0) {
-                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length() >= 2
-
+                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
                                 && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                                 && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
                                 && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
@@ -331,7 +324,7 @@ public class Address extends Language {
 
                         }
                     } else {
-                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length() > 2
+                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
 
                                 && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                                 && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
@@ -364,9 +357,7 @@ public class Address extends Language {
                         f_name.setError(getResources().getString(R.string.valid_name));
                     }
 
-                    if (f_name.getText().toString().trim().length() <= 2) {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
+
                     if (l_name.getText().toString().trim().equals("")) {
                         l_name.setError(getResources().getString(R.string.l_na));
                     }
@@ -408,7 +399,7 @@ public class Address extends Language {
                         Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
                     }
 
-                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length() > 2
+                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
 
                             && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                             && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3

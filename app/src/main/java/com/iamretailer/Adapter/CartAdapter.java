@@ -232,7 +232,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.cart_value.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantity_change(position, items.get(position).getCartvalue() + "");
+                quantity_change(position, items.get(position).getCartvalue() + "",items.get(position).getProduct_name());
 
             }
         });
@@ -257,7 +257,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     }
 
 
-    private void quantity_change(final int pos, String qtys) {
+    private void quantity_change(final int pos, String qtys, String name) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
         View dialogView = inflater.inflate(R.layout.show_qty, null, false);
         dialogBuilder.setView(dialogView);
@@ -267,8 +267,9 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         LinearLayout cancel = dialogView.findViewById(R.id.cancel);
         final EditText qty = dialogView.findViewById(R.id.qty);
         LinearLayout apply = dialogView.findViewById(R.id.apply);
+        TextView product_names = dialogView.findViewById(R.id.product_name);
         qty.setText(qtys);
-
+        product_names.setText(name);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

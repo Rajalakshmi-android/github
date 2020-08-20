@@ -87,7 +87,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="@dimen/dp5"
-                                    android:text="@string/the_order_is_completed"
+                                    android:text="@string/thank_you_for_ordering"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/text13sp" />
 
@@ -128,14 +128,7 @@
 
 
                         </LinearLayout>
-
-                        <com.iamretailer.Common.CustomTextview
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp40"
-                            android:layout_marginTop="@dimen/dp2"
-                            android:text="@string/thank_you_for_ordering"
-                            android:textColor="@color/text_color1" />
+                        
 
                     </LinearLayout>
                 </LinearLayout>

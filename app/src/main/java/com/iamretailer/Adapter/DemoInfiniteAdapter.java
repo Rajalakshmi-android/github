@@ -62,7 +62,7 @@ public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
 
 
 
-            if (itemList.get(listPosition).getImage().length() > 0 && itemList.get(listPosition).getImage() != null)
+            if (itemList.get(listPosition).getImage() != null && itemList.get(listPosition).getImage().length() > 0  )
                 Picasso.with(context).load(itemList.get(listPosition).getImage()).placeholder(R.mipmap.place_holder).into(imageView);
             else
                 Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(imageView);

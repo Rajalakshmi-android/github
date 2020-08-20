@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,7 @@ public class SliderAdapter extends PagerAdapter {
         if (view != null) {
             imageView = view.findViewById(R.id.image);
         }
-        if (imgurl.get(position).length() > 0)
+        if (imgurl.get(position)!=null && imgurl.get(position).length() > 0)
             Picasso.with(context).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
         else
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).noFade().into(imageView);

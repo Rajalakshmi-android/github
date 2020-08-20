@@ -67,9 +67,8 @@ public class TrackingAdapter extends RecyclerView.Adapter<TrackingAdapter.MyView
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-            //lp.setMargins((int) context.getResources().getDimension(R.dimen.dp5), (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);
-            //holder.items_bg.setLayoutParams(lp);
-        if(items.get(position).getCommand()!=null & !items.get(position).getCommand().equalsIgnoreCase("")){
+
+        if(items.get(position).getCommand()!=null & items.get(position).getCommand().length()>0){
             holder.command.setVisibility(View.VISIBLE);
         }else{
             holder.command.setVisibility(View.GONE);

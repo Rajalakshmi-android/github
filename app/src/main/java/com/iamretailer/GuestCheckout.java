@@ -57,10 +57,6 @@ public class GuestCheckout extends Language {
                 {
                     f_name.setError(getResources().getString(R.string.valid_name));
                 }
-                if (f_name.getText().toString().trim().length()<=2)
-                {
-                    f_name.setError(getResources().getString(R.string.valid_name));
-                }
 
                 if (l_name.getText().toString().trim().equals(""))
                 {
@@ -91,7 +87,7 @@ public class GuestCheckout extends Language {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
-                if (!f_name.getText().toString().isEmpty()  && f_name.getText().toString().trim().length()>=2 && Validation.validateName(l_name.getText().toString().trim())
+                if (!f_name.getText().toString().isEmpty()   && Validation.validateName(l_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
                         &&mobile.getText().toString().length()==10 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches())

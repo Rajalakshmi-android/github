@@ -85,7 +85,6 @@ public class ViewDetails extends Language {
     private LinearLayout ship_info;
     private LinearLayout ship_method_sec;
     private LinearLayout tracking;
-    private LinearLayout track_lay;
     private TextView phone;
     private TextView cus_name;
     private TextView cus_address_one;
@@ -93,9 +92,7 @@ public class ViewDetails extends Language {
     private TextView country_name;
     private View delivery;
     private View shipping;
-    private BottomSheetDialog mBottomSheetDialog;
     private TextView del;
-    private LinearLayout track_list;
     private ArrayList<PlacePO> list3;
     private LinearLayout delete;
     private RecyclerView horizontalListView;
@@ -119,7 +116,7 @@ public class ViewDetails extends Language {
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();  // deprecated
         int height = display.getHeight();  // deprecated
-        int maxHeight= (int) (height-(height*0.75));
+        int maxHeight= (int) (height-(height*0.80));
         final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(ViewDetails.this);
         View sheetView = ViewDetails.this.getLayoutInflater().inflate(R.layout.track, null);
         mBottomSheetDialog.setContentView(sheetView);
@@ -130,7 +127,6 @@ public class ViewDetails extends Language {
         behavior.setPeekHeight(height);
         del=(TextView)mBottomSheetDialog.findViewById(R.id.del);
         horizontalListView =(RecyclerView) mBottomSheetDialog. findViewById(R.id.track_list);
-        track_lay=(LinearLayout)mBottomSheetDialog.findViewById(R.id.track_lay);
         delete=(LinearLayout)mBottomSheetDialog.findViewById(R.id.delete);
         delete.setPadding(0,maxHeight,0,0);
         String s1=getResources().getString( R.string.del_by);
@@ -556,7 +552,7 @@ public class ViewDetails extends Language {
         }
         p_option.setText(String.valueOf(sb2));
 
-        if (placePO.getUrl().length() > 0 && placePO.getUrl() != null)
+        if (placePO.getUrl() != null && placePO.getUrl().length() > 0  )
             Picasso.with(ViewDetails.this).load(placePO.getUrl()).placeholder(R.mipmap.place_holder).into(imag);
 
         view_list.addView(convertView);
@@ -584,27 +580,6 @@ public class ViewDetails extends Language {
         view_list.addView(convertView);
 
     }
-    private void addLayout1(final PlacePO placePO, LinearLayout view_list,int pos) {
-
-        View convertView = LayoutInflater.from(this).inflate(R.layout.track_list, view_list, false);
-        TextView date = convertView.findViewById(R.id.date);
-        TextView status = convertView.findViewById(R.id.status);
-        TextView command = convertView.findViewById(R.id.command);
-        if(placePO.getCommand()!=null & !placePO.getCommand().equalsIgnoreCase("")){
-            command.setVisibility(View.VISIBLE);
-        }else{
-            command.setVisibility(View.GONE);
-        }
-        status.setText(placePO.getStatus());
-        command.setText(placePO.getCommand());
-        date.setText(placePO.getDate());
-
-        view_list.addView(convertView);
-
-    }
-
-
-  
 
 
 }

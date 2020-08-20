@@ -155,7 +155,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             @Override
             public void onClick(View v) {
 
-                if (items.get(position).getSingleOptionPOS().size() > 0) {
+                if (items.get(position).getSingleOptionPOS()!=null && items.get(position).getSingleOptionPOS().size() > 0) {
                     Intent intent = new Intent(context, ProductFullView.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("productid", items.get(position).getProduct_id());
