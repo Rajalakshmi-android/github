@@ -78,6 +78,8 @@
     <string name="paymets">Payment Method</string>
     <string name="shpp">Shipping Method:</string>
     <string name="ship">Shipping Information</string>
+    <string name="track">Track Shipment</string>
+    <string name="del_by">Delivery by</string>
     <string name="sub">Subtotal</string>
     <string name="tot">Order Total</string>
     <string name="favorite">Favorite</string>

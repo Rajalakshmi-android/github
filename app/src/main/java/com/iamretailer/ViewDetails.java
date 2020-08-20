@@ -1,27 +1,44 @@
 package com.iamretailer;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Adapter.CommonAdapter;
+import com.iamretailer.Adapter.TrackingAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
@@ -37,7 +54,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Locale;
 
 import stutzen.co.network.Connection;
@@ -62,6 +84,8 @@ public class ViewDetails extends Language {
     private LinearLayout del_add_lay;
     private LinearLayout ship_info;
     private LinearLayout ship_method_sec;
+    private LinearLayout tracking;
+    private LinearLayout track_lay;
     private TextView phone;
     private TextView cus_name;
     private TextView cus_address_one;
@@ -69,6 +93,13 @@ public class ViewDetails extends Language {
     private TextView country_name;
     private View delivery;
     private View shipping;
+    private BottomSheetDialog mBottomSheetDialog;
+    private TextView del;
+    private LinearLayout track_list;
+    private ArrayList<PlacePO> list3;
+    private LinearLayout delete;
+    private RecyclerView horizontalListView;
+    private TrackingAdapter featuredProduct;
 
 
     @Override
@@ -85,6 +116,32 @@ public class ViewDetails extends Language {
         cur_right= db.get_cur_Right();
         bun = new Bundle();
         bun = getIntent().getExtras();
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();  // deprecated
+        int height = display.getHeight();  // deprecated
+        int maxHeight= (int) (height-(height*0.75));
+        final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(ViewDetails.this);
+        View sheetView = ViewDetails.this.getLayoutInflater().inflate(R.layout.track, null);
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+        FrameLayout bottomSheet = mBottomSheetDialog.findViewById(R.id.design_bottom_sheet);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        behavior.setPeekHeight(height);
+
+
+        Log.i("tag","fhgfghfhgf---"+maxHeight+ " === "+height);
+
+        del=(TextView)mBottomSheetDialog.findViewById(R.id.del);
+        horizontalListView =(RecyclerView) mBottomSheetDialog. findViewById(R.id.track_list);
+       // track_list=(LinearLayout)mBottomSheetDialog.findViewById(R.id.track_list);
+        track_lay=(LinearLayout)mBottomSheetDialog.findViewById(R.id.track_lay);
+        delete=(LinearLayout)mBottomSheetDialog.findViewById(R.id.delete);
+        delete.setPadding(0,maxHeight,0,0);
+        String s1=getResources().getString( R.string.del_by);
+        String s2=getResources().getString(R.string.app_name);
+        String s3=s1+" "+s2;
+        del.setText(s3);
         view_list = findViewById(R.id.listview);
         no_network = findViewById(R.id.error_network);
         LinearLayout retry = findViewById(R.id.retry);
@@ -109,6 +166,7 @@ public class ViewDetails extends Language {
         cus_address_one = findViewById(R.id.address_one);
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
+        tracking = findViewById(R.id.tracking);
 
         ImageView del_image = findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);
@@ -146,6 +204,20 @@ public class ViewDetails extends Language {
             @Override
             public void onClick(View view) {
                 showCallPopup();
+            }
+        });
+        tracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               
+                mBottomSheetDialog.show();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mBottomSheetDialog.dismiss();
             }
         });
 
@@ -283,6 +355,7 @@ public class ViewDetails extends Language {
                 try {
                     ArrayList<PlacePO> list1 = new ArrayList<>();
                     ArrayList<PlacePO> list2 = new ArrayList<>();
+                     list3 = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success")==1)
                     {
@@ -376,6 +449,42 @@ public class ViewDetails extends Language {
                         JSONObject obj = totalarray.getJSONObject(k);
                         addTotals(obj, ordertotview);
                     }
+
+                        JSONArray arr1 = new JSONArray(object.getString("histories"));
+                        Log.d("Order_size", String.valueOf(arr1.length()));
+
+                        for (int h = 0; h < arr1.length(); h++) {
+                            JSONObject obj = arr1.getJSONObject(h);
+                            PlacePO bo2 = new PlacePO();
+                           // bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
+                            DateFormat originalFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                            DateFormat targetFormat1 = new SimpleDateFormat("dd, MMM yyyy", Locale.ENGLISH);
+                            Date dat1 = null;
+                            if (!obj.isNull("date_added")) {
+                                try {
+                                    dat1 = originalFormat1.parse(obj.getString("date_added"));
+                                    String formattedDate1 = targetFormat1.format(dat1);
+                                    bo2.setDate(formattedDate1);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                bo2.setDate("");
+                            }
+                            bo2.setCommand(obj.isNull("comment") ? "" : obj.getString("comment"));
+                            bo2.setStatus(obj.isNull("status") ? "" : obj.getString("status"));
+                            list3.add(bo2);
+                        }
+                        Collections.reverse(list3);
+                        featuredProduct = new TrackingAdapter(ViewDetails.this, list3);
+                        horizontalListView.setAdapter(featuredProduct);
+                        horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                       /* track_list.removeAllViews();
+                        Log.i("tag","list3------ "+list3.size());
+                        for (int i = 0; i < list3.size(); i++) {
+
+                            addLayout1(list3.get(i), track_list,i);
+                        }*/
                     loading.setVisibility(View.GONE);
                     no_network.setVisibility(View.GONE);
                     }
@@ -492,6 +601,27 @@ public class ViewDetails extends Language {
         view_list.addView(convertView);
 
     }
+    private void addLayout1(final PlacePO placePO, LinearLayout view_list,int pos) {
+
+        View convertView = LayoutInflater.from(this).inflate(R.layout.track_list, view_list, false);
+        TextView date = convertView.findViewById(R.id.date);
+        TextView status = convertView.findViewById(R.id.status);
+        TextView command = convertView.findViewById(R.id.command);
+        if(placePO.getCommand()!=null & !placePO.getCommand().equalsIgnoreCase("")){
+            command.setVisibility(View.VISIBLE);
+        }else{
+            command.setVisibility(View.GONE);
+        }
+        status.setText(placePO.getStatus());
+        command.setText(placePO.getCommand());
+        date.setText(placePO.getDate());
+
+        view_list.addView(convertView);
+
+    }
+
+
+  
 
 
 }

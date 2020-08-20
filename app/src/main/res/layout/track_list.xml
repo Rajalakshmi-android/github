@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginBottom="@dimen/dp10">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+       <com.iamretailer.Common.CustomTextview1
+           android:id="@+id/date"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@color/track1"
+           android:textSize="@dimen/dp14"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/dp10"
+           android:orientation="horizontal">
+           <View
+               android:layout_marginStart="@dimen/dp15"
+               android:layout_width="@dimen/dp1_5"
+               android:layout_height="match_parent"
+               android:background="@color/line_pay"/>
+
+           <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingStart="@dimen/dp10"
+           android:orientation="vertical">
+           <com.iamretailer.Common.CustomTextview
+               android:id="@+id/status"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/track1"
+               android:text=""
+               android:textSize="@dimen/dp14"/>
+           <com.iamretailer.Common.CustomTextview
+               android:id="@+id/command"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text=""
+               android:textColor="@color/track1"
+               android:layout_marginTop="@dimen/dp1"
+               android:textSize="@dimen/dp12"/>
+       </LinearLayout>
+
+       </LinearLayout>
+   </LinearLayout>
+</LinearLayout>
