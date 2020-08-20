@@ -281,6 +281,7 @@ public class DeliveryMethod extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("DeliveryMethodTask", "DeliveryMethodTask--resp" + resp);
+            if(pDialog!=null)
             pDialog.dismiss();
             if (resp != null) {
                 try {

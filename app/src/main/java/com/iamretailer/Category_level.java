@@ -49,7 +49,7 @@ public class Category_level extends Language {
     private TextView cat_name;
     private LinearLayout loading_bar;
     private AndroidLogger logger;
-    private int pos;
+    private int pos=0;
     private int width;
     private int height;
     private LinearLayout success;

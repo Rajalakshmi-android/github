@@ -64,7 +64,7 @@ public class ConfirmOrder extends Language {
     private String lname;
     private String company;
     private String addressone;
-    private String addresstwo;
+    private String addresstwo="";
     private String city;
     private String pincode;
     private String country;
@@ -155,7 +155,7 @@ public class ConfirmOrder extends Language {
         header.setText(R.string.confirm);
         String c_name = fname + " " + lname;
         cus_name.setText(c_name);
-        if (addresstwo.length() != 0) {
+        if (addresstwo!=null&&addresstwo.length() != 0) {
             String cus_add = addressone + ", " + addresstwo + ",";
             cus_address_one.setText(cus_add);
 
@@ -382,9 +382,10 @@ public class ConfirmOrder extends Language {
                         }
                         if (totals.size() > 0) {
                             subtotal.setText(totals.get(totals.size() - 1).getTot_amt_txt());
-                            if (db.get_cur_Left().length() > 0)
+
+                            if (db.get_cur_Left()!=null&&db.get_cur_Left().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Left(), "").replace(",", ""));
-                            else
+                            else if (db.get_cur_Right()!=null&&db.get_cur_Right().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Right(), "").replace(",", ""));
                         }
                         success.setVisibility(View.VISIBLE);
@@ -470,6 +471,7 @@ public class ConfirmOrder extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("confirm_order", "confirm_order--->  " + resp);
+            if(pDialog!=null)
             pDialog.dismiss();
             if (resp != null) {
 
@@ -667,7 +669,8 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            pDialog.dismiss();
+            if(pDialog!=null)
+                pDialog.dismiss();
 
             if (resp != null) {
                 try {
@@ -748,7 +751,7 @@ public class ConfirmOrder extends Language {
             mobile = data.getStringExtra("phone");
             String c_names = data.getStringExtra("first") + " " + data.getStringExtra("last_name");
             cus_name.setText(c_names);
-            if (data.getStringExtra("addresstwo").length() != 0) {
+            if (addresstwo != null && addresstwo.length() != 0) {
                 String cus_add1 = data.getStringExtra("addressone") + "," + data.getStringExtra("addresstwo") + ",";
                 cus_address_one.setText(cus_add1);
             } else {
@@ -780,7 +783,7 @@ public class ConfirmOrder extends Language {
             options.put("description", "Order Payment");//Demoing Charges
             options.put("currency", "INR");
             // options.put("currency", db.getCurCode());
-            Log.d("Cur_va", db.getCurCode());
+            Log.d("Cur_va", db.getCurCode()+" ");
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", db.getEmail());
@@ -871,7 +874,8 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            pDialog.dismiss();
+            if(pDialog!=null)
+                pDialog.dismiss();
             Log.i("Cart", "payment_success11--" + resp);
             if (resp != null) {
                 try {
@@ -964,6 +968,7 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Cart", "payment_success11--" + resp);
             if (resp != null) {

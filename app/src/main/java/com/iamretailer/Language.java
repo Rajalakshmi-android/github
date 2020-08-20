@@ -31,13 +31,18 @@ public class Language extends AppCompatActivity {
         ArrayList<String> lang_list = LanguageList.getLang_list();
         String set_lan = "en";
 
-        for (int h = 0; h < lang_list.size(); h++) {
-            if (languageToLoad.contains(lang_list.get(h))) {
-                set_lan = lang_list.get(h);
+        if(lang_list!=null&&lang_list.size()>0){
+            for (int h = 0; h < lang_list.size(); h++) {
+                if (languageToLoad.contains(lang_list.get(h))) {
+                    set_lan = lang_list.get(h);
+
+                }
 
             }
 
+
         }
+
         Configuration config = new Configuration();
 
         // API 17+ only.

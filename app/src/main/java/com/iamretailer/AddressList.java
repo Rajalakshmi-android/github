@@ -46,7 +46,7 @@ public class AddressList extends Language {
     private int from;
     private int pos;
     private FrameLayout cont;
-    private int has_ship;
+    private int has_ship=0;
     private TextView no_address;
     private TextView cart_count;
     private FrameLayout success;
@@ -184,7 +184,7 @@ public class AddressList extends Language {
             @Override
             public void onClick(View v) {
 
-                if (!address_id.equalsIgnoreCase("") && address_id != null) {
+                if ( address_id != null&&!address_id.equalsIgnoreCase("")) {
 
                    if (has_ship==1) {
                        AddressTask addressTask = new AddressTask();
@@ -537,6 +537,7 @@ public class AddressList extends Language {
         protected void onPostExecute(String resp) {
 
             Log.i("Add_Save", "ADD_save--->  " + resp);
+            if (pDialog1 != null && pDialog1.isShowing())
             pDialog1.dismiss();
             if (resp != null) {
                 try {

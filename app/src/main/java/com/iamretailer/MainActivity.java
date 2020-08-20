@@ -144,7 +144,7 @@ public class MainActivity extends Drawer {
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (seller_list != null && seller_list.size() > 0) {
+                if(seller_list!=null&&seller_list.size()>0){
 
                     if (level == 0) {
                         Intent intent = new Intent(MainActivity.this, Category.class);
@@ -219,7 +219,7 @@ public class MainActivity extends Drawer {
                     }
                 } else {
 
-                    if (seller_list.get(position).getArrayList().size() == 0) {
+                    if (seller_list.get(position).getArrayList()!=null&&seller_list.get(position).getArrayList().size() == 0) {
                         Intent u = new Intent(MainActivity.this, Allen.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("id", seller_list.get(position).getS_id());
@@ -412,7 +412,7 @@ public class MainActivity extends Drawer {
 
                             for (int h = 0; h < arr.length(); h++) {
                                 JSONObject obj = arr.getJSONObject(h);
-                                if (obj.getJSONArray("categories").length() > 0)
+                                if (!obj.isNull("categories")&&obj.getJSONArray("categories").length() > 0)
                                     level++;
                             }
 
@@ -1194,8 +1194,8 @@ public class MainActivity extends Drawer {
 
                             }
 
-                            if (feat_list.size() != 0 && feat_list != null) {
-                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list, 1, 1);
+                            if ( feat_list!=null&&feat_list.size() != 0 ) {
+                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list,1,1);
                                 horizontalListView.setAdapter(featuredProduct);
                                 horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items1.setVisibility(View.GONE);
@@ -1341,8 +1341,8 @@ public class MainActivity extends Drawer {
                             }
 
 
-                            if (list.size() != 0 && list != null) {
-                                bestAdapters = new CommonAdapter(MainActivity.this, list, 1, 1);
+                            if (list!=null&&list.size() != 0  ) {
+                                bestAdapters = new CommonAdapter(MainActivity.this, list,1,1);
                                 best_selling_list.setAdapter(bestAdapters);
                                 best_selling_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items.setVisibility(View.GONE);
@@ -1414,16 +1414,22 @@ public class MainActivity extends Drawer {
 
     private void change_langs(String languageToLoad) {
 
-        ArrayList<String> lang_list = LanguageList.getLang_list();
-        String set_lan = "en";
+        ArrayList<String> lang_list= LanguageList.getLang_list();
+        String set_lan="en";
+        if(lang_list!=null&&lang_list.size()>0){
 
-        for (int h = 0; h < lang_list.size(); h++) {
-            if (languageToLoad.contains(lang_list.get(h))) {
-                set_lan = lang_list.get(h);
+            for (int h=0;h<lang_list.size();h++)
+            {
+                if (languageToLoad.contains(lang_list.get(h)))
+                {
+                    set_lan = lang_list.get(h);
+
+                }
 
             }
-
         }
+
+
         Configuration config = new Configuration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 

@@ -82,8 +82,9 @@ public class Address extends Language {
         from = cc != null ? cc.getInt("from") : 0;
         if (cc != null) {
             address_id = cc.getString("address_id");
+            has_ship = cc.getInt("has_ship");
         }
-        has_ship = cc.getInt("has_ship");
+
         Appconstatants.Lang = dbController.get_lang_code();
         f_name = findViewById(R.id.full_name);
         l_name = findViewById(R.id.username2);
@@ -954,18 +955,25 @@ public class Address extends Language {
                         country.setAdapter(c_adapter);
 
                         if (from == 1) {
-                            f_name.setText(cc.getString("first"));
-                            l_name.setText(cc.getString("last_name"));
-                            company.setText(cc.getString("company"));
-                            addressone.setText(cc.getString("addressone"));
-                            addressstwo.setText(cc.getString("addresstwo"));
-                            city.setText(cc.getString("city"));
-                            pincode.setText(cc.getString("pincode"));
-                            mobile.setText(cc.getString("phone"));
-                            company.setText(cc.getString("company"));
-                            for (int y = 0; y < country_list.size(); y++) {
-                                if (cc.getString("country").equalsIgnoreCase(country_list.get(y).getCount_name())) {
-                                    country.setSelection(y);
+                            if(cc!=null){
+                                f_name.setText(cc.getString("first"));
+                                l_name.setText(cc.getString("last_name"));
+                                company.setText(cc.getString("company"));
+                                addressone.setText(cc.getString("addressone"));
+                                addressstwo.setText(cc.getString("addresstwo"));
+                                city.setText(cc.getString("city"));
+                                pincode.setText(cc.getString("pincode"));
+                                mobile.setText(cc.getString("phone"));
+                                company.setText(cc.getString("company"));
+                                String con=cc.getString("country");
+                                for (int y = 0; y < country_list.size(); y++) {
+                                    if(con!=null){
+                                        if (con.equalsIgnoreCase(country_list.get(y).getCount_name())) {
+                                            country.setSelection(y);
+
+                                    }
+
+                                    }
                                 }
                             }
 
@@ -1078,9 +1086,17 @@ public class Address extends Language {
 
                         if (from == 1) {
 
+                            String stat=cc.getString("state");
                             for (int y = 0; y < state_list.size(); y++) {
-                                if (cc.getString("state").equalsIgnoreCase(state_list.get(y).getCount_name())) {
-                                    state.setSelection(y);
+                                if(cc!=null){
+                                    if(stat!=null){
+                                        if (stat.equalsIgnoreCase(state_list.get(y).getCount_name())) {
+                                            state.setSelection(y);
+                                        }
+
+                                    }
+
+
                                 }
                             }
                         }

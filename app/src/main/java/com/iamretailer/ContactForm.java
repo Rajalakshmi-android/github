@@ -139,6 +139,7 @@ public class ContactForm extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Contact_form", "Contact_form--->  " + resp);
             if (resp != null) {

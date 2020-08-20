@@ -157,9 +157,16 @@ public class MyCart extends Language {
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int j = 0; j < list.size(); j++) {
-                    if (!list.get(j).isOut_of_stock())
-                        out_of_stock++;
+
+                if(list!=null&&list.size()>0){
+
+                    for (int j = 0; j < list.size(); j++) {
+
+                        if (!list.get(j).isOut_of_stock())
+                            out_of_stock++;
+
+                    }
+
                 }
 
                 if (out_of_stock == 0) {
@@ -287,6 +294,7 @@ public class MyCart extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Add_list", "Add_list--->  " + resp);
             if (resp != null) {
@@ -313,7 +321,7 @@ public class MyCart extends Language {
                                 addressPO.setCity(object1.isNull("city") ? "" : object1.getString("city"));
                                 addressPO.setZone(object1.isNull("zone") ? "" : object1.getString("zone"));
                                 addressPO.setCountry(object1.isNull("country") ? "" : object1.getString("country"));
-                                if (object1.getString("address_1").length() > 0)
+                                if (!object1.isNull("address_1")&&object1.getString("address_1").length() > 0)
                                     addressPOS.add(addressPO);
 
                             }
@@ -888,6 +896,7 @@ public class MyCart extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.d("cal_Api", resp + "");
             if (resp != null) {
@@ -898,6 +907,7 @@ public class MyCart extends Language {
                         pin_code.setText("");
                         country.setSelection(0);
                         state.setSelection(0);
+                        if(alertReviewDialog!=null)
                         alertReviewDialog.dismiss();
 
                         show_Cal_ship_amount(jsonObject);

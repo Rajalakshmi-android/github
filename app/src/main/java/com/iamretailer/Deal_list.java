@@ -289,7 +289,7 @@ public class Deal_list extends Language {
 
                             list.add(bo);
                         }
-                        if (list.size() != 0) {
+                        if (list!=null&&list.size() != 0) {
                             if (val == 0) {
                                 bestAdapter = new CommonAdapter(Deal_list.this, list, 0, 5);
                                 mLayoutManager = new GridLayoutManager(Deal_list.this, 2);

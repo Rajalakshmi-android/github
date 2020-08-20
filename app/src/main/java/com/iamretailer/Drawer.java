@@ -580,6 +580,7 @@ public class Drawer extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("confirm_order", "Logout--->  "+resp);
+            if(pDialog!=null)
             pDialog.dismiss();
             if (resp != null) {
 
@@ -617,7 +618,7 @@ public class Drawer extends Language {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case 212: {

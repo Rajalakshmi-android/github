@@ -45,8 +45,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_view);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        Bundle bundle = new Bundle();
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             img = bundle.getStringArrayList("url");
             pos = bundle.getInt("image");
@@ -74,11 +73,15 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
             }
         });
         datalist = new ArrayList<>();
-        for (int i = 0; i < img.size(); i++) {
-            ImgBo bo = new ImgBo();
-            bo.setUrl(img.get(i));
-            datalist.add(bo);
+        if(img!=null&&img.size()>0){
+            for (int i = 0; i < img.size(); i++) {
+                ImgBo bo = new ImgBo();
+                bo.setUrl(img.get(i));
+                datalist.add(bo);
+            }
+
         }
+
 
         viewPager = findViewById(R.id.pager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());

@@ -96,7 +96,7 @@ public class Filter extends AppCompatActivity {
             filter_list= (ArrayList<FilterPO>) intent.getExtras().getSerializable("filter_data");
             cat_id=intent.getIntExtra("cat_id",0);
         }
-        if (filter_list.size()>0)
+        if (filter_list!=null&&filter_list.size()>0)
         {
             mainAdapter=new FilterMainAdapter(Filter.this,filter_list);
             main_filter.setLayoutManager(new LinearLayoutManager(Filter.this,LinearLayoutManager.VERTICAL,false));
@@ -145,7 +145,7 @@ public class Filter extends AppCompatActivity {
 
                 for (int j=0;j<filter_list.size();j++)
                 {
-                    if (filter_list.get(j).getFilterPOS().size()>0) {
+                    if (filter_list.get(j).getFilterPOS()!=null&&filter_list.get(j).getFilterPOS().size()>0) {
                         for (int s = 0; s < filter_list.get(j).getFilterPOS().size(); s++) {
                             if (filter_list.get(j).getFilterPOS().get(s).isSelected()) {
                                 selected++;
@@ -213,7 +213,7 @@ public class Filter extends AppCompatActivity {
 
         for (int j=0;j<filter_list.size();j++)
         {
-            if (filter_list.get(j).getFilterPOS().size()>0) {
+            if (filter_list.get(j).getFilterPOS()!=null&&filter_list.get(j).getFilterPOS().size()>0) {
                 for (int s = 0; s < filter_list.get(j).getFilterPOS().size(); s++) {
                     if (filter_list.get(j).getFilterPOS().get(s).isSelected()) {
                         clear_data++;
@@ -283,7 +283,7 @@ public class Filter extends AppCompatActivity {
     {
         for (int j=0;j<filter_list.size();j++)
         {
-            if (filter_list.get(j).getFilterPOS().size()>0) {
+            if (filter_list.get(j).getFilterPOS()!=null&&filter_list.get(j).getFilterPOS().size()>0) {
                 for (int s = 0; s < filter_list.get(j).getFilterPOS().size(); s++) {
                     if (filter_list.get(j).getFilterPOS().get(s).isSelected()) {
                         selected++;
@@ -449,7 +449,7 @@ public class Filter extends AppCompatActivity {
                         check_list=new ArrayList<>();
                         check_list=filter_list;
 
-                        if (filter_list.size()>0) {
+                        if (filter_list!=null&&filter_list.size()>0) {
 
                             mainAdapter = new FilterMainAdapter(Filter.this, filter_list);
                             main_filter.setLayoutManager(new LinearLayoutManager(Filter.this, LinearLayoutManager.VERTICAL, false));

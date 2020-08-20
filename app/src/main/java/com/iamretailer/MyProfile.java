@@ -333,6 +333,7 @@ public class MyProfile extends Language {
 
         protected void onPostExecute(String resp) {
 
+            if(pDialog!=null)
             pDialog.dismiss();
             if (resp != null) {
 

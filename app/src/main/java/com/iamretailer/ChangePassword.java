@@ -129,6 +129,7 @@ public class ChangePassword extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.d("login_ss", resp + "");
             if (resp != null) {

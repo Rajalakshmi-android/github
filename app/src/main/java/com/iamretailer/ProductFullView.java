@@ -139,7 +139,7 @@ public class ProductFullView extends Language {
     private ImageView r4;
     private ImageView r5;
     private Typeface typeface;
-     private Typeface typeface1;
+    private Typeface typeface1;
 
 
     @Override
@@ -541,11 +541,11 @@ public class ProductFullView extends Language {
         heading.setText(text);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         final ArrayList<SingleOptionPO> colorlist = optionsPO.getValuelist();
-        if (colorlist.size() > 0) {
+        if (colorlist != null && colorlist.size() > 0) {
             colorlist.get(0).setImgSel(true);
 
             optionsPOArrayList.get(pos).setSelected_id(colorlist.get(0).getProduct_option_value_id());
-            if (colorlist.get(0).getPrice()>0) {
+            if (colorlist.get(0).getPrice() > 0) {
                 optionsPOArrayList.get(pos).setPrices(colorlist.get(0).getPrice());
                 optionsPOArrayList.get(pos).setPrefix(colorlist.get(0).getPrefix());
             }
@@ -565,8 +565,7 @@ public class ProductFullView extends Language {
                 gridView.setAdapter(coladapter);
                 optionsPOArrayList.get(pos).setSelected_id(colorlist.get(i).getProduct_option_value_id());
                 gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-                if (colorlist.get(i).getPrice()>0)
-                {
+                if (colorlist.get(i).getPrice() > 0) {
                     optionsPOArrayList.get(pos).setPrices(colorlist.get(i).getPrice());
                     optionsPOArrayList.get(pos).setPrefix(colorlist.get(i).getPrefix());
                     price_Cal();
@@ -594,7 +593,7 @@ public class ProductFullView extends Language {
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         final ArrayList<SingleOptionPO> sizelist = optionsPO.getValuelist();
-        if (sizelist.size() > 0) {
+        if (sizelist != null && sizelist.size() > 0) {
             sizelist.get(0).setImgSel(true);
             optionsPOArrayList.get(pos).setSelected_id(sizelist.get(0).getProduct_option_value_id());
             if (sizelist.get(0).getPrice()>0) {
@@ -619,7 +618,7 @@ public class ProductFullView extends Language {
                 final SizeOptionAdapters sizeadapter = new SizeOptionAdapters(ProductFullView.this, sizelist);
                 gridView.setAdapter(sizeadapter);
                 gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-                if (sizelist.get(i).getPrice()>0) {
+                if (sizelist.get(i).getPrice() > 0) {
                     optionsPOArrayList.get(pos).setPrices(sizelist.get(i).getPrice());
                     optionsPOArrayList.get(pos).setPrefix(sizelist.get(i).getPrefix());
                     price_Cal();
@@ -685,31 +684,34 @@ public class ProductFullView extends Language {
 
         heading.setText(text);
         final ArrayList<SingleOptionPO> radio_values = optionsPO.getValuelist();
-        for (int u = 0; u < radio_values.size(); u++) {
-            RadioButton rbn = new RadioButton(ProductFullView.this);
-            rbn.setId(radio_values.get(u).getProduct_option_value_id());
-            String value="  " + radio_values.get(u).getName();
-            rbn.setText(value);
-            rbn.setTypeface(typeface);
-            rbn.setTextColor(getResources().getColor(R.color.text_select));
-            Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
-            drawable.setBounds(0, 0, 50, 50);
-            rbn.setCompoundDrawables(drawable, null, null, null);
-            rbn.setButtonDrawable(null);
-            rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
-            if (u==0) {
-                rbn.setChecked(true);
-                optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id());
-                optionsPOArrayList.get(pos).setPrices(radio_values.get(u).getPrice());
-                optionsPOArrayList.get(pos).setPrefix(radio_values.get(u).getPrefix());
+        if (radio_values != null && radio_values.size() > 0) {
+            for (int u = 0; u < radio_values.size(); u++) {
+                RadioButton rbn = new RadioButton(ProductFullView.this);
+                rbn.setId(radio_values.get(u).getProduct_option_value_id());
+                String value = "  " + radio_values.get(u).getName();
+                rbn.setText(value);
+                rbn.setTypeface(typeface);
+                rbn.setTextColor(getResources().getColor(R.color.text_select));
+                Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
+                drawable.setBounds(0, 0, 50, 50);
+                rbn.setCompoundDrawables(drawable, null, null, null);
+                rbn.setButtonDrawable(null);
+                rbn.setPadding(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                if (u == 0) {
+                    rbn.setChecked(true);
+                    optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id());
+                    optionsPOArrayList.get(pos).setPrices(radio_values.get(u).getPrice());
+                    optionsPOArrayList.get(pos).setPrefix(radio_values.get(u).getPrefix());
+                } else {
+                    rbn.setChecked(false);
+                }
+                rbn.setTypeface(typeface);
+                rbn.setLayoutParams(params);
+                rbn.setTag(u);
+                radio.addView(rbn);
             }
-            else {
-                rbn.setChecked(false);
-            }
-            rbn.setTypeface(typeface);
-            rbn.setLayoutParams(params);
-            rbn.setTag(u);
-            radio.addView(rbn);
+
+
         }
         options.addView(layout);
 
@@ -746,32 +748,33 @@ public class ProductFullView extends Language {
         String text=optionsPO.getName() + " :";
         heading.setText(text);
         final ArrayList<SingleOptionPO> check_value = optionsPO.getValuelist();
+        if (check_value != null && check_value.size() > 0) {
 
-        for (int u = 0; u < check_value.size(); u++) {
-            RadioButton rbn = new RadioButton(ProductFullView.this);
-            rbn.setId(check_value.get(u).getProduct_option_value_id());
-            String value="  " + check_value.get(u).getName();
-            rbn.setText(value);
-            rbn.setTypeface(typeface);
-            rbn.setTextColor(getResources().getColor(R.color.text_select));
-            Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
-            drawable.setBounds(0, 0, 50, 50);
-            rbn.setCompoundDrawables(drawable, null, null, null);
-            rbn.setButtonDrawable(null);
-            rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
-            if (u==0) {
-                rbn.setChecked(true);
-                optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());
-                optionsPOArrayList.get(pos).setPrices(check_value.get(u).getPrice());
-                optionsPOArrayList.get(pos).setPrefix(check_value.get(u).getPrefix());
+            for (int u = 0; u < check_value.size(); u++) {
+                RadioButton rbn = new RadioButton(ProductFullView.this);
+                rbn.setId(check_value.get(u).getProduct_option_value_id());
+                String value = "  " + check_value.get(u).getName();
+                rbn.setText(value);
+                rbn.setTypeface(typeface);
+                rbn.setTextColor(getResources().getColor(R.color.text_select));
+                Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
+                drawable.setBounds(0, 0, 50, 50);
+                rbn.setCompoundDrawables(drawable, null, null, null);
+                rbn.setButtonDrawable(null);
+                rbn.setPadding(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                if (u == 0) {
+                    rbn.setChecked(true);
+                    optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());
+                    optionsPOArrayList.get(pos).setPrices(check_value.get(u).getPrice());
+                    optionsPOArrayList.get(pos).setPrefix(check_value.get(u).getPrefix());
+                } else {
+                    rbn.setChecked(false);
+                }
+                rbn.setTypeface(typeface);
+                rbn.setLayoutParams(params);
+                rbn.setTag(u);
+                checkbox1.addView(rbn);
             }
-            else {
-                rbn.setChecked(false);
-            }
-            rbn.setTypeface(typeface);
-            rbn.setLayoutParams(params);
-            rbn.setTag(u);
-            checkbox1.addView(rbn);
         }
 
         checkbox1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -1158,13 +1161,17 @@ public class ProductFullView extends Language {
 
                 JSONObject object = new JSONObject();
 
-
-                for (int y = 0; y < optionsPOArrayList.size(); y++) {
-                    try {
-                        object.put(String.valueOf(optionsPOArrayList.get(y).getProduct_option_id()), optionsPOArrayList.get(y).getSelected_id());
-                    } catch (JSONException e1) {
-                        e1.printStackTrace();
+                if (optionsPOArrayList != null && optionsPOArrayList.size() > 0) {
+                    for (int y = 0; y < optionsPOArrayList.size(); y++) {
+                        Log.i("optionval", optionsPOArrayList.size() + "-" + optionsPOArrayList.get(y).getProduct_option_id() + "");
+                        try {
+                            object.put(String.valueOf(optionsPOArrayList.get(y).getProduct_option_id()), optionsPOArrayList.get(y).getSelected_id());
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
                     }
+
+
                 }
 
 
@@ -1184,7 +1191,8 @@ public class ProductFullView extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Cart", "Cart_resp  " + resp);
             if (resp != null) {
                 try {
@@ -1426,7 +1434,9 @@ public class ProductFullView extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
+            Log.i("Login", "Login--?" + resp);
             Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {
@@ -1646,8 +1656,8 @@ public class ProductFullView extends Language {
                                     list.add(bo);
                                 }
                             }
-                            if (list.size() != 0) {
-                                adapter = new CommonAdapter(ProductFullView.this, list,1,6);
+                            if (list != null && list.size() != 0) {
+                                adapter = new CommonAdapter(ProductFullView.this, list, 1, 6);
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                                 related_products.setLayoutManager(layoutManager);
                                 related_products.setAdapter(adapter);
@@ -1707,10 +1717,12 @@ public class ProductFullView extends Language {
 
         ArrayList<String> lang_list = LanguageList.getLang_list();
         String set_lan = "en";
+        if (lang_list != null && lang_list.size() > 0) {
+            for (int h = 0; h < lang_list.size(); h++) {
+                if (languageToLoad.contains(lang_list.get(h))) {
+                    set_lan = lang_list.get(h);
 
-        for (int h = 0; h < lang_list.size(); h++) {
-            if (languageToLoad.contains(lang_list.get(h))) {
-                set_lan = lang_list.get(h);
+                }
 
             }
 

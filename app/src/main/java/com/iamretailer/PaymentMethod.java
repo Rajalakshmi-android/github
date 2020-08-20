@@ -191,14 +191,14 @@ public class PaymentMethod extends Language {
                         }
                         payadapter = new PaymentAdapter(getApplicationContext(), R.layout.payment_item, paylist, 0);
                         payment_list.setAdapter(payadapter);
-                        if (paylist != null) {
-                            if (paylist.size() > 0) {
+
+                            if (paylist != null&&paylist.size() > 0) {
                                 paycode = paylist.get(0).getCode();
                                 paymentname = paylist.get(0).getTitle();
                                 payadapter.setChild1(0);
                                 payadapter.notifyDataSetChanged();
                             }
-                        }
+
 
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);

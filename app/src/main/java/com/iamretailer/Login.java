@@ -318,6 +318,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
         protected void onPostExecute(String resp) {
 
+           if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
@@ -352,12 +353,14 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
 
                     } else {
+                        if(pDialog!=null)
                         pDialog.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Login.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
+                    if(pDialog!=null)
                     pDialog.dismiss();
                     e.printStackTrace();
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
@@ -373,6 +376,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 }
 
             } else {
+                if(pDialog!=null)
                 pDialog.dismiss();
                 Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
@@ -472,6 +476,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
@@ -480,6 +485,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     if (json.getInt("success") == 1) {
                         Toast.makeText(Login.this, R.string.email_link, Toast.LENGTH_SHORT).show();
                         username.setText("");
+                        if(open!=null)
                         open.dismiss();
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -654,6 +660,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
@@ -759,6 +766,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
