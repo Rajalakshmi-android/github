@@ -43,7 +43,6 @@ public class Deal_list extends Language {
     private int val = 0;
     private TextView errortxt1;
     private TextView errortxt2;
-    private LinearLayout loading_bar;
     private AndroidLogger logger;
     private boolean loadin = false;
     private int firstVisibleItem;
@@ -73,7 +72,6 @@ public class Deal_list extends Language {
         load_more = findViewById(R.id.load_more);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         no_proditems=findViewById(R.id.no_proditems);
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
@@ -326,13 +324,13 @@ public class Deal_list extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     no_proditems.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     DEAL_LIST deal = new DEAL_LIST();
                                     deal.execute(Appconstatants.Deal_List + "&page=" + start + "&limit=" + limit);
                                 }

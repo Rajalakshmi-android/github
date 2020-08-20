@@ -42,7 +42,6 @@ public class Category extends Language {
     private FrameLayout error_network;
     private TextView errortxt1;
     private TextView errortxt2;
-    private LinearLayout loading_bar;
     private AndroidLogger logger;
     private int width;
     private int height;
@@ -74,7 +73,6 @@ public class Category extends Language {
         error_network = findViewById(R.id.error_network);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         no_items1=findViewById(R.id.no_items1);
         header.setText(R.string.our_cat);
         Display display = getWindowManager().getDefaultDisplay();
@@ -200,15 +198,14 @@ public class Category extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     no_items1.setVisibility(View.GONE);
                     cat_list.setVisibility(View.GONE);
                     Snackbar.make(rootlay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     Cat_Task cat_task = new Cat_Task();
                                     cat_task.execute(Appconstatants.CAT_LIST);
 

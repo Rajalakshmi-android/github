@@ -118,7 +118,6 @@ public class ProductFullView extends Language {
     private TextView errortxt2;
     private String cur_left = "";
     private String cur_right = "";
-    LinearLayout loading_bar;
     private TextView out_of_stock;
     private ImageView like;
     private ImageView un_like;
@@ -185,7 +184,6 @@ public class ProductFullView extends Language {
         loading = findViewById(R.id.loading);
         product = findViewById(R.id.product);
         add_reviews = findViewById(R.id.add_reviews);
-        loading_bar = findViewById(R.id.loading_bar);
         productrs= findViewById(R.id.productrs);
         originalrs= findViewById(R.id.originalrs);
         option_layout = findViewById(R.id.option_layout);
@@ -1086,14 +1084,13 @@ public class ProductFullView extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     SingleProductTask singleProductTask = new SingleProductTask();
                                     singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
 
@@ -1681,12 +1678,12 @@ public class ProductFullView extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     SingleProductTask singleProductTask = new SingleProductTask();
                                     singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
 
@@ -1696,12 +1693,12 @@ public class ProductFullView extends Language {
 
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 SingleProductTask singleProductTask = new SingleProductTask();
                                 singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
 

@@ -23,7 +23,6 @@ import stutzen.co.network.Connection;
 public class OrderEdit extends Language {
 
     private AndroidLogger logger;
-    LinearLayout loading_bar;
     private FrameLayout fullayout;
     private FrameLayout loading;
     private FrameLayout error_network;
@@ -43,7 +42,6 @@ public class OrderEdit extends Language {
         LinearLayout back = findViewById(R.id.menu);
         LinearLayout cart_items = findViewById(R.id.cart_items);
         fullayout = findViewById(R.id.fullayout);
-        loading_bar = findViewById(R.id.loading_bar);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
         errortxt1 = findViewById(R.id.errortxt1);
@@ -125,14 +123,13 @@ public class OrderEdit extends Language {
                 catch (Exception e)
                 {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     ORDER_TASK order_task = new ORDER_TASK();
                                     order_task.execute(Appconstatants.ORDER_CUSTOMISE);
 

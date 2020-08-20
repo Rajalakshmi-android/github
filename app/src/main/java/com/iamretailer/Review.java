@@ -44,7 +44,6 @@ public class Review extends Language {
     private LinearLayout load_more;
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
     private AndroidLogger logger;
 
 
@@ -67,7 +66,6 @@ public class Review extends Language {
         load_more = findViewById(R.id.load_more);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar= findViewById(R.id.loading_bar);
         DBController db = new DBController(Review.this);
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang= db.get_lang_code();
@@ -205,13 +203,12 @@ public class Review extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     error_network.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     ReviewTASK reviewTASK = new ReviewTASK();
                                     reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
                                 }

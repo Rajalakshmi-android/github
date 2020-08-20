@@ -38,7 +38,6 @@ public class AddressList extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    private LinearLayout loading_bar;
     private ArrayList<AddressPO> addressPOS;
     private ListView address_list;
     private AddressAdapter addressAdapter;
@@ -63,7 +62,6 @@ public class AddressList extends Language {
         cont = findViewById(R.id.cont);
         LinearLayout add_new_address = findViewById(R.id.add_new_address);
         fullayout = findViewById(R.id.fullayout);
-        loading_bar = findViewById(R.id.loading_bar);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         LinearLayout retry = findViewById(R.id.retry);
@@ -331,7 +329,6 @@ public class AddressList extends Language {
 
                             }
 
-
                             if (from==4)
                             {
                                 addressAdapter = new AddressAdapter(AddressList.this, R.layout.address_item, addressPOS,0);
@@ -370,15 +367,14 @@ public class AddressList extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
                     success.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
 
                                 }
                             })
@@ -436,7 +432,6 @@ public class AddressList extends Language {
                 response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
                 logger.info("Address save old user api resp" + response);
                 Log.d("Add_respex", response);
-                //}
 
 
             } catch (Exception e) {
@@ -461,6 +456,15 @@ public class AddressList extends Language {
                             pDialog1.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(AddressList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        cont.performClick();
+                                    }
+                                })
+                                .show();
+
                     }
 
                 } catch (Exception e) {
@@ -524,7 +528,6 @@ public class AddressList extends Language {
                 response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
                 Log.d("Add_respex", response);
                 logger.info("Bill Address save old user api resp" + response);
-                // }
 
 
             } catch (Exception e) {
@@ -537,7 +540,6 @@ public class AddressList extends Language {
         protected void onPostExecute(String resp) {
 
             Log.i("Add_Save", "ADD_save--->  " + resp);
-            if (pDialog1 != null && pDialog1.isShowing())
             pDialog1.dismiss();
             if (resp != null) {
                 try {
@@ -566,7 +568,6 @@ public class AddressList extends Language {
                         i.putExtra("state", addressPOS.get(pos).getZone());
                         i.putExtra("has_ship",has_ship);
                         startActivity(i);
-                        //    }
 
                     } else {
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)

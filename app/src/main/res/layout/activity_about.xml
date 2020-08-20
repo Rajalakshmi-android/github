@@ -34,22 +34,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:id="@+id/search_loading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:gravity="center"
-                        android:visibility="gone">
-
-                        <ProgressBar
-                            android:layout_width="@dimen/dp40"
-                            android:layout_height="@dimen/dp40"
-                            android:layout_gravity="center"
-                            android:indeterminate="true"
-                            android:indeterminateDrawable="@drawable/custom_progress"
-                            android:padding="@dimen/dp5" />
-                    </LinearLayout>
 
                     <com.iamretailer.Common.CustomTextview
                         android:id="@+id/no_items"

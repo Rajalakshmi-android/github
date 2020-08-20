@@ -40,7 +40,6 @@ public class MyProfile extends Language {
     FrameLayout update;
     private TextView errortxt1;
     private TextView errortxt2;
-    private LinearLayout loading_bar;
     private DBController dbcon;
     private String cus_id;
     private AndroidLogger logger;
@@ -73,7 +72,6 @@ public class MyProfile extends Language {
         update = findViewById(R.id.update);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         LinearLayout retry = findViewById(R.id.retry);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,15 +262,14 @@ public class MyProfile extends Language {
 
                     e.printStackTrace();
                     error_lay.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     cart.setVisibility(View.GONE);
 
                     Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GET_PROFILE profile = new GET_PROFILE();
                                     profile.execute(Appconstatants.MY_PROFILE);
 

@@ -42,7 +42,6 @@ public class MyOrders extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
     private AndroidLogger logger;
 
 
@@ -73,7 +72,6 @@ public class MyOrders extends Language {
         empty.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
         Appconstatants.Lang = db.get_lang_code();
@@ -318,13 +316,13 @@ public class MyOrders extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     error_network.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     OrderTask orderTask = new OrderTask();
                                     orderTask.execute(Appconstatants.myorder_api, Appconstatants.sessiondata);
 

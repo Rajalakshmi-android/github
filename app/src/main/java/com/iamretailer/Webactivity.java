@@ -32,11 +32,9 @@ public class Webactivity extends AppCompatActivity {
     private TextView header;
     private FrameLayout loading;
     private FrameLayout error_network;
-    private LinearLayout search_loading;
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
     private AndroidLogger logger;
     private int id=0;
     private String title="";
@@ -66,9 +64,7 @@ public class Webactivity extends AppCompatActivity {
         description = findViewById(R.id.description);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
-        loading_bar= findViewById(R.id.loading_bar);
         LinearLayout retry = findViewById(R.id.retry);
-        search_loading = findViewById(R.id.search_loading);
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
@@ -172,9 +168,6 @@ public class Webactivity extends AppCompatActivity {
                         description.loadDataWithBaseURL(null, myHtmlString, "text/html", "utf-8", null);
                         description.setBackgroundColor(getResources().getColor(R.color.white));
 
-
-                        search_loading.setVisibility(View.GONE);
-
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
 
@@ -194,13 +187,12 @@ public class Webactivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     AboutTask productTask = new AboutTask();
                                     productTask.execute(Appconstatants.ABOUT_IN+id );
                                 }

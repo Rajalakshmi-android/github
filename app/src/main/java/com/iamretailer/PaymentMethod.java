@@ -46,7 +46,6 @@ public class PaymentMethod extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
     private String address_id;
     private String shipping;
     private AndroidLogger logger;
@@ -94,7 +93,6 @@ public class PaymentMethod extends Language {
         cart_items.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         payment_list = findViewById(R.id.payment_list);
         payment_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -217,14 +215,13 @@ public class PaymentMethod extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     PaymentListTask paymentListTask = new PaymentListTask();
                                     paymentListTask.execute();
                                 }

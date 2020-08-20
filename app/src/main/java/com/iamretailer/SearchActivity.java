@@ -50,7 +50,6 @@ public class SearchActivity extends Language {
     String text = "";
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
     private AndroidLogger logger;
     private SingleProductTask productTask;
     private final int start=1,limit=10;
@@ -73,7 +72,6 @@ public class SearchActivity extends Language {
         cart_count = findViewById(R.id.cart_count);
         loading = findViewById(R.id.loading);
         error_network = findViewById(R.id.error_network);
-        loading_bar= findViewById(R.id.loading_bar);
         header.setText(R.string.search);
         LinearLayout retry = findViewById(R.id.retry);
         EditText search_text = findViewById(R.id.search_text);
@@ -383,13 +381,12 @@ public class SearchActivity extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     SingleProductTask productTask = new SingleProductTask();
                                     productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
                                 }

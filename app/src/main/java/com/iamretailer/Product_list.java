@@ -46,7 +46,7 @@ public class Product_list extends Language {
     private int val = 0;
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
+
     private AndroidLogger logger;
     private DBController dbController;
     private ArrayList<SingleOptionPO> optionPOS;
@@ -79,7 +79,6 @@ public class Product_list extends Language {
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         no_proditems = findViewById(R.id.no_proditems);
-        loading_bar = findViewById(R.id.loading_bar);
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
             from = bundle.getString("view_all");
@@ -330,12 +329,12 @@ public class Product_list extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     BEST_SELLING best_selling = new BEST_SELLING();
                                     best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
 
@@ -471,12 +470,12 @@ public class Product_list extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     FEATURE_TASK feature_task = new FEATURE_TASK();
                                     feature_task.execute(Appconstatants.Feature_api);
 
@@ -830,12 +829,12 @@ public class Product_list extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     BANNER banner = new BANNER();
                                     banner.execute(Appconstatants.BANNER_LINK + banner_id + "&page=" + start + "&limit=" + limit);
 

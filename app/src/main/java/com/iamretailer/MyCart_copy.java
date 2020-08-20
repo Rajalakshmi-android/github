@@ -59,7 +59,6 @@ public class MyCart_copy extends Language {
     private String cur_left = "";
     private String cur_right = "";
     private int out_of_stock=0;
-    LinearLayout loading_bar;
     private AndroidLogger logger;
     private AlertDialog alertReviewDialog;
     private ArrayList<CountryPO> country_list;
@@ -105,7 +104,6 @@ public class MyCart_copy extends Language {
         fullayout=(FrameLayout)findViewById(R.id.fullayout);
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
         LinearLayout shipping = (LinearLayout) findViewById(R.id.shipping);
         rupee_front=(TextView)findViewById(R.id.rupee_front);
         rupee_back=(TextView)findViewById(R.id.rupee_back);
@@ -373,13 +371,12 @@ public class MyCart_copy extends Language {
                     e.printStackTrace();
                     success.setVisibility(View.GONE);
                     shopnow.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CartTask cartTask = new CartTask();
                                     cartTask.execute(Appconstatants.cart_api);
                                 }
@@ -522,13 +519,12 @@ public class MyCart_copy extends Language {
                     e.printStackTrace();
                     success.setVisibility(View.GONE);
                     shopnow.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CartTask cartTask = new CartTask();
                                     cartTask.execute(Appconstatants.cart_api);
                                 }
@@ -696,8 +692,6 @@ public class MyCart_copy extends Language {
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
                     po1.setCount_name("Select Country");
-                    po1.setCount_iso_code_2("");
-                    po1.setCount_iso_code_3("");
                     country_list.add(po1);
 
 
@@ -708,8 +702,6 @@ public class MyCart_copy extends Language {
                             CountryPO po = new CountryPO();
                             po.setCount_id(object.getInt("country_id"));
                             po.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
 
                             country_list.add(po);
                         }
@@ -734,14 +726,13 @@ public class MyCart_copy extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CountryTask countryTask = new CountryTask();
                                     countryTask.execute();
 
@@ -794,8 +785,7 @@ public class MyCart_copy extends Language {
                     po.setZone_id("0");
                     po.setCont_id("0");
                     po.setCount_name("Select State");
-                    po.setCount_iso_code_2("");
-                    po.setCount_iso_code_3("");
+
                     state_list.add(po);
 
                     if (json.getInt("success") == 1)
@@ -809,8 +799,6 @@ public class MyCart_copy extends Language {
                             po1.setZone_id(object.isNull("zone_id") ? "" : object.getString("zone_id"));
                             po1.setCont_id(object.isNull("country_id") ? "" : object.getString("country_id"));
                             po1.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po1.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po1.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
 
                             state_list.add(po1);
                         }
@@ -835,14 +823,13 @@ public class MyCart_copy extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CountryTask countryTask = new CountryTask();
                                     countryTask.execute();
 

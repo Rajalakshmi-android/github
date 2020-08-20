@@ -43,7 +43,6 @@ public class Filter extends AppCompatActivity {
     private ArrayList<FilterPO> filter_list;
     private ArrayList<FilterPO> filter_sub_list;
     private ArrayList<FilterPO> check_list;
-    LinearLayout loading_bar;
     LinearLayout retry;
     FrameLayout loading,error_network,fullayout;
     TextView errortxt1, errortxt2;
@@ -71,7 +70,6 @@ public class Filter extends AppCompatActivity {
         header.setText(getResources().getString(R.string.fil_bg));
         sub_filter= findViewById(R.id.sub_filter);
         main_filter= findViewById(R.id.main_filter);
-        loading_bar= findViewById(R.id.loading_bar);
         retry= findViewById(R.id.retry);
         loading= findViewById(R.id.loading);
         error_network= findViewById(R.id.error_network);
@@ -485,13 +483,12 @@ public class Filter extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     FilterTask filterTask=new FilterTask();
                                     filterTask.execute(Appconstatants.Filter_Api+cat_id);
 

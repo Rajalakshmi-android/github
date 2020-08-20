@@ -82,7 +82,6 @@ public class ConfirmOrder extends Language {
     private TextView errortxt2;
     private String cur_left = "";
     private String cur_right = "";
-    private LinearLayout loading_bar;
     private String address_id;
 
     private AndroidLogger logger;
@@ -146,7 +145,6 @@ public class ConfirmOrder extends Language {
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
         cus_mobile = findViewById(R.id.mobile);
-        loading_bar = findViewById(R.id.loading_bar);
         LinearLayout promo_code = findViewById(R.id.promo_code);
         promo_circle = findViewById(R.id.promo_circle);
         promo_tag = findViewById(R.id.promo_tag);
@@ -409,13 +407,12 @@ public class ConfirmOrder extends Language {
                     e.printStackTrace();
                     error_network.setVisibility(View.GONE);
                     success.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
                                     confirmOrderTask.execute(Appconstatants.Confirm_Order);
 

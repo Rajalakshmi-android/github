@@ -59,7 +59,6 @@ public class Allen extends Language {
     FrameLayout fullayout;
     ArrayList<SingleOptionPO> optionPOS;
     TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
     AndroidLogger logger;
     private ArrayList<ProductsPO> fav_item;
     private ArrayList<ProductsPO> cart_item;
@@ -101,7 +100,6 @@ public class Allen extends Language {
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         filter_show = findViewById(R.id.filter_show);
         filter_lay = findViewById(R.id.filter_lay);
 
@@ -121,10 +119,6 @@ public class Allen extends Language {
 
 
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -323,6 +317,9 @@ public class Allen extends Language {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                start = 1;
+                limit = 10;
+                loadin = false;
                 error_network.setVisibility(View.GONE);
                 sort.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.VISIBLE);
@@ -521,8 +518,6 @@ public class Allen extends Language {
                             bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                             bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
                             bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
-
-                            bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                             bo.setWish_list(false);
                             bo.setCart_list(false);
                             optionPOS = new ArrayList<>();
@@ -557,7 +552,7 @@ public class Allen extends Language {
                             product_count.setText(String.valueOf(list.size()));
                             category.setVisibility(View.VISIBLE);
                             no_items.setVisibility(View.GONE);
-                            load_more.setVisibility(View.GONE);
+
 
                         } else {
                             product_count.setText(String.valueOf(list.size()));
@@ -567,14 +562,11 @@ public class Allen extends Language {
                         }
 
                         error_network.setVisibility(View.GONE);
-                        load_more.setVisibility(View.GONE);
                         start = start + 1;
                         prog_sec.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
-                        loading_bar.setVisibility(View.GONE);
 
-
-                    } else {
+                        } else {
                         error_network.setVisibility(View.VISIBLE);
                         prog_sec.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
@@ -588,13 +580,13 @@ public class Allen extends Language {
                     e.printStackTrace();
                     prog_sec.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
+
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     ProductTask productTask = new ProductTask();
                                     productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id);
                                 }

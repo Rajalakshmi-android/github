@@ -47,7 +47,6 @@ public class Category_level extends Language {
     private RecyclerView sub_cat_list;
     private Sub_Category_Adapter categoryAdapter;
     private TextView cat_name;
-    private LinearLayout loading_bar;
     private AndroidLogger logger;
     private int pos=0;
     private int width;
@@ -74,7 +73,6 @@ public class Category_level extends Language {
         fullayout = findViewById(R.id.fullayout);
         sub_cat_list = findViewById(R.id.sub_cat_list);
         cat_name = findViewById(R.id.cat_name);
-        loading_bar = findViewById(R.id.loading_bar);
         success=findViewById(R.id.success);
         LinearLayout retry = findViewById(R.id.retry);
         no_items1=findViewById(R.id.no_items1);
@@ -269,15 +267,14 @@ public class Category_level extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     success.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     no_items1.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     Cat_Task cat_task = new Cat_Task();
                                     cat_task.execute(Appconstatants.CAT_LIST);
 

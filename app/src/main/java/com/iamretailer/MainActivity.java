@@ -80,7 +80,6 @@ public class MainActivity extends Drawer {
     private PageIndicatorView indicatorView;
     private LinearLayout view_all_feat;
     private LinearLayout view_all_best;
-    private LinearLayout loading_bar;
     private int level = 0;
     private AndroidLogger logger;
     private TextView no_items;
@@ -128,7 +127,6 @@ public class MainActivity extends Drawer {
         indicatorView = findViewById(R.id.dots);
         view_all_feat = findViewById(R.id.view_all_feat);
         view_all_best = findViewById(R.id.view_all_best);
-        loading_bar = findViewById(R.id.loading_bar);
         no_items = findViewById(R.id.no_items);
         no_items1 = findViewById(R.id.no_items1);
         categ_preloader = findViewById(R.id.categ_preloader);
@@ -484,12 +482,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -499,12 +497,12 @@ public class MainActivity extends Drawer {
                 }
 
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -591,12 +589,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -606,12 +604,12 @@ public class MainActivity extends Drawer {
                 }
 
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -692,14 +690,13 @@ public class MainActivity extends Drawer {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
                     loading.setVisibility(View.GONE);
                     category.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -708,13 +705,12 @@ public class MainActivity extends Drawer {
 
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -1233,12 +1229,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -1246,12 +1242,12 @@ public class MainActivity extends Drawer {
                             .show();
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -1379,12 +1375,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
 
@@ -1394,12 +1390,12 @@ public class MainActivity extends Drawer {
 
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
 

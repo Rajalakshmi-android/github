@@ -57,7 +57,6 @@ public class Address extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    private LinearLayout loading_bar;
     private String address_id = "";
     private AndroidLogger logger;
     private StateAdapter s_adapter;
@@ -84,7 +83,6 @@ public class Address extends Language {
             address_id = cc.getString("address_id");
             has_ship = cc.getInt("has_ship");
         }
-
         Appconstatants.Lang = dbController.get_lang_code();
         f_name = findViewById(R.id.full_name);
         l_name = findViewById(R.id.username2);
@@ -108,7 +106,7 @@ public class Address extends Language {
         cart_items.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,146 +193,76 @@ public class Address extends Language {
         cont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (from == 1) {
+                if (f_name.getText().toString().trim().equals("")) {
+                    f_name.setError(getResources().getString(R.string.f_na));
+                }
+                if (!Validation.validateName(f_name.getText().toString().trim())) {
+                    f_name.setError(getResources().getString(R.string.valid_name));
+                }
+                if (l_name.getText().toString().trim().equals("")) {
+                    l_name.setError(getResources().getString(R.string.l_na));
+                }
+                if (!Validation.validateName(l_name.getText().toString().trim())) {
+                    l_name.setError(getResources().getString(R.string.valid_name));
+                }
+                if (addressone.getText().toString().trim().equals("")) {
+                    addressone.setError(getResources().getString(R.string.add_de));
+                }
+                if (addressone.getText().toString().length() <= 3) {
+                    addressone.setError(getResources().getString(R.string.add_de_valid));
+                }
+                if (city.getText().toString().trim().equals("")) {
+                    city.setError(getResources().getString(R.string.city_error));
+                }
+                if (city.getText().toString().trim().length() <= 2) {
+                    city.setError(getResources().getString(R.string.valid_city));
+                }
 
-                    if (f_name.getText().toString().trim().equals("")) {
-                        f_name.setError(getResources().getString(R.string.f_na));
-                    }
-                    if (!Validation.validateName(f_name.getText().toString().trim())) {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (l_name.getText().toString().trim().equals("")) {
-                        l_name.setError(getResources().getString(R.string.l_na));
-                    }
-                    if (!Validation.validateName(l_name.getText().toString().trim())) {
-                        l_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (addressone.getText().toString().trim().equals("")) {
-                        addressone.setError(getResources().getString(R.string.add_de));
-                    }
-                    if (addressone.getText().toString().length() <= 3) {
-                        addressone.setError(getResources().getString(R.string.add_de_valid));
-                    }
-                    if (city.getText().toString().trim().equals("")) {
-                        city.setError(getResources().getString(R.string.city_error));
-                    }
-                    if (city.getText().toString().trim().length() <= 2) {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
+                if (!Validation.validateName(city.getText().toString().trim())) {
+                    city.setError(getResources().getString(R.string.valid_city));
+                }
+                if (pincode.getText().toString().trim().equals("")) {
+                    pincode.setError(getResources().getString(R.string.oin_error));
+                }
+                if (pincode.getText().toString().length() != 6) {
+                    pincode.setError(getResources().getString(R.string.pin_error1));
+                }
+                if (mobile.getText().toString().length() != 10) {
+                    mobile.setError(getResources().getString(R.string.mobl_error));
+                }
 
-                    if (!Validation.validateName(city.getText().toString().trim())) {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-                    if (pincode.getText().toString().trim().equals("")) {
-                        pincode.setError(getResources().getString(R.string.oin_error));
-                    }
-                    if (pincode.getText().toString().length() != 6) {
-                        pincode.setError(getResources().getString(R.string.pin_error1));
-                    }
-                    if (mobile.getText().toString().length() != 10) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
+                if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
+                    mobile.setError(getResources().getString(R.string.mobl_error));
+                }
+                if (country.getSelectedItemPosition() == 0) {
+                    Toast.makeText(Address.this, R.string.cont_Sele, Toast.LENGTH_SHORT).show();
+                }
+                if (state.getSelectedItemPosition() == 0) {
+                    Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
+                }
 
-                    if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-                    if (country.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.cont_Sele, Toast.LENGTH_SHORT).show();
-                    }
-                    if (state.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
-                    }
+                if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) &&
+                        !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
+                        && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
+                        && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
+                        && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
+                        && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
+                        ) {
 
-                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) &&
-                            !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                            && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
-                            && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
-                            && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                            && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                            && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                            ) {
+                    if (from == 1) {
 
                         UPDATE_ADD addressTask = new UPDATE_ADD();
                         addressTask.execute(f_name.getText().toString().trim(), l_name.getText().toString().trim(), city.getText().toString().trim(), addressone.getText().toString().trim(), addressstwo.getText().toString().trim(), country_list.get(country.getSelectedItemPosition()).getCount_id() + "", pincode.getText().toString().trim(), state_list.get(state.getSelectedItemPosition()).getZone_id(), mobile.getText().toString(), company.getText().toString().trim());
 
+                    } else if (from == 2) {
 
-                    }
-                } else if (from == 2) {
-
-                    if (f_name.getText().toString().trim().equals("")) {
-                        f_name.setError(getResources().getString(R.string.f_na));
-                    }
-                    if (!Validation.validateName(f_name.getText().toString().trim())) {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-
-                    if (l_name.getText().toString().trim().equals("")) {
-                        l_name.setError(getResources().getString(R.string.l_na));
-                    }
-                    if (!Validation.validateName(l_name.getText().toString().trim())) {
-                        l_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (addressone.getText().toString().trim().equals("")) {
-                        addressone.setError(getResources().getString(R.string.add_de));
-                    }
-                    if (addressone.getText().toString().length() <= 3) {
-                        addressone.setError(getResources().getString(R.string.add_de_valid));
-                    }
-                    if (city.getText().toString().trim().equals("")) {
-                        city.setError(getResources().getString(R.string.city_error));
-                    }
-                    if (city.getText().toString().trim().length() <= 2) {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-
-                    if (!Validation.validateName(city.getText().toString().trim())) {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-                    if (pincode.getText().toString().trim().equals("")) {
-                        pincode.setError(getResources().getString(R.string.oin_error));
-                    }
-                    if (pincode.getText().toString().length() != 6) {
-                        pincode.setError(getResources().getString(R.string.pin_error1));
-                    }
-                    if (mobile.getText().toString().length() != 10) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-
-                    if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-                    if (country.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.cont_Sele, Toast.LENGTH_SHORT).show();
-                    }
-                    if (state.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
-                    }
-                    if (add_ids != 0) {
-                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
-                                && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                                && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
-                                && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
-                                && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                                && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                                && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                                ) {
+                        if (add_ids != 0) {
 
                             UPDATE_ADD addressTask = new UPDATE_ADD();
                             addressTask.execute(f_name.getText().toString().trim(), l_name.getText().toString().trim(), city.getText().toString().trim(), addressone.getText().toString().trim(), addressstwo.getText().toString().trim(), country_list.get(country.getSelectedItemPosition()).getCount_id() + "", pincode.getText().toString().trim(), state_list.get(state.getSelectedItemPosition()).getZone_id(), mobile.getText().toString(), company.getText().toString().trim());
 
-
-                        }
-                    } else {
-                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
-
-                                && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                                && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
-                                && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() >= 2
-                                && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                                && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                                && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                                ) {
-
+                        } else {
 
                             AddressTask addressTask = new AddressTask();
                             addressTask.execute(f_name.getText().toString().trim(),
@@ -348,67 +276,7 @@ public class Address extends Language {
                                     mobile.getText().toString(), company.getText().toString().trim());
 
                         }
-                    }
-                } else {
-
-                    if (f_name.getText().toString().trim().equals("")) {
-                        f_name.setError(getResources().getString(R.string.f_na));
-                    }
-                    if (!Validation.validateName(f_name.getText().toString().trim())) {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-
-
-                    if (l_name.getText().toString().trim().equals("")) {
-                        l_name.setError(getResources().getString(R.string.l_na));
-                    }
-                    if (!Validation.validateName(l_name.getText().toString().trim())) {
-                        l_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (addressone.getText().toString().trim().equals("")) {
-                        addressone.setError(getResources().getString(R.string.add_de));
-                    }
-                    if (addressone.getText().toString().length() <= 3) {
-                        addressone.setError(getResources().getString(R.string.add_de_valid));
-                    }
-                    if (city.getText().toString().trim().equals("")) {
-                        city.setError(getResources().getString(R.string.city_error));
-                    }
-
-                    if (!Validation.validateName(city.getText().toString().trim())) {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-                    if (city.getText().toString().trim().length() <= 2) {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-                    if (pincode.getText().toString().trim().equals("")) {
-                        pincode.setError(getResources().getString(R.string.oin_error));
-                    }
-                    if (pincode.getText().toString().length() != 6) {
-                        pincode.setError(getResources().getString(R.string.pin_error1));
-                    }
-                    if (mobile.getText().toString().length() != 10) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-                    if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-                    if (country.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.cont_Sele, Toast.LENGTH_SHORT).show();
-                    }
-                    if (state.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
-
-                            && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                            && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
-                            && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() >= 2
-                            && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                            && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                            && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                            ) {
+                    } else {
 
                         if (has_ship == 1 || from == 4) {
                             AddressTask addressTask = new AddressTask();
@@ -433,8 +301,9 @@ public class Address extends Language {
                                     state_list.get(state.getSelectedItemPosition()).getZone_id(),
                                     mobile.getText().toString().trim());
                         }
-                    }
 
+
+                    }
                 }
             }
 
@@ -603,6 +472,15 @@ public class Address extends Language {
                             pDialog1.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        cont.performClick();
+                                    }
+                                })
+                                .show();
+
                     }
 
                 } catch (Exception e) {
@@ -934,8 +812,6 @@ public class Address extends Language {
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
                     po1.setCount_name(getApplication().getResources().getString(R.string.selc_oun));
-                    po1.setCount_iso_code_2("");
-                    po1.setCount_iso_code_3("");
                     country_list.add(po1);
 
 
@@ -946,8 +822,6 @@ public class Address extends Language {
                             CountryPO po = new CountryPO();
                             po.setCount_id(object.getInt("country_id"));
                             po.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
 
                             country_list.add(po);
                         }
@@ -984,8 +858,6 @@ public class Address extends Language {
                         po.setZone_id("0");
                         po.setCont_id("0");
                         po.setCount_name(getResources().getString(R.string.sel_sta));
-                        po.setCount_iso_code_2("");
-                        po.setCount_iso_code_3("");
                         state_list.add(po);
                         s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
                         state.setAdapter(s_adapter);
@@ -1005,22 +877,11 @@ public class Address extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    error_network.setVisibility(View.GONE);
+                    errortxt1.setText(R.string.error_msg);
                     success.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    CountryTask countryTask = new CountryTask();
-                                    countryTask.execute();
-
-                                }
-                            })
-                            .show();
-
+                    errortxt2.setText("");
+                    error_network.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }
             } else {
                 errortxt1.setText(R.string.no_con);
@@ -1074,9 +935,6 @@ public class Address extends Language {
                             po1.setZone_id(object.isNull("zone_id") ? "" : object.getString("zone_id"));
                             po1.setCont_id(object.isNull("country_id") ? "" : object.getString("country_id"));
                             po1.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po1.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po1.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
-
                             state_list.add(po1);
                         }
 
@@ -1118,21 +976,11 @@ public class Address extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    error_network.setVisibility(View.GONE);
+                    errortxt1.setText(R.string.error_msg);
                     success.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    CountryTask countryTask = new CountryTask();
-                                    countryTask.execute();
-
-                                }
-                            })
-                            .show();
+                    errortxt2.setText("");
+                    error_network.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }
 
             } else {

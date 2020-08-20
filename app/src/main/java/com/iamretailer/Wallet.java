@@ -46,7 +46,6 @@ public class Wallet extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    LinearLayout loading_bar;
     private FrameLayout error_network;
     private FrameLayout loading;
     private ArrayList<OptionsPO> optionsPOArrayList1;
@@ -83,7 +82,6 @@ public class Wallet extends Language {
         LinearLayout cont = findViewById(R.id.cont);
         header.setText(R.string.wallet_head);
         cart_count= findViewById(R.id.cart_count);
-        loading_bar= findViewById(R.id.loading_bar);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         w_amount = findViewById(R.id.amount);
@@ -597,13 +595,12 @@ public class Wallet extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     WALLETTASK wallettask=new WALLETTASK();
                                     wallettask.execute(Appconstatants.WALLET );
                                 }
@@ -685,13 +682,12 @@ public class Wallet extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     WALLETTASK wallettask=new WALLETTASK();
                                     wallettask.execute(Appconstatants.WALLET );
                                 }

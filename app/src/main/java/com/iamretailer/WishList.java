@@ -38,7 +38,6 @@ public class WishList extends Language {
     private FrameLayout loading;
     private FrameLayout fullayout;
     private FrameLayout success;
-    LinearLayout loading_bar;
     private TextView errortxt1;
     private TextView errortxt2;
     private FrameLayout no_items;
@@ -59,7 +58,6 @@ public class WishList extends Language {
         error_network = findViewById(R.id.error_network);
         success = findViewById(R.id.success);
         loading = findViewById(R.id.loading);
-        loading_bar = findViewById(R.id.loading_bar);
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
@@ -209,13 +207,13 @@ public class WishList extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     WISH_LIST wish_list = new WISH_LIST();
                                     wish_list.execute(Appconstatants.Wishlist_Get);
 

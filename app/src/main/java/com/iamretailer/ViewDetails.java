@@ -79,7 +79,7 @@ public class ViewDetails extends Language {
     private TextView errortxt2;
     private String cur_left = "";
     private String cur_right = "";
-    LinearLayout loading_bar;
+
     private AndroidLogger logger;
     private LinearLayout del_add_lay;
     private LinearLayout ship_info;
@@ -148,7 +148,6 @@ public class ViewDetails extends Language {
         fullayout= findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar= findViewById(R.id.loading_bar);
         del_add_lay= findViewById(R.id.del_add_lay);
         ship_info= findViewById(R.id.ship_info);
         ship_method_sec= findViewById(R.id.ship_method_sec);
@@ -483,13 +482,12 @@ public class ViewDetails extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     OrderTask task = new OrderTask();
                                     task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
                                 }
