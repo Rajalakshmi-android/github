@@ -1,6 +1,7 @@
 package com.iamretailer;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -33,23 +34,18 @@ import stutzen.co.network.Connection;
 
 public class Category extends Language {
 
-    RecyclerView cat_list;
-    ArrayList<BrandsPO> cate_list;
-    BrandzAdapter adapter1;
-    FrameLayout rootlay;
-    TextView cart_count;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    TextView header;
-    LinearLayout menu;
-    FrameLayout error_network;
-    LinearLayout retry;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
-    DBController dbController;
+    private RecyclerView cat_list;
+    private ArrayList<BrandsPO> cate_list;
+    private FrameLayout rootlay;
+    private TextView cart_count;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private AndroidLogger logger;
     private int width;
     private int height;
+    private TextView no_items1;
 
 
     @Override
@@ -57,38 +53,40 @@ public class Category extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger= AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        dbController=new DBController(Category.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        cat_list = (RecyclerView) findViewById(R.id.cat_list);
-        rootlay = (FrameLayout) findViewById(R.id.rootlay);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        retry=(LinearLayout)findViewById(R.id.retry);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        DBController dbController = new DBController(Category.this);
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
+        cat_list = findViewById(R.id.cat_list);
+        rootlay = findViewById(R.id.rootlay);
+        cart_count = findViewById(R.id.cart_count);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        loading = findViewById(R.id.loading);
+        LinearLayout retry = findViewById(R.id.retry);
         Cat_Task cat_task = new Cat_Task();
         cat_task.execute(Appconstatants.CAT_LIST);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        header=(TextView)findViewById(R.id.header);
-        menu=(LinearLayout)findViewById(R.id.menu);
-        error_network=(FrameLayout)findViewById(R.id.error_network);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        TextView header = findViewById(R.id.header);
+        LinearLayout menu = findViewById(R.id.menu);
+        error_network = findViewById(R.id.error_network);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        no_items1=findViewById(R.id.no_items1);
         header.setText(R.string.our_cat);
         Display display = getWindowManager().getDefaultDisplay();
-        width = display.getWidth();
-        height = ((display.getHeight()));
+        Point point = new Point();
+        display.getSize(point);
+        width = point.x;
+        height =point.y;
         cat_list.addOnItemTouchListener(new RecyclerItemClickListener(Category.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent u = new Intent(Category.this, Allen.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", cate_list.get(position).getS_id());
-                bundle.putString("cat_name",cate_list.get(position).getStore_name());
+                bundle.putString("cat_name", cate_list.get(position).getStore_name());
                 u.putExtras(bundle);
                 startActivity(u);
 
@@ -109,12 +107,15 @@ public class Category extends Language {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loading.setVisibility(View.VISIBLE);
+                error_network.setVisibility(View.GONE);
+                cat_list.setVisibility(View.GONE);
+                no_items1.setVisibility(View.GONE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
                 Cat_Task cat_task = new Cat_Task();
                 cat_task.execute(Appconstatants.CAT_LIST);
-                error_network.setVisibility(View.GONE);
-                loading.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -126,15 +127,16 @@ public class Category extends Language {
         protected void onPreExecute() {
             Log.d("tag", "started");
         }
+
         protected String doInBackground(String... param) {
-            logger.info("Category api"+param[0]);
+            logger.info("Category api" + param[0]);
 
             Log.d("url", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Category.this);
-                logger.info("Category resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Category.this);
+                logger.info("Category resp" + response);
                 Log.d("url response", response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -148,49 +150,62 @@ public class Category extends Language {
             if (resp != null) {
 
                 try {
-                    cate_list = new ArrayList<BrandsPO>();
-
+                    cate_list = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
-                    if (json.getInt("success")==1)
-                    {
+                    if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
-                        for (int h = 0; h < arr.length(); h++) {
-                            JSONObject obj = arr.getJSONObject(h);
-                            BrandsPO bo = new BrandsPO();
-                            bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
-                            bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
-                            bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
-                            cate_list.add(bo);
+
+                        if (arr.length()>0) {
+                            for (int h = 0; h < arr.length(); h++) {
+                                JSONObject obj = arr.getJSONObject(h);
+                                BrandsPO bo = new BrandsPO();
+                                bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
+                                bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
+                                cate_list.add(bo);
+
+                            }
+                            BrandzAdapter adapter1 = new BrandzAdapter(Category.this, cate_list, 2, width, height);
+                            cat_list.setAdapter(adapter1);
+                            cat_list.setLayoutManager(new GridLayoutManager(Category.this, 3));
+                            no_items1.setVisibility(View.GONE);
+                            cat_list.setVisibility(View.VISIBLE);
+
+                        }
+                        else
+                        {
+                            no_items1.setVisibility(View.VISIBLE);
+                            cat_list.setVisibility(View.GONE);
 
                         }
 
-                       adapter1 = new BrandzAdapter(Category.this, cate_list, 2,width,height);
-                        cat_list.setAdapter(adapter1);
-                        cat_list.setLayoutManager(new GridLayoutManager(Category.this,3));
+
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
-                    }
-                    else
-                        {
-                         loading.setVisibility(View.GONE);
-                            error_network.setVisibility(View.VISIBLE);
-                            errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
-                        Toast.makeText(Category.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                    } else {
+                        loading.setVisibility(View.GONE);
+                        error_network.setVisibility(View.VISIBLE);
+                        no_items1.setVisibility(View.GONE);
+                        cat_list.setVisibility(View.GONE);
+                        errortxt1.setText(R.string.error_msg);
+                        JSONArray array = json.getJSONArray("error");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
+                        Toast.makeText(Category.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
+                    no_items1.setVisibility(View.GONE);
+                    cat_list.setVisibility(View.GONE);
                     Snackbar.make(rootlay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     Cat_Task cat_task = new Cat_Task();
                                     cat_task.execute(Appconstatants.CAT_LIST);
 
@@ -202,6 +217,8 @@ public class Category extends Language {
 
             } else {
                 loading.setVisibility(View.GONE);
+                no_items1.setVisibility(View.GONE);
+                cat_list.setVisibility(View.GONE);
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
@@ -218,14 +235,14 @@ public class Category extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api"+param[0]);
+            logger.info("Cart api" + param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Category.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Category.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {
@@ -245,7 +262,7 @@ public class Category extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -257,13 +274,11 @@ public class Category extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
-                    }
-                    else
-                    {
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(Category.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(Category.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

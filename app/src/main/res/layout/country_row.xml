@@ -5,15 +5,19 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:gravity="start|center_vertical"
+        android:layout_gravity="start|center_vertical"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/dp35"
-        android:layout_gravity="center">
+      >
 
         <com.iamretailer.Common.CustomTextview
+
             android:id="@+id/txt"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="start"
+            android:layout_gravity="start|center_vertical"
             android:paddingEnd="@dimen/dp8"
             android:singleLine="true"
             android:paddingStart="@dimen/dp8"

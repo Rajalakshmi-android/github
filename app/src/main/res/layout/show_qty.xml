@@ -28,8 +28,19 @@
         </LinearLayout>
 
         <com.iamretailer.Common.CustomTextview
+            android:id="@+id/product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/enter_quantity"
+            android:textColor="@color/cart_text"
+            android:textSize="@dimen/text15sp"
+            android:textStyle="bold"/>
+
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
             android:layout_gravity="center"
             android:text="@string/enter_quantity"
             android:textColor="@color/cart_text"

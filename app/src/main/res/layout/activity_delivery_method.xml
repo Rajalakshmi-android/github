@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fullayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,13 +14,15 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/success"
+            android:visibility="gone">
 
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/dp85"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp85"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -31,8 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp8"
                     android:layout_marginEnd="@dimen/dp25"
-                    android:layout_marginStart="@dimen/dp20"
-                    >
+                    android:layout_marginStart="@dimen/dp20">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -43,10 +43,10 @@
                         <ListView
 
                             android:id="@+id/payment_list"
-                            android:divider="@null"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:divider="@null"
                             android:orientation="vertical" />
 
 
@@ -91,14 +91,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp45"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="@dimen/dp15"
-                android:background="@drawable/login_button"
-                android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/dp40"
                 android:layout_marginEnd="@dimen/dp30"
                 android:layout_marginStart="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@drawable/login_button"
                 android:gravity="center"
-                >
+                android:orientation="horizontal">
 
                 <com.iamretailer.Common.CustomTextview
                     android:layout_width="wrap_content"
@@ -107,9 +106,9 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="@string/continues"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text20sp" />
+                    android:textSize="@dimen/text20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </FrameLayout>
@@ -118,17 +117,17 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include
             layout="@layout/error_layout"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dp60"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp60" />
     </FrameLayout>
 
     <include
         layout="@layout/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginTop="@dimen/dp60" />
 </FrameLayout>

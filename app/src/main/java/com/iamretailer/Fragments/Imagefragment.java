@@ -21,7 +21,6 @@ public class Imagefragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,17 +50,12 @@ public class Imagefragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_imagefragment, container, false);
-        imageView = (GestureImageView) view.findViewById(R.id.image);
+        imageView = view.findViewById(R.id.image);
         Picasso.with(getActivity()).load(mParam1).placeholder(R.mipmap.place_holder).noFade().into(imageView);
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {

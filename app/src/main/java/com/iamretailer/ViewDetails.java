@@ -1,31 +1,48 @@
 package com.iamretailer;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Adapter.CommonAdapter;
+import com.iamretailer.Adapter.TrackingAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.OptionsPO;
-import com.iamretailer.POJO.OrdersPO;
 import com.iamretailer.POJO.PlacePO;
 
 
@@ -37,42 +54,49 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
 public class ViewDetails extends Language {
     Bundle bun;
-    LinearLayout view_list;
+    private LinearLayout view_list;
 
-    LinearLayout back;
-    ArrayList<PlacePO> list1;
-    ArrayList<PlacePO> list2;
-    ArrayList<OrdersPO> list;
-    FrameLayout no_network;
-    LinearLayout retry;
-    TextView order_id, order_date, ship_method;
-    private DBController db;
-    private FrameLayout calls;
-    TextView cancel;
-    private TextView status;
+    private FrameLayout no_network;
+    private TextView order_date;
+    private TextView ship_method;
     private TextView paymethod;
     private LinearLayout ordertotview;
-    FrameLayout loading;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    String cur_left = "";
-    String cur_right = "";
-    LinearLayout loading_bar;
-    AndroidLogger logger;
-    LinearLayout del_add_lay;
-    LinearLayout ship_info,ship_method_sec;
-    TextView phone;
-    TextView cus_name, cus_address_one, cus_address_two, cus_mobile;
-    TextView country_name;
-    ImageView del_image;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String cur_left = "";
+    private String cur_right = "";
+
+    private AndroidLogger logger;
+    private LinearLayout del_add_lay;
+    private LinearLayout ship_info;
+    private LinearLayout ship_method_sec;
+    private LinearLayout tracking;
+    private TextView phone;
+    private TextView cus_name;
+    private TextView cus_address_one;
+    private TextView cus_address_two;
+    private TextView country_name;
     private View delivery;
     private View shipping;
+    private TextView del;
+    private ArrayList<PlacePO> list3;
+    private LinearLayout delete;
+    private RecyclerView horizontalListView;
+    private TrackingAdapter featuredProduct;
 
 
     @Override
@@ -80,56 +104,86 @@ public class ViewDetails extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        db = new DBController(ViewDetails.this);
+        DBController db = new DBController(ViewDetails.this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
+        Appconstatants.Lang= db.get_lang_code();
+        Appconstatants.CUR= db.getCurCode();
         cur_left = db.get_cur_Left();
-        cur_right=db.get_cur_Right();
+        cur_right= db.get_cur_Right();
         bun = new Bundle();
         bun = getIntent().getExtras();
-        view_list = (LinearLayout) findViewById(R.id.listview);
-        no_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        order_id = (TextView) findViewById(R.id.order_no);
-        order_date = (TextView) findViewById(R.id.order_date);
-        ship_method = (TextView) findViewById(R.id.ship_method);
-        ordertotview = (LinearLayout) findViewById(R.id.ordertot);
-        calls = (FrameLayout) findViewById(R.id.call);
-        paymethod = (TextView) findViewById(R.id.paymethod);
-        status = (TextView) findViewById(R.id.status);
-        TextView header = (TextView) findViewById(R.id.header);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        del_add_lay=(LinearLayout)findViewById(R.id.del_add_lay);
-       // status_img=(LinearLayout)findViewById(R.id.status_img);
-        ship_info=(LinearLayout)findViewById(R.id.ship_info);
-        ship_method_sec=(LinearLayout)findViewById(R.id.ship_method_sec);
-        phone = (TextView) findViewById(R.id.phone);
-        cus_name = (TextView) findViewById(R.id.name);
-        cus_address_one = (TextView) findViewById(R.id.address_one);
-        cus_address_two = (TextView) findViewById(R.id.address_two);
-        country_name = (TextView) findViewById(R.id.country);
-        cus_mobile = (TextView) findViewById(R.id.mobile);
-        del_image=(ImageView)findViewById(R.id.del_image);
-        delivery=(View)findViewById(R.id.delivery);
-        shipping=(View)findViewById(R.id.shipping);
-        header.setText(getResources().getString(R.string.order_ids)+bun.getString("id"));
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();  // deprecated
+        int height = display.getHeight();  // deprecated
+        int maxHeight= (int) (height-(height*0.80));
+        final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(ViewDetails.this);
+        View sheetView = ViewDetails.this.getLayoutInflater().inflate(R.layout.track, null);
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+        FrameLayout bottomSheet = mBottomSheetDialog.findViewById(R.id.design_bottom_sheet);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        behavior.setPeekHeight(height);
+        del=(TextView)mBottomSheetDialog.findViewById(R.id.del);
+        horizontalListView =(RecyclerView) mBottomSheetDialog. findViewById(R.id.track_list);
+        delete=(LinearLayout)mBottomSheetDialog.findViewById(R.id.delete);
+        delete.setPadding(0,maxHeight,0,0);
+        String s1=getResources().getString( R.string.del_by);
+        String s2=getResources().getString(R.string.app_name);
+        String s3=s1+" "+s2;
+        del.setText(s3);
+        view_list = findViewById(R.id.listview);
+        no_network = findViewById(R.id.error_network);
+        LinearLayout retry = findViewById(R.id.retry);
+        TextView order_id = findViewById(R.id.order_no);
+        order_date = findViewById(R.id.order_date);
+        ship_method = findViewById(R.id.ship_method);
+        ordertotview = findViewById(R.id.ordertot);
+        FrameLayout calls = findViewById(R.id.call);
+        paymethod = findViewById(R.id.paymethod);
+        TextView status = findViewById(R.id.status);
+        TextView header = findViewById(R.id.header);
+        loading= findViewById(R.id.loading);
+        fullayout= findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        del_add_lay= findViewById(R.id.del_add_lay);
+        ship_info= findViewById(R.id.ship_info);
+        ship_method_sec= findViewById(R.id.ship_method_sec);
+        phone = findViewById(R.id.phone);
+        cus_name = findViewById(R.id.name);
+        cus_address_one = findViewById(R.id.address_one);
+        cus_address_two = findViewById(R.id.address_two);
+        country_name = findViewById(R.id.country);
+        tracking = findViewById(R.id.tracking);
+
+        ImageView del_image = findViewById(R.id.del_image);
+        delivery= findViewById(R.id.delivery);
+        shipping= findViewById(R.id.shipping);
+        String head=getResources().getString(R.string.order_ids)+bun.getString("id");
+        header.setText(head);
         OrderTask task = new OrderTask();
         task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
-        if (bun.getString("status").toLowerCase().equals("placed"))
-            del_image.setImageResource(R.mipmap.placed);
-        else
-            del_image.setImageResource(R.mipmap.pending);
-        status.setText(bun.getString("status"));
-        order_id.setText("#"+bun.getString("id"));
+        if(bun!=null){
+            String val=bun.getString("status");
+            if(val!=null){
+
+                if (val.toLowerCase().equals("placed"))
+                    del_image.setImageResource(R.mipmap.placed);
+                else
+                    del_image.setImageResource(R.mipmap.pending);
+
+            }
 
 
-        back = (LinearLayout) findViewById(R.id.menu);
+            status.setText(bun.getString("status"));
+            String or_id="#"+bun.getString("id");
+            order_id.setText(or_id);
+        }
+
+
+        LinearLayout back = findViewById(R.id.menu);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +194,20 @@ public class ViewDetails extends Language {
             @Override
             public void onClick(View view) {
                 showCallPopup();
+            }
+        });
+        tracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               
+                mBottomSheetDialog.show();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mBottomSheetDialog.dismiss();
             }
         });
 
@@ -153,14 +221,14 @@ public class ViewDetails extends Language {
 
             }
         });
-        LinearLayout cart_items = (LinearLayout) findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
 
     }
 
-    public void showCallPopup() {
+    private void showCallPopup() {
         AlertDialog.Builder dial = new AlertDialog.Builder(ViewDetails.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.call_popup, null);
+        View popUpView = View.inflate(ViewDetails.this,R.layout.call_popup, null);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -168,8 +236,8 @@ public class ViewDetails extends Language {
         lp.gravity = Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
-        final TextView no = (TextView) popUpView.findViewById(R.id.no);
-        final TextView yes = (TextView) popUpView.findViewById(R.id.yes);
+        final TextView no = popUpView.findViewById(R.id.no);
+        final TextView yes = popUpView.findViewById(R.id.yes);
 
         no.setOnClickListener(new View.OnClickListener() {
 
@@ -195,7 +263,7 @@ public class ViewDetails extends Language {
 
     }
 
-    public void call_action(){
+    private void call_action(){
 
         String ph=getResources().getString(R.string.tel)+getResources().getString(R.string.phone_num);
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
@@ -204,7 +272,7 @@ public class ViewDetails extends Language {
     }
 
 
-    public  boolean isPermissionGranted() {
+    private boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -225,19 +293,20 @@ public class ViewDetails extends Language {
 
 
     @Override
+
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
 
             case 1: {
 
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.per_grant), Toast.LENGTH_SHORT).show();
                     call_action();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.per_den), Toast.LENGTH_SHORT).show();
                 }
-                return;
+                break;
             }
 
         }
@@ -274,8 +343,9 @@ public class ViewDetails extends Language {
             if (resp != null) {
 
                 try {
-                    list1 = new ArrayList<>();
-                    list2 = new ArrayList<>();
+                    ArrayList<PlacePO> list1 = new ArrayList<>();
+                    ArrayList<PlacePO> list2 = new ArrayList<>();
+                     list3 = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success")==1)
                     {
@@ -285,13 +355,10 @@ public class ViewDetails extends Language {
                     order_date.setText(CommonFunctions.convert_date(object.isNull("date_added") ? "" : object.getString("date_added")));
                     ship_method.setText(object.isNull("shipping_method") ? "" : object.getString("shipping_method"));
 
-
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
                     if (shipping_firstname.equalsIgnoreCase(""))
                     {
-                        Log.i("sfsdfsdf","sfsdfs");
                         del_add_lay.setVisibility(View.GONE);
-                        //status_img.setVisibility(View.GONE);
                         ship_info.setVisibility(View.GONE);
                         ship_method_sec.setVisibility(View.GONE);
                         delivery.setVisibility(View.GONE);
@@ -299,15 +366,17 @@ public class ViewDetails extends Language {
                     }
                     else
                     {
-                        Log.i("sfsdfsdf","tertretet");
-                      //  del_add.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + "" + object.getString("payment_lastname") + "\n" + object.getString("payment_address_1") + "\n" + object.getString("payment_address_2") + "\n" + object.getString("payment_city") + " - " + object.getString("payment_postcode") + "\n" + object.getString("payment_zone") + "\n" + object.getString("payment_country")+ "\n"+object.getString("telephone")+"");
-                        cus_name.setText(object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname") );
-                        cus_address_one.setText(object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",");
-                        cus_address_two.setText(object.getString("payment_city") + ", "+object.getString("payment_zone")+",");
-                        country_name.setText(object.getString("payment_country")+" - "+object.getString("payment_postcode")+".");
+                        String c_name=object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname");
+                        String c_ad1=object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",";
+                        String c_ad2=object.getString("payment_city") + ", "+object.getString("payment_zone")+",";
+                        String c_country=object.getString("payment_country")+" - "+object.getString("payment_postcode")+".";
+
+                        cus_name.setText(c_name );
+                        cus_address_one.setText(c_ad1);
+                        cus_address_two.setText(c_ad2);
+                        country_name.setText(c_country);
                         phone.setText(object.getString("telephone"));
                         del_add_lay.setVisibility(View.VISIBLE);
-                      //  status_img.setVisibility(View.VISIBLE);
                         ship_info.setVisibility(View.VISIBLE);
                         if(object.isNull("shipping_method")||object.getString("shipping_method").equalsIgnoreCase("")){
                             ship_method_sec.setVisibility(View.GONE);
@@ -320,7 +389,6 @@ public class ViewDetails extends Language {
                     }
 
                     JSONArray arr = new JSONArray(object.getString("products"));
-                    Log.d("Order_size", String.valueOf(arr.length()));
 
                     for (int h = 0; h < arr.length(); h++) {
                         JSONObject obj = arr.getJSONObject(h);
@@ -345,7 +413,7 @@ public class ViewDetails extends Language {
                             list2.add(bo1);
                         }
 
-                        ArrayList<OptionsPO> oplist = new ArrayList<OptionsPO>();
+                        ArrayList<OptionsPO> oplist = new ArrayList<>();
                         for (int u = 0; u < option_array.length(); u++) {
                             JSONObject ob = option_array.getJSONObject(u);
                             OptionsPO boo = new OptionsPO();
@@ -368,6 +436,36 @@ public class ViewDetails extends Language {
                         JSONObject obj = totalarray.getJSONObject(k);
                         addTotals(obj, ordertotview);
                     }
+
+                        JSONArray arr1 = new JSONArray(object.getString("histories"));
+
+                        for (int h = 0; h < arr1.length(); h++) {
+                            JSONObject obj = arr1.getJSONObject(h);
+                            PlacePO bo2 = new PlacePO();
+                           // bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
+                            DateFormat originalFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                            DateFormat targetFormat1 = new SimpleDateFormat("dd, MMM yyyy", Locale.ENGLISH);
+                            Date dat1 = null;
+                            if (!obj.isNull("date_added")) {
+                                try {
+                                    dat1 = originalFormat1.parse(obj.getString("date_added"));
+                                    String formattedDate1 = targetFormat1.format(dat1);
+                                    bo2.setDate(formattedDate1);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                bo2.setDate("");
+                            }
+                            bo2.setCommand(obj.isNull("comment") ? "" : obj.getString("comment"));
+                            bo2.setStatus(obj.isNull("status") ? "" : obj.getString("status"));
+                            list3.add(bo2);
+                        }
+                        Collections.reverse(list3);
+                        featuredProduct = new TrackingAdapter(ViewDetails.this, list3);
+                        horizontalListView.setAdapter(featuredProduct);
+                        horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+
                     loading.setVisibility(View.GONE);
                     no_network.setVisibility(View.GONE);
                     }
@@ -377,19 +475,19 @@ public class ViewDetails extends Language {
                         no_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String error=array.getString(0)+"";
+                        errortxt2.setText(error);
                         Toast.makeText(ViewDetails.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     OrderTask task = new OrderTask();
                                     task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
                                 }
@@ -411,17 +509,17 @@ public class ViewDetails extends Language {
     private void addLayout(final PlacePO placePO, LinearLayout view_list) {
 
         View convertView = LayoutInflater.from(this).inflate(R.layout.place_list, view_list, false);
-        TextView name = (TextView) convertView.findViewById(R.id.p_name);
-        ImageView imag = (ImageView) convertView.findViewById(R.id.place_img);
-        TextView price = (TextView) convertView.findViewById(R.id.p_total);
-        TextView qunt = (TextView) convertView.findViewById(R.id.p_qty);
-        TextView amount = (TextView) convertView.findViewById(R.id.total);
-        TextView p_option=(TextView)convertView.findViewById(R.id.p_option);
+        TextView name = convertView.findViewById(R.id.p_name);
+        ImageView imag = convertView.findViewById(R.id.place_img);
+        TextView price = convertView.findViewById(R.id.p_total);
+        TextView qunt = convertView.findViewById(R.id.p_qty);
+        TextView amount = convertView.findViewById(R.id.total);
+        TextView p_option= convertView.findViewById(R.id.p_option);
 
-        TextView cur_left1=(TextView)convertView.findViewById(R.id.cur_left);
-        TextView cur_right1=(TextView)convertView.findViewById(R.id.cur_right);
-        TextView cur_left2=(TextView)convertView.findViewById(R.id.cur_left1);
-        TextView cur_right2=(TextView)convertView.findViewById(R.id.cur_right1);
+        TextView cur_left1= convertView.findViewById(R.id.cur_left);
+        TextView cur_right1= convertView.findViewById(R.id.cur_right);
+        TextView cur_left2= convertView.findViewById(R.id.cur_left1);
+        TextView cur_right2= convertView.findViewById(R.id.cur_right1);
         cur_left1.setText(cur_left);
         cur_left2.setText(cur_left);
         cur_right1.setText(cur_right);
@@ -429,20 +527,19 @@ public class ViewDetails extends Language {
         name.setText(placePO.getProduct_name());
         double a = Double.parseDouble(placePO.getPrcie());
         double b = Double.parseDouble(placePO.getAmout());
-        price.setText(String.format("%.2f", a));
+        String a1=String.format(Locale.ENGLISH,"%.2f", a);
+        String b1=String.format(Locale.ENGLISH,"%.2f", b);
+        price.setText(a1);
         qunt.setText(placePO.getQty());
-        amount.setText(String.format("%.2f", b));
-        Log.d("images_s", placePO.getUrl() + "");
+        amount.setText(b1);
 
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
-            Log.d("option_list", placePO.getOptionlist().get(h).getValue() + "");
             sb2.append(placePO.getOptionlist().get(h).getValue());
             if (h != placePO.getOptionlist().size() - 1)
                 sb2.append(",");
         }
-        Log.d("option_list", String.valueOf(sb2));
         if (sb2.length()>0)
         {
             p_option.setVisibility(View.VISIBLE);
@@ -453,7 +550,7 @@ public class ViewDetails extends Language {
         }
         p_option.setText(String.valueOf(sb2));
 
-        if (placePO.getUrl().length() > 0 && placePO.getUrl() != null)
+        if (placePO.getUrl() != null && placePO.getUrl().length() > 0  )
             Picasso.with(ViewDetails.this).load(placePO.getUrl()).placeholder(R.mipmap.place_holder).into(imag);
 
         view_list.addView(convertView);
@@ -464,16 +561,17 @@ public class ViewDetails extends Language {
     private void addTotals(final JSONObject obj, LinearLayout view_list) {
 
         View convertView = LayoutInflater.from(this).inflate(R.layout.orders_totals, view_list, false);
-        TextView tot_title = (TextView) convertView.findViewById(R.id.amount_title);
-        TextView tot_value = (TextView) convertView.findViewById(R.id.amount_value);
-        TextView rigth_cur=(TextView)convertView.findViewById(R.id.cur_right);
-        TextView left_cur=(TextView)convertView.findViewById(R.id.cur_left);
+        TextView tot_title = convertView.findViewById(R.id.amount_title);
+        TextView tot_value = convertView.findViewById(R.id.amount_value);
+        TextView rigth_cur= convertView.findViewById(R.id.cur_right);
+        TextView left_cur= convertView.findViewById(R.id.cur_left);
         rigth_cur.setText(cur_right);
         left_cur.setText(cur_left);
         try {
             tot_title.setText(obj.isNull("title") ? "" : obj.getString("title")+" :");
             double tot = Double.parseDouble(obj.isNull("value") ? "0.00" : obj.getString("value"));
-            tot_value.setText(String.format("%.2f", tot));
+            String val=String.format(Locale.ENGLISH,"%.2f", tot);
+            tot_value.setText(val);
         } catch (JSONException e) {
             e.printStackTrace();
         }

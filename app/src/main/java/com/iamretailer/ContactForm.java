@@ -3,10 +3,8 @@ package com.iamretailer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -33,12 +31,13 @@ import stutzen.co.network.Connection;
 
 public class ContactForm extends Language {
 
-    LinearLayout menu, cart_items;
-    TextView header;
-    EditText full_name, mailid, comments;
-    FrameLayout submit, fullayout;
-    AndroidLogger logger;
-    DBController dbController;
+    private EditText full_name;
+    private EditText mailid;
+    private EditText comments;
+    private FrameLayout submit;
+    private FrameLayout fullayout;
+    private AndroidLogger logger;
+    private DBController dbController;
 
 
     @Override
@@ -47,18 +46,18 @@ public class ContactForm extends Language {
         setContentView(R.layout.activity_contact_form);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        dbController=new DBController(ContactForm.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        menu = (LinearLayout) findViewById(R.id.menu);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        header = (TextView) findViewById(R.id.header);
-        full_name = (EditText) findViewById(R.id.full_name);
-        mailid = (EditText) findViewById(R.id.mailid);
-        comments = (EditText) findViewById(R.id.comments);
-        submit = (FrameLayout) findViewById(R.id.submit);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
+        dbController = new DBController(ContactForm.this);
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.CUR= dbController.getCurCode();
+        LinearLayout menu = findViewById(R.id.menu);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        TextView header = findViewById(R.id.header);
+        full_name = findViewById(R.id.full_name);
+        mailid = findViewById(R.id.mailid);
+        comments = findViewById(R.id.comments);
+        submit = findViewById(R.id.submit);
+        fullayout = findViewById(R.id.fullayout);
 
         header.setText(R.string.contactus);
         cart_items.setVisibility(View.GONE);
@@ -140,6 +139,7 @@ public class ContactForm extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Contact_form", "Contact_form--->  " + resp);
             if (resp != null) {
@@ -148,8 +148,10 @@ public class ContactForm extends Language {
                     JSONObject json1 = new JSONObject(resp);
                     if (json1.getInt("success") == 1) {
                         showCallPopup();
-                        full_name.setText("");
-                        mailid.setText("");
+                        if(dbController.getLoginCount()>0){
+                            mailid.setText(dbController.getEmail());
+                            full_name.setText(dbController.getName());
+                        }
                         comments.setText("");
 
                     } else if (json1.getInt("success") == 0) {
@@ -196,7 +198,7 @@ public class ContactForm extends Language {
         }
     }
 
-    public void showCallPopup(){
+    private void showCallPopup(){
         final AlertDialog.Builder dial = new AlertDialog.Builder(ContactForm.this);
         View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, null);
         dial.setView(popUpView);
@@ -207,7 +209,7 @@ public class ContactForm extends Language {
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay=(LinearLayout)popUpView.findViewById(R.id.okay);
+        LinearLayout okay= popUpView.findViewById(R.id.okay);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

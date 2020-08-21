@@ -78,6 +78,8 @@
     <string name="paymets">Payment Method</string>
     <string name="shpp">Shipping Method:</string>
     <string name="ship">Shipping Information</string>
+    <string name="track">Track Shipment</string>
+    <string name="del_by">Delivery by</string>
     <string name="sub">Subtotal</string>
     <string name="tot">Order Total</string>
     <string name="favorite">Favorite</string>
@@ -297,6 +299,7 @@
     <string name="ore_br">(order id:</string>
     <string name="comp">is completed. Thank you for ordering.</string>
     <string name="cod">Cash on Delivery</string>
+    <string name="razorpay">razorpay</string>
     <string name="colrs">Color</string>
     <string name="colss">Colours</string>
     <string name="radio">radio</string>
@@ -372,6 +375,35 @@
     <string name="address_save">Address Added Successfully</string>
     <string name="address_update">Address Updated Successfully</string>
     <string name="no_orders">No Orders Yet!!</string>
+
+    <string name="per_enable">Enable Permissions from settings</string>
+    <string name="enable">ENABLE</string>
+    <string name="no_cat_found">No Categories found.</string>
+
+    <string name="menu">Menu</string>
+    <string name="most_p">Populat Items</string>
+    <string name="newly_f">Fresh Products</string>
+    <string name="rating">-50%</string>
+    <string name="rating1">%</string>
+    <string name="kg">/Kg</string>
+    <string name="selc_oun">Select Country</string>
+    <string name="sel_sta">Select State</string>
+    <string name="fil_bg">Filter By</string>
+    <string name="clear_all">Clear All</string>
+    <string name="price_range">Price Range</string>
+    <string name="from">From:</string>
+    <string name="too">To:</string>
+    <string name="no_categories_found">No Categories found</string>
+    <string name="no_data_found">No Data found !!</string>
+    <string name="no_filter">No filter found</string>
+    <string name="pay_msg">Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990</string>
+    <string name="pay_failed">Payment Transaction Failed </string>
+    <string name="pay_fail">Payment failed:</string>
+    <string name="pay_sucess">Payment Successful:</string>
+    <string name="err_pay">Error in payment:</string>
+    <string name="per_msg">Please Grant Permissions</string>
+    <string name="per_grant">Permission granted</string>
+    <string name="per_den">Permission denied</string>
 
 
 </resources>

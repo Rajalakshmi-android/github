@@ -6,7 +6,7 @@ public class Appconstatants {
 
     public static String key="x-oc-merchant-id";
 
-    public static String value="cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
+    public static String value="cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
 
     public static String key1="X-Oc-Session";
 
@@ -138,5 +138,11 @@ public class Appconstatants {
 
     public  static  String LICENSE_KEY="1234567890";
     public static int need_brand_product=0;
+
+    public static String Payment_Success =domain+"index.php?route=rest/razorpay";
+
+    public static String razorpay=domain+"index.php?route=rest/razorpay/order";
+
+    public static String Filter_Api=domain+"index.php?route=rest/filter/filteroption&path=";
 
 }

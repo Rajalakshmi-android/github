@@ -1,6 +1,7 @@
 package com.iamretailer;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -34,25 +35,24 @@ import stutzen.co.network.Connection;
 
 public class Category_level extends Language {
 
-    LinearLayout back, cart_items;
-    TextView header, cart_count;
-    RecyclerView main_list;
-    ArrayList<BrandsPO> cate_list, cate_list2, cate_list3;
-    BrandzAdapter adapter1;
-    FrameLayout loading, error_network, fullayout;
-    TextView errortxt1, errortxt2;
-    RecyclerView sub_cat_list;
-    Sub_Category_Adapter categoryAdapter;
-    TextView cat_name;
-    LinearLayout loading_bar;
-    LinearLayout retry;
-    int lis_pos = 0;
-    AndroidLogger logger;
-    Bundle bundle;
-    int pos;
-    DBController controller;
+    private TextView cart_count;
+    private RecyclerView main_list;
+    private ArrayList<BrandsPO> cate_list;
+    private BrandzAdapter adapter1;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private RecyclerView sub_cat_list;
+    private Sub_Category_Adapter categoryAdapter;
+    private TextView cat_name;
+    private AndroidLogger logger;
+    private int pos=0;
     private int width;
     private int height;
+    private LinearLayout success;
+    private TextView no_items1;
 
 
     @Override
@@ -61,31 +61,35 @@ public class Category_level extends Language {
         setContentView(R.layout.activity_category_level);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        main_list = (RecyclerView) findViewById(R.id.main_cat_list);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        sub_cat_list = (RecyclerView) findViewById(R.id.sub_cat_list);
-        cat_name = (TextView) findViewById(R.id.cat_name);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        controller = new DBController(Category_level.this);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
+        main_list = findViewById(R.id.main_cat_list);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        fullayout = findViewById(R.id.fullayout);
+        sub_cat_list = findViewById(R.id.sub_cat_list);
+        cat_name = findViewById(R.id.cat_name);
+        success=findViewById(R.id.success);
+        LinearLayout retry = findViewById(R.id.retry);
+        no_items1=findViewById(R.id.no_items1);
+        DBController controller = new DBController(Category_level.this);
         Appconstatants.sessiondata = controller.getSession();
         Appconstatants.Lang = controller.get_lang_code();
         Appconstatants.CUR = controller.getCurCode();
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
-        pos = bundle.getInt("pos");
-        lis_pos = pos;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            pos = bundle.getInt("pos");
+        }
         Display display = getWindowManager().getDefaultDisplay();
-        width = display.getWidth();
-        height = ((display.getHeight()));
+
+        Point point = new Point();
+        display.getSize(point);
+        width = point.x;
+        height =point.y;
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +112,6 @@ public class Category_level extends Language {
             @Override
             public void onItemClick(View view, int position) {
 
-                lis_pos = position;
                 cat_name.setText(cate_list.get(position).getStore_name());
                 for (int j = 0; j < cate_list.size(); j++) {
                     cate_list.get(j).setSelect(false);
@@ -138,6 +141,8 @@ public class Category_level extends Language {
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
+                no_items1.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
                 Cat_Task cat_task = new Cat_Task();
@@ -145,17 +150,7 @@ public class Category_level extends Language {
 
             }
         });
-     /*   sub_cat_list.addOnItemTouchListener(new RecyclerItemClickListener(Category_level.this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent u = new Intent(Category_level.this, Allen.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", cate_list.get(lis_pos).getArrayList().get(position).getS_id());
-                bundle.putString("cat_name", cate_list.get(lis_pos).getArrayList().get(position).getStore_name());
-                u.putExtras(bundle);
-                startActivity(u);
-            }
-        }));*/
+
 
     }
 
@@ -181,7 +176,6 @@ public class Category_level extends Language {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Category_level.this);
                 logger.info("Category_level resp" + response);
-                Log.d("url response", response);
                 Log.d("url_resp_Cat", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -195,79 +189,92 @@ public class Category_level extends Language {
             if (resp != null) {
 
                 try {
-                    cate_list = new ArrayList<BrandsPO>();
+                    cate_list = new ArrayList<>();
 
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
-                        for (int h = 0; h < arr.length(); h++) {
-                            JSONObject obj = arr.getJSONObject(h);
-                            BrandsPO bo = new BrandsPO();
-                            bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
-                            bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
-                            bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
 
-                            JSONArray array = obj.getJSONArray("categories");
-                            cate_list2 = new ArrayList<>();
-                            for (int g = 0; g < array.length(); g++) {
-                                JSONObject object = array.getJSONObject(g);
-                                BrandsPO po = new BrandsPO();
-                                Log.d("url_resp_Catname", object.getString("name") + "");
-                                po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
-                                po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
+                        if (arr.length()>0) {
 
-                                JSONArray array1 = object.getJSONArray("categories");
-                                cate_list3 = new ArrayList<>();
-                                for (int i = 0; i < array1.length(); i++) {
-                                    JSONObject object1 = array1.getJSONObject(i);
-                                    BrandsPO po1 = new BrandsPO();
-                                    Log.d("url_resp_Catname111", object1.getString("name") + "");
-                                    po1.setS_id(object1.isNull("category_id") ? "" : object1.getString("category_id"));
-                                    po1.setStore_name(object1.isNull("name") ? "" : object1.getString("name"));
-                                    cate_list3.add(po1);
+                            for (int h = 0; h < arr.length(); h++) {
+
+                                JSONObject obj = arr.getJSONObject(h);
+                                BrandsPO bo = new BrandsPO();
+                                bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
+                                bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
+                                bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
+
+                                JSONArray array = obj.getJSONArray("categories");
+                                ArrayList<BrandsPO> cate_list2 = new ArrayList<>();
+                                for (int g = 0; g < array.length(); g++) {
+                                    JSONObject object = array.getJSONObject(g);
+                                    BrandsPO po = new BrandsPO();
+                                    po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
+                                    po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
+
+                                    JSONArray array1 = object.getJSONArray("categories");
+                                    ArrayList<BrandsPO> cate_list3 = new ArrayList<>();
+                                    for (int i = 0; i < array1.length(); i++) {
+                                        JSONObject object1 = array1.getJSONObject(i);
+                                        BrandsPO po1 = new BrandsPO();
+                                        po1.setS_id(object1.isNull("category_id") ? "" : object1.getString("category_id"));
+                                        po1.setStore_name(object1.isNull("name") ? "" : object1.getString("name"));
+                                        cate_list3.add(po1);
+                                    }
+                                    po.setArrayList1(cate_list3);
+
+                                    cate_list2.add(po);
+
                                 }
-                                po.setArrayList1(cate_list3);
 
-                                cate_list2.add(po);
+                                bo.setArrayList(cate_list2);
+                                cate_list.add(bo);
 
                             }
 
-                            bo.setArrayList(cate_list2);
-                            Log.d("url_resp_Cats", cate_list2.size() + "");
-                            cate_list.add(bo);
-
+                            adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2, width, height);
+                            main_list.setAdapter(adapter1);
+                            main_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                            cat_name.setText(cate_list.get(pos).getStore_name());
+                            categoryAdapter = new Sub_Category_Adapter(Category_level.this, cate_list.get(pos).getArrayList());
+                            sub_cat_list.setAdapter(categoryAdapter);
+                            sub_cat_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                            cate_list.get(pos).setSelect(true);
+                            success.setVisibility(View.VISIBLE);
+                            no_items1.setVisibility(View.GONE);
                         }
-
-                        adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2, width, height);
-                        main_list.setAdapter(adapter1);
-                        main_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                        cat_name.setText(cate_list.get(pos).getStore_name());
-                        categoryAdapter = new Sub_Category_Adapter(Category_level.this, cate_list.get(pos).getArrayList());
-                        sub_cat_list.setAdapter(categoryAdapter);
-                        sub_cat_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                        cate_list.get(pos).setSelect(true);
+                        else
+                        {
+                            no_items1.setVisibility(View.VISIBLE);
+                            success.setVisibility(View.GONE);
+                        }
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
+                        success.setVisibility(View.GONE);
+                        no_items1.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error_msg=array.getString(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(Category_level.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
+                    no_items1.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     Cat_Task cat_task = new Cat_Task();
                                     cat_task.execute(Appconstatants.CAT_LIST);
 
@@ -279,6 +286,8 @@ public class Category_level extends Language {
 
             } else {
                 loading.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
+                no_items1.setVisibility(View.GONE);
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
@@ -323,7 +332,7 @@ public class Category_level extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -336,7 +345,7 @@ public class Category_level extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
 
                         }
                     } else {

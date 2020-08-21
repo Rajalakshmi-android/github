@@ -3,14 +3,12 @@ package com.iamretailer;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import com.iamretailer.Adapter.AddressAdapter;
 import com.iamretailer.Common.Appconstatants;
-
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.AddressPO;
@@ -34,29 +31,24 @@ import stutzen.co.network.Connection;
 
 public class AddressList extends Language {
 
-    LinearLayout back;
-    FrameLayout loading, error_network;
-    LinearLayout  add_new_address;
-    AndroidLogger logger;
-    String address_id = "";
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    LinearLayout retry;
-    ArrayList<AddressPO> addressPOS;
-    ListView address_list;
-    AddressAdapter addressAdapter;
-    ProgressDialog pDialog1;
-    int from;
-    Bundle cc;
-    int pos;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout cont;
-    DBController dbController;
-    int has_ship;
-    TextView no_address;
+    private FrameLayout loading;
+    private FrameLayout error_network;
+    private AndroidLogger logger;
+    private String address_id = "";
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private ArrayList<AddressPO> addressPOS;
+    private ListView address_list;
+    private AddressAdapter addressAdapter;
+    private ProgressDialog pDialog1;
+    private int from;
+    private int pos;
+    private FrameLayout cont;
+    private int has_ship=0;
+    private TextView no_address;
     private TextView cart_count;
+    private FrameLayout success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,23 +56,23 @@ public class AddressList extends Language {
         setContentView(R.layout.activity_address_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        cont = (FrameLayout) findViewById(R.id.cont);
-        add_new_address = (LinearLayout) findViewById(R.id.add_new_address);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        address_list = (ListView) findViewById(R.id.address_list);
-        header=(TextView)findViewById(R.id.header);
-        no_address=(TextView)findViewById(R.id.no_address);
-        dbController = new DBController(getApplicationContext());
+        LinearLayout back = findViewById(R.id.menu);
+        loading = findViewById(R.id.loading);
+        error_network = findViewById(R.id.error_network);
+        cont = findViewById(R.id.cont);
+        LinearLayout add_new_address = findViewById(R.id.add_new_address);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        LinearLayout retry = findViewById(R.id.retry);
+        address_list = findViewById(R.id.address_list);
+        TextView header = findViewById(R.id.header);
+        no_address= findViewById(R.id.no_address);
+        success=findViewById(R.id.success);
+        DBController dbController = new DBController(getApplicationContext());
 
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        cart_count=(TextView)findViewById(R.id.cart_count);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        cart_count= findViewById(R.id.cart_count);
 
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +82,12 @@ public class AddressList extends Language {
         });
 
 
-        cc = new Bundle();
-        cc = getIntent().getExtras();
-        from=cc.getInt("from");
-        has_ship=cc.getInt("has_ship");
-        Log.d("asdad",from+"");
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.CUR=dbController.getCurCode();
+        Bundle cc = getIntent().getExtras();
+        from= cc != null ? cc.getInt("from") : 0;
+        has_ship= cc != null ? cc.getInt("has_ship"):0;
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.CUR= dbController.getCurCode();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +96,7 @@ public class AddressList extends Language {
         });
 
         if(from==1){
-            address_list.setPadding(0,0,0,50);
+            address_list.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.dp40));
         }else{
             address_list.setPadding(0,0,0,0);
         }
@@ -192,7 +182,7 @@ public class AddressList extends Language {
             @Override
             public void onClick(View v) {
 
-                if (!address_id.equalsIgnoreCase("") && address_id != null) {
+                if ( address_id != null&&!address_id.equalsIgnoreCase("")) {
 
                    if (has_ship==1) {
                        AddressTask addressTask = new AddressTask();
@@ -220,7 +210,7 @@ public class AddressList extends Language {
         cartTask.execute(Appconstatants.cart_api);
     }
 
-    public class CartTask extends AsyncTask<String, Void, String> {
+    class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -255,7 +245,7 @@ public class AddressList extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -266,7 +256,7 @@ public class AddressList extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -339,7 +329,6 @@ public class AddressList extends Language {
 
                             }
 
-
                             if (from==4)
                             {
                                 addressAdapter = new AddressAdapter(AddressList.this, R.layout.address_item, addressPOS,0);
@@ -360,6 +349,7 @@ public class AddressList extends Language {
                             no_address.setVisibility(View.VISIBLE);
                             address_list.setVisibility(View.GONE);
                         }
+                        success.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
 
@@ -367,22 +357,24 @@ public class AddressList extends Language {
                     } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.get(0) + "");
+                        String error_msg=array.get(0) + "";
+                        errortxt2.setText(error_msg);
                         Toast.makeText(AddressList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
 
                                 }
                             })
@@ -394,6 +386,7 @@ public class AddressList extends Language {
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
             }
 
         }
@@ -439,7 +432,6 @@ public class AddressList extends Language {
                 response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
                 logger.info("Address save old user api resp" + response);
                 Log.d("Add_respex", response);
-                //}
 
 
             } catch (Exception e) {
@@ -464,6 +456,15 @@ public class AddressList extends Language {
                             pDialog1.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(AddressList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        cont.performClick();
+                                    }
+                                })
+                                .show();
+
                     }
 
                 } catch (Exception e) {
@@ -527,7 +528,6 @@ public class AddressList extends Language {
                 response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
                 Log.d("Add_respex", response);
                 logger.info("Bill Address save old user api resp" + response);
-                // }
 
 
             } catch (Exception e) {
@@ -568,7 +568,6 @@ public class AddressList extends Language {
                         i.putExtra("state", addressPOS.get(pos).getZone());
                         i.putExtra("has_ship",has_ship);
                         startActivity(i);
-                        //    }
 
                     } else {
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)

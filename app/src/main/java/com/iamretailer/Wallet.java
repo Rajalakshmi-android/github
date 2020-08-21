@@ -13,7 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
+
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,40 +41,32 @@ import java.util.ArrayList;
 import stutzen.co.network.Connection;
 
 public class Wallet extends Language {
-    LinearLayout menu;
-    TextView header,cart_count;
-    LinearLayout cart_items;
-    AndroidLogger logger;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    FrameLayout error_network;
-    FrameLayout loading;
+    private TextView cart_count;
+    private AndroidLogger logger;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private FrameLayout error_network;
+    private FrameLayout loading;
     private ArrayList<OptionsPO> optionsPOArrayList1;
-    TextView no_items;
-    FrameLayout list_view;
+    private TextView no_items;
+    private FrameLayout list_view;
     private WalletAdapter adapter1;
     ListView wallet_list;
-    LinearLayout retry;
     private DBController dbCon;
 
-    public static final int PAYPAL_REQUEST_CODE = 123;
+    private static final int PAYPAL_REQUEST_CODE = 123;
 
     // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
     // or live (ENVIRONMENT_PRODUCTION)
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
-    private String mobile="";
     private ProgressDialog pDialog;
-    private String wallet_amount="0.00";
     private TextView w_amount;
     private int pos=-1;
-    String cur_left = "";
-    String cur_right = "";
-    private LinearLayout cont;
-
-
+    private String cur_left = "";
+    private String cur_right = "";
 
 
     @Override
@@ -83,23 +75,22 @@ public class Wallet extends Language {
         setContentView(R.layout.activity_wallent);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        menu=(LinearLayout)findViewById(R.id.menu);
-        header=(TextView)findViewById(R.id.header);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout) ;
-        cont=(LinearLayout)findViewById(R.id.cont) ;
+        LinearLayout menu = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        fullayout= findViewById(R.id.fullayout);
+        LinearLayout cont = findViewById(R.id.cont);
         header.setText(R.string.wallet_head);
-        cart_count=(TextView)findViewById(R.id.cart_count);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        w_amount = (TextView) findViewById(R.id.amount);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        no_items=(TextView)findViewById(R.id.no_items);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        list_view=(FrameLayout)findViewById(R.id.success);
-        wallet_list=(ListView) findViewById(R.id.wallet_list);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        cart_count= findViewById(R.id.cart_count);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        w_amount = findViewById(R.id.amount);
+        error_network = findViewById(R.id.error_network);
+        no_items= findViewById(R.id.no_items);
+        loading = findViewById(R.id.loading);
+        list_view= findViewById(R.id.success);
+        wallet_list= findViewById(R.id.wallet_list);
+        LinearLayout retry = findViewById(R.id.retry);
 
         dbCon = new DBController(Wallet.this);
         Appconstatants.sessiondata = dbCon.getSession();
@@ -186,7 +177,8 @@ public class Wallet extends Language {
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", dbCon.getEmail());
-            preFill.put("contact",mobile );
+            String mobile = "";
+            preFill.put("contact", mobile);
 
             options.put("prefill", preFill);
 
@@ -246,9 +238,9 @@ public class Wallet extends Language {
 
     private class WalletSaveTask extends AsyncTask<Object, Void, String> {
 
-    String product_id;
+    final String product_id;
 
-        public WalletSaveTask(String productid) {
+        WalletSaveTask(String productid) {
             product_id= productid;
         }
 
@@ -444,7 +436,7 @@ public class Wallet extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -457,7 +449,7 @@ public class Wallet extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -519,7 +511,6 @@ public class Wallet extends Language {
                 Connection connection = new Connection();
                 response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
                 logger.info("Product list search resp"+response);
-                Log.d("list_products", param[0]);
                 Log.d("list_products", Appconstatants.sessiondata);
 
 
@@ -562,20 +553,12 @@ public class Wallet extends Language {
                                 item.setImage(jsonObject.isNull("image") ? "" : jsonObject.getString("image"));
                                 item.setOffer_rate(jsonObject.isNull("special") ? 0 : jsonObject.getDouble("special"));
                                 item.setModel(jsonObject.isNull("model") ? "" : jsonObject.getString("model"));
-                                JSONArray slide_img = new JSONArray(jsonObject.isNull("images") ? "" : jsonObject.getString("images"));
-                                for (int a = 0; a < slide_img.length(); a++) {
-                                }
-                                JSONArray zoom_img = new JSONArray(jsonObject.isNull("original_images") ? "" : jsonObject.getString("original_images"));
-                                for (int b = 0; b < zoom_img.length(); b++) {
-
-                                }
-
                                 item.setTax(jsonObject.isNull("price_excluding_tax_formated") ? "" : jsonObject.getString("price_excluding_tax_formated"));
                                 item.setPrice(jsonObject.isNull("price") ? "" : jsonObject.getString("price"));
                                 item.setProductrate(jsonObject.isNull("price_formated") ? "" : jsonObject.getString("price_formated"));
                                 item.setDescription(jsonObject.isNull("description") ? "" : jsonObject.getString("description"));
                                 item.setQty(jsonObject.isNull("quantity") ? 0 : jsonObject.getInt("quantity"));
-                                item.setWish_list(jsonObject.isNull("wish_list") ? false : jsonObject.getBoolean("wish_list"));
+                                item.setWish_list(!jsonObject.isNull("wish_list") && jsonObject.getBoolean("wish_list"));
 
                                 optionsPOArrayList1.add(item);
                             }
@@ -603,7 +586,8 @@ public class Wallet extends Language {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(Wallet.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -611,13 +595,12 @@ public class Wallet extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     WALLETTASK wallettask=new WALLETTASK();
                                     wallettask.execute(Appconstatants.WALLET );
                                 }
@@ -646,7 +629,6 @@ public class Wallet extends Language {
 
             logger.info("Product list search api"+param[0]);
 
-            Log.d("singleurl", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
@@ -672,8 +654,10 @@ public class Wallet extends Language {
                     {
 
                         JSONArray jarray = new JSONArray(json.getString("data"));
-                        wallet_amount= json.getString("amount");
-                        w_amount.setText(cur_left+String.format("%.2f", Double.parseDouble(wallet_amount))+cur_right);
+
+                        String  wallet_amount = json.getString("amount");
+                        String value=cur_left+String.format("%.2f", Double.parseDouble(wallet_amount))+cur_right;
+                        w_amount.setText(value);
                         list_view.setVisibility(View.VISIBLE);
                         no_items.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
@@ -689,7 +673,8 @@ public class Wallet extends Language {
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
 
                         Toast.makeText(Wallet.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -697,13 +682,12 @@ public class Wallet extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     WALLETTASK wallettask=new WALLETTASK();
                                     wallettask.execute(Appconstatants.WALLET );
                                 }
@@ -720,20 +704,22 @@ public class Wallet extends Language {
         }
     }
 
-    public void showCallPopup(final String product_id, String order){
+    private void showCallPopup(final String product_id, String order){
         final android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(Wallet.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.pay_sucess, null);
+        View popUpView = View.inflate(Wallet.this,R.layout.pay_sucess, null);
         dial.setView(popUpView);
         final android.app.AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(popupStore.getWindow().getAttributes());
         lp.gravity= Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
+
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay=(LinearLayout)popUpView.findViewById(R.id.okay);
-        TextView text1=(TextView)popUpView.findViewById(R.id.text1);
-        text1.setText("ORDER ID: "+order);
+        LinearLayout okay= popUpView.findViewById(R.id.okay);
+        TextView text1= popUpView.findViewById(R.id.text1);
+        String txt="ORDER ID: "+order;
+        text1.setText(txt);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -742,7 +728,7 @@ public class Wallet extends Language {
                 task.execute(product_id);
             }
         });
-        LinearLayout notokay=(LinearLayout)popUpView.findViewById(R.id.notokay);
+        LinearLayout notokay= popUpView.findViewById(R.id.notokay);
         notokay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

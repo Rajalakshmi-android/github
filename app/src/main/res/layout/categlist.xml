@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,8 +28,8 @@
             android:layout_gravity="end"
             android:gravity="end"
             android:paddingBottom="@dimen/dp10"
-            android:paddingStart="@dimen/dp10"
             android:paddingEnd="@dimen/dp10"
+            android:paddingStart="@dimen/dp10"
             android:paddingTop="@dimen/dp5">
 
             <com.iamretailer.Common.CustomTextview
@@ -46,30 +47,33 @@
 
     </FrameLayout>
 
-    <include layout="@layout/loading"/>
+    <include layout="@layout/loading" />
+
     <FrameLayout
-        android:layout_marginTop="@dimen/dp15"
-        android:layout_marginBottom="@dimen/dp15"
         android:id="@+id/error_network"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_marginBottom="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp15"
+        android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/retry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/erroricon"
                 android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp30"
-                android:autoMirrored="true"
                 android:layout_marginEnd="@dimen/dp20"
+                android:autoMirrored="true"
                 android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/retry_icon" />
+
             <com.iamretailer.Common.CustomTextview1
 
                 android:layout_width="wrap_content"

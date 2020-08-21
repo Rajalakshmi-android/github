@@ -61,10 +61,14 @@
                             android:layout_width="@dimen/dp0"
                             android:layout_height="wrap_content"
                             android:layout_weight="@integer/one"
+                            android:layout_gravity="start"
+                            android:gravity="start"
                             android:orientation="horizontal">
                             <com.iamretailer.Common.CustomTextview1
                                 android:id="@+id/user_name"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
+                                android:gravity="start"
+                                android:layout_gravity="start"
                                 android:layout_height="wrap_content"
                                 android:text="@string/product"
                                 android:textColor="@color/conf_tex"
@@ -77,9 +81,9 @@
                         <LinearLayout
                             android:layout_width="@dimen/dp0"
                             android:layout_height="wrap_content"
-                           android:layout_gravity="end"
+                           android:layout_gravity="end|center_vertical"
                             android:layout_weight="@integer/one"
-                            android:gravity="end"
+                            android:gravity="end|center_vertical"
 
                             >
 
@@ -144,7 +148,7 @@
 
                         <com.iamretailer.Common.CustomTextview
                             android:id="@+id/comments"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/product"
                             android:textSize="@dimen/text12sp"

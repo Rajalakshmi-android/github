@@ -28,6 +28,7 @@
     <color name="order_text">#909090</color>
 
 
+
     <color name="sub_text">#7a7a7a</color>
     <color name="plceholder">#828282</color>
     <color name="forget_pass">#afafaf</color>
@@ -74,6 +75,9 @@
     <color name="green_status">#008000</color>
     <color name="guest_checkout">#e40582</color>
     <color name="view_line">#1e484848</color>
+    <color name="track">#052c2b</color>
+    <color name="track1">#0f2121</color>
+
 
 
 </resources>

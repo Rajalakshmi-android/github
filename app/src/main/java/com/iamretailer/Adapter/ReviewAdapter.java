@@ -1,6 +1,7 @@
 package com.iamretailer.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,13 @@ import com.iamretailer.R;
 
 
 public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
-    Context context;
-    ArrayList<SingleOptionPO> items;
-    int res;
-    LayoutInflater mInflater;
+    private final ArrayList<SingleOptionPO> items;
+    private final int res;
+    private final LayoutInflater mInflater;
 
 
     public ReviewAdapter(Context context, int resource, ArrayList<SingleOptionPO> items) {
         super(context, resource, items);
-        this.context = context;
         this.res = resource;
         this.items = items;
         mInflater = LayoutInflater.from(context);
@@ -43,29 +42,30 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
         return position;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder holder;
-        FrameLayout alertView = null;
+        FrameLayout alertView;
         holder = new ViewHolder();
 
         if (convertView == null) {
-            convertView = mInflater.inflate(res, alertView, true);
+            convertView = mInflater.inflate(res, null, true);
             convertView.setTag(holder);
             alertView = (FrameLayout) convertView;
         } else {
             alertView = (FrameLayout) convertView;
         }
-        holder.comts = (TextView) convertView.findViewById(R.id.comments);
-        holder.rev_date = (TextView) convertView.findViewById(R.id.date);
-        holder.user_name = (TextView) convertView.findViewById(R.id.user_name);
-        holder.user_first = (TextView) convertView.findViewById(R.id.user_first);
-        holder.review_bg = (LinearLayout) convertView.findViewById(R.id.review_bg);
-        holder.r1 = (ImageView) convertView.findViewById(R.id.r1);
-        holder.r2 = (ImageView) convertView.findViewById(R.id.r2);
-        holder.r3 = (ImageView) convertView.findViewById(R.id.r3);
-        holder.r4 = (ImageView) convertView.findViewById(R.id.r4);
-        holder.r5 = (ImageView) convertView.findViewById(R.id.r5);
+        holder.comts = convertView.findViewById(R.id.comments);
+        holder.rev_date = convertView.findViewById(R.id.date);
+        holder.user_name = convertView.findViewById(R.id.user_name);
+        holder.user_first = convertView.findViewById(R.id.user_first);
+        holder.review_bg = convertView.findViewById(R.id.review_bg);
+        holder.r1 = convertView.findViewById(R.id.r1);
+        holder.r2 = convertView.findViewById(R.id.r2);
+        holder.r3 = convertView.findViewById(R.id.r3);
+        holder.r4 = convertView.findViewById(R.id.r4);
+        holder.r5 = convertView.findViewById(R.id.r5);
 
 
         holder.comts.setText(items.get(position).getRev_text());
@@ -74,49 +74,57 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
         holder.user_first.setText(String.valueOf(items.get(position).getRev_author().charAt(0)).toUpperCase());
 
 
-        if (items.get(position).getRating() == 0) {
-            holder.r1.setImageResource(R.mipmap.un_fill);
-            holder.r2.setImageResource(R.mipmap.un_fill);
-            holder.r3.setImageResource(R.mipmap.un_fill);
-            holder.r4.setImageResource(R.mipmap.un_fill);
-            holder.r5.setImageResource(R.mipmap.un_fill);
-        } else if (items.get(position).getRating() == 1) {
+        switch (items.get(position).getRating()) {
+            case 0:
+                holder.r1.setImageResource(R.mipmap.un_fill);
+                holder.r2.setImageResource(R.mipmap.un_fill);
+                holder.r3.setImageResource(R.mipmap.un_fill);
+                holder.r4.setImageResource(R.mipmap.un_fill);
+                holder.r5.setImageResource(R.mipmap.un_fill);
+                break;
+            case 1:
 
-            holder.r1.setImageResource(R.mipmap.fill);
-            holder.r2.setImageResource(R.mipmap.un_fill);
-            holder.r3.setImageResource(R.mipmap.un_fill);
-            holder.r4.setImageResource(R.mipmap.un_fill);
-            holder.r5.setImageResource(R.mipmap.un_fill);
-        } else if (items.get(position).getRating() == 2) {
-            holder.r1.setImageResource(R.mipmap.fill);
-            holder.r2.setImageResource(R.mipmap.fill);
-            holder.r3.setImageResource(R.mipmap.un_fill);
-            holder.r4.setImageResource(R.mipmap.un_fill);
-            holder.r5.setImageResource(R.mipmap.un_fill);
-        } else if (items.get(position).getRating() == 3) {
-            holder.r1.setImageResource(R.mipmap.fill);
-            holder.r2.setImageResource(R.mipmap.fill);
-            holder.r3.setImageResource(R.mipmap.fill);
-            holder.r4.setImageResource(R.mipmap.un_fill);
-            holder.r5.setImageResource(R.mipmap.un_fill);
-        } else if (items.get(position).getRating() == 4) {
-            holder.r1.setImageResource(R.mipmap.fill);
-            holder.r2.setImageResource(R.mipmap.fill);
-            holder.r3.setImageResource(R.mipmap.fill);
-            holder.r4.setImageResource(R.mipmap.fill);
-            holder.r5.setImageResource(R.mipmap.un_fill);
-        } else if (items.get(position).getRating() == 5) {
-            holder.r1.setImageResource(R.mipmap.fill);
-            holder.r2.setImageResource(R.mipmap.fill);
-            holder.r3.setImageResource(R.mipmap.fill);
-            holder.r4.setImageResource(R.mipmap.fill);
-            holder.r5.setImageResource(R.mipmap.fill);
-        } else {
-            holder.r1.setImageResource(R.mipmap.un_fill);
-            holder.r2.setImageResource(R.mipmap.un_fill);
-            holder.r3.setImageResource(R.mipmap.un_fill);
-            holder.r4.setImageResource(R.mipmap.un_fill);
-            holder.r5.setImageResource(R.mipmap.un_fill);
+                holder.r1.setImageResource(R.mipmap.fill);
+                holder.r2.setImageResource(R.mipmap.un_fill);
+                holder.r3.setImageResource(R.mipmap.un_fill);
+                holder.r4.setImageResource(R.mipmap.un_fill);
+                holder.r5.setImageResource(R.mipmap.un_fill);
+                break;
+            case 2:
+                holder.r1.setImageResource(R.mipmap.fill);
+                holder.r2.setImageResource(R.mipmap.fill);
+                holder.r3.setImageResource(R.mipmap.un_fill);
+                holder.r4.setImageResource(R.mipmap.un_fill);
+                holder.r5.setImageResource(R.mipmap.un_fill);
+                break;
+            case 3:
+                holder.r1.setImageResource(R.mipmap.fill);
+                holder.r2.setImageResource(R.mipmap.fill);
+                holder.r3.setImageResource(R.mipmap.fill);
+                holder.r4.setImageResource(R.mipmap.un_fill);
+                holder.r5.setImageResource(R.mipmap.un_fill);
+                break;
+            case 4:
+                holder.r1.setImageResource(R.mipmap.fill);
+                holder.r2.setImageResource(R.mipmap.fill);
+                holder.r3.setImageResource(R.mipmap.fill);
+                holder.r4.setImageResource(R.mipmap.fill);
+                holder.r5.setImageResource(R.mipmap.un_fill);
+                break;
+            case 5:
+                holder.r1.setImageResource(R.mipmap.fill);
+                holder.r2.setImageResource(R.mipmap.fill);
+                holder.r3.setImageResource(R.mipmap.fill);
+                holder.r4.setImageResource(R.mipmap.fill);
+                holder.r5.setImageResource(R.mipmap.fill);
+                break;
+            default:
+                holder.r1.setImageResource(R.mipmap.un_fill);
+                holder.r2.setImageResource(R.mipmap.un_fill);
+                holder.r3.setImageResource(R.mipmap.un_fill);
+                holder.r4.setImageResource(R.mipmap.un_fill);
+                holder.r5.setImageResource(R.mipmap.un_fill);
+                break;
         }
 
         if (position % 2 == 1)
@@ -129,7 +137,8 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
     }
 
     private static class ViewHolder {
-        public TextView comts, user_name;
+        TextView comts;
+        TextView user_name;
         TextView rev_date;
         ImageView r1, r2, r3, r4, r5;
         TextView user_first;

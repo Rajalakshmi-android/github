@@ -10,21 +10,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.iamretailer.Common.Appconstatants;
+import com.iamretailer.Common.LoopingPagerAdapter;
+import com.iamretailer.POJO.BannerBo;
 import com.iamretailer.Product_list;
 import com.iamretailer.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import com.iamretailer.Common.LoopingPagerAdapter;
-import com.iamretailer.POJO.BannerBo;
-
 
 public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
 
-    Context context;
-    ArrayList<BannerBo> itemList;
-    private int possition;
+    private final Context context;
+    private final ArrayList<BannerBo> itemList;
 
 
     public DemoInfiniteAdapter(Context context, ArrayList<BannerBo> itemList, boolean isInfinite) {
@@ -43,9 +41,8 @@ public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
 
             container.addView(convertView);
         }
-        ImageView imageView=(ImageView)convertView.findViewById(R.id.browsebackground);
-        View poss=(View)convertView.findViewById(R.id.poss);
-        LinearLayout banner=(LinearLayout)convertView.findViewById(R.id.banner);
+        ImageView imageView= convertView.findViewById(R.id.browsebackground);
+        LinearLayout banner= convertView.findViewById(R.id.banner);
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +62,7 @@ public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
 
 
 
-            if (itemList.get(listPosition).getImage().length() > 0 && itemList.get(listPosition).getImage() != null)
+            if (itemList.get(listPosition).getImage() != null && itemList.get(listPosition).getImage().length() > 0  )
                 Picasso.with(context).load(itemList.get(listPosition).getImage()).placeholder(R.mipmap.place_holder).into(imageView);
             else
                 Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(imageView);

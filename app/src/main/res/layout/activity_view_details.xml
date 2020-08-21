@@ -87,7 +87,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="@dimen/dp5"
-                                    android:text="@string/the_order_is_completed"
+                                    android:text="@string/thank_you_for_ordering"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/text13sp" />
 
@@ -128,14 +128,7 @@
 
 
                         </LinearLayout>
-
-                        <com.iamretailer.Common.CustomTextview
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp40"
-                            android:layout_marginTop="@dimen/dp2"
-                            android:text="@string/thank_you_for_ordering"
-                            android:textColor="@color/text_color1" />
+                        
 
                     </LinearLayout>
                 </LinearLayout>
@@ -281,6 +274,35 @@
                                 android:textColor="@color/text_color1"
                                 android:textSize="@dimen/text14sp" />
 
+                            <LinearLayout
+                                android:id="@+id/ship_method_sec"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.iamretailer.Common.CustomTextview
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="start|center_vertical"
+                                    android:text="@string/shpp"
+                                    android:textColor="@color/conf_tex"
+                                    android:textSize="@dimen/text13sp" />
+
+                                <com.iamretailer.Common.CustomTextview
+                                    android:id="@+id/ship_method"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingStart="@dimen/dp5"
+                                    android:textColor="@color/text_color1"
+
+                                    android:textSize="@dimen/text13sp" />
+
+                            </LinearLayout>
+
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -314,15 +336,16 @@
                                     android:layout_gravity="center"
                                     android:layout_marginStart="@dimen/dp5"
                                     android:gravity="center"
-                                    android:src="@mipmap/pending" />
+                                    android:src="@mipmap/pending"
+                                    android:visibility="gone"/>
 
                             </LinearLayout>
 
-
                             <LinearLayout
-                                android:id="@+id/ship_method_sec"
+                                android:id="@+id/tracking"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingTop="@dimen/dp5"
                                 android:orientation="horizontal">
 
                                 <com.iamretailer.Common.CustomTextview
@@ -330,21 +353,13 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:gravity="start|center_vertical"
-                                    android:text="@string/shpp"
-                                    android:textColor="@color/text_color1"
-                                    android:textSize="@dimen/text13sp" />
-
-                                <com.iamretailer.Common.CustomTextview
-                                    android:id="@+id/ship_method"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="start|center_vertical"
-                                    android:paddingStart="@dimen/dp5"
-                                    android:textColor="@color/conf_tex"
+                                    android:text="@string/track"
+                                    android:textColor="@color/colorAccent"
                                     android:textSize="@dimen/text13sp" />
 
                             </LinearLayout>
+
+
                         </LinearLayout>
 
 

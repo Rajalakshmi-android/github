@@ -16,36 +16,33 @@ import com.onesignal.OneSignal;
 import io.fabric.sdk.android.Fabric;
 
 
-public class AppClass extends Application
-{
-  private static Context context;
+public class AppClass extends Application {
+    private static  Context context;
 
-  public static Context getContext() {
-    return context;
-  }
+    public static Context getContext() {
+        return context;
+    }
 
-  @Override
-  public void onCreate()
-  {
-    super.onCreate();
-    //Fabric.with(this, new Crashlytics());
-    Fabric fabric = new Fabric.Builder(this)
-            .kits(new Crashlytics())
-            .debuggable(true)  // Enables Crashlytics debugger
-            .build();
-    Fabric.with(fabric);
-    context = getApplicationContext();
-    AppEventsLogger.activateApp(this);
-    DatabaseManager.initializeInstance(new DBController(getApplicationContext()));
-    OneSignal.startInit(this)
-            .setNotificationOpenedHandler(new MyNotificationOpenedHandler())
-            .setNotificationReceivedHandler( new MyNotificationReceivedHandler() )
-            .init();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)
+                .build();
+        Fabric.with(fabric);
+        context = getApplicationContext();
+        AppEventsLogger.activateApp(this);
+        DatabaseManager.initializeInstance(new DBController(getApplicationContext()));
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new MyNotificationOpenedHandler())
+                .setNotificationReceivedHandler(new MyNotificationReceivedHandler())
+                .init();
 
-  }
+    }
 
-  @Override
-  protected void attachBaseContext(Context base) {
-    super.attachBaseContext(LocaleHelper.onAttach(base, "en"));
-  }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base, "en"));
+    }
 }

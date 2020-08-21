@@ -1,51 +1,30 @@
 package com.iamretailer.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.iamretailer.Address;
-import com.iamretailer.AddressList;
-import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.DBController;
-import com.iamretailer.POJO.AddressPO;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.R;
-import com.logentries.android.AndroidLogger;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import stutzen.co.network.Connection;
+import java.util.Locale;
 
 public class WalletAdapter extends ArrayAdapter<OptionsPO> {
-    private final DBController db;
-    private final ArrayList<Object> optionsPOArrayList;
-
-
-    Context context;
-    ArrayList<OptionsPO> items;
-    int res;
-    LayoutInflater mInflater;
-    AndroidLogger logger;
-    int from;
-    String cur_left = "";
-    String cur_right = "";
+    private final Context context;
+    private final ArrayList<OptionsPO> items;
+    private final int res;
+    private final LayoutInflater mInflater;
+    private final int from;
+    private final String cur_left ;
+    private final String cur_right ;
 
     public WalletAdapter(Context context, int resource, ArrayList<OptionsPO> items, int from) {
         super(context, resource, items);
@@ -54,11 +33,9 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
         this.context = context;
         this.items = items;
         this.from=from;
-        db = new DBController(getContext());
-        optionsPOArrayList = new ArrayList<>();
+        DBController db = new DBController(getContext());
         cur_left = db.get_cur_Left();
-        cur_right=db.get_cur_Right();
-        logger=AndroidLogger.getLogger(context, Appconstatants.LOG_ID,false);
+        cur_right= db.get_cur_Right();
     }
 
     public int getViewTypeCount() {
@@ -72,39 +49,42 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
         return position;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder holder;
-        FrameLayout alertView = null;
+        FrameLayout alertView ;
         holder = new ViewHolder();
         if (convertView == null) {
-            convertView = mInflater.inflate(res, alertView, true);
+            convertView = mInflater.inflate(res, null, true);
             convertView.setTag(holder);
             alertView = (FrameLayout) convertView;
         } else {
             alertView = (FrameLayout) convertView;
         }
 
-        holder.select=(ImageView) convertView.findViewById(R.id.select);
-        holder.add=(LinearLayout)convertView.findViewById(R.id.add);
-        holder.product_name = (TextView) convertView.findViewById(R.id.p_name);
-        holder.prod_offer_rate = (TextView) convertView.findViewById(R.id.p_rate1);
-        holder.prdoct_img = (ImageView) convertView.findViewById(R.id.p_image);
-        holder.full = (LinearLayout) convertView.findViewById(R.id.fullview);
-        holder.orginal_rate = (TextView) convertView.findViewById(R.id.orginal);
+        holder.select= convertView.findViewById(R.id.select);
+        holder.product_name = convertView.findViewById(R.id.p_name);
+        holder.prod_offer_rate = convertView.findViewById(R.id.p_rate1);
+        holder.prdoct_img = convertView.findViewById(R.id.p_image);
+        holder.orginal_rate = convertView.findViewById(R.id.orginal);
 
 
         holder.product_name.setText(items.get(position).getName());
         if(items.get(position).getOffer_rate() > 0) {
-            holder.prod_offer_rate.setText(cur_left + String.format("%.2f", items.get(position).getOffer_rate())+cur_right);
-            holder.orginal_rate.setText(cur_left + String.format("%.2f", items.get(position).getRate())+cur_right);
+            String val=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getOffer_rate())+cur_right;
+            String val1=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getRate())+cur_right;
+            holder.prod_offer_rate.setText(val);
+            holder.orginal_rate.setText(val1);
         }else{
-            holder.prod_offer_rate.setText(cur_left + String.format("%.2f", items.get(position).getRate())+cur_right);
+            String val=cur_left + String.format(Locale.ENGLISH,"%.2f", items.get(position).getRate())+cur_right;
+            holder.prod_offer_rate.setText(val);
             holder.orginal_rate.setText("");
         }
-
-
-        Picasso.with(getContext()).load(items.get(position).getImage()).into(holder.prdoct_img);
+        if (items.get(position).getImage()!=null && items.get(position).getImage().length()>0)
+         Picasso.with(getContext()).load(items.get(position).getImage()).into(holder.prdoct_img);
+        else
+            Picasso.with(context).load(R.mipmap.place_holder).into(holder.prdoct_img);
 
 
         if (from==1) {
@@ -113,7 +93,6 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
 
             } else {
                 holder.select.setVisibility(View.GONE);
-
             }
         }
         else
@@ -121,28 +100,17 @@ public class WalletAdapter extends ArrayAdapter<OptionsPO> {
             holder.select.setVisibility(View.GONE);
         }
 
-
         return alertView;
     }
 
 
-
     private  class ViewHolder {
-
-        public TextView city,state,country,delete;
         ImageView select;
-        LinearLayout add;
-        public TextView product_name;
-        public TextView prod_offer_rate, orginal_rate;
-        public ImageView prdoct_img;
-        public LinearLayout full;
-
+        TextView product_name;
+        TextView prod_offer_rate;
+        TextView orginal_rate;
+        ImageView prdoct_img;
     }
-
-
-
-
-
 }
 
 

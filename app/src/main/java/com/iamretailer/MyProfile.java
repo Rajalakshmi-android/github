@@ -2,15 +2,13 @@ package com.iamretailer;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,37 +16,33 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
+import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.Validation;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.iamretailer.Common.Appconstatants;
-
-import com.iamretailer.Common.DBController;
-import com.iamretailer.Common.Validation;
-
 import stutzen.co.network.Connection;
 
 
 public class MyProfile extends Language {
-    LinearLayout back;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    FrameLayout error_lay;
-    EditText f_name, l_name, email, mobile;
-    FrameLayout lay;
-    TextView cart_count;
-    ImageView cart;
+    private FrameLayout loading;
+    private FrameLayout error_lay;
+    private EditText f_name;
+    private EditText l_name;
+    private EditText email;
+    private EditText mobile;
+    private FrameLayout lay;
+    private ImageView cart;
     FrameLayout update;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    LinearLayout retry;
-    DBController dbcon;
-    String cus_id;
-    AndroidLogger logger;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private DBController dbcon;
+    private String cus_id;
+    private AndroidLogger logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,26 +54,25 @@ public class MyProfile extends Language {
         Appconstatants.sessiondata=dbcon.getSession();
         Appconstatants.Lang=dbcon.get_lang_code();
         Appconstatants.CUR=dbcon.getCurCode();
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.my_Acc);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        f_name = (EditText) findViewById(R.id.f_name);
-        l_name = (EditText) findViewById(R.id.l_name);
-        email = (EditText) findViewById(R.id.email);
-        mobile = (EditText) findViewById(R.id.mobile);
-        lay = (FrameLayout) findViewById(R.id.fullayout);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        error_lay = (FrameLayout) findViewById(R.id.error_network);
-        cart_count = (TextView) findViewById(R.id.cart_count);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        f_name = findViewById(R.id.f_name);
+        l_name = findViewById(R.id.l_name);
+        email = findViewById(R.id.email);
+        mobile = findViewById(R.id.mobile);
+        lay = findViewById(R.id.fullayout);
+        loading = findViewById(R.id.loading);
+        error_lay = findViewById(R.id.error_network);
+        TextView cart_count = findViewById(R.id.cart_count);
         cart_count.setVisibility(View.GONE);
-        cart = (ImageView) findViewById(R.id.cart);
+        cart = findViewById(R.id.cart);
         cart.setImageResource(R.mipmap.edi_pencil);
-        update = (FrameLayout) findViewById(R.id.update);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        update = findViewById(R.id.update);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        LinearLayout retry = findViewById(R.id.retry);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,21 +254,22 @@ public class MyProfile extends Language {
                         cart.setVisibility(View.GONE);
                         error_lay.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(MyProfile.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
 
                     e.printStackTrace();
                     error_lay.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     cart.setVisibility(View.GONE);
 
                     Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    loading.setVisibility(View.VISIBLE);
                                     GET_PROFILE profile = new GET_PROFILE();
                                     profile.execute(Appconstatants.MY_PROFILE);
 
@@ -336,6 +330,7 @@ public class MyProfile extends Language {
 
         protected void onPostExecute(String resp) {
 
+            if(pDialog!=null)
             pDialog.dismiss();
             if (resp != null) {
 

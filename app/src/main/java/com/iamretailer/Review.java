@@ -3,11 +3,9 @@ package com.iamretailer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,28 +29,22 @@ import stutzen.co.network.Connection;
 
 
 public class Review extends Language {
-    LinearLayout back;
-    TextView header;
-    LinearLayout cart_items;
-    Bundle mm;
-    ArrayList<SingleOptionPO> rev_list;
-    ListView review_list;
+    private ArrayList<SingleOptionPO> rev_list;
+    private ListView review_list;
     private ReviewAdapter reviewAdapter;
-    FrameLayout loading;
-    String array_list = "";
-    FrameLayout fullayout;
-    FrameLayout error_network;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private FrameLayout error_network;
     String prod_id;
-    DBController db;
-    LinearLayout retry;
     private boolean scrollValue;
     private boolean scrollNeed = true;
-    private int start = 0, limit = 20;
-    int val = 0;
-    LinearLayout load_more;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
+    private int start = 0;
+    private int  limit = 20;
+    private int val = 0;
+    private LinearLayout load_more;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private AndroidLogger logger;
 
 
     @Override
@@ -61,28 +53,27 @@ public class Review extends Language {
         setContentView(R.layout.activity_review);
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.review_head);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        review_list = (ListView) findViewById(R.id.review_list);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        load_more = (LinearLayout) findViewById(R.id.load_more);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        db = new DBController(Review.this);
+        review_list = findViewById(R.id.review_list);
+        loading = findViewById(R.id.loading);
+        fullayout = findViewById(R.id.fullayout);
+        error_network = findViewById(R.id.error_network);
+        LinearLayout retry = findViewById(R.id.retry);
+        load_more = findViewById(R.id.load_more);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        DBController db = new DBController(Review.this);
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
-        mm = new Bundle();
-        mm = getIntent().getExtras();
+        Appconstatants.Lang= db.get_lang_code();
+        Appconstatants.CUR= db.getCurCode();
 
-        prod_id = mm.getString("id");
+        Bundle mm = getIntent().getExtras();
+        if(mm !=null)
+            prod_id = mm.getString("id");
         ReviewTASK reviewTASK = new ReviewTASK();
         reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
 
@@ -96,8 +87,12 @@ public class Review extends Language {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
+                val=0;
+                start=0;
+                limit=20;
 
                 ReviewTASK reviewTASK = new ReviewTASK();
                 reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
@@ -122,10 +117,7 @@ public class Review extends Language {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int count = firstVisibleItem + visibleItemCount;
-                if (totalItemCount == count)
-                    scrollValue = true;
-                else
-                    scrollValue = false;
+                scrollValue = totalItemCount == count;
             }
         });
 
@@ -203,20 +195,20 @@ public class Review extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = object.getJSONArray("error");
-                        errortxt2.setText(array.getString(0) + "");
+                        String error=array.getString(0) + "";
+                        errortxt2.setText(error);
                         Toast.makeText(Review.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     error_network.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     ReviewTASK reviewTASK = new ReviewTASK();
                                     reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
                                 }

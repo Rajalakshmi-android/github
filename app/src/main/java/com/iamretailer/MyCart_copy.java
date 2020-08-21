@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -37,51 +36,42 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
+
 
 import stutzen.co.network.Connection;
 
 public class MyCart_copy extends Language {
 
-    public ListView cart_list;
-    CartAdapter adapter;
-    FrameLayout checkout;
-    DBController db;
-    ArrayList<ProductsPO> list;
-    public LinearLayout checkoutview;
-    public LinearLayout shopnow;
-    public LinearLayout button;
-    double sum = 0;
-    TextView subtotal;
-    LinearLayout menu;
-    public FrameLayout error_network;
-    public LinearLayout retry;
+    private ListView cart_list;
+    private DBController db;
+    private ArrayList<ProductsPO> list;
+    private LinearLayout checkoutview;
+    private LinearLayout shopnow;
+    private TextView subtotal;
+    private FrameLayout error_network;
     private FrameLayout success;
-    FrameLayout loading;
-    LinearLayout cart_items;
-    TextView header;
-    FrameLayout fullayout;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
 
-    TextView errortxt1, errortxt2;
-    String cur_left = "";
-    String cur_right = "";
-    int out_of_stock=0;
-    LinearLayout loading_bar;
-    AndroidLogger logger;
-    private ArrayList<Object> addressPOS;
-    AlertDialog alertReviewDialog;
-    LinearLayout shipping;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String cur_left = "";
+    private String cur_right = "";
+    private int out_of_stock=0;
+    private AndroidLogger logger;
+    private AlertDialog alertReviewDialog;
     private ArrayList<CountryPO> country_list;
     private ArrayList<CountryPO> state_list;
-    private CountryAdapter c_adapter;
-    private StateAdapter s_adapter;
-    Spinner country;
-    Spinner state;
-    EditText pin_code;
+    private Spinner country;
+    private Spinner state;
+    private EditText pin_code;
     FrameLayout calculate;
-    AlertDialog show_amount;
-    int has_shopp;
-    TextView rupee_front,rupee_back;
-    TextView cart_count;
+    private AlertDialog show_amount;
+    private int has_shopp;
+    private TextView rupee_front;
+    private TextView rupee_back;
+    private TextView cart_count;
 
     @Override
     protected void onResume() {
@@ -104,20 +94,17 @@ public class MyCart_copy extends Language {
         checkoutview = (LinearLayout) findViewById(R.id.checkoutview);
         subtotal = (TextView) findViewById(R.id.subtotal);
         shopnow = (LinearLayout) findViewById(R.id.shopnow);
-        button = (LinearLayout) findViewById(R.id.home);
-        menu = (LinearLayout) findViewById(R.id.menu);
+        LinearLayout button = (LinearLayout) findViewById(R.id.home);
+        LinearLayout menu = (LinearLayout) findViewById(R.id.menu);
         error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
+        LinearLayout retry = (LinearLayout) findViewById(R.id.retry);
         loading=(FrameLayout)findViewById(R.id.loading);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
-        header=(TextView)findViewById(R.id.header);
+        TextView header = (TextView) findViewById(R.id.header);
         header.setText(R.string.my_Cart);
-     //   cart_items.setVisibility(View.GONE);
         fullayout=(FrameLayout)findViewById(R.id.fullayout);
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        shipping=(LinearLayout)findViewById(R.id.shipping);
+        LinearLayout shipping = (LinearLayout) findViewById(R.id.shipping);
         rupee_front=(TextView)findViewById(R.id.rupee_front);
         rupee_back=(TextView)findViewById(R.id.rupee_back);
         cart_count=(TextView)findViewById(R.id.cart_count);
@@ -127,7 +114,7 @@ public class MyCart_copy extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang=db.get_lang_code();
         Appconstatants.CUR=db.getCurCode();
-        list = new ArrayList<ProductsPO>();
+        list = new ArrayList<>();
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
 
@@ -165,17 +152,17 @@ public class MyCart_copy extends Language {
         });
 
 
-        checkout = (FrameLayout) findViewById(R.id.checkout);
+        FrameLayout checkout = (FrameLayout) findViewById(R.id.checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("values__chec1",out_of_stock+"");
-                for (int j=0;j<list.size();j++)
-                {
-                    Log.d("values__chec1",out_of_stock+"");
-                    if (!list.get(j).isOut_of_stock())
-                        out_of_stock++;
-                    Log.d("values__chec2",out_of_stock+"");
+                if(list!=null&&list.size()>0){
+                    for (int j=0;j<list.size();j++)
+                    {
+                        if (!list.get(j).isOut_of_stock())
+                            out_of_stock++;
+                    }
+
                 }
 
                 if (out_of_stock==0) {
@@ -196,7 +183,6 @@ public class MyCart_copy extends Language {
                 }
                 else
                     {
-                        Log.d("values__chec3",out_of_stock+"");
                         out_of_stock=0;
                  Toast.makeText(MyCart_copy.this,R.string.out_stock,Toast.LENGTH_SHORT).show();
                 }
@@ -215,7 +201,8 @@ public class MyCart_copy extends Language {
         });
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, null);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, null,false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         alertReviewDialog=dialogBuilder.create();
@@ -229,7 +216,8 @@ public class MyCart_copy extends Language {
         shipping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show_Cal_ship(getLayoutInflater());
+              //  show_Cal_ship(getLayoutInflater());
+                show_Cal_ship();
             }
         });
 
@@ -255,19 +243,16 @@ public class MyCart_copy extends Language {
         }
     }
 
-    public void CartCall() {
-        CartTask cartTask = new CartTask();
-        cartTask.execute(Appconstatants.cart_api);
-    }
 
-    public void sumtotal() {
-        sum = 0;
+    private void sumtotal() {
+        double sum = 0;
         for (int h = 0; h < list.size(); h++) {
             sum = sum + (list.get(h).getTotal());
         }
         rupee_front.setText(cur_left);
         rupee_back.setText(cur_right);
-        subtotal.setText(String.format("%.2f", sum));
+        String val=String.format(Locale.ENGLISH,"%.2f", sum);
+        subtotal.setText(val);
     }
 
 
@@ -305,13 +290,14 @@ public class MyCart_copy extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
             Log.i("Add_list", "Add_list--->  " + resp);
             if (resp != null) {
 
                 try {
                     JSONObject json = new JSONObject(resp);
-                    addressPOS = new ArrayList<>();
+                    ArrayList<AddressPO> addressPOS = new ArrayList<>();
                     if (json.getInt("success") == 1) {
 
                         JSONObject object = json.getJSONObject("data");
@@ -331,7 +317,7 @@ public class MyCart_copy extends Language {
                                 addressPO.setCity(object1.isNull("city") ? "" : object1.getString("city"));
                                 addressPO.setZone(object1.isNull("zone") ? "" : object1.getString("zone"));
                                 addressPO.setCountry(object1.isNull("country") ? "" : object1.getString("country"));
-                                if (object1.getString("address_1").length()>0)
+                                if (!object1.isNull("address_1")&&object1.getString("address_1").length()>0)
                                 addressPOS.add(addressPO);
 
                             }
@@ -376,7 +362,8 @@ public class MyCart_copy extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String errors=array.getString(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -384,13 +371,12 @@ public class MyCart_copy extends Language {
                     e.printStackTrace();
                     success.setVisibility(View.GONE);
                     shopnow.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CartTask cartTask = new CartTask();
                                     cartTask.execute(Appconstatants.cart_api);
                                 }
@@ -440,7 +426,7 @@ public class MyCart_copy extends Language {
             Log.i("Cart_list_resp", "CartResp--->  " + resp);
 
             if (resp != null) {
-                list = new ArrayList<ProductsPO>();
+                list = new ArrayList<>();
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
@@ -454,7 +440,7 @@ public class MyCart_copy extends Language {
                             error_network.setVisibility(View.GONE);
                             shopnow.setVisibility(View.VISIBLE);
                             loading.setVisibility(View.GONE);
-                            cart_count.setText(0 +"");
+                            cart_count.setText(String.valueOf(0));
                         } else if (dd instanceof JSONObject) {
                             // It's an object
                             JSONObject jsonObject = (JSONObject) dd;
@@ -472,7 +458,6 @@ public class MyCart_copy extends Language {
                                 loading.setVisibility(View.GONE);
 
                             } else {
-                                Log.d("size", String.valueOf(array.length()));
 
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonObject1 = array.getJSONObject(i);
@@ -486,10 +471,9 @@ public class MyCart_copy extends Language {
                                     po.setProd_offer_rate(jsonObject1.getDouble("price_raw"));
                                     po.setTotal(jsonObject1.getDouble("total_raw"));
                                     po.setOut_of_stock(jsonObject1.getBoolean("stock"));
-                                    Log.d("Stock_values",jsonObject1.getBoolean("stock")+"");
 
 
-                                    ArrayList<OptionsPO> oplist = new ArrayList<OptionsPO>();
+                                    ArrayList<OptionsPO> oplist = new ArrayList<>();
                                     for (int u = 0; u < jarray.length(); u++) {
                                         JSONObject ob = jarray.getJSONObject(u);
                                         OptionsPO boo = new OptionsPO();
@@ -507,14 +491,13 @@ public class MyCart_copy extends Language {
                                     bo.setProduct_id(jsonObject1.isNull("product_id") ? "" : jsonObject1.getString("product_id"));
                                     qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 }
-                                cart_count.setText(qty+"");
-                                adapter = new CartAdapter(MyCart_copy.this, R.layout.cart_list, list);
+                                cart_count.setText(String.valueOf(qty));
+                                CartAdapter adapter = new CartAdapter(MyCart_copy.this, R.layout.cart_list, list);
                                 cart_list.setAdapter(adapter);
                                 success.setVisibility(View.VISIBLE);
                                 shopnow.setVisibility(View.GONE);
                                 error_network.setVisibility(View.GONE);
                                 loading.setVisibility(View.GONE);
-                                Log.d("size", String.valueOf(list.size()));
                                 sumtotal();
                             }
 
@@ -527,7 +510,8 @@ public class MyCart_copy extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String errors=array.getString(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -535,13 +519,12 @@ public class MyCart_copy extends Language {
                     e.printStackTrace();
                     success.setVisibility(View.GONE);
                     shopnow.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CartTask cartTask = new CartTask();
                                     cartTask.execute(Appconstatants.cart_api);
                                 }
@@ -598,10 +581,7 @@ public class MyCart_copy extends Language {
                     if (json.getInt("success") == 1) {
 
                         Object dd = json.get("data");
-                        if (dd instanceof JSONArray) {
-
-
-                        } else if (dd instanceof JSONObject) {
+                      if (dd instanceof JSONObject) {
                             // It's an object
 
                             JSONObject jsonObject = (JSONObject) dd;
@@ -616,7 +596,8 @@ public class MyCart_copy extends Language {
                     else
                     {
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.getString(0)+"");
+                        String errors=array.getString(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
@@ -630,7 +611,7 @@ public class MyCart_copy extends Language {
     }
 
 
-    public void show_Cal_ship(LayoutInflater fa)
+    private void show_Cal_ship()
     {
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -707,12 +688,10 @@ public class MyCart_copy extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    country_list = new ArrayList<CountryPO>();
+                    country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
                     po1.setCount_name("Select Country");
-                    po1.setCount_iso_code_2("");
-                    po1.setCount_iso_code_3("");
                     country_list.add(po1);
 
 
@@ -723,13 +702,11 @@ public class MyCart_copy extends Language {
                             CountryPO po = new CountryPO();
                             po.setCount_id(object.getInt("country_id"));
                             po.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
 
                             country_list.add(po);
                         }
 
-                        c_adapter = new CountryAdapter(MyCart_copy.this, R.layout.country_row, country_list);
+                        CountryAdapter c_adapter = new CountryAdapter(MyCart_copy.this, R.layout.country_row, country_list);
                         country.setAdapter(c_adapter);
 
 
@@ -742,20 +719,20 @@ public class MyCart_copy extends Language {
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.get(0)+"");
+                        String errors=array.get(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CountryTask countryTask = new CountryTask();
                                     countryTask.execute();
 
@@ -803,13 +780,12 @@ public class MyCart_copy extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    state_list = new ArrayList<CountryPO>();
+                    state_list = new ArrayList<>();
                     CountryPO po = new CountryPO();
                     po.setZone_id("0");
                     po.setCont_id("0");
                     po.setCount_name("Select State");
-                    po.setCount_iso_code_2("");
-                    po.setCount_iso_code_3("");
+
                     state_list.add(po);
 
                     if (json.getInt("success") == 1)
@@ -823,12 +799,10 @@ public class MyCart_copy extends Language {
                             po1.setZone_id(object.isNull("zone_id") ? "" : object.getString("zone_id"));
                             po1.setCont_id(object.isNull("country_id") ? "" : object.getString("country_id"));
                             po1.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po1.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po1.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
 
                             state_list.add(po1);
                         }
-                        s_adapter = new StateAdapter(MyCart_copy.this, R.layout.country_row, state_list);
+                        StateAdapter s_adapter = new StateAdapter(MyCart_copy.this, R.layout.country_row, state_list);
                         state.setAdapter(s_adapter);
 
 
@@ -841,21 +815,21 @@ public class MyCart_copy extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.get(0)+"");
+                        String errors=array.get(0)+"";
+                        errortxt2.setText(errors);
                         Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
 
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     CountryTask countryTask = new CountryTask();
                                     countryTask.execute();
 
@@ -913,8 +887,8 @@ public class MyCart_copy extends Language {
         }
 
         protected void onPostExecute(String resp) {
+            if(pDialog!=null)
             pDialog.dismiss();
-            Log.i("cal_Api", "cal_Api--?" + resp);
             Log.d("cal_Api", resp + "");
             if (resp != null) {
                 try {
@@ -924,6 +898,7 @@ public class MyCart_copy extends Language {
                         pin_code.setText("");
                         country.setSelection(0);
                         state.setSelection(0);
+                        if(alertReviewDialog!=null)
                         alertReviewDialog.dismiss();
 
                         show_Cal_ship_amount(jsonObject);
@@ -960,10 +935,10 @@ public class MyCart_copy extends Language {
         }
     }
 
-    public void show_Cal_ship_amount(JSONObject jsonObject)
+    private void show_Cal_ship_amount(JSONObject jsonObject)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal_amt, null);
+        View dialogView = View.inflate(MyCart_copy.this,R.layout.ship_cal_amt, null);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);
@@ -1014,8 +989,10 @@ public class MyCart_copy extends Language {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ship_item, shipping_list, false);
         TextView ship_title=(TextView)convertView.findViewById(R.id.ship_title);
         TextView ship_cost=(TextView)convertView.findViewById(R.id.ship_cost);
-        ship_title.setText(key+": ");
-        ship_cost.setText(cost+"");
+        String keys=key+" : ";
+        String costs=cost+"";
+        ship_title.setText(keys);
+        ship_cost.setText(costs);
         shipping_list.addView(convertView);
     }
 

@@ -2,11 +2,12 @@ package com.iamretailer;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -14,50 +15,66 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.iamretailer.Adapter.CurAdapter;
+import com.iamretailer.Adapter.LangAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.LanguageList;
+import com.iamretailer.Common.LocaleHelper;
+import com.iamretailer.POJO.CurPO;
+import com.iamretailer.POJO.LangPO;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import stutzen.co.network.Connection;
 
 
 public class Drawer extends Language {
 
-    LinearLayout myorders;
+    private LinearLayout myorders;
     TextView login;
     TextView email;
     DBController dbCon;
-    LinearLayout callus;
-    LinearLayout gorateus;
-    LinearLayout goshare;
+    private LinearLayout callus;
+    private LinearLayout gorateus;
+    private LinearLayout goshare;
     LinearLayout gologout;
-    LinearLayout home;
-    LinearLayout home1;
+    private LinearLayout home1;
     LinearLayout wish;
-    TextView cart_count1;
+    private TextView cart_count1;
     LinearLayout change_pwd;
-    LinearLayout track_order;
-    LinearLayout my_profile;
-    FrameLayout user;
-    AndroidLogger logger;
+    private LinearLayout track_order;
+    private LinearLayout my_profile;
+    private AndroidLogger logger;
     LinearLayout address;
-    int pos=0;
-    LinearLayout wallet;
-    LinearLayout store;
-    LinearLayout aboutus;
-    TextView title;
+    private LinearLayout language;
+    private ArrayList<LangPO> langs;
+    private ArrayList<CurPO> curs;
+    private LangAdapter langAdapter;
+    private CurAdapter curAdapter;
+    private int pos=0;
+    private LinearLayout wallet;
+    private LinearLayout store;
+    private LinearLayout aboutus;
+    private LinearLayout currency;
 
 
     @Override
@@ -72,11 +89,10 @@ public class Drawer extends Language {
 
     }
 
-    public void drawerview(FrameLayout view, final DrawerLayout layout, Context context){
+    public void drawerview(FrameLayout view, final DrawerLayout layout){
 
         login =(TextView)view.findViewById(R.id.loginview);
         myorders =(LinearLayout) view.findViewById(R.id.myorders);
-      /*  my_cart =(LinearLayout) view.findViewById(R.id.my_cart);*/
         callus = (LinearLayout)view. findViewById(R.id.callus);
         gorateus = (LinearLayout)view. findViewById(R.id.gorateus);
         goshare = (LinearLayout)view. findViewById(R.id.goshare);
@@ -90,18 +106,19 @@ public class Drawer extends Language {
         my_profile=(LinearLayout)view.findViewById(R.id.my_profile);
         address=(LinearLayout)view.findViewById(R.id.address);
 
+        language=(LinearLayout)findViewById(R.id.language);
         wallet=(LinearLayout)findViewById(R.id.wallet);
         store=(LinearLayout)view.findViewById(R.id.store);
         aboutus=(LinearLayout)view.findViewById(R.id.aboutus);
-
-        title=(TextView)view.findViewById(R.id.title);
+        currency=(LinearLayout)view.findViewById(R.id.currency);
+        TextView title = (TextView) view.findViewById(R.id.title);
         String s1=getResources().getString( R.string.about);
         String s2=getResources().getString(R.string.app_name);
-        title.setText(s1+" "+s2);
+        String s3=s1 + " " + s2;
+        title.setText(s3);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
         if(dbCon.getLoginCount()>0){
-            Log.i("jhfg","hgfdjkghfdkghf"+dbCon.getName()+" -- "+dbCon.getEmail());
             email.setVisibility(View.VISIBLE);
             email.setText(dbCon.getName());
             login.setVisibility(View.GONE);
@@ -120,21 +137,38 @@ public class Drawer extends Language {
           //  wallet.setVisibility(View.GONE);
         }
 
+        if (dbCon.get_lan_lists()>1)
+        {
+            language.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            language.setVisibility(View.GONE);
+        }
+        if (dbCon.get_cur_count()>1)
+        {
+            currency.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            currency.setVisibility(View.GONE);
+
+        }
         setListener();
 
-        layout.setDrawerListener(new DrawerLayout.DrawerListener() {
+        layout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(@NonNull View drawerView) {
 
             }
 
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerClosed(@NonNull View drawerView) {
 
             }
 
@@ -143,7 +177,7 @@ public class Drawer extends Language {
 
             }
         });
-  
+
 
 
     }
@@ -184,8 +218,8 @@ public class Drawer extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count1.setText(0 + "");
-                            //cart_count1.setText(0 + "");
+                            cart_count1.setText(String.valueOf(0));
+
 
                         } else if (dd instanceof JSONObject) {
 
@@ -198,8 +232,8 @@ public class Drawer extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count1.setText(qty + "");
-                            // cart_count1.setText(qty + "");
+                            cart_count1.setText(String.valueOf(qty));
+
                         }
                     }
 
@@ -224,10 +258,7 @@ public class Drawer extends Language {
                     intent.putExtra("from", 1);
                     startActivity(intent);
                 }
-                else
-                {
 
-                }
             }
         });
         wallet.setOnClickListener(new View.OnClickListener() {
@@ -309,6 +340,27 @@ public class Drawer extends Language {
             }
         });
 
+        language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                lang_popup();
+            }
+        });
+
+        currency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cur_popup();
+            }
+        });
+        store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), StoreLocator.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -317,6 +369,8 @@ public class Drawer extends Language {
             public void onClick(View view) {
 
                 startActivity(new Intent(Drawer.this,ContactForm.class));
+
+
 
             }
         });
@@ -360,13 +414,108 @@ public class Drawer extends Language {
         });
         }
 
+    private void lang_popup() {
+
+
+        AlertDialog.Builder dial = new AlertDialog.Builder(Drawer.this);
+        View popUpView = getLayoutInflater().inflate(R.layout.lang_popup, null);
+        dial.setView(popUpView);
+        final AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity= Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.show();
+
+        LinearLayout no = (LinearLayout) popUpView.findViewById(R.id.no);
+        LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
+        ListView lang_list = (ListView) popUpView.findViewById(R.id.lang_list);
+        langs=dbCon.get_lan_list();
+        langAdapter=new LangAdapter(Drawer.this,R.layout.lang_list,langs);
+        lang_list.setAdapter(langAdapter);
+        if (dbCon.get_lan_c()>0)
+        {
+            for (int k=0;k<langs.size();k++)
+            {
+                if (langs.get(k).getLang_code().equals(dbCon.get_lang_code()))
+                {
+                    langs.get(k).setSelect_lang(true);
+                }
+            }
+
+        }
+
+
+        lang_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pos=position;
+                for (int y=0;y<langs.size();y++)
+                {
+                    langs.get(y).setSelect_lang(false);
+                }
+                langs.get(position).setSelect_lang(true);
+                langAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+        no.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                popupStore.dismiss();
+            }
+        });
+        yes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                popupStore.dismiss();
+                dbCon.get_lang_code();
+                dbCon.insert_app_lang(langs.get(pos).getLang_id(),langs.get(pos).getLang_name(),langs.get(pos).getLang_code());
+                change_lang(dbCon.get_lang_code());
 
 
 
+            }
+        });
+    }
 
-    public void showLogoutPopup(){
+    private void change_lang(String languageToLoad) {
+
+        ArrayList<String> lang_list= LanguageList.getLang_list();
+        String set_lan="en";
+
+        for (int h=0;h<lang_list.size();h++)
+        {
+            if (languageToLoad.contains(lang_list.get(h)))
+            {
+                set_lan = lang_list.get(h);
+
+            }
+
+        }
+        LocaleHelper.setLocale(this, set_lan);
+        Locale locale = new Locale(set_lan);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        if (Build.VERSION.SDK_INT >= 17) {
+            config.setLayoutDirection(locale);
+        }
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        startActivity(new Intent(Drawer.this, MainActivity.class));
+    }
+
+
+
+    private void showLogoutPopup() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(Drawer.this);
-        View popUpView = getLayoutInflater().inflate(R.layout.logout_view, null);
+        View popUpView = getLayoutInflater().inflate(R.layout.logout_view, (ViewGroup)null,false);
         LinearLayout happy = (LinearLayout) popUpView.findViewById(R.id.happy);
         LinearLayout bad = (LinearLayout) popUpView.findViewById(R.id.bad);
         dialLo.setView(popUpView);
@@ -431,6 +580,7 @@ public class Drawer extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("confirm_order", "Logout--->  "+resp);
+            if(pDialog!=null)
             pDialog.dismiss();
             if (resp != null) {
 
@@ -468,20 +618,17 @@ public class Drawer extends Language {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case 212: {
                 Log.i("reeeeeee", grantResults.length+"=="+grantResults[0]);
                 if ((grantResults.length == 1) && grantResults[0]  == PackageManager.PERMISSION_GRANTED) {
                     Log.i("reekkk", "inside");
-                    //Intent i = getIntent();
-                    //finish();
-                    //startActivity(i);
                 } else {
                     Log.i("reeaaaaaa", "inside");
-                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
-                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.per_enable),
+                            Snackbar.LENGTH_INDEFINITE).setAction(getResources().getString(R.string.enable),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -525,6 +672,72 @@ public class Drawer extends Language {
         }
     }
 
+    private void cur_popup() {
+
+
+        AlertDialog.Builder dial = new AlertDialog.Builder(Drawer.this);
+        View popUpView = getLayoutInflater().inflate(R.layout.cur_popup, null);
+        dial.setView(popUpView);
+        final AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity= Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.show();
+
+        LinearLayout no = (LinearLayout) popUpView.findViewById(R.id.no);
+        LinearLayout yes = (LinearLayout) popUpView.findViewById(R.id.yes);
+        ListView cur_list = (ListView) popUpView.findViewById(R.id.cur_list);
+        curs=dbCon.get_cur_list();
+        curAdapter=new CurAdapter(Drawer.this,R.layout.lang_list,curs);
+        cur_list.setAdapter(curAdapter);
+        if (dbCon.get_cur_count()>0)
+        {
+            for (int k=0;k<curs.size();k++)
+            {
+                if (curs.get(k).getCur_code().equals(dbCon.getCurCode()))
+                {
+                    curs.get(k).setIsselected(true);
+                }
+            }
+
+        }
+
+
+        cur_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pos=position;
+                for (int y=0;y<curs.size();y++)
+                {
+                    curs.get(y).setIsselected(false);
+                }
+                curs.get(position).setIsselected(true);
+                curAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+        no.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                popupStore.dismiss();
+            }
+        });
+        yes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                popupStore.dismiss();
+                dbCon.drop_app_cur();
+                dbCon.insert_app_cur(curs.get(pos).getCur_title(),curs.get(pos).getCur_code(),curs.get(pos).getCur_left(),curs.get(pos).getCur_right());
+                startActivity(new Intent(Drawer.this,MainActivity.class));
+            }
+        });
+    }
 
 
 

@@ -8,97 +8,88 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iamretailer.Adapter.PointerAdapter;
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.Fragments.HorizontalListView;
+import com.iamretailer.Fragments.Imagefragment;
+import com.iamretailer.POJO.ImgBo;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.iamretailer.Adapter.PointerAdapter;
-import com.iamretailer.Common.Appconstatants;
-
-import com.iamretailer.Fragments.HorizontalListView;
-import com.iamretailer.Fragments.Imagefragment;
-import com.iamretailer.POJO.ImgBo;
-
-
 
 import java.util.ArrayList;
 
 import stutzen.co.network.Connection;
 
 public class FullView extends Language implements Imagefragment.OnFragmentInteractionListener {
-    public String[] mImageIds = {};
-    HorizontalListView horizontalListView;
-    ViewPager viewPager;
-    PagerAdapter pagerAdapter;
-    PointerAdapter pointerAdapter;
+    private HorizontalListView horizontalListView;
+    private ViewPager viewPager;
+    private PointerAdapter pointerAdapter;
     private ArrayList<ImgBo> datalist;
-    Bundle bundle;
-    ArrayList<String> img;
-    TextView cart_count;
-    LinearLayout cart_items;
-    AndroidLogger logger;
-    DBController dbController;
+    private ArrayList<String> img;
+    private TextView cart_count;
+    private AndroidLogger logger;
+    private Integer pos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_view);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        bundle = new Bundle();
-        bundle = getIntent().getExtras();
-        img = bundle.getStringArrayList("url");
-        Log.d("Image", img.toString());
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            img = bundle.getStringArrayList("url");
+            pos = bundle.getInt("image");
+        }
+
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        dbController=new DBController(FullView.this);
-        Appconstatants.sessiondata=dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        LinearLayout menu = (LinearLayout) findViewById(R.id.menu);
-        horizontalListView = (HorizontalListView) findViewById(R.id.horizlist);
-        cart_count=(TextView)findViewById(R.id.cart_count);
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
+        DBController dbController = new DBController(FullView.this);
+        Appconstatants.sessiondata= dbController.getSession();
+        Appconstatants.Lang= dbController.get_lang_code();
+        Appconstatants.CUR= dbController.getCurCode();
+        LinearLayout menu = findViewById(R.id.menu);
+        horizontalListView = findViewById(R.id.horizlist);
+        cart_count= findViewById(R.id.cart_count);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        LinearLayout cart_items = (LinearLayout) findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FullView.this, MyCart.class));
             }
         });
-        datalist = new ArrayList<ImgBo>();
-        for (int i = 0; i < img.size(); i++) {
-            ImgBo bo = new ImgBo();
-            bo.setUrl(img.get(i));
-            datalist.add(bo);
-        }
-        cart_items.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FullView.this,MyCart.class));
+        datalist = new ArrayList<>();
+        if(img!=null&&img.size()>0){
+            for (int i = 0; i < img.size(); i++) {
+                ImgBo bo = new ImgBo();
+                bo.setUrl(img.get(i));
+                datalist.add(bo);
             }
-        });
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        }
+
+
+        viewPager = findViewById(R.id.pager);
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(0);
-        pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist, 0);
+        viewPager.setCurrentItem(pos);
+        pointerAdapter = new PointerAdapter(FullView.this, R.layout.image_item, datalist);
         horizontalListView.setAdapter(pointerAdapter);
-        datalist.get(0).setImgSel(true);
+        datalist.get(pos).setImgSel(true);
 
         horizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -141,10 +132,10 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
 
     }
 
-    public class PagerAdapter extends FragmentPagerAdapter {
+    class PagerAdapter extends FragmentPagerAdapter {
 
 
-        public PagerAdapter(FragmentManager fm) {
+        PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -156,7 +147,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
-            fragment = (Fragment) Imagefragment.newInstance(img.get(position));
+            fragment = Imagefragment.newInstance(img.get(position));
             return fragment;
         }
     }
@@ -206,7 +197,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
 
                         } else if (dd instanceof JSONObject) {
@@ -218,7 +209,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     }
                 } catch (Exception e) {
