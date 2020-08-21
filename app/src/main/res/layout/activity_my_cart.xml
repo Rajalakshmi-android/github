@@ -94,7 +94,7 @@
                         android:id="@+id/cart_list"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/dp80"
+                        android:layout_marginBottom="@dimen/dp100"
                         android:layout_marginEnd="@dimen/dp7"
                         android:layout_marginStart="@dimen/dp7"
                         android:layout_marginTop="@dimen/dp15"
@@ -106,7 +106,7 @@
                     <LinearLayout
                         android:id="@+id/checkoutview"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp70"
+                        android:layout_height="@dimen/dp90"
                         android:layout_gravity="bottom"
                         android:orientation="vertical">
 
@@ -172,7 +172,23 @@
                                             android:textSize="@dimen/text13sp"
                                             android:textStyle="bold" />
                                     </LinearLayout>
+                                    <LinearLayout
+                                        android:id="@+id/shipping"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:layout_marginEnd="@dimen/dp10"
+                                        android:visibility="visible">
 
+                                        <com.iamretailer.Common.CustomTextview
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="end"
+                                            android:layout_marginBottom="@dimen/dp5"
+                                            android:background="@drawable/cal_underline"
+                                            android:text="@string/cal_ship"
+                                            android:textColor="@color/blue" />
+                                    </LinearLayout>
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -222,23 +238,7 @@
                                     </LinearLayout>
                                 </FrameLayout>
 
-                                <LinearLayout
-                                    android:id="@+id/shipping"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="start"
-                                    android:layout_marginEnd="@dimen/dp10"
-                                    android:visibility="gone">
 
-                                    <com.iamretailer.Common.CustomTextview
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
-                                        android:layout_marginBottom="@dimen/dp5"
-                                        android:background="@drawable/cal_underline"
-                                        android:text="@string/cal_ship"
-                                        android:textColor="@color/blue" />
-                                </LinearLayout>
 
                             </LinearLayout>
 
@@ -256,7 +256,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </FrameLayout>
-
             </FrameLayout>
 
 
