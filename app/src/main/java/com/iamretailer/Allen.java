@@ -52,7 +52,7 @@ public class Allen extends Language {
     private int cat_id;
     TextView no_items;
     FrameLayout loading;
-    private int start = 1, limit = 10;
+    private int start = 1, limit = 20;
     LinearLayout load_more;
     int val = 0;
     TextView header;
@@ -115,7 +115,7 @@ public class Allen extends Language {
 
 
         ProductTask productTask = new ProductTask();
-        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
 
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -134,7 +134,7 @@ public class Allen extends Language {
                             val = 1;
                             load_more.setVisibility(View.VISIBLE);
                             ProductTask productTask = new ProductTask();
-                            productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                            productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
                         }
                     }
                 }
@@ -185,7 +185,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
                         mBottomSheetDialog.dismiss();
                     }
@@ -202,7 +202,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
                         mBottomSheetDialog.dismiss();
                     }
                 });
@@ -218,7 +218,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
                         mBottomSheetDialog.dismiss();
                     }
@@ -235,7 +235,7 @@ public class Allen extends Language {
                         start = 1;
                         sort_name.setText(R.string.mztoa);
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
                         mBottomSheetDialog.dismiss();
                     }
@@ -254,7 +254,7 @@ public class Allen extends Language {
                         sort_name.setText(R.string.lowtohigh);
 
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
                     }
                 });
                 htl.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +269,7 @@ public class Allen extends Language {
                         start = 1;
                         sort_name.setText(R.string.hightolow);
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
                         mBottomSheetDialog.dismiss();
 
@@ -289,7 +289,7 @@ public class Allen extends Language {
                         start = 1;
                         ProductTask productTask = new ProductTask();
 
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
 
                     }
@@ -306,7 +306,7 @@ public class Allen extends Language {
                         val = 0;
                         start = 1;
                         ProductTask productTask = new ProductTask();
-                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                        productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
 
                     }
                 });
@@ -318,14 +318,14 @@ public class Allen extends Language {
             @Override
             public void onClick(View view) {
                 start = 1;
-                limit = 10;
+                limit = 20;
                 loadin = false;
                 error_network.setVisibility(View.GONE);
                 sort.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.VISIBLE);
                 no_items.setVisibility(View.GONE);
                 ProductTask productTask = new ProductTask();
-                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit);
+                productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit+ "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
             }
         });
 
@@ -588,7 +588,7 @@ public class Allen extends Language {
                                 public void onClick(View view) {
                                     loading.setVisibility(View.VISIBLE);
                                     ProductTask productTask = new ProductTask();
-                                    productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id);
+                                    productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
                                 }
                             })
                             .show();
