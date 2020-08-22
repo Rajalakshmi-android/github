@@ -54,6 +54,7 @@ public class Filter extends AppCompatActivity {
     LinearLayout clear;
     int cancel_check=0;
     int cat_id;
+    int apply=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class Filter extends AppCompatActivity {
         blur_lay= findViewById(R.id.blur_lay);
         clear= findViewById(R.id.clear);
         Intent intent = getIntent();
+        clear.setVisibility(View.VISIBLE);
 
 
 
@@ -90,9 +92,12 @@ public class Filter extends AppCompatActivity {
             }
         });
         filter_list=new ArrayList<>();
+        check_list=new ArrayList<>();
         if (intent.getExtras()!=null) {
             filter_list= (ArrayList<FilterPO>) intent.getExtras().getSerializable("filter_data");
             cat_id=intent.getIntExtra("cat_id",0);
+            apply=intent.getIntExtra("apply",0);
+            check_list=filter_list;
         }
         if (filter_list!=null&&filter_list.size()>0)
         {
@@ -147,13 +152,14 @@ public class Filter extends AppCompatActivity {
                         for (int s = 0; s < filter_list.get(j).getFilterPOS().size(); s++) {
                             if (filter_list.get(j).getFilterPOS().get(s).isSelected()) {
                                 selected++;
-                                clear_data++;
+                               // clear_data++;
                             }
                         }
                     }
 
                 }
-                if (selected==0)
+
+                if (selected==0 && apply==0)
                 {
                     blur_lay.setVisibility(View.VISIBLE);
                 }
@@ -162,17 +168,17 @@ public class Filter extends AppCompatActivity {
                     blur_lay.setVisibility(View.GONE);
                 }
 
-                if (clear_data==0)
+             /*   if (clear_data==0)
                 {
                     clear.setVisibility(View.GONE);
                 }
                 else
                 {
                     clear.setVisibility(View.VISIBLE);
-                }
+                }*/
 
                 selected=0;
-                clear_data=0;
+               // clear_data=0;
             }
         }));
 
@@ -184,10 +190,18 @@ public class Filter extends AppCompatActivity {
                 {
                     filter_list.get(u).setSelected(false);
                 }
+                if (selected==0)
+                {
+                    apply=1;
+                }
+                else
+                {
+                    apply=0;
+                }
                 filter_list.get(main_list_pos).setSelected(true);
-
                 Intent intent = new Intent(Filter.this,Allen.class);
                 intent.putExtra("filter_array",filter_list);
+                intent.putExtra("apply",apply);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -199,7 +213,7 @@ public class Filter extends AppCompatActivity {
 
             }
         });
-        if (selected==0)
+        if (selected==0&& apply==0)
         {
             blur_lay.setVisibility(View.VISIBLE);
         }
@@ -220,14 +234,14 @@ public class Filter extends AppCompatActivity {
             }
 
         }
-        if (clear_data==0)
+       /* if (clear_data==0)
         {
             clear.setVisibility(View.GONE);
         }
         else
         {
             clear.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,8 +250,9 @@ public class Filter extends AppCompatActivity {
                 clear_data=0;
                 selected=0;
                 cancel_check=1;
+                apply=0;
                 loading.setVisibility(View.VISIBLE);
-                if (selected==0)
+                if (selected==0 && apply==0)
                 {
                     blur_lay.setVisibility(View.VISIBLE);
                 }
@@ -245,14 +260,14 @@ public class Filter extends AppCompatActivity {
                 {
                     blur_lay.setVisibility(View.GONE);
                 }
-                if (clear_data==0)
+              /*  if (clear_data==0)
                 {
                     clear.setVisibility(View.GONE);
                 }
                 else
                 {
                     clear.setVisibility(View.VISIBLE);
-                }
+                }*/
 
                 FilterTask filterTask=new FilterTask();
                 filterTask.execute(Appconstatants.Filter_Api+cat_id);
@@ -291,7 +306,7 @@ public class Filter extends AppCompatActivity {
             }
 
         }
-        if (selected==0)
+        if (selected==0 && apply==0)
         {
             blur_lay.setVisibility(View.VISIBLE);
         }
@@ -299,29 +314,39 @@ public class Filter extends AppCompatActivity {
         {
             blur_lay.setVisibility(View.GONE);
         }
-        if (clear_data==0)
+  /*      if (clear_data==0)
         {
             clear.setVisibility(View.GONE);
         }
         else
         {
             clear.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         selected=0;
-        clear_data=0;
+        //clear_data=0;
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Filter.this,Allen.class);
         intent.putExtra("cancel_data",cancel_check);
+
+        if (selected==0)
+        {
+            apply=1;
+        }
+        else
+        {
+            apply=0;
+        }
+        intent.putExtra("apply",apply);
         setResult(Activity.RESULT_CANCELED, intent);
         finish();
         super.onBackPressed();
     }
 
-    private class FilterTask extends AsyncTask<String, Void, String> {
+    private class  FilterTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
             Log.d("tag", "started");

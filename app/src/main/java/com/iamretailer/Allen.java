@@ -71,6 +71,7 @@ public class Allen extends Language {
     private int selected = 0;
     LinearLayout filter_show, filter_lay;
     int cancel_data = 0;
+    int apply=0;
 
 
     @Override
@@ -148,6 +149,7 @@ public class Allen extends Language {
                 Intent i2 = new Intent(Allen.this, Filter.class);
                 i2.putExtra("filter_data", filterPOS);
                 i2.putExtra("cat_id",cat_id);
+                i2.putExtra("apply",apply);
                 startActivityForResult(i2, 1);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
 
@@ -355,6 +357,7 @@ public class Allen extends Language {
 
             filterPOS = (ArrayList<FilterPO>) data.getSerializableExtra("filter_array");
             option_value = "";
+            apply=data.getExtras().getInt("apply");
             for (int y = 0; y < filterPOS.size(); y++) {
                 if (filterPOS.get(y).getFilter_name().equalsIgnoreCase("brand")) {
                     manufacturer = "";
@@ -403,10 +406,20 @@ public class Allen extends Language {
                 filter_show.setVisibility(View.VISIBLE);
             }
 
+
+            if (selected==0)
+            {
+                apply=0;
+            }
+            else
+            {
+                apply=1;
+            }
             selected = 0;
 
         } else {
             cancel_data = data.getIntExtra("cancel_data", 0);
+            apply=data.getIntExtra("apply",0);
 
 
             if (cancel_data == 0) {
@@ -430,6 +443,7 @@ public class Allen extends Language {
 
                 no_items.setVisibility(View.GONE);
                 prog_sec.setVisibility(View.VISIBLE);
+                apply=0;
                 val = 0;
                 start = 1;
 
