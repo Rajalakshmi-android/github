@@ -358,6 +358,7 @@ public class Allen extends Language {
             filterPOS = (ArrayList<FilterPO>) data.getSerializableExtra("filter_array");
             option_value = "";
             apply=data.getExtras().getInt("apply");
+            Log.i("tag","selected111----- "+apply);
             for (int y = 0; y < filterPOS.size(); y++) {
                 if (filterPOS.get(y).getFilter_name().equalsIgnoreCase("brand")) {
                     manufacturer = "";
@@ -410,10 +411,12 @@ public class Allen extends Language {
             if (selected==0)
             {
                 apply=0;
+                Log.i("tag","selected333----- "+selected);
             }
             else
             {
                 apply=1;
+                Log.i("tag","selected444----- "+selected);
             }
             selected = 0;
 

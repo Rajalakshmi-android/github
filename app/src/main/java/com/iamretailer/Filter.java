@@ -193,10 +193,12 @@ public class Filter extends AppCompatActivity {
                 if (selected==0)
                 {
                     apply=1;
+                    Log.i("tag","selected----- "+selected);
                 }
                 else
                 {
                     apply=0;
+                    Log.i("tag","selected111----- "+selected);
                 }
                 filter_list.get(main_list_pos).setSelected(true);
                 Intent intent = new Intent(Filter.this,Allen.class);

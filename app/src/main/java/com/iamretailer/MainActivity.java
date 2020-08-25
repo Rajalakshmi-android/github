@@ -167,7 +167,7 @@ public class MainActivity extends Drawer {
                     startActivity(new Intent(getApplicationContext(), MyProfile.class));
                 } else {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
-                    intent.putExtra("from", 7);
+                    intent.putExtra("from", 5);
                     startActivity(intent);
                 }
             }

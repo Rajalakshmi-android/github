@@ -185,7 +185,7 @@ public class MyProfile extends Language {
                 }
 
 
-                if (!f_name.getText().toString().isEmpty() && f_name.getText().toString().trim().length() > 2 && Validation.validateName(l_name.getText().toString().trim())
+                if (!f_name.getText().toString().isEmpty() && f_name.getText().toString().trim().length() > 2 && Validation.validateName(f_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
                         && mobile.getText().toString().length() == 10 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
@@ -344,6 +344,12 @@ public class MyProfile extends Language {
                         dbcon.user_data(cus_id, f_name.getText().toString() +" "+ l_name.getText().toString(), email.getText().toString(), mobile.getText().toString());
                         cart.setVisibility(View.VISIBLE);
                         update.setVisibility(View.GONE);
+                        f_name.setEnabled(false);
+                        l_name.setEnabled(false);
+                        email.setEnabled(false);
+                        mobile.setEnabled(false);
+
+
 
                     } else {
                         JSONArray array = json.getJSONArray("error");

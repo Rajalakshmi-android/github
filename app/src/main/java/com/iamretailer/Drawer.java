@@ -156,27 +156,6 @@ public class Drawer extends Language {
         }
         setListener();
 
-        layout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
-        });
 
 
 
@@ -220,8 +199,7 @@ public class Drawer extends Language {
                         if (dd instanceof JSONArray) {
                             cart_count1.setText(String.valueOf(0));
 
-
-                        } else if (dd instanceof JSONObject) {
+                            } else if (dd instanceof JSONObject) {
 
 
                             JSONObject jsonObject = (JSONObject) dd;
@@ -264,17 +242,11 @@ public class Drawer extends Language {
         wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Wallet.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(),Wallet.class));
 
             }
         });
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
        home1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,8 +257,7 @@ public class Drawer extends Language {
         aboutus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), About_Activity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(),About_Activity.class));
             }
         });
 
@@ -294,9 +265,7 @@ public class Drawer extends Language {
         myorders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent bb=new Intent(Drawer.this,MyOrders.class);
-
-                startActivity(bb);
+                startActivity(new Intent(getApplicationContext(),MyOrders.class));
             }
         });
         wish.setOnClickListener(new View.OnClickListener() {
@@ -324,7 +293,7 @@ public class Drawer extends Language {
                 else
                 {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
-                    intent.putExtra("from", 1);
+                    intent.putExtra("from", 5);
                     startActivity(intent);
                 }
             }
@@ -357,8 +326,7 @@ public class Drawer extends Language {
         store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StoreLocator.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), StoreLocator.class));
             }
         });
 

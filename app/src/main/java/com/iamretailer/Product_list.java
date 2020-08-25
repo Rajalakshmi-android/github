@@ -41,7 +41,7 @@ public class Product_list extends Language {
     private ArrayList<ProductsPO> feat_list;
     private CommonAdapter featuredAdapter;
     private TextView cart_counts;
-    private int start = 1, limit = 10;
+    private int start = 1, limit = 20;
     private LinearLayout load_more;
     private int val = 0;
     private TextView errortxt1;
@@ -128,7 +128,7 @@ public class Product_list extends Language {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
                 start = 1;
-                limit = 10;
+                limit = 20;
                 val = 0;
                 loadin = false;
                 cart=true;
@@ -163,6 +163,7 @@ public class Product_list extends Language {
                                 loadin = true;
                                 val = 1;
                                 load_more.setVisibility(View.VISIBLE);
+                                Log.i("tag","paging22-------"+start+" -- "+limit +" -- "+visibleItemCount+" -- "+firstVisibleItem);
                                 BEST_SELLING best_selling = new BEST_SELLING();
                                 best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
                             }
@@ -313,8 +314,9 @@ public class Product_list extends Language {
                         //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
-
+                        Log.i("tag","paging-------"+start);
                         start = start + 1;
+                        Log.i("tag","paging11-------"+start);
 
                     } else {
                         loading.setVisibility(View.GONE);
