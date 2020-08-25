@@ -190,6 +190,19 @@ public class Filter extends AppCompatActivity {
                 {
                     filter_list.get(u).setSelected(false);
                 }
+
+                for (int j=0;j<filter_list.size();j++)
+                {
+                    if (filter_list.get(j).getFilterPOS()!=null&&filter_list.get(j).getFilterPOS().size()>0) {
+                        for (int s = 0; s < filter_list.get(j).getFilterPOS().size(); s++) {
+                            if (filter_list.get(j).getFilterPOS().get(s).isSelected()) {
+                                selected++;
+                            }
+                        }
+                    }
+
+                }
+
                 if (selected==0)
                 {
                     apply=1;
