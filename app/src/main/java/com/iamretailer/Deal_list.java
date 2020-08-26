@@ -51,6 +51,7 @@ public class Deal_list extends Language {
     private TextView no_proditems;
     private DBController db;
     private ArrayList<ProductsPO> fav_item;
+    private ArrayList<ProductsPO> cart_item;
 
 
     @Override
@@ -287,14 +288,28 @@ public class Deal_list extends Language {
 
                             list.add(bo);
                         }
-                        if (list!=null&&list.size() != 0) {
+                        if (list!=null && list.size() != 0) {
                             if (val == 0) {
                                 bestAdapter = new CommonAdapter(Deal_list.this, list, 0, 5);
                                 mLayoutManager = new GridLayoutManager(Deal_list.this, 2);
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(bestAdapter);
                             } else {
-                                bestAdapter.notifyDataSetChanged();
+                                if (cart_item != null && cart_item.size() > 0  ) {
+                                    for (int u = 0; u < list.size(); u++) {
+                                        for (int h = 0; h < cart_item.size(); h++) {
+                                            if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                                list.get(u).setCart_list(true);
+                                                break;
+                                            } else {
+                                                list.get(u).setCart_list(false);
+                                            }
+                                        }
+                                    }
+                                    bestAdapter.notifyDataSetChanged();
+                                }else {
+                                    bestAdapter.notifyDataSetChanged();
+                                }
                             }
                             no_proditems.setVisibility(View.GONE);
                             product_list.setVisibility(View.VISIBLE);
@@ -382,6 +397,7 @@ public class Deal_list extends Language {
             if (resp != null) {
 
                 try {
+                    cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -397,9 +413,27 @@ public class Deal_list extends Language {
                             int qty = 0;
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
+                                ProductsPO bo = new ProductsPO();
+                                bo.setProduct_id(jsonObject1.isNull("product_id") ? "" : jsonObject1.getString("product_id"));
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
+                                cart_item.add(bo);
                             }
                             cart_counts.setText(String.valueOf(qty));
+
+                            if (list.size() > 0 && list != null) {
+                                for (int u = 0; u < list.size(); u++) {
+                                    for (int h = 0; h < cart_item.size(); h++) {
+                                        if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                            list.get(u).setCart_list(true);
+                                            break;
+                                        } else {
+                                            list.get(u).setCart_list(false);
+                                        }
+                                    }
+                                }
+                                bestAdapter.notifyDataSetChanged();
+                            }
+
 
                         }
                     }

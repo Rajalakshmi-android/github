@@ -449,25 +449,6 @@ public class ProductFullView extends Language {
         });
 
 
-        if (db.getLoginCount() > 0) {
-            add_rev_lay.setVisibility(View.VISIBLE);
-            add_reviews.setVisibility(View.VISIBLE);
-            review_section.setVisibility(View.VISIBLE);
-
-            if (option_layout.getVisibility() == View.VISIBLE)
-                add_rev_lay.setVisibility(View.GONE);
-            if (options.getVisibility() == View.VISIBLE)
-                add_rev_lay.setVisibility(View.GONE);
-            if (review_layout.getVisibility() == View.VISIBLE)
-                add_rev_lay.setVisibility(View.GONE);
-
-
-        } else {
-
-            add_rev_lay.setVisibility(View.GONE);
-            add_reviews.setVisibility(View.GONE);
-            review_section.setVisibility(View.GONE);
-        }
 
         product.performClick();
 
@@ -1668,8 +1649,7 @@ public class ProductFullView extends Language {
                         }
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
-                        CartTask cartTask = new CartTask();
-                        cartTask.execute(Appconstatants.cart_api);
+
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(ProductFullView.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
