@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Filter"
     android:id="@+id/fullayout"
+    android:background="@color/app_bg_color"
     >
     <LinearLayout
         android:layout_width="match_parent"
