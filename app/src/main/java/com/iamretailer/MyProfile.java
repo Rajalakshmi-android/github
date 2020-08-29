@@ -1,5 +1,6 @@
 package com.iamretailer;
 
+import android.app.MediaRouteButton;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class MyProfile extends Language {
     private DBController dbcon;
     private String cus_id;
     private AndroidLogger logger;
+    private LinearLayout cart_items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class MyProfile extends Language {
         LinearLayout back = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
         header.setText(R.string.my_Acc);
-        LinearLayout cart_items = findViewById(R.id.cart_items);
+        cart_items = findViewById(R.id.cart_items);
         f_name = findViewById(R.id.f_name);
         l_name = findViewById(R.id.l_name);
         email = findViewById(R.id.email);
@@ -79,7 +81,7 @@ public class MyProfile extends Language {
                 onBackPressed();
             }
         });
-
+        cart_items.setVisibility(View.GONE);
         GET_PROFILE profile = new GET_PROFILE();
         profile.execute(Appconstatants.MY_PROFILE);
 
@@ -189,7 +191,7 @@ public class MyProfile extends Language {
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
                         && mobile.getText().toString().length() == 10 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                        ) {
+                ) {
                     UPDATE_PROFILE update_profile = new UPDATE_PROFILE();
                     update_profile.execute(Appconstatants.MY_PROFILE, f_name.getText().toString().trim(), l_name.getText().toString().trim(), email.getText().toString().trim(), mobile.getText().toString().trim());
                 }
@@ -246,6 +248,7 @@ public class MyProfile extends Language {
                         loading.setVisibility(View.GONE);
                         error_lay.setVisibility(View.GONE);
                         cart.setVisibility(View.VISIBLE);
+                        cart_items.setVisibility(View.VISIBLE);
 
 
                     } else {
@@ -331,7 +334,7 @@ public class MyProfile extends Language {
         protected void onPostExecute(String resp) {
 
             if(pDialog!=null)
-            pDialog.dismiss();
+                pDialog.dismiss();
             if (resp != null) {
 
                 try {
