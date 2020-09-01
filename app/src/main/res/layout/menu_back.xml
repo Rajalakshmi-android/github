@@ -32,12 +32,15 @@
         android:gravity="center|center_vertical">
 
         <com.iamretailer.Common.CustomTextview1
-            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="@dimen/dp2"
             android:id="@+id/header"
-            android:inputType = "textCapWords"
+            android:gravity="center"
+            android:singleLine="true"
+            android:maxLines="1"
+
             android:text="@string/product_details"
             android:textColor="@color/app_text_color"
             android:textSize="@dimen/text18sp"

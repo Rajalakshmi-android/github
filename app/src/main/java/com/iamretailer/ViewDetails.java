@@ -432,6 +432,7 @@ public class ViewDetails extends Language {
 
                     }
                     JSONArray totalarray = new JSONArray(object.getString("totals"));
+                        ordertotview.removeAllViews();
                     for (int k = 0; k < totalarray.length(); k++) {
                         JSONObject obj = totalarray.getJSONObject(k);
                         addTotals(obj, ordertotview);
