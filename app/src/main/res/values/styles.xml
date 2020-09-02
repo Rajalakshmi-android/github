@@ -29,4 +29,8 @@
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/alert_bg</item>
     </style>
+    <style name="RadioButtonStyle" parent="@android:style/Widget.CompoundButton">
+        <item name="android:background">@drawable/radiobutton_selector</item>
+        <item name="android:button">@null</item>
+    </style>
 </resources>

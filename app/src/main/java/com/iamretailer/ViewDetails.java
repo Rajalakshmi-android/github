@@ -97,6 +97,8 @@ public class ViewDetails extends Language {
     private LinearLayout delete;
     private RecyclerView horizontalListView;
     private TrackingAdapter featuredProduct;
+    private String order_ids="";
+    private String order_dated="";
 
 
     @Override
@@ -162,6 +164,7 @@ public class ViewDetails extends Language {
         delivery= findViewById(R.id.delivery);
         shipping= findViewById(R.id.shipping);
         String head=getResources().getString(R.string.order_ids)+bun.getString("id");
+        order_ids=bun.getString("id");
         header.setText(head);
         OrderTask task = new OrderTask();
         task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
@@ -353,6 +356,7 @@ public class ViewDetails extends Language {
                     Log.i("reeee",object.toString());
                     paymethod.setText(object.isNull("payment_method") ? "" : object.getString("payment_method"));
                     order_date.setText(CommonFunctions.convert_date(object.isNull("date_added") ? "" : object.getString("date_added")));
+                    order_dated=CommonFunctions.convert_dates(object.isNull("date_added") ? "" : object.getString("date_added"));
                     ship_method.setText(object.isNull("shipping_method") ? "" : object.getString("shipping_method"));
 
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
@@ -509,13 +513,14 @@ public class ViewDetails extends Language {
 
     private void addLayout(final PlacePO placePO, LinearLayout view_list) {
 
-        View convertView = LayoutInflater.from(this).inflate(R.layout.place_list, view_list, false);
+        View convertView = LayoutInflater.from(this).inflate(R.layout.view_placelist, view_list, false);
         TextView name = convertView.findViewById(R.id.p_name);
         ImageView imag = convertView.findViewById(R.id.place_img);
         TextView price = convertView.findViewById(R.id.p_total);
         TextView qunt = convertView.findViewById(R.id.p_qty);
         TextView amount = convertView.findViewById(R.id.total);
         TextView p_option= convertView.findViewById(R.id.p_option);
+        LinearLayout returnlay= convertView.findViewById(R.id.returnlay);
 
         TextView cur_left1= convertView.findViewById(R.id.cur_left);
         TextView cur_right1= convertView.findViewById(R.id.cur_right);
@@ -533,6 +538,19 @@ public class ViewDetails extends Language {
         price.setText(a1);
         qunt.setText(placePO.getQty());
         amount.setText(b1);
+        returnlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ViewDetails.this, Return_Acticity.class);
+                i.putExtra("qty", placePO.getQty());
+                i.putExtra("prod_name", placePO.getProduct_name());
+                i.putExtra("prod_model", placePO.getModel());
+                i.putExtra("order_date", order_dated);
+                i.putExtra("order_id", order_ids);
+                startActivity(i);
+            }
+        });
+        Log.d("images_s", placePO.getUrl() + "");
 
         StringBuilder sb2 = new StringBuilder();
 

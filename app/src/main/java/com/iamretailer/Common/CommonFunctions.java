@@ -90,4 +90,26 @@ public class CommonFunctions {
 		}
 	}
 
+	public static String convert_dates(String date) {
+		if (date != null && date.length()>2) {
+			SimpleDateFormat dateFormatprev = new SimpleDateFormat("dd/MM/yyyy");
+			Date d = null;
+			try {
+				d = dateFormatprev.parse(String.valueOf(date));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String changedDate = dateFormat.format(d);
+
+			return changedDate;
+		}
+		else
+		{
+			return "";
+		}
+	}
+
 }

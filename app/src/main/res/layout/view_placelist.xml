@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp90"
+                android:layout_height="@dimen/dp80"
+                android:layout_gravity="top"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/product_back1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/place_img"
+                    android:layout_width="@dimen/dp70"
+                    android:layout_height="@dimen/dp70"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp5"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/place_holder" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/dp20"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp5"
+                android:paddingEnd="@dimen/dp0">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.iamretailer.Common.CustomTextview
+                            android:id="@+id/p_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:layout_marginEnd="@dimen/dp50"
+                            android:text="@string/product"
+                            android:textColor="@color/cart_text"
+                            android:textSize="@dimen/text14sp" />
+                        <LinearLayout
+                            android:layout_gravity="end|center_vertical"
+                            android:id="@+id/returnlay"
+                            android:gravity="center"
+                            android:layout_width="@dimen/dp20"
+
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:autoMirrored="true"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:gravity="center"
+                                android:background="@mipmap/return_icon"
+                                android:layout_gravity="center|center_vertical"
+                                android:layout_width="@dimen/dp18"
+                                android:layout_height="@dimen/dp18"/>
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+
+
+                    <com.iamretailer.Common.CustomTextview
+                        android:id="@+id/p_option"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:background="@drawable/dms_bg"
+                        android:paddingBottom="@dimen/dp1"
+                        android:paddingLeft="@dimen/dp8"
+                        android:paddingRight="@dimen/dp8"
+                        android:paddingTop="@dimen/dp1"
+                        android:text=""
+                        android:textColor="@color/cart_text"
+                        android:textSize="@dimen/text10sp" />
+
+                    <com.iamretailer.Common.CustomTextview
+                        android:id="@+id/grams"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:background="@drawable/dms_bg"
+                        android:paddingBottom="@dimen/dp1"
+                        android:paddingLeft="@dimen/dp8"
+                        android:paddingRight="@dimen/dp8"
+                        android:paddingTop="@dimen/dp1"
+                        android:text="@string/gms"
+                        android:textColor="@color/cart_text"
+                        android:textSize="@dimen/text10sp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:weightSum="3">
+
+                        <com.iamretailer.Common.CustomTextview
+                            android:layout_width="@dimen/dp0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/quantity"
+                            android:textColor="@color/cart_text"
+                            android:textSize="@dimen/text13sp" />
+
+                        <com.iamretailer.Common.CustomTextview1
+
+                            android:id="@+id/p_qty"
+                            android:layout_width="@dimen/dp0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/cart_text"
+                            android:textSize="@dimen/text13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:weightSum="@integer/three">
+
+                        <com.iamretailer.Common.CustomTextview
+                            android:layout_width="@dimen/dp0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/amt"
+                            android:textColor="@color/cart_text"
+                            android:textSize="@dimen/text13sp" />
+
+                        <LinearLayout
+                            android:layout_width="@dimen/dp0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.iamretailer.Common.CustomTextview1
+                                android:id="@+id/cur_left"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:gravity="bottom"
+                                android:paddingBottom="@dimen/dp1"
+                                android:textColor="@color/cart_text"
+                                android:textSize="@dimen/text9sp" />
+
+                            <com.iamretailer.Common.CustomTextview1
+                                android:id="@+id/p_total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:text="@string/qty"
+                                android:textColor="@color/cart_text"
+                                android:textSize="@dimen/text13sp" />
+
+                            <com.iamretailer.Common.CustomTextview1
+                                android:id="@+id/cur_right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:gravity="bottom"
+                                android:paddingBottom="@dimen/dp1"
+                                android:textColor="@color/cart_text"
+                                android:textSize="@dimen/text10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="@dimen/dp0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end">
+
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/cur_left1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:gravity="bottom"
+                                android:paddingBottom="@dimen/dp1"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text10sp"
+                                android:textStyle="bold" />
+
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/amount"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text14sp"
+                                android:textStyle="bold" />
+
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/cur_right1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:gravity="bottom"
+                                android:paddingBottom="@dimen/dp1"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.4dp"
+            android:layout_marginStart="@dimen/dp90"
+            android:layout_marginTop="@dimen/dp15"
+            android:background="@color/line_color" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
