@@ -12,6 +12,6 @@
         android:padding="@dimen/dp80"
         android:scaleType="centerCrop"
         android:src="@mipmap/place_holder"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/white" />
 
 </LinearLayout>

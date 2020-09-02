@@ -80,8 +80,5 @@
     <color name="track1">#0f2121</color>
     <color name="qty_line">#5c5c5c</color>
     <color name="return_line">#eeeeee</color>
-
-
-
-
+    <color name="filter_blur">#8bffffff</color>
 </resources>

@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_gravity="start"
     android:gravity="start"
+    android:background="@color/app_bg_color1"
 
     >
 
