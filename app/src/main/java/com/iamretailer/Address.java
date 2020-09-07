@@ -138,6 +138,14 @@ public class Address extends Language {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if (i != 0) {
+                    state_list = new ArrayList<>();
+                    CountryPO po = new CountryPO();
+                    po.setZone_id("0");
+                    po.setCont_id("0");
+                    po.setCount_name(getResources().getString(R.string.sel_sta));
+                    state_list.add(po);
+                    s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
+                    state.setAdapter(s_adapter);
                     StateTask stateTask = new StateTask();
                     stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(i).getCount_id());
                 }

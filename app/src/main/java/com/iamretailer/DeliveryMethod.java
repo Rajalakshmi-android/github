@@ -46,7 +46,6 @@ public class DeliveryMethod extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
-    private LinearLayout loading_bar;
     private String address_id;
     private AndroidLogger logger;
     private int from = 0;
@@ -93,7 +92,6 @@ public class DeliveryMethod extends Language {
         fullayout = findViewById(R.id.fullayout);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        loading_bar = findViewById(R.id.loading_bar);
         success = findViewById(R.id.success);
 
 

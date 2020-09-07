@@ -620,6 +620,12 @@ public class MyCart extends Language {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if (i != 0) {
+                    state_list = new ArrayList<>();
+                    CountryPO po = new CountryPO();
+                    po.setZone_id("0");
+                    po.setCont_id("0");
+                    po.setCount_name(getResources().getString(R.string.sel_sta));
+                    state_list.add(po);
                     StateTask stateTask = new StateTask();
                     stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(i).getCount_id());
                 }
@@ -688,7 +694,7 @@ public class MyCart extends Language {
                     country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
-                    po1.setCount_name("Select Country");
+                    po1.setCount_name(getResources().getString(R.string.selc_oun));
                     country_list.add(po1);
 
 
@@ -781,7 +787,7 @@ public class MyCart extends Language {
                     CountryPO po = new CountryPO();
                     po.setZone_id("0");
                     po.setCont_id("0");
-                    po.setCount_name("Select State");
+                    po.setCount_name(getResources().getString(R.string.sel_sta));
                     state_list.add(po);
 
                     if (json.getInt("success") == 1) {

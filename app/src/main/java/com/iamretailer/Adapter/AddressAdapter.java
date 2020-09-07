@@ -232,7 +232,6 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         items.remove(pos);
-                        notifyDataSetChanged();
                         ((AddressList)context).add_call();
                         Toast.makeText(getContext(), R.string.address_del, Toast.LENGTH_SHORT).show();
                     } else {

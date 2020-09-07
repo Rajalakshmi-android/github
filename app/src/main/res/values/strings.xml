@@ -405,5 +405,19 @@
     <string name="per_grant">Permission granted</string>
     <string name="per_den">Permission denied</string>
 
+    //return form
+    <string name="prod_name">Product Name : </string>
+    <string name="qtys">Quantity * : </string>
+    <string name="reason_for_return">Reason for Return * : </string>
+    <string name="prod_open">Product is Opened * : </string>
+    <string name="other_details">Faulty or other details :  </string>
+    <string name="other_details1">Faulty or other details  </string>
+    <string name="return_fom">Order Cancellation Request </string>
+    <string name="qty_toast">Quantity should not greater than order quantity </string>
+    <string name="nos">No</string>
+    <string name="yess">Yes</string>
+    <string name="qty_error">Please enter your Quantity</string>
+    <string name="out_of">Out of</string>
+
 
 </resources>

@@ -122,8 +122,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
 
             }
         });
-        CartTask cartTask = new CartTask();
-        cartTask.execute(Appconstatants.cart_api);
+
 
     }
 

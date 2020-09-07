@@ -54,6 +54,7 @@ public class SearchActivity extends Language {
     private SingleProductTask productTask;
     private final int start=1,limit=10;
     private ArrayList<ProductsPO> fav_item;
+    ArrayList<ProductsPO> cart_item;
     private DBController db;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -350,7 +351,22 @@ public class SearchActivity extends Language {
                             }
                             else
                             {
-                                adapter1.notifyDataSetChanged();
+                                if(cart_item!=null && cart_item.size()>0) {
+                                    if (optionsPOArrayList1 != null && optionsPOArrayList1.size() > 0) {
+                                        for (int u = 0; u < optionsPOArrayList1.size(); u++) {
+                                            for (int h = 0; h < cart_item.size(); h++) {
+                                                if (Integer.parseInt(optionsPOArrayList1.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                                    optionsPOArrayList1.get(u).setCart_list(true);
+                                                    break;
+                                                } else {
+                                                    optionsPOArrayList1.get(u).setCart_list(false);
+                                                }
+                                            }
+                                        }
+                                        adapter1.notifyDataSetChanged();
+                                    }
+                                }else{adapter1.notifyDataSetChanged();}
+
                             }
                             search_loading.setVisibility(View.GONE);
                             if (text.length()>0)
@@ -438,7 +454,7 @@ public class SearchActivity extends Language {
             if (resp != null) {
 
                 try {
-                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
+                     cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");

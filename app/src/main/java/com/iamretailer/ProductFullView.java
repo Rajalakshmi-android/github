@@ -150,7 +150,7 @@ public class ProductFullView extends Language {
             change_langs(db.get_lang_code());
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
-           getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
         }
         setContentView(R.layout.product_full_view);
 
@@ -293,7 +293,7 @@ public class ProductFullView extends Language {
             public void onClick(View v) {
                 if (count == 0 && comment.getText().toString().length() == 0) {
                     Toast.makeText(ProductFullView.this, R.string.review_toast, Toast.LENGTH_SHORT).show();
-                 } else {
+                } else {
 
                     POSTREVIEW postreview = new POSTREVIEW();
                     postreview.execute(db.getName(), comment.getText().toString().trim(), count + "");
@@ -449,25 +449,6 @@ public class ProductFullView extends Language {
         });
 
 
-        if (db.getLoginCount() > 0) {
-            add_rev_lay.setVisibility(View.VISIBLE);
-            add_reviews.setVisibility(View.VISIBLE);
-            review_section.setVisibility(View.VISIBLE);
-
-            if (option_layout.getVisibility() == View.VISIBLE)
-                add_rev_lay.setVisibility(View.GONE);
-            if (options.getVisibility() == View.VISIBLE)
-                add_rev_lay.setVisibility(View.GONE);
-            if (review_layout.getVisibility() == View.VISIBLE)
-                add_rev_lay.setVisibility(View.GONE);
-
-
-        } else {
-
-            add_rev_lay.setVisibility(View.GONE);
-            add_reviews.setVisibility(View.GONE);
-            review_section.setVisibility(View.GONE);
-        }
 
         product.performClick();
 
@@ -1021,7 +1002,7 @@ public class ProductFullView extends Language {
 
                         }
                         if (optionsPOArrayList != null && optionsPOArrayList.size() > 0) {
-                                DrawOptions();
+                            DrawOptions();
                         }
 
                         JSONObject rev_obj = new JSONObject(jsonObject.getString("reviews"));
@@ -1626,6 +1607,9 @@ public class ProductFullView extends Language {
                                     bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                     bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                    bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
+                                    bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+
                                     bo.setCart_list(false);
                                     Object dd = obj.get("option");
                                     ArrayList<SingleOptionPO> optionPOS = new ArrayList<>();
@@ -1668,8 +1652,7 @@ public class ProductFullView extends Language {
                         }
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
-                        CartTask cartTask = new CartTask();
-                        cartTask.execute(Appconstatants.cart_api);
+
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(ProductFullView.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -1820,58 +1803,58 @@ public class ProductFullView extends Language {
 
     private void price_Cal()
     {
-            double price1 = 0;
-            double price2 = 0;
-             double whole_price1=0;
-            double whole_price2=0;
-            for (int y = 0; y < optionsPOArrayList.size(); y++) {
-                // whole=whole+optionsPOArrayList.get(y).getPrices();
-                if (optionsPOArrayList.get(y).getPrices()>0) {
-                    if (sp_price > 0) {
-                        if (optionsPOArrayList.get(y).getPrefix().equalsIgnoreCase("-")) {
-                            price1 = price1 - optionsPOArrayList.get(y).getPrices();
-                            price2 = price2 - optionsPOArrayList.get(y).getPrices();
-                        } else {
-                            price1 = price1 + optionsPOArrayList.get(y).getPrices();
-                            price2 = price2 + optionsPOArrayList.get(y).getPrices();
-
-                        }
+        double price1 = 0;
+        double price2 = 0;
+        double whole_price1=0;
+        double whole_price2=0;
+        for (int y = 0; y < optionsPOArrayList.size(); y++) {
+            // whole=whole+optionsPOArrayList.get(y).getPrices();
+            if (optionsPOArrayList.get(y).getPrices()>0) {
+                if (sp_price > 0) {
+                    if (optionsPOArrayList.get(y).getPrefix().equalsIgnoreCase("-")) {
+                        price1 = price1 - optionsPOArrayList.get(y).getPrices();
+                        price2 = price2 - optionsPOArrayList.get(y).getPrices();
                     } else {
+                        price1 = price1 + optionsPOArrayList.get(y).getPrices();
+                        price2 = price2 + optionsPOArrayList.get(y).getPrices();
 
-                        if (optionsPOArrayList.get(y).getPrefix().equalsIgnoreCase("-")) {
-                            price2 = price2 + optionsPOArrayList.get(y).getPrices();
-                        } else {
-                            price2 = price2 + optionsPOArrayList.get(y).getPrices();
-                        }
+                    }
+                } else {
+
+                    if (optionsPOArrayList.get(y).getPrefix().equalsIgnoreCase("-")) {
+                        price2 = price2 + optionsPOArrayList.get(y).getPrices();
+                    } else {
+                        price2 = price2 + optionsPOArrayList.get(y).getPrices();
                     }
                 }
-                else
-                {
-                    if (sp_price > 0) {
-                            price1 = 0;
-                            price2 = 0;
-                    } else {
-                            price2 = 0;
-                    }
-                }
-
-            }
-            if (sp_price>0) {
-                whole_price1=whole_price1+price1 + sp_price;
-                whole_price2=whole_price2+price2 + price;
-                String wp_val=String.format(Locale.ENGLISH,"%.2f", whole_price1);
-                String wp_val2=String.format(Locale.ENGLISH,"%.2f", whole_price2);
-                productrate.setText(wp_val);
-                orginal.setText(wp_val2);
             }
             else
             {
-               whole_price2=whole_price2+price2 + price;
-                String val=String.format(Locale.ENGLISH,"%.2f", whole_price2);
-                productrate.setText(val);
-                orginal.setVisibility(View.GONE);
-
+                if (sp_price > 0) {
+                    price1 = 0;
+                    price2 = 0;
+                } else {
+                    price2 = 0;
+                }
             }
+
+        }
+        if (sp_price>0) {
+            whole_price1=whole_price1+price1 + sp_price;
+            whole_price2=whole_price2+price2 + price;
+            String wp_val=String.format(Locale.ENGLISH,"%.2f", whole_price1);
+            String wp_val2=String.format(Locale.ENGLISH,"%.2f", whole_price2);
+            productrate.setText(wp_val);
+            orginal.setText(wp_val2);
+        }
+        else
+        {
+            whole_price2=whole_price2+price2 + price;
+            String val=String.format(Locale.ENGLISH,"%.2f", whole_price2);
+            productrate.setText(val);
+            orginal.setVisibility(View.GONE);
+
+        }
 
     }
 

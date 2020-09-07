@@ -21,18 +21,14 @@ repositories {
     mavenCentral()
 }
 
-
-
-
-
 android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.iamretailer"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 7
-        versionName "1.6"
+        versionCode 10
+        versionName "1.9"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
@@ -96,6 +92,4 @@ dependencies {
     implementation files('libs/IamRetailerConnection-1.2.jar')
     implementation 'com.google.android.gms:play-services-maps:11.4.2'
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
-
-
 }

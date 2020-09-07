@@ -41,7 +41,7 @@ public class Product_list extends Language {
     private ArrayList<ProductsPO> feat_list;
     private CommonAdapter featuredAdapter;
     private TextView cart_counts;
-    private int start = 1, limit = 10;
+    private int start = 1, limit = 20;
     private LinearLayout load_more;
     private int val = 0;
     private TextView errortxt1;
@@ -60,6 +60,7 @@ public class Product_list extends Language {
     private String title = "";
     private String head = "";
     private boolean cart=true;
+    ArrayList<ProductsPO> cart_item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +129,7 @@ public class Product_list extends Language {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
                 start = 1;
-                limit = 10;
+                limit = 20;
                 val = 0;
                 loadin = false;
                 cart=true;
@@ -163,6 +164,7 @@ public class Product_list extends Language {
                                 loadin = true;
                                 val = 1;
                                 load_more.setVisibility(View.VISIBLE);
+                                Log.i("tag","paging22-------"+start+" -- "+limit +" -- "+visibleItemCount+" -- "+firstVisibleItem);
                                 BEST_SELLING best_selling = new BEST_SELLING();
                                 best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
                             }
@@ -289,7 +291,7 @@ public class Product_list extends Language {
                             list.add(bo);
                         }
 
-                        if (list.size() != 0) {
+                        if (list != null && list.size() != 0) {
                             if (val == 0) {
                                 bestAdapter = new CommonAdapter(Product_list.this, list, 0, 2);
                                 mLayoutManager = new GridLayoutManager(Product_list.this, 2);
@@ -297,7 +299,22 @@ public class Product_list extends Language {
                                 product_list.setAdapter(bestAdapter);
 
                             } else {
-                                bestAdapter.notifyDataSetChanged();
+                                if(cart_item!=null && cart_item.size()>0) {
+                                    for (int u = 0; u < list.size(); u++) {
+                                        for (int h = 0; h < cart_item.size(); h++) {
+                                            if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                                list.get(u).setCart_list(true);
+                                                break;
+                                            } else {
+                                                list.get(u).setCart_list(false);
+                                            }
+                                        }
+                                    }
+                                    bestAdapter.notifyDataSetChanged();
+                                }else {
+
+                                    bestAdapter.notifyDataSetChanged();
+                                }
                             }
                             no_proditems.setVisibility(View.GONE);
                         } else {
@@ -313,8 +330,9 @@ public class Product_list extends Language {
                         //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
-
+                        Log.i("tag","paging-------"+start);
                         start = start + 1;
+                        Log.i("tag","paging11-------"+start);
 
                     } else {
                         loading.setVisibility(View.GONE);
@@ -429,7 +447,7 @@ public class Product_list extends Language {
 
                             feat_list.add(bo);
                         }
-                        if (feat_list.size() != 0) {
+                        if (feat_list != null && feat_list.size() != 0) {
                             if (val == 0) {
 
                                 featuredAdapter = new CommonAdapter(Product_list.this, feat_list, 0, 2);
@@ -437,7 +455,21 @@ public class Product_list extends Language {
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(featuredAdapter);
                             } else {
-                                featuredAdapter.notifyDataSetChanged();
+                                if ( cart_item != null&&cart_item.size() > 0 ) {
+                                    for (int u = 0; u < feat_list.size(); u++) {
+                                        for (int h = 0; h < cart_item.size(); h++) {
+                                            if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                                feat_list.get(u).setCart_list(true);
+                                                break;
+                                            } else {
+                                                feat_list.get(u).setCart_list(false);
+                                            }
+                                        }
+                                    }
+                                    featuredAdapter.notifyDataSetChanged();
+                                }else {
+                                    featuredAdapter.notifyDataSetChanged();
+                                }
                             }
                             no_proditems.setVisibility(View.GONE);
 
@@ -528,7 +560,7 @@ public class Product_list extends Language {
             if (resp != null) {
 
                 try {
-                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
+                     cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -788,7 +820,7 @@ public class Product_list extends Language {
                             banner_items.add(bo);
                         }
 
-                        if (banner_items.size() != 0) {
+                        if (banner_items != null&& banner_items.size() != 0) {
                             if (val == 0) {
                                 bestAdapter = new CommonAdapter(Product_list.this, banner_items, 0, 2);
                                 mLayoutManager = new GridLayoutManager(Product_list.this, 2);
@@ -796,7 +828,22 @@ public class Product_list extends Language {
                                 product_list.setAdapter(bestAdapter);
 
                             } else {
-                                bestAdapter.notifyDataSetChanged();
+                                if ( cart_item != null&&cart_item.size() > 0) {
+                                    for (int u = 0; u < banner_items.size(); u++) {
+                                        for (int h = 0; h < cart_item.size(); h++) {
+                                            if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                                banner_items.get(u).setCart_list(true);
+                                                break;
+                                            } else {
+                                                banner_items.get(u).setCart_list(false);
+
+                                            }
+                                        }
+                                    }
+                                    bestAdapter.notifyDataSetChanged();
+                                }else {
+                                    bestAdapter.notifyDataSetChanged();
+                                }
                             }
                             no_proditems.setVisibility(View.GONE);
                         } else {

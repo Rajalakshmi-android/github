@@ -630,7 +630,6 @@
             android:layout_width="@dimen/dp260"
             android:layout_height="fill_parent"
            android:layout_gravity="start"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <include layout="@layout/drawer_menu" />

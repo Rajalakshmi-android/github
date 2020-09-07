@@ -208,7 +208,7 @@ tab目录下的页面</string>
     <string name="stat">州/省/地区</string>
     <string name="app_not">您的设备没有安装此应用程式</string>
     <string name="user_not">请登录查看个人资料</string>
-    <string name="tel">电话:</string>
+    <string name="tel">tel:</string>
     <string name="phone_num">+917639001663</string>
     <string name="no_items_yet">没有商品</string>
     <string name="wish_add">商品添加至愿望列表</string>
@@ -276,6 +276,7 @@ tab目录下的页面</string>
     <string name="size">Size</string>
     <string name="chelk_box">checkbox</string>
     <string name="pay_type">Payment Type should be selected</string>
+    <string name="del_by">Delivery by</string>
 
 
 

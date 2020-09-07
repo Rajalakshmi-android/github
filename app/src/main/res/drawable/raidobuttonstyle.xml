@@ -8,13 +8,9 @@
     </item>
     <item
         android:state_checked="false"
-
         android:drawable="@mipmap/radio_gray"
        >
 
     </item>
-  <!--  <item
-        android:state_checked="false"
-        android:drawable="@mipmap/radio_gray"
-        ></item>-->
+
 </selector>

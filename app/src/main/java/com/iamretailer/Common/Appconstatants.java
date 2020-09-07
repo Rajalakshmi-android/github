@@ -137,12 +137,15 @@ public class Appconstatants {
 
 
     public  static  String LICENSE_KEY="1234567890";
-    public static int need_brand_product=0;
+    public static int need_brand_product=1;
 
     public static String Payment_Success =domain+"index.php?route=rest/razorpay";
 
     public static String razorpay=domain+"index.php?route=rest/razorpay/order";
 
     public static String Filter_Api=domain+"index.php?route=rest/filter/filteroption&path=";
+
+    public static String RETURN_SAVE=domain+"index.php?route=rest/return/returns";
+    public static String REASON=domain+"index.php?route=rest/return/returnReason";
 
 }

@@ -12,11 +12,14 @@
 
         <com.iamretailer.Common.CustomTextview1
 
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="@color/black"
-
+            android:gravity="center"
             android:textSize="@dimen/text20sp"
            android:layout_marginTop="@dimen/dp10"
             />

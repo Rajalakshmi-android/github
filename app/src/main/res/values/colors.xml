@@ -9,6 +9,7 @@
     <color name="white">#ffffff</color>
     <color name="blue">#e40582</color>
     <color name="app_bg_color">#f5f5f5</color>
+    <color name="app_bg_color1">#ffffff</color>
     <color name="app_view_color">#6ca0a1a3</color>
     <color name="app_text_color">#494949</color>
     <color name="price_textcolor">#e40582</color>
@@ -77,7 +78,7 @@
     <color name="view_line">#1e484848</color>
     <color name="track">#052c2b</color>
     <color name="track1">#0f2121</color>
-
-
-
+    <color name="qty_line">#5c5c5c</color>
+    <color name="return_line">#eeeeee</color>
+    <color name="filter_blur">#8bffffff</color>
 </resources>

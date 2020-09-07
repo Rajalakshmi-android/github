@@ -57,8 +57,7 @@
                     android:contentDescription="@null"
                     android:layout_width="@dimen/dp15"
                     android:layout_height="@dimen/dp15"
-                    android:src="@mipmap/pending_my"
-                    android:visibility="gone"/>
+                    android:src="@mipmap/pending_my"/>
             </LinearLayout>
 
             <LinearLayout
