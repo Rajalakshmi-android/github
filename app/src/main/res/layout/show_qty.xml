@@ -26,8 +26,18 @@
                 android:autoMirrored="true"
                 android:layout_margin="@dimen/dp5"/>
         </LinearLayout>
+        <com.iamretailer.Common.CustomTextview
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:text="@string/enter_quantity"
+            android:textColor="@color/app_text_color"
+            android:textSize="@dimen/text15sp" />
 
         <com.iamretailer.Common.CustomTextview
+            android:layout_marginTop="@dimen/dp5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

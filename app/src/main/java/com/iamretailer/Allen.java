@@ -2,11 +2,13 @@ package com.iamretailer;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -107,7 +109,11 @@ public class Allen extends Language {
         bundle = new Bundle();
         bundle = getIntent().getExtras();
         cat_id = Integer.parseInt(bundle.getString("id"));
-        header.setText(bundle.getString("cat_name"));
+        if (Build.VERSION.SDK_INT >= 24) {
+            header.setText(Html.fromHtml(bundle.getString("cat_name"), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            header.setText(Html.fromHtml(bundle.getString("cat_name")));
+        }
         sort_option = "date_added";
         sort_order = "DESC";
         sort_name.setText(R.string.news);
