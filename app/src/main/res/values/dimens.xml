@@ -148,7 +148,7 @@
 	<dimen name="dp27">27dp</dimen>
 	<dimen name="dp78">78dp</dimen>
 	<dimen name="dp1_5">1.5dp</dimen>
-
+	<dimen name="dp165">165dp</dimen>
 
 
 </resources>
