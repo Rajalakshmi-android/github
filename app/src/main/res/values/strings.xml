@@ -420,6 +420,8 @@
     <string name="out_of">Out of</string>
     <string name="appinfo">App Info</string>
     <string name="helps">Help</string>
-
+    //food app
+    <string name="l_eat">Let\'s eat </string>
+    <string name="q_food">Quality Food</string>
 
 </resources>
