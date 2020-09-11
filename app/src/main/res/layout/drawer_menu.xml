@@ -879,6 +879,56 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/help"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp20"
+                            android:layout_height="@dimen/dp20"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:autoMirrored="true"
+                            android:rotationY="@integer/locale_mirror_flip"
+                            android:src="@mipmap/helps" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp20">
+
+                            <com.iamretailer.Common.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|center_vertical"
+                                android:gravity="start|center_vertical"
+                                android:layout_marginBottom="@dimen/dp5"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:text="@string/helps"
+                                android:textColor="@color/menu_text1"
+                                android:textSize="@dimen/text13sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp0_1"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:background="@color/line_color" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/gologout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

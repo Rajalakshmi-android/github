@@ -94,6 +94,7 @@ public class MainActivity extends Drawer {
     private TextView cart_count_bot;
     private LinearLayout category;
     private ArrayList<ProductsPO> fav_item;
+    private LinearLayout helps;
 
 
     @Override

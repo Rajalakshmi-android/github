@@ -418,6 +418,8 @@
     <string name="yess">Yes</string>
     <string name="qty_error">Please enter your Quantity</string>
     <string name="out_of">Out of</string>
+    <string name="appinfo">App Info</string>
+    <string name="helps">Help</string>
 
 
 </resources>

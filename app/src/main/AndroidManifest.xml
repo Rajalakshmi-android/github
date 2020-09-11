@@ -52,6 +52,8 @@
         <activity android:name=".MyOrders" />
         <activity android:name=".ViewDetails" />
         <activity android:name=".Return_Acticity" />
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".InfoActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
