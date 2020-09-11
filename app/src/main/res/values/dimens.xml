@@ -151,6 +151,7 @@
 	<dimen name="dp165">165dp</dimen>
 	<dimen name="dps0_1">0.1dp</dimen>
 	<dimen name="dp48">48dp</dimen>
+	<dimen name="dp170">170dp</dimen>
 
 
 </resources>

@@ -35,7 +35,7 @@
                         android:src="@mipmap/infos" />
                 </LinearLayout>
 
-                <com.noruvva.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
