@@ -235,7 +235,7 @@ public class Address extends Language {
                 if (pincode.getText().toString().length() != 6) {
                     pincode.setError(getResources().getString(R.string.pin_error1));
                 }
-                if (mobile.getText().toString().length() != 10) {
+                if (mobile.getText().toString().length() <7  ) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -254,7 +254,7 @@ public class Address extends Language {
                         && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
                         && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
                         && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                        && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
                         && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
                         ) {
 
