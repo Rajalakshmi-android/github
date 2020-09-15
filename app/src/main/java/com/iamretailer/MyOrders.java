@@ -23,10 +23,8 @@ import com.logentries.android.AndroidLogger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+
 
 import stutzen.co.network.Connection;
 
@@ -253,22 +251,8 @@ public class MyOrders extends Language {
                                     bo.setOrder_id(obj.isNull("order_id") ? "" : obj.getString("order_id"));
                                     bo.setOrder_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     bo.setOrder_status(obj.isNull("status") ? "" : obj.getString("status"));
-                                    // bo.setOrder_date(obj.isNull("date_added") ? "" : obj.getString("date_added"));
-                                    if (!obj.isNull("date_added")) {
-                                        SimpleDateFormat df1 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                                        Date date = df1.parse(obj.getString("date_added"));
-                                        SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy",Locale.getDefault());
-                                        if(date!=null){
-                                            String dateText = df2.format(date);
+                                     bo.setOrder_date(obj.isNull("date_added") ? "" : obj.getString("date_added"));
 
-                                            bo.setOrder_date(dateText);
-                                        }else{
-                                            bo.setOrder_date("");
-                                        }
-
-                                    } else {
-                                        bo.setOrder_date("");
-                                    }
 
                                     bo.setOrder_products(obj.isNull("products") ? "" : obj.getString("products"));
                                     bo.setOrder_total(obj.isNull("total") ? "" : obj.getString("total"));

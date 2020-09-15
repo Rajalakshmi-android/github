@@ -54,12 +54,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 
 import stutzen.co.network.Connection;
@@ -355,8 +351,8 @@ public class ViewDetails extends Language {
                     JSONObject object = new JSONObject(json.getString("data"));
                     Log.i("reeee",object.toString());
                     paymethod.setText(object.isNull("payment_method") ? "" : object.getString("payment_method"));
-                    order_date.setText(CommonFunctions.convert_date(object.isNull("date_added") ? "" : object.getString("date_added")));
-                    order_dated=CommonFunctions.convert_dates(object.isNull("date_added") ? "" : object.getString("date_added"));
+                    order_date.setText(object.isNull("date_added") ? "" : object.getString("date_added"));
+                    order_dated=object.isNull("date_added") ? "" : object.getString("date_added");
                     ship_method.setText(object.isNull("shipping_method") ? "" : object.getString("shipping_method"));
 
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
@@ -447,21 +443,7 @@ public class ViewDetails extends Language {
                         for (int h = 0; h < arr1.length(); h++) {
                             JSONObject obj = arr1.getJSONObject(h);
                             PlacePO bo2 = new PlacePO();
-                           // bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
-                            DateFormat originalFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-                            DateFormat targetFormat1 = new SimpleDateFormat("dd, MMM yyyy", Locale.ENGLISH);
-                            Date dat1 = null;
-                            if (!obj.isNull("date_added")) {
-                                try {
-                                    dat1 = originalFormat1.parse(obj.getString("date_added"));
-                                    String formattedDate1 = targetFormat1.format(dat1);
-                                    bo2.setDate(formattedDate1);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                bo2.setDate("");
-                            }
+                            bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
                             bo2.setCommand(obj.isNull("comment") ? "" : obj.getString("comment"));
                             bo2.setStatus(obj.isNull("status") ? "" : obj.getString("status"));
                             list3.add(bo2);

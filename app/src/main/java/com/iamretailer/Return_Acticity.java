@@ -132,7 +132,7 @@ public class Return_Acticity extends Language {
             mob=dbcon.getphone();
         }
 
-
+        order_date=CommonFunctions.convert_dates(order_date);
 
 
         qty.addTextChangedListener(new TextWatcher() {

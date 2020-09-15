@@ -69,7 +69,7 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
 
 
         holder.comts.setText(items.get(position).getRev_text());
-        holder.rev_date.setText(CommonFunctions.date_format(items.get(position).getRev_date()));
+        holder.rev_date.setText(items.get(position).getRev_date());
         holder.user_name.setText(items.get(position).getRev_author());
         holder.user_first.setText(String.valueOf(items.get(position).getRev_author().charAt(0)).toUpperCase());
 
