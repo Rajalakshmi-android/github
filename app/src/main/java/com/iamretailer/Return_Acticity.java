@@ -132,7 +132,7 @@ public class Return_Acticity extends Language {
             mob=dbcon.getphone();
         }
 
-        order_date=CommonFunctions.convert_dates(order_date);
+        //order_date=CommonFunctions.convert_dates(order_date);
 
 
         qty.addTextChangedListener(new TextWatcher() {
@@ -429,7 +429,7 @@ public class Return_Acticity extends Language {
                 object.put("comment", param[12]);
                 Log.d("Update_in", object.toString() + "-- "+Appconstatants.Lang+" -- "+Appconstatants.CUR+" -- "+Appconstatants.sessiondata);
                 Connection connection = new Connection();
-                response = connection.sendHttpPutjson1(param[0], object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Return_Acticity.this);
+                response = connection.sendHttpPostjson(param[0], object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Return_Acticity.this);
                 logger.info("Update api resp:"+response);
                 Log.d("Update_url", response + "");
 
@@ -452,7 +452,7 @@ public class Return_Acticity extends Language {
                     if (json.getInt("success") == 1) {
                         Log.d("Update_url", json.toString() + "");
                         Toast.makeText(Return_Acticity.this, R.string.user, Toast.LENGTH_LONG).show();
-
+                        finish();
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Return_Acticity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
