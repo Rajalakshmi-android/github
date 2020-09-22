@@ -71,6 +71,7 @@ public class ViewDetails extends Language {
     private LinearLayout ordertotview;
     private FrameLayout loading;
     private FrameLayout fullayout;
+    private FrameLayout success;
     private TextView errortxt1;
     private TextView errortxt2;
     private String cur_left = "";
@@ -155,6 +156,7 @@ public class ViewDetails extends Language {
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
         tracking = findViewById(R.id.tracking);
+        success = findViewById(R.id.success);
 
         ImageView del_image = findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);
@@ -215,6 +217,7 @@ public class ViewDetails extends Language {
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
                 no_network.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 OrderTask task = new OrderTask();
                 task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
 
@@ -455,10 +458,12 @@ public class ViewDetails extends Language {
 
                     loading.setVisibility(View.GONE);
                     no_network.setVisibility(View.GONE);
+                    success.setVisibility(View.VISIBLE);
                     }
                     else
                     {
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         no_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
@@ -470,6 +475,7 @@ public class ViewDetails extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     loading.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
@@ -489,6 +495,7 @@ public class ViewDetails extends Language {
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 loading.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
             }
         }
     }

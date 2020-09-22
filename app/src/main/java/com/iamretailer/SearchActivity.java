@@ -122,7 +122,7 @@ public class SearchActivity extends Language {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int starts, int before, int count) {
 
                 if (productTask!=null)
                     productTask.cancel(true);

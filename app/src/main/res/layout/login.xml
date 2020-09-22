@@ -147,7 +147,6 @@
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center_vertical"
                                             android:layout_marginTop="@dimen/dp3"
-                                            android:layout_marginEnd="@dimen/dp20"
                                             android:background="@drawable/login_edit_bg"
                                             android:gravity="start|center_vertical"
                                             android:hint="@string/PASSWORD"

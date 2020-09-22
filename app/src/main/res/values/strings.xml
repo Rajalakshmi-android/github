@@ -378,6 +378,8 @@
 
     <string name="per_enable">Enable Permissions from settings</string>
     <string name="enable">ENABLE</string>
+    <string name="packge">package:</string>
+    <string name="app_version">App Version: </string>
     <string name="no_cat_found">No Categories found.</string>
 
     <string name="menu">Menu</string>
@@ -423,5 +425,6 @@
     //food app
     <string name="l_eat">Let\'s eat </string>
     <string name="q_food">Quality Food</string>
+
 
 </resources>

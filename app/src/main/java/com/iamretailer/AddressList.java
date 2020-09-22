@@ -141,8 +141,7 @@ public class AddressList extends Language {
             address_list.setLayoutParams(params);
         }
 
-        AddressListTask addressListTask = new AddressListTask();
-        addressListTask.execute();
+
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,6 +207,8 @@ public class AddressList extends Language {
 
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
+        AddressListTask addressListTask = new AddressListTask();
+        addressListTask.execute();
     }
 
     class CartTask extends AsyncTask<String, Void, String> {

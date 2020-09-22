@@ -484,14 +484,6 @@ public class ConfirmOrder extends Language {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.retry, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        order.performClick();
-                                    }
-                                })
-                                .show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

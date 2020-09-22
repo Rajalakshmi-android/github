@@ -29,7 +29,7 @@ public class InfoActivity  extends AppCompatActivity {
         app_name.setText(R.string.app_name);
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            cur_version.setText("App Version: "+currentVersion+"");
+            cur_version.setText(R.string.app_version+currentVersion+"");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

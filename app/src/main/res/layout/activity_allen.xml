@@ -70,6 +70,7 @@
                                             android:layout_marginStart="@dimen/dp5"
                                             android:autoMirrored="true"
                                             android:gravity="center"
+                                            android:layout_marginTop="@dimen/dp2"
                                             android:rotationY="@integer/locale_mirror_flip"
                                             android:padding="@dimen/dp3"
                                             android:src="@mipmap/sort" />

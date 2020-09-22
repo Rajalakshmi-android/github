@@ -92,6 +92,7 @@ public class MainActivity extends Drawer {
     private LinearLayout most_preloader;
     private LinearLayout newly_preloader;
     private TextView cart_count_bot;
+    private TextView cat_no_items;
     private LinearLayout category;
     private ArrayList<ProductsPO> fav_item;
     private LinearLayout helps;
@@ -138,6 +139,7 @@ public class MainActivity extends Drawer {
         LinearLayout cart_bottom = findViewById(R.id.cart_bottom);
         LinearLayout deal_bottom = findViewById(R.id.deal_bottom);
         cart_count_bot = findViewById(R.id.cart_count_bot);
+        cat_no_items = findViewById(R.id.cat_no_items);
         category = findViewById(R.id.category);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
@@ -463,14 +465,19 @@ public class MainActivity extends Drawer {
                                 }
 
                             }
+                            categ_preloader.setVisibility(View.GONE);
+                            cat_no_items.setVisibility(View.GONE);
+                            grid.setVisibility(View.VISIBLE);
+                            }else{
+                            categ_preloader.setVisibility(View.GONE);
+                            cat_no_items.setVisibility(View.VISIBLE);
+                            grid.setVisibility(View.GONE);
 
                         }
                         BrandzAdapter adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1, 0, 0);
                         grid.setAdapter(adapter1);
                         GridLayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 4);
                         grid.setLayoutManager(mLayoutManager);
-                        categ_preloader.setVisibility(View.GONE);
-                        grid.setVisibility(View.VISIBLE);
 
                         BEST_SELLING best_selling = new BEST_SELLING();
                         best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
@@ -1464,15 +1471,15 @@ public class MainActivity extends Drawer {
 
                 } else {
                     Log.i("reeaaaaaa", "inside");
-                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
-                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                    Snackbar.make(findViewById(android.R.id.content), R.string.per_enable,
+                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.enable,
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent();
                                     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                                     intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    intent.setData(Uri.parse("package:" + getPackageName()));
+                                    intent.setData(Uri.parse(R.string.packge + getPackageName()));
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);

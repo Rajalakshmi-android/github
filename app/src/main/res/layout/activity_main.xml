@@ -154,6 +154,17 @@
                                         android:horizontalSpacing="@dimen/dp3"
                                         android:scrollbars="none"
                                         />
+
+                                    <com.iamretailer.Common.CustomTextview
+                                        android:id="@+id/cat_no_items"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:padding="@dimen/dp10"
+                                        android:text="@string/no_items"
+                                        android:textColor="@color/app_text_color"
+                                        android:visibility="gone" />
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -234,7 +245,7 @@
                                         android:id="@+id/no_items1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="start"
+                                        android:layout_gravity="center"
                                         android:gravity="center"
                                         android:padding="@dimen/dp10"
                                         android:text="@string/no_items"
@@ -336,6 +347,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/dp10"
                                         android:gravity="center"
                                         android:id="@+id/most_preloader">
                                         <ProgressBar

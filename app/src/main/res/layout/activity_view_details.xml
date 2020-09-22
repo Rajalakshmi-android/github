@@ -5,14 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg_color1">
-
+    <include layout="@layout/menu_back" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/success">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp60"
         android:layout_marginBottom="@dimen/dp60"
         android:orientation="vertical">
-
-        <include layout="@layout/menu_back" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -505,7 +509,7 @@
         </FrameLayout>
 
     </LinearLayout>
-
+    </FrameLayout>
     <include
         layout="@layout/error_layout"
         android:layout_width="match_parent"
