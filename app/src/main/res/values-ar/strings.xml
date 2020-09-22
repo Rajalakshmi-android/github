@@ -388,4 +388,29 @@
     <string name="sel_sta">اختر ولايه</string>
     <string name="del_by">التوصيل بواسطه</string>
 
+    <string name="per_msg">الرجاء منح الأذونات</string>
+    <string name="fil_bg">مصنف بواسطة</string>
+    <string name="clear_all"> امسح الكل</string>
+    <string name="track">شحنة المسار</string>
+    <string name="prod_name"> اسم المنتج : </string>
+    <string name="qtys"> كمية* : </string>
+    <string name="reason_for_return">سبب الإرجاع * : </string>
+    <string name="prod_open">المنتج مفتوح * : </string>
+    <string name="other_details">تفاصيل أو عيوب أخرى :  </string>
+    <string name="other_details1">تفاصيل أو عيوب أخرى  </string>
+    <string name="return_fom">طلب إلغاء الطلب </string>
+    <string name="qty_toast">يجب ألا تكون الكمية أكبر من كمية الطلب </string>
+    <string name="nos"> لا</string>
+    <string name="yess">نعم</string>
+    <string name="qty_error">الرجاء إدخال الكمية الخاصة بك</string>
+    <string name="out_of">بعيدا عن المكان</string>
+    <string name="appinfo">App Info</string>
+    <string name="helps"> مساعدة</string>
+    //food app
+    <string name="l_eat">دعونا نأكل </string>
+    <string name="q_food">نوعية الغذاء</string>
+    <string name="packge">صفقة:</string>
+    <string name="app_version">نسخة التطبيق: </string>
+
+
 </resources>
