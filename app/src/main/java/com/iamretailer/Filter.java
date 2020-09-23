@@ -500,6 +500,7 @@ public class Filter extends AppCompatActivity {
                             sub_filter.setAdapter(filterSubAdapter);
                         }else
                         {
+                            apply=0;
                             Toast.makeText(getApplicationContext(),getResources().getString(R.string.no_filter),Toast.LENGTH_LONG).show();
                         }
 

@@ -61,6 +61,8 @@ public class Product_list extends Language {
     private String head = "";
     private boolean cart=true;
     ArrayList<ProductsPO> cart_item;
+    private ArrayList<ProductsPO> fav_item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -310,11 +312,25 @@ public class Product_list extends Language {
                                             }
                                         }
                                     }
-                                    bestAdapter.notifyDataSetChanged();
-                                }else {
+
+                                }
+
+                                if ( fav_item != null&&fav_item.size() > 0  ) {
+                                    for (int u = 0; u < list.size(); u++) {
+                                        for (int h = 0; h < fav_item.size(); h++) {
+                                            if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                list.get(u).setWish_list(true);
+                                                break;
+                                            } else {
+                                                list.get(u).setWish_list(false);
+                                            }
+                                        }
+                                    }
+
+                                }
 
                                     bestAdapter.notifyDataSetChanged();
-                                }
+
                             }
                             no_proditems.setVisibility(View.GONE);
                         } else {
@@ -455,7 +471,7 @@ public class Product_list extends Language {
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(featuredAdapter);
                             } else {
-                                if ( cart_item != null&&cart_item.size() > 0 ) {
+                                if ( cart_item != null&&cart_item.size() > 0  ) {
                                     for (int u = 0; u < feat_list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -466,10 +482,24 @@ public class Product_list extends Language {
                                             }
                                         }
                                     }
-                                    featuredAdapter.notifyDataSetChanged();
-                                }else {
-                                    featuredAdapter.notifyDataSetChanged();
+
+                                    }
+                                if ( fav_item != null&&fav_item.size() > 0  ) {
+                                    for (int u = 0; u < feat_list.size(); u++) {
+                                        for (int h = 0; h < fav_item.size(); h++) {
+                                            if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                feat_list.get(u).setWish_list(true);
+                                                break;
+                                            } else {
+                                                feat_list.get(u).setWish_list(false);
+
+                                            }
+                                        }
+                                    }
+
                                 }
+
+                                featuredAdapter.notifyDataSetChanged();
                             }
                             no_proditems.setVisibility(View.GONE);
 
@@ -668,7 +698,7 @@ public class Product_list extends Language {
             Log.i("tag", "products_Hai--->  " + resp);
             if (resp != null) {
                 try {
-                    ArrayList<ProductsPO> fav_item = new ArrayList<>();
+                     fav_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
@@ -840,10 +870,24 @@ public class Product_list extends Language {
                                             }
                                         }
                                     }
-                                    bestAdapter.notifyDataSetChanged();
-                                }else {
-                                    bestAdapter.notifyDataSetChanged();
+                                    }
+                                if ( fav_item != null&&fav_item.size() > 0  ) {
+                                    if (banner_items != null && banner_items.size() > 0) {
+                                        for (int u = 0; u < banner_items.size(); u++) {
+                                            for (int h = 0; h < fav_item.size(); h++) {
+                                                if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                    banner_items.get(u).setWish_list(true);
+                                                    break;
+                                                } else {
+                                                    banner_items.get(u).setWish_list(false);
+
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
+                                    bestAdapter.notifyDataSetChanged();
+
                             }
                             no_proditems.setVisibility(View.GONE);
                         } else {

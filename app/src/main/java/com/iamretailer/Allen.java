@@ -443,8 +443,10 @@ public class Allen extends Language {
                 }
                 if (selected == 0) {
                     filter_show.setVisibility(View.GONE);
+                    apply=0;
                 } else {
                     filter_show.setVisibility(View.VISIBLE);
+                    apply=1;
                 }
                 selected = 0;
             } else {
@@ -579,10 +581,22 @@ public class Allen extends Language {
                                             }
                                         }
                                     }
-                                    adapter.notifyDataSetChanged();
-                                } else {
-                                    adapter.notifyDataSetChanged();
+
                                 }
+                                if (fav_item != null && fav_item.size() > 0) {
+                                    for (int u = 0; u < list.size(); u++) {
+                                        for (int h = 0; h < fav_item.size(); h++) {
+                                            if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                list.get(u).setWish_list(true);
+                                                break;
+                                            } else {
+                                                list.get(u).setWish_list(false);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                adapter.notifyDataSetChanged();
                                 no_items.setVisibility(View.GONE);
                             }
                             product_count.setText(String.valueOf(list.size()));
