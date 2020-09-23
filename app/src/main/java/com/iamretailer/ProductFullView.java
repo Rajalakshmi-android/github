@@ -675,6 +675,7 @@ public class ProductFullView extends Language {
                 drawable.setBounds(0, 0, 50, 50);
                 rbn.setCompoundDrawables(drawable, null, null, null);
                 rbn.setButtonDrawable(null);
+                rbn.setBackgroundColor(Color.TRANSPARENT);
                 rbn.setPadding(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
                     rbn.setChecked(true);
@@ -740,6 +741,7 @@ public class ProductFullView extends Language {
                 drawable.setBounds(0, 0, 50, 50);
                 rbn.setCompoundDrawables(drawable, null, null, null);
                 rbn.setButtonDrawable(null);
+                rbn.setBackgroundColor(Color.TRANSPARENT);
                 rbn.setPadding(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
                     rbn.setChecked(true);
