@@ -87,6 +87,18 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             holder.items_bg.setLayoutParams(params);
 
 
+        }else if (from==3)
+        {
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.items_bg.getLayoutParams();
+            params.width = (int) context.getResources().getDimension(R.dimen.dp150);
+            params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            if (position == 0) {
+                params.setMarginStart((int) context.getResources().getDimension(R.dimen.dp10));
+
+            }
+            params.setMarginEnd((int) context.getResources().getDimension(R.dimen.dp10));
+            holder.items_bg.setLayoutParams(params);
+
         } else {
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
             lp.setMargins((int) context.getResources().getDimension(R.dimen.dp5), (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);

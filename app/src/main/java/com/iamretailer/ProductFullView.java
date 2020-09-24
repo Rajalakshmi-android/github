@@ -1640,7 +1640,7 @@ public class ProductFullView extends Language {
                                 }
                             }
                             if (list != null && list.size() != 0) {
-                                adapter = new CommonAdapter(ProductFullView.this, list, 1, 6);
+                                adapter = new CommonAdapter(ProductFullView.this, list, 3, 6);
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                                 related_products.setLayoutManager(layoutManager);
                                 related_products.setAdapter(adapter);
