@@ -143,7 +143,7 @@
 
                                         <com.iamretailer.Common.CustomEditext
                                             android:id="@+id/password"
-                                            android:layout_marginEnd="@dimen/dp25"
+                                            android:layout_marginEnd="@dimen/dp20"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center_vertical"
