@@ -143,6 +143,7 @@
 
                                         <com.iamretailer.Common.CustomEditext
                                             android:id="@+id/password"
+                                            android:layout_marginEnd="@dimen/dp25"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center_vertical"
@@ -164,6 +165,7 @@
                                     </android.support.design.widget.TextInputLayout>
 
                                     <LinearLayout
+                                        android:background="@drawable/login_edit_bg"
                                         android:id="@+id/pass"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
