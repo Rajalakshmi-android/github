@@ -231,10 +231,10 @@ public class Return_Acticity extends Language {
             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
             drawable.setBounds(0, 0, 30, 30);
-            rbn.setCompoundDrawables(drawable, null, null, null);
+            rbn.setCompoundDrawablesRelative(drawable, null, null, null);
             rbn.setButtonDrawable(null);
             rbn.setBackgroundColor(Color.TRANSPARENT);
-            rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+            rbn.setPaddingRelative(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
             if (u==0) {
                 rbn.setChecked(true);
@@ -329,10 +329,10 @@ public class Return_Acticity extends Language {
                             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
                             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
                             drawable.setBounds(0, 0, 30, 30);
-                            rbn.setCompoundDrawables(drawable, null, null, null);
+                            rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                             rbn.setButtonDrawable(null);
                             rbn.setBackgroundColor(Color.TRANSPARENT);
-                           rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                           rbn.setPaddingRelative   (0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
                             if (u==0) {
                                 rbn.setChecked(true);
@@ -451,7 +451,7 @@ public class Return_Acticity extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Log.d("Update_url", json.toString() + "");
-                        Toast.makeText(Return_Acticity.this, R.string.user, Toast.LENGTH_LONG).show();
+                        Toast.makeText(Return_Acticity.this, R.string.return_save, Toast.LENGTH_LONG).show();
                         finish();
                     } else {
                         JSONArray array = json.getJSONArray("error");

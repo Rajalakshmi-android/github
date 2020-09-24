@@ -425,6 +425,6 @@
     //food app
     <string name="l_eat">Let\'s eat </string>
     <string name="q_food">Quality Food</string>
-
+    <string name="return_save">Order Cancelled successfully</string>
 
 </resources>

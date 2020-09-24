@@ -673,10 +673,10 @@ public class ProductFullView extends Language {
                 rbn.setTextColor(getResources().getColor(R.color.text_select));
                 Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
                 drawable.setBounds(0, 0, 50, 50);
-                rbn.setCompoundDrawables(drawable, null, null, null);
+                rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                 rbn.setButtonDrawable(null);
                 rbn.setBackgroundColor(Color.TRANSPARENT);
-                rbn.setPadding(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
                     rbn.setChecked(true);
                     optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id());
@@ -739,10 +739,10 @@ public class ProductFullView extends Language {
                 rbn.setTextColor(getResources().getColor(R.color.text_select));
                 Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
                 drawable.setBounds(0, 0, 50, 50);
-                rbn.setCompoundDrawables(drawable, null, null, null);
+                rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                 rbn.setButtonDrawable(null);
                 rbn.setBackgroundColor(Color.TRANSPARENT);
-                rbn.setPadding(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
                     rbn.setChecked(true);
                     optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());

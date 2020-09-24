@@ -411,6 +411,7 @@
     <string name="q_food">نوعية الغذاء</string>
     <string name="packge">صفقة:</string>
     <string name="app_version">نسخة التطبيق: </string>
+    <string name="return_save">تم إلغاء الطلب بنجاح</string>
 
 
 </resources>
