@@ -116,7 +116,6 @@
                             android:id="@+id/grid"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/dp10"
                             android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp15"
                             android:listSelector="@android:color/transparent"

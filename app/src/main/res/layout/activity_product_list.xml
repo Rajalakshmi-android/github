@@ -36,7 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp10"
-                    android:layout_marginStart="@dimen/dp10"
                     android:layout_marginBottom="@dimen/dp10"
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none" />

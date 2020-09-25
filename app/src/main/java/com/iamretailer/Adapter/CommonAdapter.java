@@ -101,7 +101,8 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
 
         } else {
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-            lp.setMargins((int) context.getResources().getDimension(R.dimen.dp5), (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);
+            lp.setMarginStart((int) context.getResources().getDimension(R.dimen.dp12));
+            lp.setMargins(0,(int) context.getResources().getDimension(R.dimen.dp10),0,0);
             holder.items_bg.setLayoutParams(lp);
         }
         holder.product_name.setText(items.get(position).getProduct_name());
