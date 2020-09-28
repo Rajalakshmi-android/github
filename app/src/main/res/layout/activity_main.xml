@@ -162,7 +162,7 @@
                                         android:layout_gravity="center"
                                         android:gravity="center"
                                         android:padding="@dimen/dp10"
-                                        android:text="@string/no_items"
+                                        android:text="@string/no_cat_found"
                                         android:textColor="@color/app_text_color"
                                         android:visibility="gone" />
                                     <LinearLayout

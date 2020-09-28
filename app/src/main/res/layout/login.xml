@@ -36,7 +36,7 @@
 
                         >
 
-                        <com.iamretailer.Common.CustomTextViewLight
+                        <com.iamretailer.Common.CustomTextview
 
                             android:id="@+id/testcustomview"
                             android:layout_width="wrap_content"
