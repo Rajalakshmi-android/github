@@ -74,7 +74,7 @@ public class Allen extends Language {
     LinearLayout filter_show, filter_lay;
     int cancel_data = 0;
     int apply = 0;
-
+    private boolean val1=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +139,7 @@ public class Allen extends Language {
                         if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                             loadin = true;
                             val = 1;
+                            val1=false;
                             load_more.setVisibility(View.VISIBLE);
                             ProductTask productTask = new ProductTask();
                             productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -191,6 +192,7 @@ public class Allen extends Language {
                         sort_order = "ASC";
                         sort_name.setText(R.string.atoz);
                         val = 0;
+                        val1=true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -208,6 +210,7 @@ public class Allen extends Language {
                         sort_order = "DESC";
                         sort_name.setText(R.string.ztoa);
                         val = 0;
+                        val1=true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -224,6 +227,7 @@ public class Allen extends Language {
                         sort_order = "ASC";
                         sort_name.setText(R.string.matoz);
                         val = 0;
+                        val1=true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -240,6 +244,7 @@ public class Allen extends Language {
                         sort_option = "model";
                         sort_order = "DESC";
                         val = 0;
+                        val1=true;
                         start = 1;
                         sort_name.setText(R.string.mztoa);
                         ProductTask productTask = new ProductTask();
@@ -258,6 +263,7 @@ public class Allen extends Language {
                         sort_option = "price";
                         sort_order = "ASC";
                         val = 0;
+                        val1=true;
                         start = 1;
                         sort_name.setText(R.string.lowtohigh);
 
@@ -274,6 +280,7 @@ public class Allen extends Language {
                         sort_option = "price";
                         sort_order = "DESC";
                         val = 0;
+                        val1=true;
                         start = 1;
                         sort_name.setText(R.string.hightolow);
                         ProductTask productTask = new ProductTask();
@@ -294,6 +301,7 @@ public class Allen extends Language {
                         sort_order = "DESC";
                         sort_name.setText(R.string.news);
                         val = 0;
+                        val1=true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
 
@@ -312,6 +320,7 @@ public class Allen extends Language {
                         sort_order = "DESC";
                         sort_name.setText(R.string.popular);
                         val = 0;
+                        val1=true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -565,6 +574,20 @@ public class Allen extends Language {
 
                         if (list.size() != 0) {
                             if (val == 0) {
+                                if(val1) {
+                                    if (cart_item != null && cart_item.size() > 0) {
+                                        CartTask cartTask = new CartTask();
+                                        cartTask.execute(Appconstatants.cart_api);
+
+                                    }
+                                    if (fav_item != null && fav_item.size() > 0) {
+
+                                        if (db.getLoginCount() > 0) {
+                                            WISH_LIST wish_list = new WISH_LIST();
+                                            wish_list.execute(Appconstatants.Wishlist_Get);
+                                        }
+                                    }
+                                }
                                 adapter = new CommonAdapter(Allen.this, list, 0, 4);
                                 mLayoutManager = new GridLayoutManager(Allen.this, 2);
                                 category.setLayoutManager(mLayoutManager);
