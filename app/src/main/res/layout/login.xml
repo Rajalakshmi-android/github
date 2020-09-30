@@ -150,7 +150,7 @@
                                             android:layout_marginTop="@dimen/dp3"
                                             android:background="@drawable/login_edit_bg"
                                             android:gravity="start|center_vertical"
-                                            android:hint="@string/PASSWORD"
+                                            android:hint="@string/PASSWORD1"
                                             android:imeOptions="actionDone"
                                             android:inputType="textPassword"
                                             android:paddingBottom="@dimen/dp5"
