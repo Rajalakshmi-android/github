@@ -277,7 +277,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/update"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text20sp"
                             android:textStyle="bold" />
 

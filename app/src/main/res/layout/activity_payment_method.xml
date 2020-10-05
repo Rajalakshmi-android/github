@@ -107,7 +107,7 @@
                     android:singleLine="true"
                     android:text="@string/continues"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_textcolor"
                     android:textSize="@dimen/text20sp" />
             </LinearLayout>
 

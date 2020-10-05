@@ -134,7 +134,7 @@
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:text="@string/p_payment"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/button_textcolor"
                                     android:textSize="@dimen/text18sp"
                                     android:textStyle="bold" />
 

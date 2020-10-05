@@ -87,7 +87,7 @@
                 android:padding="@dimen/dp1"
                 android:scaleType="fitStart"
                 android:text="@string/cart"
-                android:textColor="@color/white"
+                android:textColor="@color/button_textcolor"
                 android:textSize="@dimen/text10sp" />
         </RelativeLayout>
 

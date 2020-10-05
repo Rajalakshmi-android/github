@@ -78,7 +78,7 @@
                             android:gravity="center"
                             android:singleLine="true"
                             android:text="@string/shop_now"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text18sp" />
                     </LinearLayout>
 
@@ -226,7 +226,7 @@
                                             android:layout_gravity="center_vertical"
                                             android:gravity="center"
                                             android:text="@string/check"
-                                            android:textColor="@color/white"
+                                            android:textColor="@color/button_textcolor"
                                             android:textSize="@dimen/text18sp"
                                             android:textStyle="bold" />
 

@@ -204,7 +204,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/add"
                             android:padding="@dimen/dp3"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text14sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"

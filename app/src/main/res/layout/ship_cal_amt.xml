@@ -65,7 +65,7 @@
                     android:text="@string/okay"
                     android:paddingStart="@dimen/dp25"
                     android:paddingEnd="@dimen/dp25"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_textcolor"
                     android:textSize="@dimen/text18sp"
                     android:textStyle="bold" />
             </FrameLayout>

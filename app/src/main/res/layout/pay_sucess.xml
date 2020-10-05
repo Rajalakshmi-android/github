@@ -71,7 +71,7 @@
                 android:paddingTop="@dimen/dp4"
                 android:textSize="@dimen/text18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/button_textcolor"
                 android:paddingBottom="@dimen/dp6"/>
         </LinearLayout>
         <LinearLayout

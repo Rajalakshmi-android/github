@@ -99,7 +99,7 @@ android:background="@color/app_bg_color1">
             android:gravity="center"
             android:singleLine="true"
             android:text="@string/cont_shop"
-            android:textColor="@color/white"
+            android:textColor="@color/button_textcolor"
             android:textSize="@dimen/text18sp"
             android:textStyle="bold" />
     </LinearLayout>

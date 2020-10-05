@@ -79,7 +79,7 @@
                 <com.iamretailer.Common.CustomTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_textcolor"
                     android:textSize="@dimen/text16sp"
                     android:text="@string/apply"
                     android:layout_gravity="center"

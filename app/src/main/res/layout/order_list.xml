@@ -276,7 +276,7 @@
                             android:paddingTop="@dimen/dp5"
                             android:paddingBottom="@dimen/dp5"
                             android:text="@string/details"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text14sp" />
                     </LinearLayout>
                 </LinearLayout>

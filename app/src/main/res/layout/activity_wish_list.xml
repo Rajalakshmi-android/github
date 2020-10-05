@@ -63,7 +63,7 @@
                             android:paddingEnd="@dimen/dp20"
                             android:paddingStart="@dimen/dp20"
                             android:text="@string/shop_now"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text12sp" />
 
 

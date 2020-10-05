@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/count_tex"
                     android:text=""
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_textcolor"
                     android:textSize="@dimen/text13sp"
 
                     />
