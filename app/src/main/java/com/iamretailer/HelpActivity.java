@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.iamretailer.Common.CommonFunctions;
+
 
 public class HelpActivity  extends AppCompatActivity {
     private DrawerLayout layDrawer;
@@ -23,6 +25,7 @@ public class HelpActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.helpactivity);
+        CommonFunctions.updateAndroidSecurityProvider(this);
         menu = (LinearLayout) findViewById(R.id.menu);
         list = (LinearLayout) findViewById(R.id.info);
         header = (TextView) findViewById(R.id.header);

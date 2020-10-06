@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 
+import com.iamretailer.Common.CommonFunctions;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class InfoActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
+        CommonFunctions.updateAndroidSecurityProvider(this);
         cur_version = (TextView) findViewById(R.id.cur_version);
         app_name = (TextView) findViewById(R.id.app_name);
         app_name.setText(R.string.app_name);
