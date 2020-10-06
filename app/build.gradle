@@ -91,5 +91,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.4.2'
     implementation files('libs/IamRetailerConnection-1.2.jar')
     implementation 'com.google.android.gms:play-services-maps:11.4.2'
-    implementation 'com.facebook.shimmer:shimmer:0.4.0'
+    implementation 'org.jsoup:jsoup:1.13.1'
 }

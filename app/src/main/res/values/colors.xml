@@ -84,4 +84,5 @@
     <color name="filter_blur">#8bffffff</color>
     <color name="view">#cccccc</color>
     <color name="white_tran">#80ffffff</color>
+    <color name="update_clr">#01865f</color>
 </resources>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="@dimen/dp20">
+
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/updatea"
+            android:textColor="@color/app_text_color"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text17sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp15">
+
+            <com.iamretailer.Common.CustomTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/download_size"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/text14sp" />
+
+            <com.iamretailer.Common.CustomTextview
+                android:id="@+id/downsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/text14sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:text="@string/updateplay"
+            android:textColor="@color/app_text_color"
+            android:textSize="@dimen/text14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp20"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RadioGroup
+                android:id="@+id/f_priority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/now"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/now"
+                    android:textColor="@color/app_text_color"
+                    android:buttonTint="@color/update_clr" />
+
+                <RadioButton
+                    android:id="@+id/wifi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/wifi"
+                    android:textColor="@color/app_text_color"
+                    android:buttonTint="@color/update_clr" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp30"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <com.iamretailer.Common.CustomTextview
+                android:id="@+id/nothanks"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp30"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/dp20"
+                android:gravity="center"
+                android:text="@string/no_thanks"
+                android:textColor="@color/update_clr"
+                android:textSize="@dimen/text14sp" />
+
+            <com.iamretailer.Common.CustomTextview
+                android:id="@+id/update"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp30"
+                android:layout_gravity="center"
+                android:background="@drawable/update"
+                android:gravity="center"
+                android:text="@string/updates"
+                android:paddingEnd="@dimen/dp25"
+                android:paddingStart="@dimen/dp25"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text14sp" />
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_marginTop="@dimen/dp20"
+            android:background="@color/app_view_color" />
+
+        <ImageView
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp50"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@mipmap/googleplay" />
+
+
+    </LinearLayout>
+</LinearLayout>

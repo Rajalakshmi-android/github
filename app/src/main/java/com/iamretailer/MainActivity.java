@@ -17,13 +17,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,7 +55,12 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -96,6 +104,8 @@ public class MainActivity extends Drawer {
     private LinearLayout category;
     private ArrayList<ProductsPO> fav_item;
     private LinearLayout helps;
+    private String currentVersion;
+    private String downloadsize;
 
 
     @Override
@@ -289,6 +299,13 @@ public class MainActivity extends Drawer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        new GetVersionCode().execute();
 
 
         GetBannerTask task1 = new GetBannerTask();
@@ -1573,6 +1590,119 @@ public class MainActivity extends Drawer {
 
             }
         }
+    }
+
+
+    private class GetVersionCode extends AsyncTask<Void, String, String> {
+
+        @Override
+
+        protected String doInBackground(Void... voids) {
+
+            String newVersion = null;
+            String newsize = null;
+            try {
+                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + MainActivity.this.getPackageName()  + "&hl=en")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get();
+                if (document != null) {
+                    Elements element = document.getElementsContainingOwnText("Current Version");
+                    for (Element ele : element) {
+                        if (ele.siblingElements() != null) {
+                            Elements sibElemets = ele.siblingElements();
+                            for (Element sibElemet : sibElemets) {
+                                newVersion = sibElemet.text();
+                            }
+                        }
+                    }
+                    Elements element1 = document.getElementsContainingOwnText("Size");
+                    for (Element ele : element1) {
+                        if (ele.siblingElements() != null) {
+                            Elements sibElemets = ele.siblingElements();
+                            for (Element sibElemet : sibElemets) {
+                                newsize = sibElemet.text();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Log.i("gkhjfikj",document.toString()+"dsafsaff");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.i("gkhjfikj",e.toString()+"");
+            }
+            Log.d("update", "Current version " + currentVersion + "playstore version "+newVersion+"size"+newsize);
+            downloadsize=newsize;
+
+            return newVersion;
+        }
+
+
+        @Override
+
+        protected void onPostExecute(String onlineVersion) {
+
+            super.onPostExecute(onlineVersion);
+
+            if (onlineVersion != null && !onlineVersion.isEmpty()) {
+
+                if (Float.valueOf(currentVersion) < Float.valueOf(onlineVersion)) {
+
+                    showDetailpopup();
+
+                }
+            }
+
+            Log.d("update", "Current version " + currentVersion + "playstore version " + onlineVersion);
+
+        }
+    }
+
+
+    private void showDetailpopup() {
+        AlertDialog.Builder dial = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popUpView = inflater.inflate(R.layout.update_screen, null);
+        dial.setView(popUpView);
+        final AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity = Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.show();
+        TextView update=(TextView)popUpView.findViewById(R.id.update);
+        TextView nothanks=(TextView)popUpView.findViewById(R.id.nothanks);
+        TextView downsize=(TextView)popUpView.findViewById(R.id.downsize);
+        downsize.setText(downloadsize);
+        Log.d("sdfsfsd","fjfgjfjfj");
+        update.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName()));
+                startActivity(intent);
+                popupStore.dismiss();
+            }
+        });
+
+        nothanks.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                popupStore.dismiss();
+            }
+        });
+
+
+
+
     }
 
 }

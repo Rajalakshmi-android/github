@@ -428,4 +428,13 @@
     <string name="q_food">Quality Food</string>
     <string name="return_save">Order Cancelled successfully</string>
 
+
+    <string name="updatea">Update Alert !</string>
+    <string name="download_size">Download size:</string>
+    <string name="updateplay">i.am.retailer recommends that you update to the latest version. You keep using this app while downloading the update.</string>
+    <string name="now"><b>Now (over any network)</b> \nData charges may apply</string>
+    <string name="wifi"><b>When Wi-fi is available</b></string>
+    <string name="no_thanks">NO THANKS</string>
+    <string name="updates">Update</string>
+
 </resources>

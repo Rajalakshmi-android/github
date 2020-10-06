@@ -414,4 +414,15 @@
     <string name="return_save">تم إلغاء الطلب بنجاح</string>
 
 
+    <string name="updatea">تنبيه التحديث!</string>
+    <string name="download_size">حجم التنزيل:</string>
+    <string name="updateplay">يوصي التطبيق بالتحديث إلى أحدث إصدار. تستمر في استخدام هذا التطبيق أثناء تنزيل التحديث.</string>
+    <string name="now"><b>الآن (عبر أي شبكة)</b> \nقد يتم تطبيق رسوم البيانات</string>
+    <string name="wifi"><b>عندما تكون شبكة Wi-fi متاحة</b></string>
+    <string name="no_thanks">لا شكرا</string>
+    <string name="updates">تحديث</string>
+
+
+
+
 </resources>
