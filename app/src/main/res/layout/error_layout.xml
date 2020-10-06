@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/dp17"
+            android:textSize="@dimen/text17sp"
             android:text="@string/check_network"
             android:textColor="@color/add_text2" />
 
