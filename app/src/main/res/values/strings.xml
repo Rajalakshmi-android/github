@@ -437,4 +437,7 @@
     <string name="no_thanks">NO THANKS</string>
     <string name="updates">Update</string>
 
+    //gray
+    <string name="search_item">Say somthing</string>
+
 </resources>

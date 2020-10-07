@@ -153,5 +153,6 @@
 	<dimen name="dp48">48dp</dimen>
 	<dimen name="dp170">170dp</dimen>
 
+	<dimen name="dp220">220dp</dimen>
 
 </resources>
