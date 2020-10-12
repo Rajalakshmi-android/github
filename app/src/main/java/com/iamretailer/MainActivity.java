@@ -793,6 +793,7 @@ public class MainActivity extends Drawer {
         final FrameLayout product_successs;
         final FrameLayout product_loadings;
         final FrameLayout no_network;
+        CommonAdapter prod_Adapters;
 
         GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading, FrameLayout no_net) {
             no_proditem = no_proditems;
@@ -918,8 +919,8 @@ public class MainActivity extends Drawer {
                             }
                             if (productbO.size() != 0) {
 
-                                bestAdapters = new CommonAdapter(MainActivity.this, productbO, 1, 1);
-                                product_lists.setAdapter(bestAdapters);
+                                prod_Adapters = new CommonAdapter(MainActivity.this, productbO, 1, 1);
+                                product_lists.setAdapter(prod_Adapters);
                                 product_lists.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 product_loadings.setVisibility(View.GONE);
                                 product_successs.setVisibility(View.VISIBLE);
@@ -1018,35 +1019,55 @@ public class MainActivity extends Drawer {
                             cart_count1.setText(String.valueOf(qty));
                             cart_count_bot.setText(String.valueOf(qty));
                         }
-
-                        if (feat_list != null && feat_list.size() > 0) {
-                            for (int u = 0; u < feat_list.size(); u++) {
-                                for (int h = 0; h < cart_item.size(); h++) {
-                                    if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
-                                        feat_list.get(u).setCart_list(true);
-                                        break;
-                                    } else {
-                                        feat_list.get(u).setCart_list(false);
+                        if (cart_item.size() > 0) {
+                            if (feat_list != null && feat_list.size() > 0) {
+                                for (int u = 0; u < feat_list.size(); u++) {
+                                    for (int h = 0; h < cart_item.size(); h++) {
+                                        if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                            feat_list.get(u).setCart_list(true);
+                                            break;
+                                        } else {
+                                            feat_list.get(u).setCart_list(false);
+                                        }
                                     }
                                 }
+                                featuredProduct.notifyDataSetChanged();
                             }
-                            featuredProduct.notifyDataSetChanged();
-                        }
 
-                        if (list != null && list.size() > 0) {
-                            for (int u = 0; u < list.size(); u++) {
-                                for (int h = 0; h < cart_item.size(); h++) {
-                                    if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
-                                        list.get(u).setCart_list(true);
-                                        break;
-                                    } else {
-                                        list.get(u).setCart_list(false);
+                            if (list != null && list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
+                                    for (int h = 0; h < cart_item.size(); h++) {
+                                        if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                            list.get(u).setCart_list(true);
+                                            break;
+                                        } else {
+                                            list.get(u).setCart_list(false);
+                                        }
                                     }
                                 }
+
+
+                                bestAdapters.notifyDataSetChanged();
+                            }
+                        }else{
+                            if (feat_list != null && feat_list.size() > 0) {
+                                for (int u = 0; u < feat_list.size(); u++) {
+
+                                            feat_list.get(u).setCart_list(false);
+                                }
+                                featuredProduct.notifyDataSetChanged();
                             }
 
+                            if (list != null && list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
 
-                            bestAdapters.notifyDataSetChanged();
+                                            list.get(u).setCart_list(false);
+
+                                }
+
+
+                                bestAdapters.notifyDataSetChanged();
+                            }
                         }
 
 
