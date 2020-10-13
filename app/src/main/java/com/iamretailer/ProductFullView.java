@@ -1824,7 +1824,7 @@ public class ProductFullView extends Language {
                 } else {
 
                     if (optionsPOArrayList.get(y).getPrefix().equalsIgnoreCase("-")) {
-                        price2 = price2 + optionsPOArrayList.get(y).getPrices();
+                        price2 = price2 - optionsPOArrayList.get(y).getPrices();
                     } else {
                         price2 = price2 + optionsPOArrayList.get(y).getPrices();
                     }
