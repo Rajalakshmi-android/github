@@ -451,6 +451,7 @@ public class ConfirmOrder extends Language {
 
         protected String doInBackground(String... param) {
             logger.info("Place order api" + param[0]);
+            Log.i("place_order",param[0]+"");
             String response = null;
             try {
                 Connection connection = new Connection();
