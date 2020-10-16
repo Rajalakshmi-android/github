@@ -438,7 +438,8 @@
     <string name="no_thanks">لا شكرا</string>
     <string name="updates">تحديث</string>
 
-
+    //gray
+    <string name="search_item">قل شيئا</string>
 
 
 </resources>

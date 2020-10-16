@@ -116,7 +116,8 @@
                                         android:id="@+id/order_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="start"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="start|center_vertical"
                                         android:text="@string/com_time"
                                         android:textColor="@color/button_textcolor"
                                         android:textSize="@dimen/text14sp" />
