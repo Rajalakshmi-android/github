@@ -301,9 +301,9 @@
     <string name="razorpay">رازورباي</string>
     <string name="colrs">اللون</string>
     <string name="colss">الألوان</string>
-    <string name="radio">radio</string>
+    <string name="radio">مذياع</string>
     <string name="size">بحجم</string>
-    <string name="chelk_box">checkbox</string>
+    <string name="chelk_box">خانة الاختيار</string>
     <string name="pay_type">يجب تحديد نوع الدفع</string>
     <string name="store">فروعنا</string>
     <string name="store1">متاجرنا</string>
@@ -330,6 +330,21 @@
     <string name="order_id">رقم التعريف الخاص بالطلب : </string>
     <string name="pending">قيد الانتظار</string>
     <string name="checkss"> للخروج السريع </string>
+    <string name="price_range">نطاق السعر</string>
+    <string name="from">من عند:</string>
+    <string name="too">إلى:</string>
+    <string name="no_categories_found">لم يتم العثور على فئات</string>
+    <string name="no_data_found">لاتوجد بيانات !!</string>
+    <string name="no_filter">لم يتم العثور على مرشح</string>
+    <string name="pay_msg">فشل معاملة الدفع ، في حالة خصم أي مبلغ من حسابك ، يرجى الاتصال +918525990990</string>
+    <string name="pay_failed">فشل معاملة الدفع </string>
+    <string name="pay_fail">عملية الدفع فشلت:</string>
+    <string name="pay_sucess">تم الدفع بنجاح:</string>
+    <string name="err_pay">خطأ في الدفع:</string>
+    <string name="per_grant">تم تأمين التصريح</string>
+    <string name="per_den">طلب الاذن مرفوض</string>
+
+
 
 
     //stemp
@@ -405,7 +420,7 @@
     <string name="yess">نعم</string>
     <string name="qty_error">الرجاء إدخال الكمية الخاصة بك</string>
     <string name="out_of">بعيدا عن المكان</string>
-    <string name="appinfo">App Info</string>
+    <string name="appinfo">معلومات التطبيق</string>
     <string name="helps"> مساعدة</string>
     //food app
     <string name="l_eat">دعونا نأكل </string>
