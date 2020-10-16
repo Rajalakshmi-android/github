@@ -131,10 +131,10 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
         if (items.get(position).isOut_of_stock()) {
             holder.out_of_stock.setVisibility(View.GONE);
-            holder.qty.setVisibility(View.VISIBLE);
+
         } else {
             holder.out_of_stock.setVisibility(View.VISIBLE);
-            holder.qty.setVisibility(View.GONE);
+
         }
 
 

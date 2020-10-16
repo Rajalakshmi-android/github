@@ -110,7 +110,7 @@ tab目录下的页面</string>
     <string name="succ">成功</string>
     <string name="cmp">公司</string>
     <string name="add_1">地址 1*</string>
-    <string name="add_2">地址 2*</string>
+    <string name="add_2">地址 2</string>
     <string name="city">所在城市*</string>
     <string name="pin">邮政编码*</string>
     <string name="Quantity">数量 :</string>

@@ -177,8 +177,6 @@
                                     <RadioGroup
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:autoMirrored="true"
-                                        android:rotationY="@integer/locale_mirror_flip"
                                         android:id="@+id/radio"
                                         />
                                 </LinearLayout>
@@ -213,8 +211,6 @@
                                         android:orientation="horizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:autoMirrored="true"
-                                        android:rotationY="@integer/locale_mirror_flip"
                                         android:id="@+id/radiogroup"
                                         >
 

@@ -142,7 +142,7 @@
     <string name="succ">Success</string>
     <string name="cmp">Company</string>
     <string name="add_1">Address Line 1*</string>
-    <string name="add_2">Address Line 2*</string>
+    <string name="add_2">Address Line 2</string>
     <string name="city">City*</string>
     <string name="pin">Pincode*</string>
     <string name="Quantity">Quantity</string>
