@@ -119,6 +119,11 @@ public class Drawer extends Language {
         title.setText(s3);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
+        if(Appconstatants.store_locator==1){
+            store.setVisibility(View.VISIBLE);
+        }else{
+            store.setVisibility(View.GONE);
+        }
         if(dbCon.getLoginCount()>0){
             email.setVisibility(View.VISIBLE);
             email.setText(dbCon.getName());

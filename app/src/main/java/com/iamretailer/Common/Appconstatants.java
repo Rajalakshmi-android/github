@@ -138,6 +138,10 @@ public class Appconstatants {
 
     public  static  String LICENSE_KEY="1234567890";
     public static int need_brand_product=1;
+    public static int store_locator=1;
+
+    public static String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381","12.120000"};
+    public static String[] lng = {"77.799435", "77.9803", "78.119775", "80.270718", "77.756652", "76.955832", "77.4892","76.680000"};
 
     public static String Payment_Success =domain+"index.php?route=rest/razorpay";
 

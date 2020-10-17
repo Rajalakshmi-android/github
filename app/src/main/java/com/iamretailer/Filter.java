@@ -385,7 +385,7 @@ public class Filter extends AppCompatActivity {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("tag", "Hai--->" + resp);
+            Log.i("tag", "filter_Hai--->" + resp);
             if (resp != null) {
 
                 try {
@@ -428,7 +428,7 @@ public class Filter extends AppCompatActivity {
 
                             FilterPO filterPO=new FilterPO();
                             filterPO.setFilter_name(key);
-                            if (filterPO.getFilter_name().equalsIgnoreCase("brand") || filterPO.getFilter_name().equalsIgnoreCase("price_range"))
+                            if (filterPO.getFilter_name().equalsIgnoreCase("brand") || filterPO.getFilter_name().contains("price"))
                             {
                                 if (filterPO.getFilter_name().equalsIgnoreCase("brand"))
                                 {
@@ -448,12 +448,12 @@ public class Filter extends AppCompatActivity {
                                     filter_list.add(filterPO);
                                 }
 
-                                if (filterPO.getFilter_name().equalsIgnoreCase("price_range"))
+                                if (filterPO.getFilter_name().contains("price"))
                                 {
-                                    JSONArray array1=arr.getJSONArray("price_range");
+                                    JSONArray array1=arr.getJSONArray("price");
                                         filter_sub_list=new ArrayList<>();
                                         FilterPO filterPO1=new FilterPO();
-                                        filterPO1.setFilter_name("price_range");
+                                        filterPO1.setFilter_name("price");
                                         filterPO1.setSeek_min(Float.parseFloat(String.valueOf(array1.get(0))));
                                         filterPO1.setSeek_max(Float.parseFloat(String.valueOf(array1.get(1))));
                                         filterPO1.setPrice_values(Float.parseFloat(String.valueOf(array1.get(0))));
@@ -475,7 +475,7 @@ public class Filter extends AppCompatActivity {
                                 filterPO.setFilter_name(key);
                                 filter_list.add(filterPO);
                             }
-                            if (key.equalsIgnoreCase("price_range"));
+                            if (key.equalsIgnoreCase("price"));
                             {
 
                                 FilterPO filterPO=new FilterPO();

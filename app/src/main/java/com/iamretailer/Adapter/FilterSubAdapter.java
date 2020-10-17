@@ -55,7 +55,7 @@ public class FilterSubAdapter extends RecyclerView.Adapter<FilterSubAdapter.MyVi
 
 
 
-        if (items.get(position).getFilter_name().equalsIgnoreCase("price_range"))
+        if (items.get(position).getFilter_name().contains("price"))
         {
          holder.item_select.setVisibility(View.GONE);
          holder.price_view.setVisibility(View.VISIBLE);

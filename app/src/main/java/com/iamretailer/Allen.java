@@ -382,7 +382,7 @@ public class Allen extends Language {
                             manufacturer = manufacturer + filterPOS.get(y).getFilterPOS().get(j).getSub_id() + ",";
 
                     }
-                } else if (filterPOS.get(y).getFilter_name().equalsIgnoreCase("price_range")) {
+                } else if (filterPOS.get(y).getFilter_name().contains("price")) {
                     pr = "";
                     if (filterPOS.get(y).getFilterPOS().size() > 0) {
                         if (filterPOS.get(y).getFilterPOS().get(0).isSelected())
