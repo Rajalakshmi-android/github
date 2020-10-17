@@ -23,7 +23,6 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
     private final Context context;
 
     public SizeOptionAdapters(Context ctx, ArrayList<SingleOptionPO> imageModelArrayList) {
-
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
         this.context = ctx;
@@ -45,15 +44,12 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
 
         if (items.get(position).getImga_url().isEmpty()) {
             if (items.get(position).isImgSel()) {
-
                 holder.name.setTextColor(ContextCompat.getColor(context, R.color.white));
                 holder.txt_bg.setBackgroundResource(R.drawable.sizegreen);
             } else {
-
                 holder.name.setTextColor(ContextCompat.getColor(context, R.color.app_text_color));
                 holder.txt_bg.setBackgroundResource(R.drawable.size_grey_bg);
             }
-
 
         } else {
             if (items.get(position).isImgSel()) {
@@ -65,7 +61,6 @@ public class SizeOptionAdapters extends RecyclerView.Adapter<SizeOptionAdapters.
             }
         }
         holder.name.setText(items.get(position).getName());
-
 
     }
 

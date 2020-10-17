@@ -1,6 +1,5 @@
 package com.iamretailer.Adapter;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,8 +13,6 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import com.iamretailer.POJO.ImgBo;
-
-
 import com.iamretailer.R;
 import com.squareup.picasso.Picasso;
 
@@ -47,17 +44,14 @@ public class PointerAdapter extends ArrayAdapter<ImgBo> {
         holder.bg = convertView.findViewById(R.id.background);
         if (detail != null) {
             if (detail.isImgSel()) {
-             //   holder.bg.setAlpha(0.0f);
-                // holder.name.setBackgroundColor(Color.parseColor("#80f05c5b"));
             } else {
-                //holder.name.setBackgroundColor(Color.parseColor("#80ffffff"));
                 holder.bg.setAlpha(0.4f);
             }
         }
 
         if (detail != null) {
-            if (detail.getUrl().length()>0)
-            Picasso.with(context).load(detail.getUrl()).resize(200, 200).placeholder(R.mipmap.place_holder).into(holder.name);
+            if (detail.getUrl().length() > 0)
+                Picasso.with(context).load(detail.getUrl()).resize(200, 200).placeholder(R.mipmap.place_holder).into(holder.name);
             else
                 Picasso.with(context).load(R.mipmap.place_holder).resize(200, 200).placeholder(R.mipmap.place_holder).into(holder.name);
         }

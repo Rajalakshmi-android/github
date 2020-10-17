@@ -2,7 +2,6 @@ package com.iamretailer;
 
 
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,15 +10,14 @@ import android.widget.TextView;
 
 import com.iamretailer.Common.CommonFunctions;
 
-import java.io.IOException;
 
-public class InfoActivity  extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity {
 
 
     private TextView cur_version;
     private TextView app_name;
     private String currentVersion;
-    private String downloadsize;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +30,12 @@ public class InfoActivity  extends AppCompatActivity {
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             String mystring = getResources().getString(R.string.app_version);
-            cur_version.setText(mystring+" "+currentVersion+"");
+            cur_version.setText(mystring + " " + currentVersion + "");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
-        Log.i("currentversion",currentVersion+"");
+
     }
 
 }

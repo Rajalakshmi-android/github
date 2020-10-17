@@ -51,14 +51,14 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
             pos = bundle.getInt("image");
         }
 
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         DBController dbController = new DBController(FullView.this);
-        Appconstatants.sessiondata= dbController.getSession();
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
         LinearLayout menu = findViewById(R.id.menu);
         horizontalListView = findViewById(R.id.horizlist);
-        cart_count= findViewById(R.id.cart_count);
+        cart_count = findViewById(R.id.cart_count);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +73,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
             }
         });
         datalist = new ArrayList<>();
-        if(img!=null&&img.size()>0){
+        if (img != null && img.size() > 0) {
             for (int i = 0; i < img.size(); i++) {
                 ImgBo bo = new ImgBo();
                 bo.setUrl(img.get(i));
@@ -81,8 +81,6 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
             }
 
         }
-
-
         viewPager = findViewById(R.id.pager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
@@ -158,6 +156,7 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
     }
+
     private class CartTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -168,15 +167,15 @@ public class FullView extends Language implements Imagefragment.OnFragmentIntera
         protected String doInBackground(String... param) {
 
 
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata + "");
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,FullView.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, FullView.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {

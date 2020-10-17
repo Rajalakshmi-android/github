@@ -155,7 +155,7 @@ public class MainActivity extends Drawer {
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(seller_list!=null&&seller_list.size()>0){
+                if (seller_list != null && seller_list.size() > 0) {
 
                     if (level == 0) {
                         Intent intent = new Intent(MainActivity.this, Category.class);
@@ -214,8 +214,6 @@ public class MainActivity extends Drawer {
         grid.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
-
                 if (position == 3) {
 
                     if (level == 0) {
@@ -230,7 +228,7 @@ public class MainActivity extends Drawer {
                     }
                 } else {
 
-                    if (seller_list.get(position).getArrayList()!=null&&seller_list.get(position).getArrayList().size() == 0) {
+                    if (seller_list.get(position).getArrayList() != null && seller_list.get(position).getArrayList().size() == 0) {
                         Intent u = new Intent(MainActivity.this, Allen.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("id", seller_list.get(position).getS_id());
@@ -306,7 +304,6 @@ public class MainActivity extends Drawer {
             e.printStackTrace();
         }
         new GetVersionCode().execute();
-
 
         GetBannerTask task1 = new GetBannerTask();
         task1.execute(Appconstatants.BANNER_IMAGEa);
@@ -430,7 +427,7 @@ public class MainActivity extends Drawer {
 
                             for (int h = 0; h < arr.length(); h++) {
                                 JSONObject obj = arr.getJSONObject(h);
-                                if (!obj.isNull("categories")&&obj.getJSONArray("categories").length() > 0)
+                                if (!obj.isNull("categories") && obj.getJSONArray("categories").length() > 0)
                                     level++;
                             }
 
@@ -485,7 +482,7 @@ public class MainActivity extends Drawer {
                             categ_preloader.setVisibility(View.GONE);
                             cat_no_items.setVisibility(View.GONE);
                             grid.setVisibility(View.VISIBLE);
-                            }else{
+                        } else {
                             categ_preloader.setVisibility(View.GONE);
                             cat_no_items.setVisibility(View.VISIBLE);
                             grid.setVisibility(View.GONE);
@@ -1049,11 +1046,11 @@ public class MainActivity extends Drawer {
 
                                 bestAdapters.notifyDataSetChanged();
                             }
-                        }else{
+                        } else {
                             if (feat_list != null && feat_list.size() > 0) {
                                 for (int u = 0; u < feat_list.size(); u++) {
 
-                                            feat_list.get(u).setCart_list(false);
+                                    feat_list.get(u).setCart_list(false);
                                 }
                                 featuredProduct.notifyDataSetChanged();
                             }
@@ -1061,7 +1058,7 @@ public class MainActivity extends Drawer {
                             if (list != null && list.size() > 0) {
                                 for (int u = 0; u < list.size(); u++) {
 
-                                            list.get(u).setCart_list(false);
+                                    list.get(u).setCart_list(false);
 
                                 }
 
@@ -1183,7 +1180,6 @@ public class MainActivity extends Drawer {
             if (resp != null) {
                 try {
 
-
                     feat_list = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
@@ -1236,8 +1232,8 @@ public class MainActivity extends Drawer {
 
                             }
 
-                            if ( feat_list!=null&&feat_list.size() != 0 ) {
-                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list,1,1);
+                            if (feat_list != null && feat_list.size() != 0) {
+                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list, 1, 1);
                                 horizontalListView.setAdapter(featuredProduct);
                                 horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items1.setVisibility(View.GONE);
@@ -1383,8 +1379,8 @@ public class MainActivity extends Drawer {
                             }
 
 
-                            if (list!=null&&list.size() != 0  ) {
-                                bestAdapters = new CommonAdapter(MainActivity.this, list,1,1);
+                            if (list != null && list.size() != 0) {
+                                bestAdapters = new CommonAdapter(MainActivity.this, list, 1, 1);
                                 best_selling_list.setAdapter(bestAdapters);
                                 best_selling_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items.setVisibility(View.GONE);
@@ -1456,14 +1452,12 @@ public class MainActivity extends Drawer {
 
     private void change_langs(String languageToLoad) {
 
-        ArrayList<String> lang_list= LanguageList.getLang_list();
-        String set_lan="en";
-        if(lang_list!=null&&lang_list.size()>0){
+        ArrayList<String> lang_list = LanguageList.getLang_list();
+        String set_lan = "en";
+        if (lang_list != null && lang_list.size() > 0) {
 
-            for (int h=0;h<lang_list.size();h++)
-            {
-                if (languageToLoad.contains(lang_list.get(h)))
-                {
+            for (int h = 0; h < lang_list.size(); h++) {
+                if (languageToLoad.contains(lang_list.get(h))) {
                     set_lan = lang_list.get(h);
 
                 }
@@ -1623,7 +1617,7 @@ public class MainActivity extends Drawer {
             String newVersion = null;
             String newsize = null;
             try {
-                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + MainActivity.this.getPackageName()  + "&hl=en")
+                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + MainActivity.this.getPackageName() + "&hl=en")
                         .timeout(30000)
                         .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
                         .referrer("http://www.google.com")
@@ -1647,17 +1641,15 @@ public class MainActivity extends Drawer {
                             }
                         }
                     }
-                }
-                else
-                {
-                    Log.i("gkhjfikj",document.toString()+"dsafsaff");
+                } else {
+                    Log.i("gkhjfikj", document.toString() + "dsafsaff");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.i("gkhjfikj",e.toString()+"");
+                Log.i("gkhjfikj", e.toString() + "");
             }
-            Log.d("update", "Current version " + currentVersion + "playstore version "+newVersion+"size"+newsize);
-            downloadsize=newsize;
+            Log.d("update", "Current version " + currentVersion + "playstore version " + newVersion + "size" + newsize);
+            downloadsize = newsize;
 
             return newVersion;
         }
@@ -1695,17 +1687,17 @@ public class MainActivity extends Drawer {
         lp.gravity = Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
-        TextView update=(TextView)popUpView.findViewById(R.id.update);
-        TextView nothanks=(TextView)popUpView.findViewById(R.id.nothanks);
-        TextView downsize=(TextView)popUpView.findViewById(R.id.downsize);
+        TextView update = (TextView) popUpView.findViewById(R.id.update);
+        TextView nothanks = (TextView) popUpView.findViewById(R.id.nothanks);
+        TextView downsize = (TextView) popUpView.findViewById(R.id.downsize);
         downsize.setText(downloadsize);
-        Log.d("sdfsfsd","fjfgjfjfj");
+        Log.d("sdfsfsd", "fjfgjfjfj");
         update.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()));
                 startActivity(intent);
                 popupStore.dismiss();
             }
@@ -1720,8 +1712,6 @@ public class MainActivity extends Drawer {
                 popupStore.dismiss();
             }
         });
-
-
 
 
     }

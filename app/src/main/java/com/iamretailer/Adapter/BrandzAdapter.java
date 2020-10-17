@@ -30,9 +30,7 @@ public class BrandzAdapter extends RecyclerView.Adapter<BrandzAdapter.MyViewHold
     private final Context context;
     private final int from;
 
-
-
-    public BrandzAdapter(Context ctx, ArrayList<BrandsPO> imageModelArrayList, int from,int width,int heiht ) {
+    public BrandzAdapter(Context ctx, ArrayList<BrandsPO> imageModelArrayList, int from, int width, int heiht) {
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
         this.context = ctx;

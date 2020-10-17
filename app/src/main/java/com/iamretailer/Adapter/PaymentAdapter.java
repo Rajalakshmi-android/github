@@ -1,9 +1,7 @@
 package com.iamretailer.Adapter;
 
-
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +31,7 @@ public class PaymentAdapter extends ArrayAdapter<TypePO>
         this.items = item;
         this.form = from;
     }
+
     public void setChild1(int newClickedChildPosition) {
         this.pos = newClickedChildPosition;
     }
@@ -42,31 +41,25 @@ public class PaymentAdapter extends ArrayAdapter<TypePO>
         // TODO Auto-generated method stub
         ViewHolder holder = new ViewHolder();
         if (convertView == null) {
-
             convertView = mInflater.inflate(R.layout.payment_item, null);
             convertView.setTag(holder);
-
         }
         holder.text = convertView.findViewById(R.id.payment_text);
         holder.paymentimage = convertView.findViewById(R.id.paymentimg);
 
         if (form == 0) {
             holder.text.setText(items.get(position).getTitle());
-
         } else {
-            String textss=items.get(position).getTitle() + " - " + items.get(position).getAmount();
+            String textss = items.get(position).getTitle() + " - " + items.get(position).getAmount();
             holder.text.setText(textss);
-
         }
 
         if (position == pos) {
             holder.paymentimage.setImageResource(R.mipmap.addres_selects);
             notifyDataSetChanged();
 
-
         } else {
             holder.paymentimage.setImageResource(R.mipmap.gray_circle1);
-
         }
 
         return convertView;

@@ -135,7 +135,7 @@ public class MyOrders extends Language {
         }
     }
 
-    private class  CartTask extends AsyncTask<String, Void, String> {
+    private class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -251,9 +251,7 @@ public class MyOrders extends Language {
                                     bo.setOrder_id(obj.isNull("order_id") ? "" : obj.getString("order_id"));
                                     bo.setOrder_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     bo.setOrder_status(obj.isNull("status") ? "" : obj.getString("status"));
-                                     bo.setOrder_date(obj.isNull("date_added") ? "" : obj.getString("date_added"));
-
-
+                                    bo.setOrder_date(obj.isNull("date_added") ? "" : obj.getString("date_added"));
                                     bo.setOrder_products(obj.isNull("products") ? "" : obj.getString("products"));
                                     bo.setOrder_total(obj.isNull("total") ? "" : obj.getString("total"));
                                     bo.setPayment(obj.isNull("payment_method") ? "" : obj.getString("payment_method"));
@@ -290,7 +288,7 @@ public class MyOrders extends Language {
                             loading.setVisibility(View.GONE);
                             error_network.setVisibility(View.VISIBLE);
                             errortxt1.setText(R.string.error_msg);
-                            String error=array.getString(0) + "";
+                            String error = array.getString(0) + "";
                             errortxt2.setText(error);
                             Toast.makeText(MyOrders.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         }

@@ -45,7 +45,7 @@ public class AddressList extends Language {
     private int from;
     private int pos;
     private FrameLayout cont;
-    private int has_ship=0;
+    private int has_ship = 0;
     private TextView no_address;
     private TextView cart_count;
     private FrameLayout success;
@@ -67,12 +67,12 @@ public class AddressList extends Language {
         LinearLayout retry = findViewById(R.id.retry);
         address_list = findViewById(R.id.address_list);
         TextView header = findViewById(R.id.header);
-        no_address= findViewById(R.id.no_address);
-        success=findViewById(R.id.success);
+        no_address = findViewById(R.id.no_address);
+        success = findViewById(R.id.success);
         DBController dbController = new DBController(getApplicationContext());
 
         LinearLayout cart_items = findViewById(R.id.cart_items);
-        cart_count= findViewById(R.id.cart_count);
+        cart_count = findViewById(R.id.cart_count);
 
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +83,11 @@ public class AddressList extends Language {
 
 
         Bundle cc = getIntent().getExtras();
-        from= cc != null ? cc.getInt("from") : 0;
-        has_ship= cc != null ? cc.getInt("has_ship"):0;
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.sessiondata= dbController.getSession();
-        Appconstatants.CUR= dbController.getCurCode();
+        from = cc != null ? cc.getInt("from") : 0;
+        has_ship = cc != null ? cc.getInt("has_ship") : 0;
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.CUR = dbController.getCurCode();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,42 +95,37 @@ public class AddressList extends Language {
             }
         });
 
-        if(from==1){
-            address_list.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.dp40));
-        }else{
-            address_list.setPadding(0,0,0,0);
+        if (from == 1) {
+            address_list.setPadding(0, 0, 0, (int) getResources().getDimension(R.dimen.dp40));
+        } else {
+            address_list.setPadding(0, 0, 0, 0);
         }
 
         address_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (from!=4)
-                {
-
-                for (int u = 0; u < addressPOS.size(); u++) {
-                    addressPOS.get(u).setSelect(false);
-                }
-                addressPOS.get(position).setSelect(true);
-                addressAdapter.notifyDataSetChanged();
-                address_id = addressPOS.get(position).getAdd_id();
-                pos = position;
+                if (from != 4) {
+                    for (int u = 0; u < addressPOS.size(); u++) {
+                        addressPOS.get(u).setSelect(false);
+                    }
+                    addressPOS.get(position).setSelect(true);
+                    addressAdapter.notifyDataSetChanged();
+                    address_id = addressPOS.get(position).getAdd_id();
+                    pos = position;
                 }
             }
         });
 
-        if (from==4)
-        {
+        if (from == 4) {
             cont.setVisibility(View.GONE);
             header.setText(R.string.my_add);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.FILL_PARENT,
                     ViewGroup.LayoutParams.FILL_PARENT
             );
-            params.setMargins(0,  (int) getResources().getDimension(R.dimen.dp10), 0, (int) getResources().getDimension(R.dimen.dp5));
+            params.setMargins(0, (int) getResources().getDimension(R.dimen.dp10), 0, (int) getResources().getDimension(R.dimen.dp5));
             address_list.setLayoutParams(params);
-        }
-        else
-        {
+        } else {
             header.setText(R.string.del_add);
             cont.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -156,19 +151,17 @@ public class AddressList extends Language {
             @Override
             public void onClick(View v) {
 
-                if (from==4)
-                {
+                if (from == 4) {
                     Intent i = new Intent(AddressList.this, Address.class);
                     Bundle bundle = new Bundle();
                     bundle.putInt("from", 4);
                     i.putExtras(bundle);
                     startActivityForResult(i, 3);
-                }
-                else {
+                } else {
                     Intent intent = new Intent(AddressList.this, Address.class);
                     Bundle bundle = new Bundle();
                     bundle.putInt("from", 2);
-                    bundle.putInt("has_ship",has_ship);
+                    bundle.putInt("has_ship", has_ship);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -181,17 +174,15 @@ public class AddressList extends Language {
             @Override
             public void onClick(View v) {
 
-                if ( address_id != null&&!address_id.equalsIgnoreCase("")) {
+                if (address_id != null && !address_id.equalsIgnoreCase("")) {
 
-                   if (has_ship==1) {
-                       AddressTask addressTask = new AddressTask();
-                       addressTask.execute();
-                   }
-                   else
-                   {
-                       SaveBillAddress addressTask = new SaveBillAddress();
-                       addressTask.execute();
-                   }
+                    if (has_ship == 1) {
+                        AddressTask addressTask = new AddressTask();
+                        addressTask.execute();
+                    } else {
+                        SaveBillAddress addressTask = new SaveBillAddress();
+                        addressTask.execute();
+                    }
 
                 } else {
                     Toast.makeText(AddressList.this, R.string.select_addres, Toast.LENGTH_LONG).show();
@@ -204,7 +195,6 @@ public class AddressList extends Language {
     @Override
     protected void onResume() {
         super.onResume();
-
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
         AddressListTask addressListTask = new AddressListTask();
@@ -219,14 +209,14 @@ public class AddressList extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
 
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,AddressList.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {
@@ -290,7 +280,7 @@ public class AddressList extends Language {
                 Log.d("Add_list_api", Appconstatants.addres_list);
                 Log.d("Add_list_api", Appconstatants.sessiondata);
 
-                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
+                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 logger.info("Add_list_resp" + response);
 
             } catch (Exception e) {
@@ -330,14 +320,11 @@ public class AddressList extends Language {
 
                             }
 
-                            if (from==4)
-                            {
-                                addressAdapter = new AddressAdapter(AddressList.this, R.layout.address_item, addressPOS,0);
+                            if (from == 4) {
+                                addressAdapter = new AddressAdapter(AddressList.this, R.layout.address_item, addressPOS, 0);
                                 address_list.setAdapter(addressAdapter);
-                            }
-                            else
-                            {
-                                addressAdapter = new AddressAdapter(AddressList.this, R.layout.address_item, addressPOS,1);
+                            } else {
+                                addressAdapter = new AddressAdapter(AddressList.this, R.layout.address_item, addressPOS, 1);
                                 address_list.setAdapter(addressAdapter);
                                 address_id = addressPOS.get(0).getAdd_id();
                                 addressPOS.get(0).setSelect(true);
@@ -361,7 +348,7 @@ public class AddressList extends Language {
                         success.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.get(0) + "";
+                        String error_msg = array.get(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(AddressList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -407,7 +394,6 @@ public class AddressList extends Language {
 
     private class AddressTask extends AsyncTask<Object, Void, String> {
 
-
         @Override
         protected void onPreExecute() {
             Log.d("Add_Save", "started");
@@ -420,8 +406,6 @@ public class AddressList extends Language {
         }
 
         protected String doInBackground(Object... param) {
-
-
             String response = null;
             Connection connection = new Connection();
             try {
@@ -430,7 +414,7 @@ public class AddressList extends Language {
                 object.put("address_id", address_id);
                 Log.d("Add_req_ex", object.toString() + "");
                 logger.info("Address save old user api req" + object);
-                response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
+                response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 logger.info("Address save old user api resp" + response);
                 Log.d("Add_respex", response);
 
@@ -501,13 +485,11 @@ public class AddressList extends Language {
 
     private class SaveBillAddress extends AsyncTask<Object, Void, String> {
 
-
         @Override
         protected void onPreExecute() {
             Log.d("Add_Save", "started");
 
-            if (has_ship!=1)
-            {
+            if (has_ship != 1) {
                 pDialog1 = new ProgressDialog(AddressList.this);
                 pDialog1.setMessage(getResources().getString(R.string.loading_wait));
                 pDialog1.setCancelable(false);
@@ -526,7 +508,7 @@ public class AddressList extends Language {
                 object.put("address_id", address_id);
                 Log.d("Add_req_existing", object.toString());
                 logger.info("Bill Address save old user api req" + object);
-                response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,AddressList.this);
+                response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 Log.d("Add_respex", response);
                 logger.info("Bill Address save old user api resp" + response);
 
@@ -548,11 +530,9 @@ public class AddressList extends Language {
                     if (json.getInt("success") == 1) {
 
                         Intent i;
-                        if (has_ship==1) {
+                        if (has_ship == 1) {
                             i = new Intent(AddressList.this, DeliveryMethod.class);
-                        }
-                        else
-                        {
+                        } else {
                             i = new Intent(AddressList.this, PaymentMethod.class);
                         }
                         i.putExtra("addres_id", address_id);
@@ -567,7 +547,7 @@ public class AddressList extends Language {
                         i.putExtra("mobile", addressPOS.get(pos).getPhone());
                         i.putExtra("country", addressPOS.get(pos).getCountry());
                         i.putExtra("state", addressPOS.get(pos).getZone());
-                        i.putExtra("has_ship",has_ship);
+                        i.putExtra("has_ship", has_ship);
                         startActivity(i);
 
                     } else {
@@ -608,8 +588,7 @@ public class AddressList extends Language {
         }
     }
 
-    public void add_call()
-    {
+    public void add_call() {
         AddressListTask addressListTask = new AddressListTask();
         addressListTask.execute();
     }

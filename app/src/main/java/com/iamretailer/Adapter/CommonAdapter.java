@@ -87,8 +87,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             holder.items_bg.setLayoutParams(params);
 
 
-        }else if (from==3)
-        {
+        } else if (from == 3) {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.items_bg.getLayoutParams();
             params.width = (int) context.getResources().getDimension(R.dimen.dp150);
             params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -102,7 +101,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
         } else {
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
             lp.setMarginStart((int) context.getResources().getDimension(R.dimen.dp12));
-            lp.setMargins(0,(int) context.getResources().getDimension(R.dimen.dp10),0,0);
+            lp.setMargins(0, (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);
             holder.items_bg.setLayoutParams(lp);
         }
         holder.product_name.setText(items.get(position).getProduct_name());
@@ -168,7 +167,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             @Override
             public void onClick(View v) {
 
-                if (items.get(position).getSingleOptionPOS()!=null && items.get(position).getSingleOptionPOS().size() > 0) {
+                if (items.get(position).getSingleOptionPOS() != null && items.get(position).getSingleOptionPOS().size() > 0) {
                     Intent intent = new Intent(context, ProductFullView.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("productid", items.get(position).getProduct_id());

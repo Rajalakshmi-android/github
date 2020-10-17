@@ -50,15 +50,6 @@
                     android:textColor="@color/conf_tex"
                     android:textSize="@dimen/text14sp"
                     />
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_marginStart="@dimen/dp5"
-                    android:layout_marginTop="@dimen/dp2"
-                    android:contentDescription="@null"
-                    android:layout_width="@dimen/dp15"
-                    android:layout_height="@dimen/dp15"
-                    android:src="@mipmap/pending_my"
-                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

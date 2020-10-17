@@ -18,7 +18,7 @@ import io.fabric.sdk.android.Fabric;
 
 
 public class AppClass extends Application {
-    private static  Context context;
+    private static Context context;
 
     public static Context getContext() {
         return context;

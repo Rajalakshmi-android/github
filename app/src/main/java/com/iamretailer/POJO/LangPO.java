@@ -2,7 +2,7 @@ package com.iamretailer.POJO;
 
 public class LangPO {
 
-    String lang_id,lang_name,lang_code;
+    String lang_id, lang_name, lang_code;
     boolean select_lang;
 
     public boolean isSelect_lang() {

@@ -50,12 +50,11 @@ public class Category_level extends Language {
     private Sub_Category_Adapter categoryAdapter;
     private TextView cat_name;
     private AndroidLogger logger;
-    private int pos=0;
+    private int pos = 0;
     private int width;
     private int height;
     private LinearLayout success;
     private TextView no_items1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +74,9 @@ public class Category_level extends Language {
         fullayout = findViewById(R.id.fullayout);
         sub_cat_list = findViewById(R.id.sub_cat_list);
         cat_name = findViewById(R.id.cat_name);
-        success=findViewById(R.id.success);
+        success = findViewById(R.id.success);
         LinearLayout retry = findViewById(R.id.retry);
-        no_items1=findViewById(R.id.no_items1);
+        no_items1 = findViewById(R.id.no_items1);
         DBController controller = new DBController(Category_level.this);
         Appconstatants.sessiondata = controller.getSession();
         Appconstatants.Lang = controller.get_lang_code();
@@ -87,12 +86,10 @@ public class Category_level extends Language {
             pos = bundle.getInt("pos");
         }
         Display display = getWindowManager().getDefaultDisplay();
-
         Point point = new Point();
         display.getSize(point);
         width = point.x;
-        height =point.y;
-
+        height = point.y;
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,13 +194,12 @@ public class Category_level extends Language {
 
                 try {
                     cate_list = new ArrayList<>();
-
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
 
-                        if (arr.length()>0) {
+                        if (arr.length() > 0) {
 
                             for (int h = 0; h < arr.length(); h++) {
 
@@ -256,9 +252,7 @@ public class Category_level extends Language {
                             cate_list.get(pos).setSelect(true);
                             success.setVisibility(View.VISIBLE);
                             no_items1.setVisibility(View.GONE);
-                        }
-                        else
-                        {
+                        } else {
                             no_items1.setVisibility(View.VISIBLE);
                             success.setVisibility(View.GONE);
                         }
@@ -271,7 +265,7 @@ public class Category_level extends Language {
                         no_items1.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.getString(0) + "";
+                        String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(Category_level.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

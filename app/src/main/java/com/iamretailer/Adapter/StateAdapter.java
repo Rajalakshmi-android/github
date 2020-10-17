@@ -22,7 +22,6 @@ public class StateAdapter extends ArrayAdapter<CountryPO> {
 
     public StateAdapter(Context context, int resource, ArrayList<CountryPO> objects) {
         super(context, resource, 0, objects);
-
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mResource = resource;
@@ -46,8 +45,7 @@ public class StateAdapter extends ArrayAdapter<CountryPO> {
 
         TextView textView = view.findViewById(R.id.txt);
 
-        if (position==0)
-        {
+        if (position == 0) {
             textView.setTextColor(mContext.getResources().getColor(R.color.plceholder));
 
         }

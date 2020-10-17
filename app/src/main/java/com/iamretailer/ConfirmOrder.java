@@ -64,7 +64,7 @@ public class ConfirmOrder extends Language {
     private String lname;
     private String company;
     private String addressone;
-    private String addresstwo="";
+    private String addresstwo = "";
     private String city;
     private String pincode;
     private String country;
@@ -96,7 +96,6 @@ public class ConfirmOrder extends Language {
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
     private String pay_code;
 
-    //------paypal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,7 +152,7 @@ public class ConfirmOrder extends Language {
         header.setText(R.string.confirm);
         String c_name = fname + " " + lname;
         cus_name.setText(c_name);
-        if (addresstwo!=null&&addresstwo.length() != 0) {
+        if (addresstwo != null && addresstwo.length() != 0) {
             String cus_add = addressone + ", " + addresstwo + ",";
             cus_address_one.setText(cus_add);
 
@@ -292,7 +291,6 @@ public class ConfirmOrder extends Language {
 
     private class ConfirmOrderTask extends AsyncTask<String, Void, String> {
 
-
         @Override
         protected void onPreExecute() {
 
@@ -381,9 +379,9 @@ public class ConfirmOrder extends Language {
                         if (totals.size() > 0) {
                             subtotal.setText(totals.get(totals.size() - 1).getTot_amt_txt());
 
-                            if (db.get_cur_Left()!=null&&db.get_cur_Left().length() > 0)
+                            if (db.get_cur_Left() != null && db.get_cur_Left().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Left(), "").replace(",", ""));
-                            else if (db.get_cur_Right()!=null&&db.get_cur_Right().length() > 0)
+                            else if (db.get_cur_Right() != null && db.get_cur_Right().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Right(), "").replace(",", ""));
                         }
                         success.setVisibility(View.VISIBLE);
@@ -419,8 +417,6 @@ public class ConfirmOrder extends Language {
                                 }
                             })
                             .show();
-
-
                 }
 
             } else {
@@ -451,7 +447,7 @@ public class ConfirmOrder extends Language {
 
         protected String doInBackground(String... param) {
             logger.info("Place order api" + param[0]);
-            Log.i("place_order",param[0]+"");
+            Log.i("place_order", param[0] + "");
             String response = null;
             try {
                 Connection connection = new Connection();
@@ -469,8 +465,8 @@ public class ConfirmOrder extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("confirm_order", "confirm_order--->  " + resp);
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             if (resp != null) {
 
                 try {
@@ -516,9 +512,6 @@ public class ConfirmOrder extends Language {
         }
     }
 
-
-
-
     private void details() {
         final Dialog dialog = new Dialog(ConfirmOrder.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -533,8 +526,6 @@ public class ConfirmOrder extends Language {
         dialog.getWindow().setAttributes(lp);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-
-
         TextView order_id = dialog.findViewById(R.id.orderid);
         final LinearLayout details = dialog.findViewById(R.id.details);
         TextView header = dialog.findViewById(R.id.header);
@@ -562,14 +553,12 @@ public class ConfirmOrder extends Language {
             }
         });
 
-
         dialog.show();
 
 
     }
 
     private void addLayout(final PlacePO placePO, LinearLayout view_list) {
-
         View convertView = LayoutInflater.from(this).inflate(R.layout.place_list, view_list, false);
         TextView name = convertView.findViewById(R.id.p_name);
         ImageView imag = convertView.findViewById(R.id.place_img);
@@ -577,8 +566,6 @@ public class ConfirmOrder extends Language {
         TextView qunt = convertView.findViewById(R.id.p_qty);
         TextView amount = convertView.findViewById(R.id.total);
         TextView p_option = convertView.findViewById(R.id.p_option);
-
-
         name.setText(placePO.getProduct_name());
         price.setText(placePO.getPrcie());
         qunt.setText(placePO.getQty());
@@ -659,7 +646,7 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
+            if (pDialog != null)
                 pDialog.dismiss();
 
             if (resp != null) {
@@ -723,10 +710,9 @@ public class ConfirmOrder extends Language {
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("paymentExample", "The user canceled.");
-                // Toast.makeText(ConfirmOrder.this, R.string.failed, Toast.LENGTH_LONG).show();
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
                 Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-                //  Toast.makeText(ConfirmOrder.this, R.string.failed, Toast.LENGTH_LONG).show();
+
             }
         } else if (requestCode == 3 && data != null) {
             fname = data.getStringExtra("first");
@@ -772,8 +758,7 @@ public class ConfirmOrder extends Language {
             options.put("name", getResources().getString(R.string.app_name));//Razorpay Corp
             options.put("description", "Order Payment");//Demoing Charges
             options.put("currency", "INR");
-            // options.put("currency", db.getCurCode());
-            Log.d("Cur_va", db.getCurCode()+" ");
+            Log.d("Cur_va", db.getCurCode() + " ");
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", db.getEmail());
@@ -864,7 +849,7 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
+            if (pDialog != null)
                 pDialog.dismiss();
             Log.i("Cart", "payment_success11--" + resp);
             if (resp != null) {
@@ -938,9 +923,6 @@ public class ConfirmOrder extends Language {
 
                 JSONObject json = new JSONObject();
                 json.put("order_id", order_id);
-                //  json.put("order_id", param[0]);
-
-
                 Log.d("Cart_input", json.toString());
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 Log.i("tag", "payment_success_item" + json);
@@ -958,8 +940,8 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Cart", "payment_success11--" + resp);
             if (resp != null) {
                 try {

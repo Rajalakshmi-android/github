@@ -20,14 +20,12 @@ public class CurAdapter extends ArrayAdapter<CurPO> {
     private final int resource;
     private final ArrayList<CurPO> items;
 
-
     public CurAdapter(Context context, int resource, ArrayList<CurPO> item) {
         super(context, resource, item);
         mInflater = LayoutInflater.from(context);
         this.resource = resource;
         this.items = item;
     }
-
 
     @NonNull
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
@@ -38,8 +36,8 @@ public class CurAdapter extends ArrayAdapter<CurPO> {
             convertView.setTag(holder);
         }
         holder.lang_name = convertView.findViewById(R.id.lang_name);
-        holder.img= convertView.findViewById(R.id.img);
-        String lang=items.get(position).getCur_title()+" ("+items.get(position).getCur_left()+items.get(position).getCur_right()+")";
+        holder.img = convertView.findViewById(R.id.img);
+        String lang = items.get(position).getCur_title() + " (" + items.get(position).getCur_left() + items.get(position).getCur_right() + ")";
         holder.lang_name.setText(lang);
 
 
@@ -55,7 +53,6 @@ public class CurAdapter extends ArrayAdapter<CurPO> {
     }
 
     class ViewHolder {
-
         TextView lang_name;
         ImageView img;
     }

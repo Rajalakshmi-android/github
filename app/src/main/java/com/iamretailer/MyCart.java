@@ -155,7 +155,7 @@ public class MyCart extends Language {
             @Override
             public void onClick(View view) {
 
-                if(list!=null&&list.size()>0){
+                if (list != null && list.size() > 0) {
 
                     for (int j = 0; j < list.size(); j++) {
 
@@ -251,7 +251,7 @@ public class MyCart extends Language {
         }
         rupee_front.setText(cur_left);
         rupee_back.setText(cur_right);
-        String val = String.format(Locale.ENGLISH,"%.2f", sum);
+        String val = String.format(Locale.ENGLISH, "%.2f", sum);
 
         subtotal.setText(val);
     }
@@ -291,8 +291,8 @@ public class MyCart extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Add_list", "Add_list--->  " + resp);
             if (resp != null) {
 
@@ -318,7 +318,7 @@ public class MyCart extends Language {
                                 addressPO.setCity(object1.isNull("city") ? "" : object1.getString("city"));
                                 addressPO.setZone(object1.isNull("zone") ? "" : object1.getString("zone"));
                                 addressPO.setCountry(object1.isNull("country") ? "" : object1.getString("country"));
-                                if (!object1.isNull("address_1")&&object1.getString("address_1").length() > 0)
+                                if (!object1.isNull("address_1") && object1.getString("address_1").length() > 0)
                                     addressPOS.add(addressPO);
 
                             }
@@ -442,11 +442,10 @@ public class MyCart extends Language {
                             loading.setVisibility(View.GONE);
                             cart_count.setText(String.valueOf(0));
                         } else if (dd instanceof JSONObject) {
-                            // It's an object
                             JSONObject jsonObject = (JSONObject) dd;
 
                             has_shopp = jsonObject.isNull("has_shipping") ? 0 : jsonObject.getInt("has_shipping");
-                            if (has_shopp==1)
+                            if (has_shopp == 1)
                                 shipping.setVisibility(View.VISIBLE);
                             else
                                 shipping.setVisibility(View.GONE);
@@ -587,8 +586,6 @@ public class MyCart extends Language {
 
                         Object dd = json.get("data");
                         if (dd instanceof JSONObject) {
-                            // It's an object
-
                             JSONObject jsonObject = (JSONObject) dd;
                             JSONArray array = new JSONArray(jsonObject.getString("products"));
                             int qty = 0;
@@ -696,7 +693,6 @@ public class MyCart extends Language {
                     po1.setCount_id(0);
                     po1.setCount_name(getResources().getString(R.string.selc_oun));
                     country_list.add(po1);
-
 
                     if (json.getInt("success") == 1) {
                         JSONArray jsonArray = new JSONArray(json.getString("data"));
@@ -887,8 +883,8 @@ public class MyCart extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.d("cal_Api", resp + "");
             if (resp != null) {
                 try {
@@ -898,8 +894,8 @@ public class MyCart extends Language {
                         pin_code.setText("");
                         country.setSelection(0);
                         state.setSelection(0);
-                        if(alertReviewDialog!=null)
-                        alertReviewDialog.dismiss();
+                        if (alertReviewDialog != null)
+                            alertReviewDialog.dismiss();
 
                         show_Cal_ship_amount(jsonObject);
 

@@ -44,7 +44,6 @@ public class ColorAdapters extends RecyclerView.Adapter<ColorAdapters.MyViewHold
             Log.d("value_", e.toString());
         }
 
-
         if (items.get(position).isImgSel()) {
             holder.colortic.setVisibility(View.VISIBLE);
             holder.text_bg.setBackgroundResource(R.drawable.black_rounds);
@@ -61,7 +60,7 @@ public class ColorAdapters extends RecyclerView.Adapter<ColorAdapters.MyViewHold
         return items.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         final LinearLayout colortic;
         final TextView color;
         final FrameLayout text_bg;

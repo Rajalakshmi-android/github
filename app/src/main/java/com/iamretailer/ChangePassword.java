@@ -50,7 +50,6 @@ public class ChangePassword extends Language {
         TextView login_page = findViewById(R.id.login_page);
         LinearLayout home = findViewById(R.id.home);
 
-
         change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +98,6 @@ public class ChangePassword extends Language {
         protected void onPreExecute() {
 
             Log.d("Login", "started");
-
-
             pDialog = new ProgressDialog(ChangePassword.this);
             pDialog.setMessage(getResources().getString(R.string.loading_wait));
             pDialog.setCancelable(false);
@@ -129,8 +126,8 @@ public class ChangePassword extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.d("login_ss", resp + "");
             if (resp != null) {
                 try {

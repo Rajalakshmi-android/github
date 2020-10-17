@@ -74,7 +74,7 @@ public class Allen extends Language {
     LinearLayout filter_show, filter_lay;
     int cancel_data = 0;
     int apply = 0;
-    private boolean val1=false;
+    private boolean val1 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,10 +120,8 @@ public class Allen extends Language {
 
         filterPOS = new ArrayList<>();
 
-
         ProductTask productTask = new ProductTask();
         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
-
 
         category.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -139,7 +137,7 @@ public class Allen extends Language {
                         if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                             loadin = true;
                             val = 1;
-                            val1=false;
+                            val1 = false;
                             load_more.setVisibility(View.VISIBLE);
                             ProductTask productTask = new ProductTask();
                             productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -164,11 +162,9 @@ public class Allen extends Language {
             }
         });
 
-
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(Allen.this);
                 View sheetView = Allen.this.getLayoutInflater().inflate(R.layout.sortview, null);
                 mBottomSheetDialog.setContentView(sheetView);
@@ -192,7 +188,7 @@ public class Allen extends Language {
                         sort_order = "ASC";
                         sort_name.setText(R.string.atoz);
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -210,7 +206,7 @@ public class Allen extends Language {
                         sort_order = "DESC";
                         sort_name.setText(R.string.ztoa);
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -227,7 +223,7 @@ public class Allen extends Language {
                         sort_order = "ASC";
                         sort_name.setText(R.string.matoz);
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -244,7 +240,7 @@ public class Allen extends Language {
                         sort_option = "model";
                         sort_order = "DESC";
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         sort_name.setText(R.string.mztoa);
                         ProductTask productTask = new ProductTask();
@@ -263,7 +259,7 @@ public class Allen extends Language {
                         sort_option = "price";
                         sort_order = "ASC";
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         sort_name.setText(R.string.lowtohigh);
 
@@ -280,7 +276,7 @@ public class Allen extends Language {
                         sort_option = "price";
                         sort_order = "DESC";
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         sort_name.setText(R.string.hightolow);
                         ProductTask productTask = new ProductTask();
@@ -301,7 +297,7 @@ public class Allen extends Language {
                         sort_order = "DESC";
                         sort_name.setText(R.string.news);
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
 
@@ -320,7 +316,7 @@ public class Allen extends Language {
                         sort_order = "DESC";
                         sort_name.setText(R.string.popular);
                         val = 0;
-                        val1=true;
+                        val1 = true;
                         start = 1;
                         ProductTask productTask = new ProductTask();
                         productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -373,7 +369,6 @@ public class Allen extends Language {
             filterPOS = (ArrayList<FilterPO>) data.getSerializableExtra("filter_array");
             option_value = "";
             apply = data.getExtras().getInt("apply");
-            Log.i("tag", "selected111----- " + apply);
             for (int y = 0; y < filterPOS.size(); y++) {
                 if (filterPOS.get(y).getFilter_name().equalsIgnoreCase("brand")) {
                     manufacturer = "";
@@ -424,20 +419,18 @@ public class Allen extends Language {
                 filter_show.setVisibility(View.VISIBLE);
             }
 
-
             if (selected == 0) {
                 apply = 0;
-                Log.i("tag", "selected333----- " + selected);
+
             } else {
                 apply = 1;
-                Log.i("tag", "selected444----- " + selected);
+
             }
             selected = 0;
 
         } else {
             cancel_data = data.getIntExtra("cancel_data", 0);
             apply = data.getIntExtra("apply", 0);
-
 
             if (cancel_data == 0) {
                 for (int j = 0; j < filterPOS.size(); j++) {
@@ -452,10 +445,10 @@ public class Allen extends Language {
                 }
                 if (selected == 0) {
                     filter_show.setVisibility(View.GONE);
-                    apply=0;
+                    apply = 0;
                 } else {
                     filter_show.setVisibility(View.VISIBLE);
-                    apply=1;
+                    apply = 1;
                 }
                 selected = 0;
             } else {
@@ -574,7 +567,7 @@ public class Allen extends Language {
 
                         if (list.size() != 0) {
                             if (val == 0) {
-                                if(val1) {
+                                if (val1) {
                                     if (cart_item != null && cart_item.size() > 0) {
                                         CartTask cartTask = new CartTask();
                                         cartTask.execute(Appconstatants.cart_api);
@@ -686,7 +679,6 @@ public class Allen extends Language {
 
         @Override
         protected void onPreExecute() {
-
         }
 
         protected String doInBackground(String... param) {
@@ -734,7 +726,6 @@ public class Allen extends Language {
                                 cart_item.add(bo);
                             }
 
-
                             cart_count.setText(qty + "");
                             if (list.size() > 0 && list != null) {
                                 for (int u = 0; u < list.size(); u++) {
@@ -775,7 +766,6 @@ public class Allen extends Language {
 
         protected String doInBackground(String... param) {
             logger.info("WIsh list api" + param[0]);
-
 
             String response = null;
             try {

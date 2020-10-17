@@ -1,5 +1,7 @@
 package com.iamretailer.POJO;
+
 import java.util.ArrayList;
+
 public class PlacePO {
     int place_img;
     String product_name;
@@ -148,7 +150,7 @@ public class PlacePO {
         this.qty = qty;
     }
 
-   String url;
+    String url;
 
     public String getUrl() {
         return url;
@@ -158,11 +160,8 @@ public class PlacePO {
         this.url = url;
     }
 
-
-
-
-   int product_option_id, option_id;
-    String type,value,required;
+    int product_option_id, option_id;
+    String type, value, required;
 
     public String getPrice() {
         return price;

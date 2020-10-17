@@ -2,21 +2,16 @@ package com.iamretailer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.iamretailer.Common.CommonFunctions;
 
 
-public class HelpActivity  extends AppCompatActivity {
-    private DrawerLayout layDrawer;
+public class HelpActivity extends AppCompatActivity {
     private LinearLayout menu;
-    private LinearLayout leftdrawer;
     private LinearLayout list;
     private TextView header;
     private LinearLayout cart_items;
@@ -40,8 +35,6 @@ public class HelpActivity  extends AppCompatActivity {
             }
         });
 
-       
-
         menu.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -51,8 +44,9 @@ public class HelpActivity  extends AppCompatActivity {
             }
         });
 
-       
+
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

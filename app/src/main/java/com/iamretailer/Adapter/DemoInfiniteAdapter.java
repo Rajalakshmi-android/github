@@ -18,35 +18,29 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-
 public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
 
     private final Context context;
     private final ArrayList<BannerBo> itemList;
 
-
     public DemoInfiniteAdapter(Context context, ArrayList<BannerBo> itemList, boolean isInfinite) {
         super(context, itemList, isInfinite);
-
-        this.context=context;
-        this.itemList=itemList;
-
+        this.context = context;
+        this.itemList = itemList;
     }
 
     @Override
     protected View getItemView(View convertView, final int listPosition, ViewPager container) {
         if (convertView == null) {
-
-                convertView = LayoutInflater.from(context).inflate(R.layout.image_view, null);
-
+            convertView = LayoutInflater.from(context).inflate(R.layout.image_view, null);
             container.addView(convertView);
         }
-        ImageView imageView= convertView.findViewById(R.id.browsebackground);
-        LinearLayout banner= convertView.findViewById(R.id.banner);
+        ImageView imageView = convertView.findViewById(R.id.browsebackground);
+        LinearLayout banner = convertView.findViewById(R.id.banner);
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Appconstatants.need_brand_product==1) {
+                if (Appconstatants.need_brand_product == 1) {
                     Intent intent = new Intent(context, Product_list.class);
                     Bundle best = new Bundle();
                     best.putString("view_all", "banners");
@@ -59,17 +53,12 @@ public class DemoInfiniteAdapter extends LoopingPagerAdapter<BannerBo> {
             }
         });
 
-
-
-
-            if (itemList.get(listPosition).getImage() != null && itemList.get(listPosition).getImage().length() > 0  )
-                Picasso.with(context).load(itemList.get(listPosition).getImage()).placeholder(R.mipmap.place_holder).into(imageView);
-            else
-                Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(imageView);
+        if (itemList.get(listPosition).getImage() != null && itemList.get(listPosition).getImage().length() > 0)
+            Picasso.with(context).load(itemList.get(listPosition).getImage()).placeholder(R.mipmap.place_holder).into(imageView);
+        else
+            Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).into(imageView);
 
         return convertView;
     }
-
-
 
 }

@@ -2,7 +2,7 @@ package com.iamretailer.POJO;
 
 public class CurPO {
 
-    String cur_title,cur_code,cur_left,cur_right;
+    String cur_title, cur_code, cur_left, cur_right;
 
     boolean isselected;
 

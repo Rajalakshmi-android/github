@@ -47,9 +47,9 @@ public class ContactForm extends Language {
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         dbController = new DBController(ContactForm.this);
-        Appconstatants.sessiondata= dbController.getSession();
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
         LinearLayout menu = findViewById(R.id.menu);
         LinearLayout cart_items = findViewById(R.id.cart_items);
         TextView header = findViewById(R.id.header);
@@ -62,7 +62,7 @@ public class ContactForm extends Language {
         header.setText(R.string.contactus);
         cart_items.setVisibility(View.GONE);
 
-        if(dbController.getLoginCount()>0){
+        if (dbController.getLoginCount() > 0) {
             mailid.setText(dbController.getEmail());
             full_name.setText(dbController.getName());
         }
@@ -127,7 +127,7 @@ public class ContactForm extends Language {
                 Log.d("Input_format", Appconstatants.CONTACT_API);
                 Log.d("Input_format", Appconstatants.sessiondata);
                 logger.info("Contact_form api req" + Appconstatants.CONTACT_API);
-                response = connection.sendHttpPostjson(Appconstatants.CONTACT_API, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,ContactForm.this);
+                response = connection.sendHttpPostjson(Appconstatants.CONTACT_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ContactForm.this);
                 logger.info("Contact_form api resp" + response);
                 Log.d("Input_format", response);
 
@@ -139,8 +139,8 @@ public class ContactForm extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Contact_form", "Contact_form--->  " + resp);
             if (resp != null) {
 
@@ -148,7 +148,7 @@ public class ContactForm extends Language {
                     JSONObject json1 = new JSONObject(resp);
                     if (json1.getInt("success") == 1) {
                         showCallPopup();
-                        if(dbController.getLoginCount()>0){
+                        if (dbController.getLoginCount() > 0) {
                             mailid.setText(dbController.getEmail());
                             full_name.setText(dbController.getName());
                         }
@@ -198,23 +198,23 @@ public class ContactForm extends Language {
         }
     }
 
-    private void showCallPopup(){
+    private void showCallPopup() {
         final AlertDialog.Builder dial = new AlertDialog.Builder(ContactForm.this);
         View popUpView = getLayoutInflater().inflate(R.layout.contact_sucess, null);
         dial.setView(popUpView);
         final AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity= Gravity.CENTER;
+        lp.gravity = Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay= popUpView.findViewById(R.id.okay);
+        LinearLayout okay = popUpView.findViewById(R.id.okay);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupStore.dismiss();
-                startActivity(new Intent(ContactForm.this,MainActivity.class));
+                startActivity(new Intent(ContactForm.this, MainActivity.class));
             }
         });
 

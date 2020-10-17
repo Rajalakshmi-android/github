@@ -129,7 +129,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                //    .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
                 .requestServerAuthCode(serverClientId)
                 .requestEmail()
                 .requestId().requestIdToken(serverClientId)
@@ -144,7 +143,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 .build();
 
 
-        // googleSignInClient.signOut();
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,7 +243,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 String something = new String(Base64.encode(md.digest(), 0));
-                //String something = new String(Base64.encodeBytes(md.digest()));
                 Log.e("hash key", something);
             }
         } catch (PackageManager.NameNotFoundException e1) {
@@ -318,8 +315,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
         protected void onPostExecute(String resp) {
 
-           if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
                 try {
@@ -327,7 +324,6 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         cus_id = jsonObject.isNull("customer_id") ? "" : jsonObject.getString("customer_id");
-
                         String cus_f_name = jsonObject.isNull("firstname") ? "" : jsonObject.getString("firstname");
                         String cus_l_name = jsonObject.isNull("lastname") ? "" : jsonObject.getString("lastname");
                         String cus_email = jsonObject.isNull("email") ? "" : jsonObject.getString("email");
@@ -353,15 +349,15 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
 
                     } else {
-                        if(pDialog!=null)
-                        pDialog.dismiss();
+                        if (pDialog != null)
+                            pDialog.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Login.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
-                    if(pDialog!=null)
-                    pDialog.dismiss();
+                    if (pDialog != null)
+                        pDialog.dismiss();
                     e.printStackTrace();
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
@@ -376,8 +372,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 }
 
             } else {
-                if(pDialog!=null)
-                pDialog.dismiss();
+                if (pDialog != null)
+                    pDialog.dismiss();
                 Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
@@ -393,7 +389,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
     private void showpopup() {
         open = new Dialog(Login.this);
         open.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup = getLayoutInflater().inflate(R.layout.forgot_password, null,false);
+        popup = getLayoutInflater().inflate(R.layout.forgot_password, null, false);
         TextView gologin = popup.findViewById(R.id.gologin);
         submit = popup.findViewById(R.id.submit);
         final EditText username = popup.findViewById(R.id.username);
@@ -476,8 +472,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
                 try {
@@ -485,8 +481,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     if (json.getInt("success") == 1) {
                         Toast.makeText(Login.this, R.string.email_link, Toast.LENGTH_SHORT).show();
                         username.setText("");
-                        if(open!=null)
-                        open.dismiss();
+                        if (open != null)
+                            open.dismiss();
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Login.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -524,33 +520,28 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("erro_124", requestCode + "");
         if (requestCode == 101) {
             try {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 // final String token = GoogleAuthUtil.getToken(Login.this, account, "");
-                if(account!=null) {
+                if (account != null) {
                     Toast.makeText(Login.this, account.getEmail() + "", Toast.LENGTH_LONG).show();
                     Log.d("error_124", "signInResult:failed code=m" + account.getEmail() + "");
                     Log.d("error_token", "signInResult:failed code=id" + account.getIdToken() + "");
                     Log.d("error_124", "signInResult:failed code=seid" + account.getServerAuthCode() + "");
                 }
-                //SocialLogin socialLogin = new SocialLogin();
-                //socialLogin.execute("google", account.getIdToken(), account.getEmail());
-
 
                 GETACCES getacces = new GETACCES();
                 getacces.execute(account.getServerAuthCode(), account.getEmail());
 
 
             } catch (ApiException e) {
-                // The ApiException status code indicates the detailed failure reason.
                 Log.d("erro_124", "signInResult:failed code=" + e.getStatusCode());
                 Toast.makeText(Login.this, "error", Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == 1) {
-            if(data.getExtras()!=null) {
+            if (data.getExtras() != null) {
                 int fromm = data.getExtras().getInt("from");
                 if (fromm == 2) {
                     Intent intent = new Intent(Login.this, Address.class);
@@ -592,14 +583,10 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                             Log.d("last_name exp", e.toString() + "");
                         }
                         try {
-
                             String email = object.getString("email");
-
-
                             AccessToken token = AccessToken.getCurrentAccessToken();
                             Log.d("Token_1", token.getToken());
                             String facebook_id_token = token.getToken();
-
 
                             SocialLogin socialLogin = new SocialLogin();
                             socialLogin.execute("facebook", facebook_id_token, email);
@@ -660,8 +647,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
                 try {
@@ -766,8 +753,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Login", "Login--?" + resp);
             if (resp != null) {
                 try {
@@ -811,9 +798,8 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         super.onStart();
         GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (alreadyloggedAccount != null) {
-            //Toast.makeText(this, "Already Logged In", Toast.LENGTH_SHORT).show();
             googleSignInClient.signOut();
-            //onLoggedIn(alreadyloggedAccount);
+
         }
 
     }
@@ -842,16 +828,11 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             con.setRequestProperty("Host", "www.googleapis.com");
 
-            //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
-            //bw.write(strBuild.toString());
-            //bw.close();
-
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(strBuild.toString());
             wr.flush();
             wr.close();
 
-            //OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
             System.out.println(con.getResponseCode());
             System.out.println(con.getResponseMessage());
 

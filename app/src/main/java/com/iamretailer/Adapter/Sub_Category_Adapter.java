@@ -47,20 +47,17 @@ public class Sub_Category_Adapter extends RecyclerView.Adapter<Sub_Category_Adap
     @Override
     public Sub_Category_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.sub_cat_list, parent, false);
-
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final Sub_Category_Adapter.MyViewHolder holder, final int position) {
 
-
         if (Build.VERSION.SDK_INT >= 24) {
             holder.name.setText(Html.fromHtml(list.get(position).getStore_name(), Html.FROM_HTML_MODE_LEGACY));
         } else {
             holder.name.setText(Html.fromHtml(list.get(position).getStore_name()));
         }
-
 
         holder.sub.setOnClickListener(new View.OnClickListener() {
             @Override

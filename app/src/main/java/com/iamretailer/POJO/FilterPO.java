@@ -8,8 +8,7 @@ public class FilterPO implements Serializable {
     String filter_name;
     boolean selected;
     ArrayList<FilterPO> filterPOS;
-
-    String sub_id,main_id;
+    String sub_id;
     float price_values;
 
     public float getPrice_values() {
@@ -28,7 +27,7 @@ public class FilterPO implements Serializable {
         this.price_values0 = price_values0;
     }
 
-    float seek_min,seek_max;
+    float seek_min, seek_max;
 
     public float getSeek_min() {
         return seek_min;
@@ -54,14 +53,6 @@ public class FilterPO implements Serializable {
 
     public void setSub_id(String sub_id) {
         this.sub_id = sub_id;
-    }
-
-    public String getMain_id() {
-        return main_id;
-    }
-
-    public void setMain_id(String main_id) {
-        this.main_id = main_id;
     }
 
     public ArrayList<FilterPO> getFilterPOS() {
