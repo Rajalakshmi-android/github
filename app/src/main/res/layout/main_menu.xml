@@ -53,9 +53,9 @@
                 android:id="@+id/cart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp20"
-                android:src="@mipmap/shoppingg"
                 android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"/>
+                android:rotationY="@integer/locale_mirror_flip"
+                android:src="@mipmap/shoppingg" />
 
             <com.iamretailer.Common.CustomTextview
                 android:id="@+id/cart_count"

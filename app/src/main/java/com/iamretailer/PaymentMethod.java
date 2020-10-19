@@ -65,7 +65,7 @@ public class PaymentMethod extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
-        if(getIntent().getExtras()!=null) {
+        if (getIntent().getExtras() != null) {
             fname = getIntent().getExtras().getString("fname");
             from = getIntent().getExtras().getInt("from");
             lname = getIntent().getExtras().getString("lname");
@@ -190,12 +190,12 @@ public class PaymentMethod extends Language {
                         payadapter = new PaymentAdapter(getApplicationContext(), R.layout.payment_item, paylist, 0);
                         payment_list.setAdapter(payadapter);
 
-                            if (paylist != null&&paylist.size() > 0) {
-                                paycode = paylist.get(0).getCode();
-                                paymentname = paylist.get(0).getTitle();
-                                payadapter.setChild1(0);
-                                payadapter.notifyDataSetChanged();
-                            }
+                        if (paylist != null && paylist.size() > 0) {
+                            paycode = paylist.get(0).getCode();
+                            paymentname = paylist.get(0).getTitle();
+                            payadapter.setChild1(0);
+                            payadapter.notifyDataSetChanged();
+                        }
 
 
                         loading.setVisibility(View.GONE);
@@ -208,7 +208,7 @@ public class PaymentMethod extends Language {
                         errortxt1.setText(R.string.error_msg);
 
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
                         Toast.makeText(PaymentMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

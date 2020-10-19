@@ -13,9 +13,9 @@
         <include layout="@layout/menu_back" />
 
         <FrameLayout
+            android:id="@+id/success"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/success"
             android:visibility="gone">
 
 
@@ -78,7 +78,6 @@
                                     android:textSize="@dimen/text15sp" />
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
-
 
                     </LinearLayout>
                 </LinearLayout>

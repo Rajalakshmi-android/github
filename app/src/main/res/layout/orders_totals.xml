@@ -6,19 +6,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end|center_vertical"
         android:layout_gravity="end|center_vertical"
+        android:layout_marginTop="@dimen/dp2"
+        android:gravity="end|center_vertical"
         android:orientation="horizontal"
-        android:weightSum="@integer/two"
-        android:layout_marginTop="@dimen/dp2">
+        android:weightSum="@integer/two">
 
         <com.iamretailer.Common.CustomTextview
             android:id="@+id/amount_title"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:layout_weight="1.5"
             android:layout_marginStart="@dimen/dp5"
+            android:layout_weight="1.5"
             android:gravity="end|center_vertical"
             android:textColor="@color/qty_tex"
             android:textSize="@dimen/text14sp" />

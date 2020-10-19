@@ -5,78 +5,75 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="#11bbbbbb" />
-            <padding android:right="3px" android:bottom="3px" />
+            <padding
+                android:bottom="3px"
+                android:right="3px" />
             <corners
                 android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
                 android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomRightRadius="5dp"/>
-            <stroke
-                android:color="@color/black"
-                />
-
-
+                android:topRightRadius="5dp" />
+            <stroke android:color="@color/black" />
 
         </shape>
     </item>
     <item>
         <shape android:shape="oval">
             <solid android:color="#11bbbbbb" />
-            <padding  android:right="3px" android:bottom="3px"  />
+            <padding
+                android:bottom="3px"
+                android:right="3px" />
             <corners
                 android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
                 android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomRightRadius="5dp"/>
+                android:topRightRadius="5dp" />
 
         </shape>
     </item>
     <item>
         <shape android:shape="oval">
             <solid android:color="#11bbbbbb" />
-            <padding  android:right="3px" android:bottom="3px"  />
+            <padding
+                android:bottom="3px"
+                android:right="3px" />
             <corners
                 android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
                 android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomRightRadius="5dp"/>
-            <stroke
-                android:color="@color/black"
-                />
-
-
+                android:topRightRadius="5dp" />
+            <stroke android:color="@color/black" />
         </shape>
     </item>
     <item>
         <shape android:shape="oval">
             <solid android:color="#11bbbbbb" />
-            <padding  android:right="3px" android:bottom="3px"  />
+            <padding
+                android:bottom="3px"
+                android:right="3px" />
             <corners
                 android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
                 android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomRightRadius="5dp"/>
-            <stroke
-                android:color="@color/black"
-                />
-
-
+                android:topRightRadius="5dp" />
+            <stroke android:color="@color/black" />
         </shape>
     </item>
-
 
     <item>
         <shape android:shape="oval">
             <solid android:color="#ffffff" />
-            <padding  android:right="0px" android:bottom="0px"  android:top="0px" android:left="0px" />
+            <padding
+                android:bottom="0px"
+                android:left="0px"
+                android:right="0px"
+                android:top="0px" />
             <corners
                 android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
                 android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomRightRadius="5dp"/>
-            <stroke
-                android:color="@color/black"
-                />
+                android:topRightRadius="5dp" />
+            <stroke android:color="@color/black" />
         </shape>
     </item>
 </layer-list>

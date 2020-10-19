@@ -30,9 +30,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="@dimen/dp5"
             android:layout_weight="0.3"
-            android:gravity="end"
-
-            >
+            android:gravity="end">
 
             <ImageView
                 android:id="@+id/paymentimg"

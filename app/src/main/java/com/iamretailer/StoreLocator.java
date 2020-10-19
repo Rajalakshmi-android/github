@@ -42,8 +42,8 @@ import stutzen.co.network.Connection;
 public class StoreLocator extends FragmentActivity implements OnMapReadyCallback {
 
 
-    String[] saddress = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal","Nanjangud"};
-    private final int[] simg = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival,R.mipmap.rsz_blue};
+    String[] saddress = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal", "Nanjangud"};
+    private final int[] simg = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival, R.mipmap.rsz_blue};
     private AndroidLogger logger;
     private TextView cart_count;
 
@@ -53,7 +53,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_locator);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maphome)).getMapAsync(this);
         LinearLayout backclick = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
@@ -67,9 +67,9 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
             }
         });
         DBController dbController = new DBController(StoreLocator.this);
-        Appconstatants.sessiondata= dbController.getSession();
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
 
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +123,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                Uri gmmIntentUri = Uri.parse("geo:" + marker.getPosition().latitude + "," +marker.getPosition().longitude);
+                Uri gmmIntentUri = Uri.parse("geo:" + marker.getPosition().latitude + "," + marker.getPosition().longitude);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
@@ -142,6 +142,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -159,15 +160,15 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
 
         protected String doInBackground(String... param) {
 
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,StoreLocator.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, StoreLocator.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {

@@ -25,9 +25,7 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-
                 <com.iamretailer.Common.CustomTextview
-
                     android:id="@+id/testcustomview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,14 +45,13 @@
                     android:textColor="@color/sub_text"
                     android:textSize="@dimen/text13sp" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginEnd="@dimen/dp20"
                     android:layout_marginStart="@dimen/dp20"
                     android:layout_marginTop="@dimen/dp25"
-                    android:layout_marginEnd="@dimen/dp20"
-                    android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/add_bg">
 
                     <LinearLayout
@@ -66,8 +63,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp45"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginEnd="@dimen/dp10">
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10">
 
                             <ImageView
                                 android:layout_width="@dimen/dp25"
@@ -84,8 +81,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
                                 android:layout_gravity="start"
-                                android:gravity="start"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:gravity="start"
 
                                 android:theme="@style/LoginEditTexts">
 
@@ -109,9 +106,9 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp45"
+                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginTop="@dimen/dp15"
-                            android:layout_marginEnd="@dimen/dp10">
+                            android:layout_marginTop="@dimen/dp15">
 
                             <ImageView
                                 android:layout_width="@dimen/dp25"
@@ -156,9 +153,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
-                                android:layout_marginEnd="@dimen/dp10">
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -170,7 +167,6 @@
                                     android:padding="@dimen/dp3"
                                     android:rotationY="@integer/locale_mirror_flip"
                                     android:src="@mipmap/cmpy" />
-
 
                                 <android.support.design.widget.TextInputLayout
                                     android:layout_width="match_parent"
@@ -198,9 +194,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
-                                android:layout_marginEnd="@dimen/dp10">
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -213,13 +209,11 @@
                                     android:rotationY="@integer/locale_mirror_flip"
                                     android:src="@mipmap/add_address" />
 
-
                                 <android.support.design.widget.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/dp45"
                                     android:layout_marginStart="@dimen/dp10"
                                     android:theme="@style/LoginEditTexts">
-
 
                                     <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/address_one"
@@ -242,9 +236,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
-                                android:layout_marginEnd="@dimen/dp10">
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -284,9 +278,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
-                                android:layout_marginEnd="@dimen/dp10">
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -326,9 +320,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
-                                android:layout_marginEnd="@dimen/dp10">
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -369,9 +363,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp45"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
-                                android:layout_marginEnd="@dimen/dp10">
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -413,10 +407,10 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp40"
-                                android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
+                                android:layout_marginBottom="@dimen/dp10"
                                 android:layout_marginEnd="@dimen/dp10"
-                                android:layout_marginBottom="@dimen/dp10">
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -460,10 +454,10 @@
                                 android:id="@+id/state_list"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp40"
-                                android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15"
+                                android:layout_marginBottom="@dimen/dp10"
                                 android:layout_marginEnd="@dimen/dp10"
-                                android:layout_marginBottom="@dimen/dp10">
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp15">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp25"
@@ -516,10 +510,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp45"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/dp20"
+                    android:layout_marginEnd="@dimen/dp35"
                     android:layout_marginStart="@dimen/dp35"
                     android:layout_marginTop="@dimen/dp15"
-                    android:layout_marginEnd="@dimen/dp35"
-                    android:layout_marginBottom="@dimen/dp20"
                     android:background="@drawable/login_button"
                     android:gravity="center"
                     android:orientation="horizontal">

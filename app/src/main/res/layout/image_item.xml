@@ -18,8 +18,7 @@
             android:id="@+id/tagimg"
             android:layout_width="@dimen/dp80"
             android:layout_height="@dimen/dp80"
-            android:scaleType="centerCrop"
             android:padding="@dimen/dp1"
-            />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 </LinearLayout>

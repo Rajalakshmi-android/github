@@ -22,9 +22,6 @@ public class PaymentAct extends AppCompatActivity {
     private FrameLayout loading;
     private AndroidLogger logger;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +48,6 @@ public class PaymentAct extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        // webView.loadUrl(Appconstatants.PAYMENT);
         PAYMENT payment = new PAYMENT();
         payment.execute(Appconstatants.PAYMENT);
 
@@ -85,50 +81,7 @@ public class PaymentAct extends AppCompatActivity {
 
             loading.setVisibility(View.GONE);
             webView.loadDataWithBaseURL(null, resp, "text/html", "utf-8", null);
-            /*Log.i("tag", "payment-->" + resp);
-            if (resp != null) {
-                try {
-                    JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1) {
 
-
-                        loading.setVisibility(View.GONE);
-                    } else {
-                        JSONArray array = json.getJSONArray("error");
-                        Toast.makeText(PaymentAct.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    PAYMENT payment=new PAYMENT();
-                                    payment.execute(Appconstatants.PAYMENT);
-
-                                }
-                            })
-                            .show();
-
-                }
-            } else {
-                loading_bar.setVisibility(View.GONE);
-                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                        .setAction(R.string.retry, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
-                                PAYMENT payment=new PAYMENT();
-                                payment.execute(Appconstatants.PAYMENT);
-                            }
-                        })
-                        .show();
-
-            }*/
         }
     }
 

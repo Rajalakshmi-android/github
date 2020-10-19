@@ -95,9 +95,7 @@
                                 android:singleLine="true"
                                 android:textColor="@color/app_text_color"
                                 android:textColorHint="@color/plceholder"
-                                android:textSize="@dimen/text15sp"
-
-                                />
+                                android:textSize="@dimen/text15sp" />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -144,9 +142,7 @@
                                 android:singleLine="true"
                                 android:textColor="@color/app_text_color"
                                 android:textColorHint="@color/plceholder"
-                                android:textSize="@dimen/text15sp"
-
-                                />
+                                android:textSize="@dimen/text15sp" />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -192,9 +188,7 @@
                                 android:singleLine="true"
                                 android:textColor="@color/app_text_color"
                                 android:textColorHint="@color/plceholder"
-                                android:textSize="@dimen/text15sp"
-
-                                />
+                                android:textSize="@dimen/text15sp" />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -240,10 +234,7 @@
                                 android:singleLine="true"
                                 android:textColor="@color/app_text_color"
                                 android:textColorHint="@color/plceholder"
-                                android:textSize="@dimen/text15sp"
-
-
-                                />
+                                android:textSize="@dimen/text15sp" />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>

@@ -30,7 +30,6 @@
     <color name="button_textcolor">#ffffff</color>
 
 
-
     <color name="sub_text">#7a7a7a</color>
     <color name="plceholder">#828282</color>
     <color name="forget_pass">#afafaf</color>
@@ -46,7 +45,7 @@
     <color name="price_original">#979797</color>
     <color name="text_select">#777777</color>
     <color name="menu_text1">#6a6a6a</color>
-    <color name="menu_text2">#828282</color><!--828282-->
+    <color name="menu_text2">#828282</color>
 
     <color name="cart_text">#707070</color>
     <color name="qty_tex">#777777</color>
@@ -73,7 +72,7 @@
     <color name="colorAccent">#e40582</color>
     <color name="rupee_clr">#e40582</color>
     <color name="bottom_textcolor">#bababa</color>
-       <color name="orange_status">#FFA500</color>
+    <color name="orange_status">#FFA500</color>
     <color name="green_status">#008000</color>
     <color name="guest_checkout">#e40582</color>
     <color name="view_line">#1e484848</color>

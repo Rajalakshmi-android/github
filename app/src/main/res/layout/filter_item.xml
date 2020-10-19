@@ -2,62 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/app_bg_color">
+    android:background="@color/app_bg_color"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp50"
             android:layout_gravity="center_vertical">
+
             <LinearLayout
+                android:id="@+id/bg_view"
                 android:layout_width="@dimen/dp5"
                 android:layout_height="match_parent"
-                android:id="@+id/bg_view"
-                android:orientation="vertical"
-                android:background="@color/colorAccent"/>
+                android:background="@color/colorAccent"
+                android:orientation="vertical" />
+
             <com.iamretailer.Common.CustomTextview
+                android:id="@+id/filter_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
-                android:textStyle="bold"
-                android:id="@+id/filter_name"
-                android:textSize="@dimen/text14sp"
-                android:text=""
                 android:layout_gravity="start|center_vertical"
-                android:textColor="@color/app_text_color" />
+                android:layout_marginStart="@dimen/dp10"
+                android:text=""
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/text14sp"
+                android:textStyle="bold" />
+
             <LinearLayout
+                android:id="@+id/count"
                 android:layout_width="@dimen/dp25"
                 android:layout_height="@dimen/dp25"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="@dimen/dp30"
                 android:background="@drawable/badge"
+                android:gravity="center"
                 android:padding="@dimen/dp2"
-                android:id="@+id/count"
-               android:visibility="gone"
-                android:gravity="center">
+                android:visibility="gone">
+
                 <com.iamretailer.Common.CustomTextview
+                    android:id="@+id/count_tex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/count_tex"
                     android:text=""
                     android:textColor="@color/button_textcolor"
-                    android:textSize="@dimen/text13sp"
-
-                    />
+                    android:textSize="@dimen/text13sp" />
             </LinearLayout>
+
             <ImageView
+                android:id="@+id/bg_image"
                 android:layout_width="@dimen/dp15"
                 android:layout_height="@dimen/dp15"
-                android:src="@mipmap/filternormal"
-                android:id="@+id/bg_image"
-                android:autoMirrored="true"
-                android:rotationY="@integer/locale_mirror_flip"
+                android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="@dimen/dp10"
+                android:autoMirrored="true"
                 android:padding="@dimen/dp2"
-                android:layout_gravity="center_vertical|end"/>
+                android:rotationY="@integer/locale_mirror_flip"
+                android:src="@mipmap/filternormal" />
         </FrameLayout>
 
 

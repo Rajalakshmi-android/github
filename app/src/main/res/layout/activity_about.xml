@@ -48,9 +48,9 @@
 
                     <GridView
                         android:id="@+id/grid"
-                        android:layout_marginBottom="@dimen/dp5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/dp5"
                         android:layout_marginLeft="@dimen/dp40"
                         android:layout_marginRight="@dimen/dp40"
                         android:layout_marginTop="@dimen/dp40"
@@ -70,7 +70,6 @@
                 </FrameLayout>
 
             </LinearLayout>
-
 
             <include layout="@layout/error_layout" />
 

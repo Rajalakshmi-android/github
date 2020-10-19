@@ -39,7 +39,7 @@ public class Review extends Language {
     private boolean scrollValue;
     private boolean scrollNeed = true;
     private int start = 0;
-    private int  limit = 20;
+    private int limit = 20;
     private int val = 0;
     private LinearLayout load_more;
     private TextView errortxt1;
@@ -52,7 +52,7 @@ public class Review extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         LinearLayout back = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
         header.setText(R.string.review_head);
@@ -68,11 +68,11 @@ public class Review extends Language {
         errortxt2 = findViewById(R.id.errortxt2);
         DBController db = new DBController(Review.this);
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang= db.get_lang_code();
-        Appconstatants.CUR= db.getCurCode();
+        Appconstatants.Lang = db.get_lang_code();
+        Appconstatants.CUR = db.getCurCode();
 
         Bundle mm = getIntent().getExtras();
-        if(mm !=null)
+        if (mm != null)
             prod_id = mm.getString("id");
         ReviewTASK reviewTASK = new ReviewTASK();
         reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
@@ -90,9 +90,9 @@ public class Review extends Language {
 
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
-                val=0;
-                start=0;
-                limit=20;
+                val = 0;
+                start = 0;
+                limit = 20;
 
                 ReviewTASK reviewTASK = new ReviewTASK();
                 reviewTASK.execute(Appconstatants.Review_LIST + prod_id + "&start=" + start + "&limit=" + limit);
@@ -133,13 +133,13 @@ public class Review extends Language {
 
 
         protected String doInBackground(String... param) {
-            logger.info("Review api"+param[0]);
+            logger.info("Review api" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Review.this);
-                logger.info("Review resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Review.this);
+                logger.info("Review resp" + response);
                 Log.d("Review_resp", response);
                 Log.d("Review_resp", param[0]);
                 Log.d("review_ses", Appconstatants.sessiondata);
@@ -195,7 +195,7 @@ public class Review extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = object.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
                         Toast.makeText(Review.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 

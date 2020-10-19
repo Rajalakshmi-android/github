@@ -8,7 +8,6 @@
     android:focusableInTouchMode="true"
     tools:context=".ContactForm">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -165,13 +164,13 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp140"
+                                android:layout_gravity="start"
                                 android:layout_marginBottom="@dimen/dp10"
                                 android:layout_marginEnd="@dimen/dp15"
                                 android:layout_marginStart="@dimen/dp13"
                                 android:layout_marginTop="@dimen/dp25"
-                                android:layout_gravity="start"
-                                android:gravity="start"
-                                android:background="@drawable/contact_us_bg">
+                                android:background="@drawable/contact_us_bg"
+                                android:gravity="start">
 
                                 <com.iamretailer.Common.CustomEditext
                                     android:id="@+id/comments"
@@ -181,14 +180,13 @@
                                     android:background="@android:color/transparent"
                                     android:gravity="top"
                                     android:hint="@string/comment"
-                                    android:textAlignment="viewStart"
                                     android:imeOptions="actionDone"
                                     android:inputType="textMultiLine"
                                     android:padding="@dimen/dp5"
+                                    android:textAlignment="viewStart"
                                     android:textColor="@color/app_text_color"
                                     android:textColorHint="@color/plceholder"
                                     android:textSize="@dimen/text14sp"
-
                                     tools:ignore="RtlCompat" />
                             </LinearLayout>
 

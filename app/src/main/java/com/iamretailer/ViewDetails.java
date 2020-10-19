@@ -1,43 +1,32 @@
 package com.iamretailer;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iamretailer.Adapter.CommonAdapter;
 import com.iamretailer.Adapter.TrackingAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
@@ -45,11 +34,8 @@ import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.PlacePO;
 
-
-
 import com.logentries.android.AndroidLogger;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,8 +99,8 @@ public class ViewDetails extends Language {
         bun = new Bundle();
         bun = getIntent().getExtras();
         Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();  // deprecated
-        int height = display.getHeight();  // deprecated
+        int width = display.getWidth();
+        int height = display.getHeight();
         int maxHeight= (int) (height-(height*0.80));
         final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(ViewDetails.this);
         View sheetView = ViewDetails.this.getLayoutInflater().inflate(R.layout.track, null);

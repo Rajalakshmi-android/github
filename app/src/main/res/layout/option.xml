@@ -5,32 +5,28 @@
     android:layout_height="wrap_content"
     android:background="@color/app_bg_color1">
 
-  <FrameLayout
-      android:id="@+id/text_bg"
-      android:background="@drawable/size_grey_bg"
-      android:layout_width="wrap_content"
-
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/dp20">
-
     <FrameLayout
-
-
-
+        android:id="@+id/text_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center">
+        android:layout_marginEnd="@dimen/dp20"
+        android:background="@drawable/size_grey_bg">
 
-      <com.iamretailer.Common.CustomTextview1
-          android:id="@+id/child"
-          android:layout_width="@dimen/dp33"
-          android:layout_height="@dimen/dp33"
-          android:layout_gravity="center"
-          android:gravity="center"
-          android:textColor="@color/white"
-          android:singleLine="true"
-          android:textSize="@dimen/text10sp" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <com.iamretailer.Common.CustomTextview1
+                android:id="@+id/child"
+                android:layout_width="@dimen/dp33"
+                android:layout_height="@dimen/dp33"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text10sp" />
+        </FrameLayout>
     </FrameLayout>
-  </FrameLayout>
 </LinearLayout>

@@ -2,9 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <corners android:radius="@dimen/dp2" />
-
-
-    <solid android:color="@color/button_clr"
-        />
+    <solid android:color="@color/button_clr" />
 
 </shape>

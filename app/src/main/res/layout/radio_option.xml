@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/app_bg_color1">
+    android:background="@color/app_bg_color1"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp0"
-        android:layout_marginStart="@dimen/dp20"
         android:layout_marginEnd="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp20"
         android:orientation="vertical">
 
         <LinearLayout
@@ -24,21 +24,19 @@
                 android:layout_marginTop="@dimen/dp0"
                 android:text="@string/select"
                 android:textColor="@color/app_text_color"
-                android:textSize="@dimen/text14sp"
-                />
+                android:textSize="@dimen/text14sp" />
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginBottom="@dimen/dp10">
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10">
 
             <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/radio"
-               />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </FrameLayout>
     </LinearLayout>
 

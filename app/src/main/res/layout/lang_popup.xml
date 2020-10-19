@@ -1,87 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg_color">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:padding="@dimen/dp10">
+
             <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/choose_language"
-                android:textSize="@dimen/text20sp"
-                android:textColor="@color/app_text_color"
-                android:textStyle="bold"
                 android:layout_gravity="center"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="@string/choose_language"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/text20sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
-            android:background="@color/app_view_color"/>
+            android:background="@color/app_view_color" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp10">
+
             <ListView
+                android:id="@+id/lang_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lang_list"
-                android:dividerHeight="@dimen/dp5"
                 android:divider="@null"
+                android:dividerHeight="@dimen/dp5"
                 android:listSelector="@android:color/transparent"
-                android:scrollbars="none"
-                />
+                android:scrollbars="none" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp15"
+            android:layout_gravity="end"
             android:layout_marginEnd="@dimen/dp20"
             android:gravity="end|center_vertical"
-            android:layout_gravity="end">
+            android:padding="@dimen/dp15">
+
             <LinearLayout
+                android:id="@+id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp15"
-                android:id="@+id/no">
-
-            <com.iamretailer.Common.CustomTextview
-
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end|center_vertical"
-                android:gravity="center"
-                android:text="@string/cancel"
-                android:layout_marginEnd="@dimen/dp20"
-                android:textColor="@color/app_text_color"
-                android:textSize="@dimen/text16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/yes"
                 android:padding="@dimen/dp15">
 
-            <com.iamretailer.Common.CustomTextview
+                <com.iamretailer.Common.CustomTextview
 
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/dp20"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/text16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/yes"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end|center_vertical"
-                android:gravity="center"
-                android:text="@string/okay"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/text16sp" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp15">
+
+                <com.iamretailer.Common.CustomTextview
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:gravity="center"
+                    android:text="@string/okay"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text16sp" />
             </LinearLayout>
         </LinearLayout>
 

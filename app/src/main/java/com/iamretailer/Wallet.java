@@ -56,15 +56,12 @@ public class Wallet extends Language {
     private DBController dbCon;
 
     private static final int PAYPAL_REQUEST_CODE = 123;
-
-    // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
-    // or live (ENVIRONMENT_PRODUCTION)
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
     private ProgressDialog pDialog;
     private TextView w_amount;
-    private int pos=-1;
+    private int pos = -1;
     private String cur_left = "";
     private String cur_right = "";
 
@@ -74,28 +71,28 @@ public class Wallet extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallent);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         LinearLayout menu = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
         LinearLayout cart_items = findViewById(R.id.cart_items);
-        fullayout= findViewById(R.id.fullayout);
+        fullayout = findViewById(R.id.fullayout);
         LinearLayout cont = findViewById(R.id.cont);
         header.setText(R.string.wallet_head);
-        cart_count= findViewById(R.id.cart_count);
+        cart_count = findViewById(R.id.cart_count);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         w_amount = findViewById(R.id.amount);
         error_network = findViewById(R.id.error_network);
-        no_items= findViewById(R.id.no_items);
+        no_items = findViewById(R.id.no_items);
         loading = findViewById(R.id.loading);
-        list_view= findViewById(R.id.success);
-        wallet_list= findViewById(R.id.wallet_list);
+        list_view = findViewById(R.id.success);
+        wallet_list = findViewById(R.id.wallet_list);
         LinearLayout retry = findViewById(R.id.retry);
 
         dbCon = new DBController(Wallet.this);
         Appconstatants.sessiondata = dbCon.getSession();
-        Appconstatants.Lang=dbCon.get_lang_code();
-        Appconstatants.CUR=dbCon.getCurCode();
+        Appconstatants.Lang = dbCon.get_lang_code();
+        Appconstatants.CUR = dbCon.getCurCode();
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,13 +106,13 @@ public class Wallet extends Language {
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Wallet.this,MyCart.class));
+                startActivity(new Intent(Wallet.this, MyCart.class));
             }
         });
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        WALLETTASK wallettask=new WALLETTASK();
-        wallettask.execute(Appconstatants.WALLET );
+        WALLETTASK wallettask = new WALLETTASK();
+        wallettask.execute(Appconstatants.WALLET);
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,17 +122,17 @@ public class Wallet extends Language {
                 error_network.setVisibility(View.GONE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
-                WALLETTASK wallettask=new WALLETTASK();
-                wallettask.execute(Appconstatants.WALLET );
+                WALLETTASK wallettask = new WALLETTASK();
+                wallettask.execute(Appconstatants.WALLET);
             }
         });
         cont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pos != -1){
-                    WalletSaveTask task=new WalletSaveTask(optionsPOArrayList1.get(pos).getProduct_id());
+                if (pos != -1) {
+                    WalletSaveTask task = new WalletSaveTask(optionsPOArrayList1.get(pos).getProduct_id());
                     task.execute(optionsPOArrayList1.get(pos).getProduct_id(), "cod", "Cash On Delivery");
-                }else{
+                } else {
                     Toast.makeText(Wallet.this, R.string.select_wallet, Toast.LENGTH_SHORT).show();
 
                 }
@@ -143,11 +140,10 @@ public class Wallet extends Language {
             }
         });
         cur_left = dbCon.get_cur_Left();
-        cur_right=dbCon.get_cur_Right();
+        cur_right = dbCon.get_cur_Right();
         wallet_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // startPayment(optionsPOArrayList1.get(position).getProduct_id());
                 for (int u = 0; u < optionsPOArrayList1.size(); u++) {
                     optionsPOArrayList1.get(u).setSelect(false);
                 }
@@ -157,9 +153,7 @@ public class Wallet extends Language {
             }
         });
 
-      /*  Intent intent = new Intent(this, PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        startService(intent);*/
+
     }
 
     public void startPayment(String orderid) {
@@ -169,29 +163,26 @@ public class Wallet extends Language {
 
         try {
             JSONObject options = new JSONObject();
-            options.put("name", R.string.app_name);//Razorpay Corp
-            options.put("description", "Order Payment");//Demoing Charges
+            options.put("name", R.string.app_name);
+            options.put("description", "Order Payment");
             options.put("currency", "INR");
-            // options.put("currency", db.getCurCode());
-            Log.d("Cur_va",dbCon.getCurCode());
-
+            Log.d("Cur_va", dbCon.getCurCode());
             JSONObject preFill = new JSONObject();
             preFill.put("email", dbCon.getEmail());
             String mobile = "";
             preFill.put("contact", mobile);
 
             options.put("prefill", preFill);
-
-            //   options.put("amount",pay_tot*100);
-            options.put("amount",100);
+            options.put("amount", 100);
 
             co.open(activity, options);
         } catch (JSONException e) {
-            Log.d("sss_",e.toString());
+            Log.d("sss_", e.toString());
             Toast.makeText(Wallet.this, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
+
     @SuppressWarnings("unused")
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
@@ -214,7 +205,7 @@ public class Wallet extends Language {
     public void onPaymentError(int code, String response) {
         try {
             Toast.makeText(this, "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
-            Log.d("Razor_resp",response+"");
+            Log.d("Razor_resp", response + "");
         } catch (Exception e) {
             Log.e("Pay_status_erro", "Exception in onPaymentError", e);
         }
@@ -238,10 +229,10 @@ public class Wallet extends Language {
 
     private class WalletSaveTask extends AsyncTask<Object, Void, String> {
 
-    final String product_id;
+        final String product_id;
 
         WalletSaveTask(String productid) {
-            product_id= productid;
+            product_id = productid;
         }
 
         @Override
@@ -252,7 +243,7 @@ public class Wallet extends Language {
         }
 
         protected String doInBackground(Object... param) {
-            logger.info("Cart Save api"+Appconstatants.cart_api);
+            logger.info("Cart Save api" + Appconstatants.cart_api);
 
             String response = null;
             Connection connection = new Connection();
@@ -266,9 +257,9 @@ public class Wallet extends Language {
 
                 Log.d("Cart_input", json.toString());
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
-                logger.info("Cart Save req"+json);
-                response = connection.sendHttpPostjson(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
-                logger.info("Cart Save resp"+response);
+                logger.info("Cart Save req" + json);
+                response = connection.sendHttpPostjson(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                logger.info("Cart Save resp" + response);
 
 
             } catch (Exception e) {
@@ -286,7 +277,7 @@ public class Wallet extends Language {
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
-                        JSONObject obj =json.getJSONObject("data");
+                        JSONObject obj = json.getJSONObject("data");
                         showCallPopup(product_id, obj.getString("order_id"));
                     } else {
 
@@ -336,7 +327,7 @@ public class Wallet extends Language {
                 JSONObject json = new JSONObject();
                 json.put("product_id", param[0]);
                 Connection connection = new Connection();
-                response = connection.sendHttpPutjson1(Appconstatants.Wallet_api , json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
+                response = connection.sendHttpPutjson1(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -357,14 +348,14 @@ public class Wallet extends Language {
                     if (json.getInt("success") == 1) {
 
 
-                        Toast.makeText(getApplicationContext(),"Wallet added Successfully ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Wallet added Successfully ", Toast.LENGTH_SHORT).show();
 
-                        WALLETTASK wallettask=new WALLETTASK();
-                        wallettask.execute(Appconstatants.WALLET );
-                        pos=-1;
+                        WALLETTASK wallettask = new WALLETTASK();
+                        wallettask.execute(Appconstatants.WALLET);
+                        pos = -1;
 
 
-                    }  else {
+                    } else {
 
                         JSONArray error = json.getJSONArray("error");
                         String error_msg = error.getString(0);
@@ -408,15 +399,15 @@ public class Wallet extends Language {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {
@@ -466,10 +457,9 @@ public class Wallet extends Language {
 
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        //get Paypal Result
 
         if (requestCode == PAYPAL_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
@@ -477,21 +467,20 @@ public class Wallet extends Language {
                 if (confirm != null) {
                     try {
                         String paymentDetails = confirm.toJSONObject().toString(4);
-                    /*    PlaceOrderTask OrderTask = new PlaceOrderTask();
-                        OrderTask.execute(Appconstatants.Place_Order);*/
                     } catch (JSONException e) {
                         Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
                     }
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("paymentExample", "The user canceled.");
-                // Toast.makeText(ConfirmOrder.this, R.string.failed, Toast.LENGTH_LONG).show();
+
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
                 Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-                //  Toast.makeText(ConfirmOrder.this, R.string.failed, Toast.LENGTH_LONG).show();
+
             }
         }
     }
+
     private class WALLETTASK extends AsyncTask<String, Void, String> {
 
 
@@ -502,15 +491,15 @@ public class Wallet extends Language {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Product list search api"+param[0]);
+            logger.info("Product list search api" + param[0]);
 
             Log.d("singleurl", param[0]);
-            Log.d("adsadad",Appconstatants.Lang);
+            Log.d("adsadad", Appconstatants.Lang);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
-                logger.info("Product list search resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                logger.info("Product list search resp" + response);
                 Log.d("list_products", Appconstatants.sessiondata);
 
 
@@ -527,20 +516,16 @@ public class Wallet extends Language {
                 try {
                     JSONObject json = new JSONObject(resp);
                     optionsPOArrayList1 = new ArrayList<>();
-                    if (json.getInt("success") == 1)
-                    {
-
+                    if (json.getInt("success") == 1) {
                         JSONArray jarray = new JSONArray(json.getString("data"));
 
-                        if (jarray.length()==0)
-                        {
+                        if (jarray.length() == 0) {
 
                             no_items.setVisibility(View.VISIBLE);
                             list_view.setVisibility(View.GONE);
                             loading.setVisibility(View.GONE);
                             error_network.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             for (int i = 0; i < jarray.length(); i++) {
 
                                 JSONObject jsonObject = jarray.getJSONObject(i);
@@ -563,12 +548,10 @@ public class Wallet extends Language {
                                 optionsPOArrayList1.add(item);
                             }
 
-                            if (optionsPOArrayList1!=null) {
-                                adapter1 = new WalletAdapter(Wallet.this, R.layout.wallet_list, optionsPOArrayList1,1);
+                            if (optionsPOArrayList1 != null) {
+                                adapter1 = new WalletAdapter(Wallet.this, R.layout.wallet_list, optionsPOArrayList1, 1);
                                 wallet_list.setAdapter(adapter1);
-                            }
-                            else
-                            {
+                            } else {
                                 adapter1.notifyDataSetChanged();
                             }
 
@@ -576,17 +559,16 @@ public class Wallet extends Language {
                         }
 
                         WalletTasks productTask = new WalletTasks();
-                        productTask.execute(Appconstatants.Wallet_Amount );
+                        productTask.execute(Appconstatants.Wallet_Amount);
 
 
-                    } else
-                    {
+                    } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
 
                         Toast.makeText(Wallet.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -601,8 +583,8 @@ public class Wallet extends Language {
                                 @Override
                                 public void onClick(View view) {
                                     loading.setVisibility(View.VISIBLE);
-                                    WALLETTASK wallettask=new WALLETTASK();
-                                    wallettask.execute(Appconstatants.WALLET );
+                                    WALLETTASK wallettask = new WALLETTASK();
+                                    wallettask.execute(Appconstatants.WALLET);
                                 }
                             })
                             .show();
@@ -627,13 +609,13 @@ public class Wallet extends Language {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Product list search api"+param[0]);
+            logger.info("Product list search api" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Wallet.this);
-                logger.info("Product list search resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                logger.info("Product list search resp" + response);
                 Log.d("list_products", param[0]);
                 Log.d("list_products", Appconstatants.sessiondata);
 
@@ -650,13 +632,9 @@ public class Wallet extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
-
-                        JSONArray jarray = new JSONArray(json.getString("data"));
-
-                        String  wallet_amount = json.getString("amount");
-                        String value=cur_left+String.format("%.2f", Double.parseDouble(wallet_amount))+cur_right;
+                    if (json.getInt("success") == 1) {
+                        String wallet_amount = json.getString("amount");
+                        String value = cur_left + String.format("%.2f", Double.parseDouble(wallet_amount)) + cur_right;
                         w_amount.setText(value);
                         list_view.setVisibility(View.VISIBLE);
                         no_items.setVisibility(View.GONE);
@@ -664,16 +642,13 @@ public class Wallet extends Language {
                         error_network.setVisibility(View.GONE);
 
 
-
-
-                    } else
-                    {
+                    } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
 
                         Toast.makeText(Wallet.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -688,8 +663,8 @@ public class Wallet extends Language {
                                 @Override
                                 public void onClick(View view) {
                                     loading.setVisibility(View.VISIBLE);
-                                    WALLETTASK wallettask=new WALLETTASK();
-                                    wallettask.execute(Appconstatants.WALLET );
+                                    WALLETTASK wallettask = new WALLETTASK();
+                                    wallettask.execute(Appconstatants.WALLET);
                                 }
                             })
                             .show();
@@ -704,31 +679,31 @@ public class Wallet extends Language {
         }
     }
 
-    private void showCallPopup(final String product_id, String order){
+    private void showCallPopup(final String product_id, String order) {
         final android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(Wallet.this);
-        View popUpView = View.inflate(Wallet.this,R.layout.pay_sucess, null);
+        View popUpView = View.inflate(Wallet.this, R.layout.pay_sucess, null);
         dial.setView(popUpView);
         final android.app.AlertDialog popupStore = dial.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity= Gravity.CENTER;
+        lp.gravity = Gravity.CENTER;
         popupStore.getWindow().setAttributes(lp);
 
         popupStore.show();
         popupStore.setCancelable(false);
-        LinearLayout okay= popUpView.findViewById(R.id.okay);
-        TextView text1= popUpView.findViewById(R.id.text1);
-        String txt="ORDER ID: "+order;
+        LinearLayout okay = popUpView.findViewById(R.id.okay);
+        TextView text1 = popUpView.findViewById(R.id.text1);
+        String txt = "ORDER ID: " + order;
         text1.setText(txt);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupStore.dismiss();
-                WALLETSAVE task=new WALLETSAVE();
+                WALLETSAVE task = new WALLETSAVE();
                 task.execute(product_id);
             }
         });
-        LinearLayout notokay= popUpView.findViewById(R.id.notokay);
+        LinearLayout notokay = popUpView.findViewById(R.id.notokay);
         notokay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

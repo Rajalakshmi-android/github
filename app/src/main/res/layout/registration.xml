@@ -37,7 +37,6 @@
                 android:textColor="@color/sub_text"
                 android:textSize="@dimen/text14sp" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +45,6 @@
                 android:layout_marginTop="@dimen/dp40"
                 android:background="@drawable/login_bg"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,7 +71,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp45"
                         android:theme="@style/LoginEditTexts">
-
 
                         <com.iamretailer.Common.CustomEditext
                             android:id="@+id/full_name"
@@ -362,7 +359,6 @@
                     android:textSize="@dimen/text20sp"
                     android:textStyle="bold" />
 
-
             </FrameLayout>
 
             <LinearLayout
@@ -373,7 +369,6 @@
                 android:layout_marginTop="@dimen/dp12"
                 android:gravity="center"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"

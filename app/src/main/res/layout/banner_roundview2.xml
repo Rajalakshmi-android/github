@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/banners"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/banners">
+    android:layout_height="wrap_content">
 
     <com.iamretailer.Common.circularimageview.RoundedImage
         android:id="@+id/browsebackground"

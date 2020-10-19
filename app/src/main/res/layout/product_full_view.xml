@@ -100,7 +100,6 @@
                                     android:textSize="@dimen/text14sp"
                                     android:textStyle="bold" />
 
-
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -143,7 +142,6 @@
 
 
                             </LinearLayout>
-
 
                             <FrameLayout
                                 android:id="@+id/fav"
@@ -343,9 +341,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp.5dp"
-                        android:background="@color/select"
-
-                        />
+                        android:background="@color/select" />
 
 
                     <FrameLayout
@@ -409,14 +405,11 @@
                             </LinearLayout>
                         </FrameLayout>
 
-
                         <FrameLayout
                             android:id="@+id/review_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
-
-                            >
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:id="@+id/review_disp"
@@ -428,7 +421,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
-
 
                                     <com.iamretailer.Common.ExpandableHeightListView
                                         android:id="@+id/review_list"
@@ -597,9 +589,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp.5dp"
-                            android:background="@color/select"
-
-                            />
+                            android:background="@color/select" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

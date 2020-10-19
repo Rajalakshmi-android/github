@@ -15,18 +15,18 @@
         <com.iamretailer.Common.CustomTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:singleLine="true"
             android:text="@string/updatea"
             android:textColor="@color/app_text_color"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textSize="@dimen/text17sp" />
+            android:textSize="@dimen/text17sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/dp15">
+            android:layout_marginTop="@dimen/dp15"
+            android:orientation="horizontal">
 
             <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:text=""
                 android:textColor="@color/app_text_color"
                 android:textSize="@dimen/text14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <com.iamretailer.Common.CustomTextview
@@ -74,18 +74,18 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginTop="@dimen/dp20"
+                    android:buttonTint="@color/update_clr"
                     android:text="@string/now"
-                    android:textColor="@color/app_text_color"
-                    android:buttonTint="@color/update_clr" />
+                    android:textColor="@color/app_text_color" />
 
                 <RadioButton
                     android:id="@+id/wifi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp20"
+                    android:buttonTint="@color/update_clr"
                     android:text="@string/wifi"
-                    android:textColor="@color/app_text_color"
-                    android:buttonTint="@color/update_clr" />
+                    android:textColor="@color/app_text_color" />
 
             </RadioGroup>
         </LinearLayout>
@@ -116,15 +116,13 @@
                 android:layout_gravity="center"
                 android:background="@drawable/update"
                 android:gravity="center"
-                android:text="@string/updates"
                 android:paddingEnd="@dimen/dp25"
                 android:paddingStart="@dimen/dp25"
+                android:text="@string/updates"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text14sp" />
 
-
         </LinearLayout>
-
 
         <View
             android:layout_width="fill_parent"
@@ -137,10 +135,9 @@
             android:layout_height="@dimen/dp50"
             android:layout_marginTop="@dimen/dp10"
             android:autoMirrored="true"
-            android:rotationY="@integer/locale_mirror_flip"
+            android:background="@mipmap/googleplay"
             android:contentDescription="@null"
-            android:background="@mipmap/googleplay" />
-
+            android:rotationY="@integer/locale_mirror_flip" />
 
     </LinearLayout>
 </LinearLayout>

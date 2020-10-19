@@ -13,14 +13,13 @@
         <include layout="@layout/menu_back" />
 
         <ListView
-
             android:id="@+id/order_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp5"
             android:layout_marginEnd="@dimen/dp20"
             android:layout_marginStart="@dimen/dp20"
             android:layout_marginTop="@dimen/dp10"
-            android:layout_marginBottom="@dimen/dp5"
             android:divider="@null"
             android:dividerHeight="@dimen/dp10"
             android:listSelector="@android:color/transparent"
@@ -97,11 +96,9 @@
                 android:textSize="@dimen/text18sp" />
         </LinearLayout>
 
-
     </LinearLayout>
 
     <include
-
         layout="@layout/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

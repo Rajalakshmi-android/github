@@ -127,7 +127,7 @@ public class Registration extends Language {
                 if (mobile.getText().toString().trim().equals("")) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
-                if (mobile.getText().toString().length() <7) {
+                if (mobile.getText().toString().length() < 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -147,7 +147,7 @@ public class Registration extends Language {
                     Toast.makeText(Registration.this, R.string.pwd_mis, Toast.LENGTH_LONG).show();
                 }
 
-                if (!f_name.getText().toString().isEmpty()  && Validation.validateName(f_name.getText().toString().trim())
+                if (!f_name.getText().toString().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
                         && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
@@ -242,7 +242,7 @@ public class Registration extends Language {
                         String cus_mobile = json.isNull("telephone") ? "" : json.getString("telephone");
 
                         Toast.makeText(getApplicationContext(), R.string.register, Toast.LENGTH_SHORT).show();
-                        dbController.user_data(cus_id, cus_f_name +" "+ cus_l_name, cus_email, cus_mobile);
+                        dbController.user_data(cus_id, cus_f_name + " " + cus_l_name, cus_email, cus_mobile);
                         f_name.setText("");
                         l_name.setText("");
                         email.setText("");

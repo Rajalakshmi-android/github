@@ -9,12 +9,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
             android:layout_marginTop="@dimen/dp15">
-
 
             <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/loginview"
@@ -108,9 +106,9 @@
                     <ImageView
                         android:layout_width="@dimen/dp20"
                         android:layout_height="@dimen/dp20"
+                        android:layout_marginTop="@dimen/dp5"
                         android:autoMirrored="true"
                         android:rotationY="@integer/locale_mirror_flip"
-                        android:layout_marginTop="@dimen/dp5"
                         android:src="@mipmap/menu_my_orders" />
 
                 </LinearLayout>
@@ -149,19 +147,19 @@
                         android:layout_width="@dimen/dp20"
                         android:layout_height="@dimen/dp20"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/dp1"
                         android:layout_marginTop="@dimen/dp3"
                         android:autoMirrored="true"
                         android:rotationY="@integer/locale_mirror_flip"
-                        android:layout_marginEnd="@dimen/dp1"
                         android:src="@mipmap/menu_cart" />
 
                     <LinearLayout
                         android:layout_width="@dimen/dp16"
                         android:layout_height="@dimen/dp16"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/dp3"
                         android:layout_marginStart="@dimen/dp8"
                         android:background="@drawable/badge1"
-                        android:layout_marginBottom="@dimen/dp3"
                         android:gravity="center"
 
                         >
@@ -173,13 +171,10 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/cart"
-                            android:textSize="@dimen/text8sp"
                             android:textColor="@color/button_textcolor"
-                            />
-
+                            android:textSize="@dimen/text8sp" />
 
                     </LinearLayout>
-
 
                 </FrameLayout>
 
@@ -187,13 +182,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:ellipsize="end"
-                    android:text="@string/my_Cart_s"
                     android:layout_marginBottom="@dimen/dp6"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:text="@string/my_Cart_s"
                     android:textColor="@color/menu_text2"
                     android:textSize="@dimen/text13sp" />
-
 
             </LinearLayout>
         </LinearLayout>
@@ -210,17 +204,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/dp15">
+                android:layout_marginStart="@dimen/dp15"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp10"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -236,11 +230,12 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_home" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/forget_pass"
@@ -288,11 +283,12 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_notification" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
@@ -304,6 +300,7 @@
                                 android:text="@string/notiication"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp0_1"
@@ -337,23 +334,26 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_favorite" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
+                            android:layout_marginStart="@dimen/dp20"
                             android:gravity="start"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"                            android:layout_marginBottom="@dimen/dp5"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/favorite"
                                 android:textColor="@color/menu_text1"
-                                android:textSize="@dimen/text13sp"/>
+                                android:textSize="@dimen/text13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp0_1"
@@ -390,19 +390,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/address"
                                 android:textColor="@color/menu_text1"
-                                android:textSize="@dimen/text13sp"/>
+                                android:textSize="@dimen/text13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp0_1"
@@ -437,24 +438,25 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_contact_us" />
+
                         <LinearLayout
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/Contact"
                                 android:textColor="@color/menu_text1"
-                                android:textSize="@dimen/text13sp"/>
+                                android:textSize="@dimen/text13sp" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -490,19 +492,20 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_wallet" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/wallet"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
@@ -518,15 +521,14 @@
                     </LinearLayout>
 
                 </LinearLayout>
-//multilanguage
+
                 <LinearLayout
                     android:id="@+id/language"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp5"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -542,22 +544,24 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_lang" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
-                                android:layout_gravity="start|center_vertical"
                                 android:gravity="start|center_vertical"
                                 android:text="@string/language"
                                 android:textColor="@color/menu_text1"
-                                android:textSize="@dimen/text13sp"/>
+                                android:textSize="@dimen/text13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp0_1"
@@ -596,19 +600,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
-                                android:layout_gravity="start|center_vertical"
                                 android:gravity="start|center_vertical"
                                 android:text="@string/currency"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp0_1"
@@ -617,12 +622,9 @@
                         </LinearLayout>
 
 
-
                     </LinearLayout>
 
                 </LinearLayout>
-                //multilanguage end
-
 
                 <LinearLayout
                     android:id="@+id/gorateus"
@@ -648,16 +650,16 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/rate_us"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
@@ -668,7 +670,6 @@
                                 android:layout_marginTop="@dimen/dp5"
                                 android:background="@color/line_color" />
                         </LinearLayout>
-
 
                     </LinearLayout>
 
@@ -696,19 +697,20 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_share" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/share"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
@@ -747,22 +749,24 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/location2" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/store"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp0_1"
@@ -800,8 +804,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
 
                             <com.iamretailer.Common.CustomTextview
@@ -809,12 +813,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/about"
                                 android:textColor="@color/menu_text1"
-                                android:textSize="@dimen/text13sp"/>
+                                android:textSize="@dimen/text13sp" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -850,19 +854,20 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/menu_password" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/change_pwd"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
@@ -900,19 +905,20 @@
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
                             android:src="@mipmap/helps" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/helps"
                                 android:textColor="@color/menu_text1"
                                 android:textSize="@dimen/text13sp" />
@@ -948,22 +954,23 @@
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp5"
                             android:src="@mipmap/menu_logout" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="@dimen/dp20">
+                            android:layout_marginStart="@dimen/dp20"
+                            android:orientation="vertical">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|center_vertical"
-                                android:gravity="start|center_vertical"
                                 android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/log_out"
                                 android:textColor="@color/menu_text1"
-                                android:textSize="@dimen/text13sp"/>
+                                android:textSize="@dimen/text13sp" />
 
                         </LinearLayout>
 

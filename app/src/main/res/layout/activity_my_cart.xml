@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <LinearLayout
                     android:id="@+id/shopnow"
                     android:layout_width="match_parent"
@@ -34,8 +33,8 @@
                         android:layout_width="@dimen/dp90"
                         android:layout_height="@dimen/dp90"
                         android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
                         android:contentDescription="@null"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/empty_cart" />
 
                     <com.iamretailer.Common.CustomTextview1
@@ -109,10 +108,11 @@
                         android:layout_height="@dimen/dp90"
                         android:layout_gravity="bottom"
                         android:orientation="vertical">
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dpp2"
-                            android:background="@color/app_view_color"/>
+                            android:background="@color/app_view_color" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -176,6 +176,7 @@
                                             android:textSize="@dimen/text13sp"
                                             android:textStyle="bold" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:id="@+id/shipping"
                                         android:layout_width="wrap_content"
@@ -235,13 +236,12 @@
                                             android:layout_height="@dimen/dp23"
                                             android:layout_marginStart="@dimen/dp4"
                                             android:autoMirrored="true"
-                                            android:rotationY="@integer/locale_mirror_flip"
                                             android:contentDescription="@null"
+                                            android:rotationY="@integer/locale_mirror_flip"
                                             android:src="@mipmap/but_cart" />
 
                                     </LinearLayout>
                                 </FrameLayout>
-
 
 
                             </LinearLayout>
