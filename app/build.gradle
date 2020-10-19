@@ -27,8 +27,8 @@ android {
         applicationId "com.iamretailer"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 11
-        versionName "2.0"
+        versionCode 12
+        versionName "2.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [

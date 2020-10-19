@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamretailer.Adapter.OrderAdapter;
+import com.iamretailer.Adapter.ReturnlistAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import stutzen.co.network.Connection;
 
 
-public class MyOrders extends Language {
+public class ReturnlistActivity extends Language {
 
     private ListView order;
     private ArrayList<OrdersPO> list;
@@ -40,6 +41,7 @@ public class MyOrders extends Language {
     private FrameLayout fullayout;
     private TextView errortxt1;
     private TextView errortxt2;
+    private TextView no_order;
     private AndroidLogger logger;
 
 
@@ -51,7 +53,7 @@ public class MyOrders extends Language {
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         LinearLayout back = findViewById(R.id.menu);
         error_network = findViewById(R.id.error_network);
-        DBController db = new DBController(MyOrders.this);
+        DBController db = new DBController(ReturnlistActivity.this);
         LinearLayout retry = findViewById(R.id.retry);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class MyOrders extends Language {
         });
         cart_count = findViewById(R.id.cart_count);
         TextView header = findViewById(R.id.header);
-        header.setText(R.string.myorder);
+        header.setText(R.string.returns);
         order = findViewById(R.id.order_list);
         loading = findViewById(R.id.loading);
         empty = findViewById(R.id.empty);
@@ -70,6 +72,8 @@ public class MyOrders extends Language {
         empty.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
+        no_order = findViewById(R.id.no_order);
+        no_order.setText(R.string.no_orders1);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
         Appconstatants.Lang = db.get_lang_code();
@@ -78,11 +82,11 @@ public class MyOrders extends Language {
         Appconstatants.CUR = db.getCurCode();
 
         OrderTask orderTask = new OrderTask();
-        orderTask.execute(Appconstatants.myorder_api, Appconstatants.sessiondata);
+        orderTask.execute(Appconstatants.Return_List, Appconstatants.sessiondata);
         shopnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyOrders.this, MainActivity.class));
+                startActivity(new Intent(ReturnlistActivity.this, MainActivity.class));
             }
         });
 
@@ -90,10 +94,10 @@ public class MyOrders extends Language {
         order.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MyOrders.this, ViewDetails.class);
+                Intent intent = new Intent(ReturnlistActivity.this, ReturnViewDetails.class);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("id", list.get(i).getOrder_id());
+                bundle.putString("id", list.get(i).getReturn_id());
                 bundle.putString("status", list.get(i).getOrder_status());
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -107,14 +111,14 @@ public class MyOrders extends Language {
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
                 OrderTask orderTask = new OrderTask();
-                orderTask.execute(Appconstatants.myorder_api, Appconstatants.sessiondata);
+                orderTask.execute(Appconstatants.Return_List, Appconstatants.sessiondata);
             }
         });
         LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MyOrders.this, MyCart.class));
+                startActivity(new Intent(ReturnlistActivity.this, MyCart.class));
             }
         });
 
@@ -124,14 +128,14 @@ public class MyOrders extends Language {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 3 && data != null) {
+        if (requestCode == 7 && data != null) {
 
             loading.setVisibility(View.VISIBLE);
             error_network.setVisibility(View.GONE);
             CartTask cartTask = new CartTask();
             cartTask.execute(Appconstatants.cart_api);
             OrderTask orderTask = new OrderTask();
-            orderTask.execute(Appconstatants.myorder_api, Appconstatants.sessiondata);
+            orderTask.execute(Appconstatants.Return_List, Appconstatants.sessiondata);
         }
     }
 
@@ -152,7 +156,7 @@ public class MyOrders extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyOrders.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ReturnlistActivity.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
@@ -206,12 +210,12 @@ public class MyOrders extends Language {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Order list api" + Appconstatants.myorder_api);
+            logger.info("Order list api" + Appconstatants.Return_List);
             Log.d("Order_url", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(Appconstatants.myorder_api, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyOrders.this);
+                response = connection.connStringResponse(Appconstatants.Return_List, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ReturnlistActivity.this);
                 logger.info("Order list api resp" + response);
                 Log.d("Order_resp", response);
                 Log.d("url", Appconstatants.Lang);
@@ -249,25 +253,13 @@ public class MyOrders extends Language {
                                     JSONObject obj = arr.getJSONObject(h);
                                     OrdersPO bo = new OrdersPO();
                                     bo.setOrder_id(obj.isNull("order_id") ? "" : obj.getString("order_id"));
+                                    bo.setReturn_id(obj.isNull("return_id") ? "" : obj.getString("return_id"));
                                     bo.setOrder_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     bo.setOrder_status(obj.isNull("status") ? "" : obj.getString("status"));
                                     bo.setOrder_date(obj.isNull("date_added") ? "" : obj.getString("date_added"));
-                                    bo.setOrder_products(obj.isNull("products") ? "" : obj.getString("products"));
-                                    bo.setOrder_total(obj.isNull("total") ? "" : obj.getString("total"));
-                                    bo.setPayment(obj.isNull("payment_method") ? "" : obj.getString("payment_method"));
-                                    bo.setOrder_cur(obj.isNull("currency_code") ? "" : obj.getString("currency_code"));
-                                    bo.setOrder_cur_val(obj.isNull("currency_value") ? "" : obj.getString("currency_value"));
-                                    bo.setOrder_total_raw(obj.isNull("total_raw") ? "" : obj.getString("total_raw"));
-                                    bo.setOrder_time(obj.isNull("timestamp") ? "" : obj.getString("timestamp"));
-                                    JSONObject object = obj.getJSONObject("currency");
-                                    bo.setCur_id(object.isNull("currency_id") ? "" : object.getString("currency_id"));
-                                    bo.setSym_left(object.isNull("symbol_left") ? "" : object.getString("symbol_left"));
-                                    bo.setSym_right(object.isNull("symbol_right") ? "" : object.getString("symbol_right"));
-                                    bo.setDecimal(object.isNull("decimal_place") ? "" : object.getString("decimal_place"));
-                                    bo.setValue(object.isNull("value") ? "" : object.getString("value"));
                                     list.add(bo);
                                 }
-                                OrderAdapter adapter = new OrderAdapter(MyOrders.this, R.layout.order_list, list);
+                                ReturnlistAdapter adapter = new ReturnlistAdapter(ReturnlistActivity.this, R.layout.return_list, list);
                                 order.setAdapter(adapter);
                             }
                             loading.setVisibility(View.GONE);
@@ -276,21 +268,21 @@ public class MyOrders extends Language {
                     } else {
                         JSONArray array = json.getJSONArray("error");
 
-                        if (array.getString(0).equalsIgnoreCase("User is not logged in")) {
+                        if (array.getString(0).equalsIgnoreCase("User is not logged.")) {
 
                             loading.setVisibility(View.GONE);
-                            Intent i = new Intent(MyOrders.this, Login.class);
-                            i.putExtra("from", 3);
-                            startActivityForResult(i, 3);
+                            Intent i = new Intent(ReturnlistActivity.this, Login.class);
+                            i.putExtra("from", 7);
+                            startActivityForResult(i, 7);
                             finish();
-                            Toast.makeText(MyOrders.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReturnlistActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         } else {
                             loading.setVisibility(View.GONE);
                             error_network.setVisibility(View.VISIBLE);
                             errortxt1.setText(R.string.error_msg);
                             String error = array.getString(0) + "";
                             errortxt2.setText(error);
-                            Toast.makeText(MyOrders.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReturnlistActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -306,7 +298,7 @@ public class MyOrders extends Language {
                                 public void onClick(View view) {
                                     loading.setVisibility(View.VISIBLE);
                                     OrderTask orderTask = new OrderTask();
-                                    orderTask.execute(Appconstatants.myorder_api, Appconstatants.sessiondata);
+                                    orderTask.execute(Appconstatants.Return_List, Appconstatants.sessiondata);
 
                                 }
                             })

@@ -76,6 +76,7 @@ public class Drawer extends Language {
     private LinearLayout aboutus;
     private LinearLayout currency;
     private LinearLayout helps;
+    private LinearLayout returns;
 
 
     @Override
@@ -112,6 +113,7 @@ public class Drawer extends Language {
         store = (LinearLayout) view.findViewById(R.id.store);
         aboutus = (LinearLayout) view.findViewById(R.id.aboutus);
         currency = (LinearLayout) view.findViewById(R.id.currency);
+        returns = (LinearLayout) view.findViewById(R.id.returns);
         TextView title = (TextView) view.findViewById(R.id.title);
         String s1 = getResources().getString(R.string.about);
         String s2 = getResources().getString(R.string.app_name);
@@ -242,6 +244,13 @@ public class Drawer extends Language {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Wallet.class));
+
+            }
+        });
+        returns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ReturnlistActivity.class));
 
             }
         });

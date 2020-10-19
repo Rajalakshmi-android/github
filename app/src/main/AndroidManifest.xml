@@ -54,6 +54,8 @@
         <activity android:name=".Return_Acticity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".InfoActivity" />
+        <activity android:name=".ReturnlistActivity" />
+        <activity android:name=".ReturnViewDetails" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -329,7 +329,7 @@
     <string name="get_in_touch">Get in touch!</string>
     <string name="sumbit_queries">Submit your queries here..</string>
     <string name="comment">Comments*</string>
-    <string name="order_id">Order ID : </string>
+    <string name="order_id">Order ID  </string>
     <string name="pending">Pending</string>
     <string name="checkss"> For Fast Checkout </string>
 
@@ -423,10 +423,20 @@
     <string name="out_of">Out of</string>
     <string name="appinfo">App Info</string>
     <string name="helps">Help</string>
+
+    <string name="returns">Return</string>
+    <string name="returns_id">Return id</string>
+    <string name="no_orders1">No Return Yet!!</string>
+    <string name="return_info">Return Info</string>
+    <string name="return_infos">Return Information</string>
+    <string name="model">Model :</string>
+    <string name="reason">Reason :</string>
+    <string name="opens">Open :</string>
     //food app
     <string name="l_eat">Let\'s eat </string>
     <string name="q_food">Quality Food</string>
     <string name="return_save">Order Cancelled successfully</string>
+
 
 
     <string name="updatea">Update Alert !</string>
@@ -439,5 +449,7 @@
 
     //gray
     <string name="search_item">Say somthing</string>
+    <string name="status">Status</string>
+
 
 </resources>

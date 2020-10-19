@@ -12,7 +12,15 @@ public class OrdersPO {
         this.payment = payment;
     }
 
-    String payment;
+    String payment,return_id;
+
+    public String getReturn_id() {
+        return return_id;
+    }
+
+    public void setReturn_id(String return_id) {
+        this.return_id = return_id;
+    }
 
     public String getQuantity() {
         return quantity;
