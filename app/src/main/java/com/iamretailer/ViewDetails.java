@@ -513,6 +513,11 @@ public class ViewDetails extends Language {
         price.setText(a1);
         qunt.setText(placePO.getQty());
         amount.setText(b1);
+        if (Appconstatants.returns_menu == 1) {
+            returnlay.setVisibility(View.VISIBLE);
+        }else{
+            returnlay.setVisibility(View.GONE);
+        }
         returnlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

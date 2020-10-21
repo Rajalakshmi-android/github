@@ -69,19 +69,20 @@ public class ReturnViewDetails extends Language {
     private TextView cus_name;
     private TextView del;
     private ArrayList<PlacePO> list3;
-    private LinearLayout delete;
+    private LinearLayout delete,history,history_list;
     private RecyclerView horizontalListView;
     private TrackingAdapter featuredProduct;
     private String order_ids="";
     private String order_dated="";
     private TextView email,product_name,model,reason,open,comment,return_id;
     private TextView order_id,qty;
+    private TextView return_date;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_details);
+        setContentView(R.layout.activity_return_detail);
         CommonFunctions.updateAndroidSecurityProvider(this);
         DBController db = new DBController(ReturnViewDetails.this);
         logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
@@ -133,12 +134,15 @@ public class ReturnViewDetails extends Language {
         open = findViewById(R.id.open);
         comment = findViewById(R.id.comment);
         return_id = findViewById(R.id.return_id);
+        return_date = findViewById(R.id.return_date);
+        history = findViewById(R.id.history);
+        history_list = findViewById(R.id.history_list);
         qty = findViewById(R.id.qty);
 
         tracking = findViewById(R.id.tracking);
         success = findViewById(R.id.success);
 
-        String head=getResources().getString(R.string.order_ids)+bun.getString("id");
+        String head=getResources().getString(R.string.return_request);
         order_ids=bun.getString("id");
         header.setText(head);
         OrderTask task = new OrderTask();
@@ -321,6 +325,7 @@ public class ReturnViewDetails extends Language {
                         return_id.setText(object.isNull("return_id") ? "" : object.getString("return_id"));
                         order_id.setText(object.isNull("order_id") ? "" : object.getString("order_id"));
                         order_date.setText(object.isNull("date_added") ? "" : object.getString("date_added"));
+                        return_date.setText(object.isNull("date_ordered") ? "" : object.getString("date_ordered"));
                         cus_name.setText((object.isNull("firstname") ? "" : object.getString("firstname"))+" "+(object.isNull("lastname") ? "" : object.getString("lastname")));
                         email.setText(object.isNull("email") ? "" : object.getString("email"));
                         phone.setText(object.isNull("telephone") ? "" : object.getString("telephone"));
@@ -330,7 +335,29 @@ public class ReturnViewDetails extends Language {
                         reason.setText(object.isNull("reason") ? "" : object.getString("reason"));
                         open.setText(object.isNull("opened") ? "" : object.getString("opened"));
                         comment.setText(object.isNull("comment") ? "" : object.getString("comment"));
+                        JSONArray arr1 = new JSONArray(object.getString("histories"));
 
+                        for (int h = 0; h < arr1.length(); h++) {
+                            JSONObject obj = arr1.getJSONObject(h);
+                            PlacePO bo2 = new PlacePO();
+                            bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
+                            bo2.setCommand(obj.isNull("comment") ? "" : obj.getString("comment"));
+                            bo2.setStatus(obj.isNull("status") ? "" : obj.getString("status"));
+                            list3.add(bo2);
+                        }
+                        Collections.reverse(list3);
+
+                        if(list3!=null && list3.size()>0){
+                            history.setVisibility(View.VISIBLE);
+                            history_list.removeAllViews();
+                            for (int i = 0; i < list3.size(); i++) {
+
+                                addLayout(list3.get(i), history_list);
+
+                            }
+                        }else{
+                            history.setVisibility(View.GONE);
+                        }
                         loading.setVisibility(View.GONE);
                         no_network.setVisibility(View.GONE);
                         success.setVisibility(View.VISIBLE);
@@ -375,6 +402,17 @@ public class ReturnViewDetails extends Language {
         }
     }
 
+    private void addLayout(PlacePO placePO, LinearLayout history_list) {
+        View convertView = LayoutInflater.from(this).inflate(R.layout.return_history, history_list, false);
+        TextView order_date = convertView.findViewById(R.id.order_date);
+        TextView status = convertView.findViewById(R.id.status);
+        TextView comment = convertView.findViewById(R.id.comment);
+
+       order_date.setText(placePO.getDate());
+        status.setText(placePO.getStatus());
+        comment.setText(placePO.getCommand());
+        history_list.addView(convertView);
+    }
 
 
 }

@@ -6,11 +6,11 @@ public class Appconstatants {
 
     public static String key="x-oc-merchant-id";
 
-    public static String value="nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";///"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
+    public static String value="cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";///"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
 
     public static String key1="X-Oc-Session";
 
-    public static String domain ="http://shopzen.stutzen.in/";//"https://shopzenstage.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
+    public static String domain ="https://shopzenstage.stutzen.in/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
 
     public static String sessiondata ="5050f4ca981c9fc266f6b1e0b7";
 
@@ -139,6 +139,7 @@ public class Appconstatants {
     public  static  String LICENSE_KEY="1234567890";
     public static int need_brand_product=1;
     public static int store_locator=1;
+    public static int returns_menu=1;
 
     public static String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381","12.120000"};
     public static String[] lng = {"77.799435", "77.9803", "78.119775", "80.270718", "77.756652", "76.955832", "77.4892","76.680000"};

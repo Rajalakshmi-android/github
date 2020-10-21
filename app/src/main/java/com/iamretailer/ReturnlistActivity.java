@@ -268,7 +268,7 @@ public class ReturnlistActivity extends Language {
                     } else {
                         JSONArray array = json.getJSONArray("error");
 
-                        if (array.getString(0).equalsIgnoreCase("User is not logged.")) {
+                        if (array.getString(0).equalsIgnoreCase("User is not logged in")) {
 
                             loading.setVisibility(View.GONE);
                             Intent i = new Intent(ReturnlistActivity.this, Login.class);

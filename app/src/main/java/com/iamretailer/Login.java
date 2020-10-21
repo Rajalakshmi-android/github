@@ -345,11 +345,11 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                         } else if (from == 5) {
                             finish();
                             startActivity(new Intent(getApplicationContext(), MyProfile.class));
-                        }/* else if (from == 7) {
+                        } else if (from == 7) {
                             startActivity(new Intent(getApplicationContext(), ReturnlistActivity.class));
                             finish();
 
-                        }*/
+                        }
 
 
                     } else {

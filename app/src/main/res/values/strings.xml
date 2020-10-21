@@ -426,12 +426,19 @@
 
     <string name="returns">Return</string>
     <string name="returns_id">Return id</string>
+    <string name="returns_id1">Return id:</string>
+    <string name="order_id1">Order id:</string>
+    <string name="order_date">Order date:</string>
+    <string name="return_date">Return date:</string>
+    <string name="return_history">Return History</string>
+    <string name="return_reason">Reason for Return</string>
     <string name="no_orders1">No Return Yet!!</string>
     <string name="return_info">Return Info</string>
-    <string name="return_infos">Return Information</string>
+    <string name="return_infos">Product Information</string>
     <string name="model">Model :</string>
     <string name="reason">Reason :</string>
     <string name="opens">Open :</string>
+    <string name="status1">status :</string>
     //food app
     <string name="l_eat">Let\'s eat </string>
     <string name="q_food">Quality Food</string>
@@ -450,6 +457,7 @@
     //gray
     <string name="search_item">Say somthing</string>
     <string name="status">Status</string>
+    <string name="return_request">Return Request</string>
 
 
 </resources>

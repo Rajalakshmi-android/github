@@ -71,7 +71,16 @@ public class ReturnlistAdapter extends ArrayAdapter<OrdersPO> {
         holder.order_placed.setText(items.get(position).getOrder_date());
         holder.return_id.setText(items.get(position).getReturn_id());
 
+        if (items.get(position).getOrder_status().equalsIgnoreCase("Pending")) {
+            holder.status.setTextColor(ContextCompat.getColor(context, R.color.orange_status));
 
+        } else if (items.get(position).getOrder_status().equalsIgnoreCase("Awaiting Products")) {
+            holder.status.setTextColor(ContextCompat.getColor(context, R.color.red));
+
+        } else if (items.get(position).getOrder_status().equalsIgnoreCase("Complete")) {
+            holder.status.setTextColor(ContextCompat.getColor(context, R.color.green_status));
+
+        }
 
         return alertView;
     }
