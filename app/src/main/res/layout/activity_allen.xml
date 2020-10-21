@@ -16,7 +16,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg_color"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <include layout="@layout/menu_back" />
@@ -24,7 +24,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/app_bg_color">
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
