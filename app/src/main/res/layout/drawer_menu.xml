@@ -801,7 +801,7 @@
                             android:layout_marginTop="@dimen/dp5"
                             android:autoMirrored="true"
                             android:rotationY="@integer/locale_mirror_flip"
-                            android:src="@mipmap/location2" />
+                            android:src="@mipmap/menu_address" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

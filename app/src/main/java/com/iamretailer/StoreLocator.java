@@ -107,7 +107,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
                     .position(new LatLng(Double.parseDouble(Appconstatants.lat[i]), Double.parseDouble(Appconstatants.lng[i])))
                     .title(saddress[i])
                     .icon(BitmapDescriptorFactory
-                            .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, simg[i]))));
+                            .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, R.mipmap.rsz_destiny))));
         }
 
         if (googleMap != null) {

@@ -215,7 +215,7 @@ public class Return_Acticity extends Language {
             rbn.setText(values);
             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
-            drawable.setBounds(0, 0, 30, 30);
+            drawable.setBounds(0, 0, 40, 40);
             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
             rbn.setButtonDrawable(null);
             rbn.setBackgroundColor(Color.TRANSPARENT);
@@ -312,7 +312,7 @@ public class Return_Acticity extends Language {
                             rbn.setText(values);
                             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
                             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
-                            drawable.setBounds(0, 0, 30, 30);
+                            drawable.setBounds(0, 0, 40, 40);
                             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                             rbn.setButtonDrawable(null);
                             rbn.setBackgroundColor(Color.TRANSPARENT);
