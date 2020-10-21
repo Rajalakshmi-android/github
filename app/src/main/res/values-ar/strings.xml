@@ -422,6 +422,23 @@
     <string name="out_of">بعيدا عن المكان</string>
     <string name="appinfo">معلومات التطبيق</string>
     <string name="helps"> مساعدة</string>
+
+
+    <string name="returns">إرجاع</string>
+    <string name="returns_id">معرف العودة</string>
+    <string name="returns_id1">معرّف الإرجاع:</string>
+    <string name="order_id1">رقم التعريف الخاص بالطلب:</string>
+    <string name="order_date">تاريخ الطلب:</string>
+    <string name="return_date">تاريخ العودة:</string>
+    <string name="return_history">Return History</string>
+    <string name="return_reason">سبب الإرجاع</string>
+    <string name="no_orders1">لا عودة بعد !!</string>
+    <string name="return_info">إرجاع المعلومات</string>
+    <string name="return_infos">معلومات المنتج</string>
+    <string name="model">نموذج :</string>
+    <string name="reason">السبب :</string>
+    <string name="opens">افتح :</string>
+    <string name="status1">الحالة :</string>
     //food app
     <string name="l_eat">دعونا نأكل </string>
     <string name="q_food">نوعية الغذاء</string>
