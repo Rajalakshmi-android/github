@@ -21,6 +21,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -106,7 +107,8 @@ public class MainActivity extends Drawer {
     private LinearLayout helps;
     private String currentVersion;
     private String downloadsize;
-
+    LinearLayout whatsapp;
+    ImageView whats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +153,8 @@ public class MainActivity extends Drawer {
         cart_count_bot = findViewById(R.id.cart_count_bot);
         cat_no_items = findViewById(R.id.cat_no_items);
         category = findViewById(R.id.category);
+        whatsapp=findViewById(R.id.whatsapp);
+        whats=findViewById(R.id.whats_img);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -335,7 +339,32 @@ public class MainActivity extends Drawer {
                 startActivity(intent);
             }
         });
+        if(Appconstatants.whatsapp_mode==1){
+            whatsapp.setVisibility(View.VISIBLE);
+        }else{
+            whatsapp.setVisibility(View.GONE);
+        }
 
+        whatsapp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWhatsApp();
+            }
+        });
+
+    }
+    private void openWhatsApp() {
+        try {
+            Uri uri = Uri.parse("smsto:" +Appconstatants.whatsapp_number);
+            Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+            i.setPackage("com.whatsapp");
+            startActivity(Intent.createChooser(i, ""));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("tag","whatsapp----"+e);
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp")));
+
+        }
 
     }
 
