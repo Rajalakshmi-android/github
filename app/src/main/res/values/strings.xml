@@ -425,6 +425,7 @@
     <string name="helps">Help</string>
 
     <string name="returns">Return</string>
+    <string name="returns_title">Order Return</string>
     <string name="returns_id">Return id</string>
     <string name="returns_id1">Return id:</string>
     <string name="order_id1">Order id:</string>

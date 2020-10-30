@@ -425,6 +425,7 @@
 
 
     <string name="returns">إرجاع</string>
+    <string name="returns_title">بعودة النظام</string>
     <string name="returns_id">معرف العودة</string>
     <string name="returns_id1">معرّف الإرجاع:</string>
     <string name="order_id1">رقم التعريف الخاص بالطلب:</string>
@@ -439,6 +440,7 @@
     <string name="reason">السبب :</string>
     <string name="opens">افتح :</string>
     <string name="status1">الحالة :</string>
+    <string name="return_request">طلب ارجاع</string>
     //food app
     <string name="l_eat">دعونا نأكل </string>
     <string name="q_food">نوعية الغذاء</string>

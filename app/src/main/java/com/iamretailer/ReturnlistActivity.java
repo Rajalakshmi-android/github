@@ -63,7 +63,7 @@ public class ReturnlistActivity extends Language {
         });
         cart_count = findViewById(R.id.cart_count);
         TextView header = findViewById(R.id.header);
-        header.setText(R.string.returns);
+        header.setText(R.string.returns_title);
         order = findViewById(R.id.order_list);
         loading = findViewById(R.id.loading);
         empty = findViewById(R.id.empty);
