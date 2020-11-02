@@ -157,4 +157,7 @@ public class Appconstatants {
     public static String Return_List=domain+"index.php?route=rest/return/returns";
     public static String Return_Detail=domain+"index.php?route=rest/return/returns&id=";
 
+    public static String Store_list=domain+"index.php?route=feed/rest_api/stores";
+    public static String Store_Detail=domain+"index.php?route=feed/rest_api/stores&id=";
+
 }

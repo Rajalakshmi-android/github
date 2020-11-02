@@ -5,10 +5,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.JSONParser;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.PlacePO;
 import com.iamretailer.Paymentgateway.Paypal.PaypalConfig;
@@ -35,6 +39,9 @@ import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.razorpay.Checkout;
 import com.squareup.picasso.Picasso;
 
@@ -44,11 +51,12 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 import stutzen.co.network.Connection;
 
-public class ConfirmOrder extends Language {
+public class ConfirmOrder extends Language implements PaytmPaymentTransactionCallback {
 
     private LinearLayout place_list;
     private FrameLayout order;
@@ -95,6 +103,11 @@ public class ConfirmOrder extends Language {
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
     private String pay_code;
+    private int paytms_code=1;
+    private String mid="";
+    private String custid="";
+    private String price_amount="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +120,7 @@ public class ConfirmOrder extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
+        custid=db.getcusid();
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();
         order = findViewById(R.id.order);
@@ -196,7 +210,7 @@ public class ConfirmOrder extends Language {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pay_code.equalsIgnoreCase("cod")) {
+                /*if (pay_code.equalsIgnoreCase("cod")) {
 
                     PlaceOrderTask OrderTask = new PlaceOrderTask();
                     OrderTask.execute(Appconstatants.Place_Order);
@@ -205,10 +219,13 @@ public class ConfirmOrder extends Language {
                     OrderTask OrderTask = new OrderTask();
                     OrderTask.execute(order_id);
 
+                } else if (pay_code.equalsIgnoreCase("paytm")) {
+
+                    paytm_method(order_id);
                 } else {
                     getPayment(order_id);
-                }
-
+                }*/
+                paytm_method(order_id);
             }
         });
         add_edit.setOnClickListener(new View.OnClickListener() {
@@ -248,7 +265,11 @@ public class ConfirmOrder extends Language {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
 
+
+
     }
+
+
 
 
     private void show_promo() {
@@ -678,6 +699,8 @@ public class ConfirmOrder extends Language {
         }
     }
 
+
+
     //-----------------------Paypal integration----------------------------------
 
 
@@ -744,6 +767,7 @@ public class ConfirmOrder extends Language {
         }
 
     }
+
 
     //--------------------------------------Razor Pay integration-----------------------------
 
@@ -991,5 +1015,93 @@ public class ConfirmOrder extends Language {
 
         }
     }
+
+    //-------------------------------------- Paytm integration -----------------------------
+    private void paytm_method(String order_id) {
+        if (ContextCompat.checkSelfPermission(ConfirmOrder.this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ConfirmOrder.this, new String[]{android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS}, 101);
+        }
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        mid = "WeRYUn90855748070201"; /// your marchant id
+       // PaytmPGService Service = PaytmPGService.getStagingService("");
+        // when app is ready to publish use production service
+        PaytmPGService  Service = PaytmPGService.getProductionService();
+
+        // now call paytm service here
+        //below parameter map is required to construct PaytmOrder object, Merchant should replace below map values with his own values
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        //these are mandatory parameters
+        price_amount=String.valueOf(pay_tot);
+        paramMap.put("requestType", "Payment");
+        paramMap.put("MID", mid); //MID provided by paytm
+        paramMap.put("ORDER_ID", order_id);
+        paramMap.put("CUST_ID", custid);
+        paramMap.put("CHANNEL_ID", "WAP");
+        paramMap.put("TXN_AMOUNT",price_amount );
+        paramMap.put("WEBSITE", "WEBSTAGING");
+        paramMap.put( "EMAIL" , db.getEmail());   // no need
+        paramMap.put( "MOBILE_NO" , db.getphone());  // no need
+        paramMap.put( "CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+order_id);
+        paramMap.put( "CHECKSUMHASH" , "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+
+        PaytmOrder Order = new PaytmOrder(paramMap);
+        Log.e("checksum ", "param "+ paramMap.toString());
+        Service.initialize(Order,null);
+        // start payment service call here
+        Service.startPaymentTransaction(ConfirmOrder.this, true, true,
+                ConfirmOrder.this  );
+
+
+    }
+
+
+
+    @Override
+    public void onTransactionResponse(Bundle inResponse) {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+        Log.i("tag","paytm_response---- "+inResponse.toString());
+    }
+
+    @Override
+    public void networkNotAvailable() {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Network connection error: Check your internet connectivity", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void clientAuthenticationFailed(String inErrorMessage)  {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Authentication failed: Server error" + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void someUIErrorOccurred(String inErrorMessage) {
+        /*Display the error message as below */
+        Toast.makeText(getApplicationContext(), "UI Error " + inErrorMessage , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl)  {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Unable to load webpage " + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressedCancelTransaction(){
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTransactionCancel(String s, Bundle bundle) {
+        Log.e("checksum ", "  transaction cancel " );
+        Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+    }
+
+
 
 }
