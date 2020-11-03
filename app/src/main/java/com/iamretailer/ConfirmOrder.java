@@ -210,7 +210,7 @@ public class ConfirmOrder extends Language implements PaytmPaymentTransactionCal
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if (pay_code.equalsIgnoreCase("cod")) {
+                if (pay_code.equalsIgnoreCase("cod")) {
 
                     PlaceOrderTask OrderTask = new PlaceOrderTask();
                     OrderTask.execute(Appconstatants.Place_Order);
@@ -224,8 +224,8 @@ public class ConfirmOrder extends Language implements PaytmPaymentTransactionCal
                     paytm_method(order_id);
                 } else {
                     getPayment(order_id);
-                }*/
-                paytm_method(order_id);
+                }
+               // paytm_method(order_id);
             }
         });
         add_edit.setOnClickListener(new View.OnClickListener() {
