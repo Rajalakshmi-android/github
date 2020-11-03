@@ -463,6 +463,7 @@
     <string name="store_address">Address :</string>
     <string name="store_mob">Mobile:</string>
     <string name="store_detail">Store Detail</string>
+    <string name="add_gift_code">Gift Coupon</string>
 
 
 </resources>

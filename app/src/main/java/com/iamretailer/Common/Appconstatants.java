@@ -96,6 +96,8 @@ public class Appconstatants {
 
     public static String COUPON_API=domain+"index.php?route=rest/cart/coupon";
 
+    public static String Gift_COUPON_API=domain+"index.php?route=extension/total/coupon/coupon";
+
     public static String UPDATE_ADD_API=domain+"index.php?route=rest/account/address&id=";
 
     public static String SAVE_ADD_API=domain+"index.php?route=rest/account/address";

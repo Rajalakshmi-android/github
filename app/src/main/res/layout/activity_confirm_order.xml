@@ -353,6 +353,87 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp.4dp"
+                            android:background="@color/line_color" />
+
+
+                        <LinearLayout
+                            android:id="@+id/gift_coupon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="@integer/three">
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:layout_weight="@dimen/value0.4">
+
+                                <ImageView
+                                    android:id="@+id/gift_tag"
+                                    android:layout_width="@dimen/dp25"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="@dimen/dp5"
+                                    android:autoMirrored="true"
+                                    android:contentDescription="@null"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:src="@mipmap/promo_tag_unfill" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="@dimen/value_1_6">
+
+                                <com.iamretailer.Common.CustomTextview1
+                                    android:id="@+id/gift_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/add_gift_code"
+                                    android:textColor="@color/prom_tex"
+                                    android:textSize="@dimen/text16sp" />
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center"
+                                android:layout_weight="@integer/one"
+                                android:gravity="end|center_vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|center_vertical"
+                                    android:layout_marginEnd="@dimen/dp30">
+
+                                    <ImageView
+                                        android:id="@+id/gift_circle"
+                                        android:layout_width="@dimen/dp30"
+                                        android:layout_height="@dimen/dp30"
+                                        android:autoMirrored="true"
+                                        android:contentDescription="@null"
+                                        android:rotationY="@integer/locale_mirror_flip"
+                                        android:src="@mipmap/promo_circle_unfil" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp.4dp"
                             android:layout_marginTop="@dimen/dp10"
                             android:background="@color/line_color" />
 
