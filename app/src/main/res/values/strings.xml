@@ -231,6 +231,7 @@
     <string name="back_to_login">Back to Login</string>
     <string name="add_promo_code">Add Promo Code</string>
     <string name="promo_code">Promo Code</string>
+
     <string name="apply">Apply</string>
     <string name="code"> Enter Promo Code</string>
     <string name="my_Acc">My Profile</string>
@@ -464,6 +465,7 @@
     <string name="store_mob">Mobile:</string>
     <string name="store_detail">Store Detail</string>
     <string name="add_gift_code">Gift Coupon</string>
+    <string name="gift_coupon">Gift Coupon Code</string>
 
 
 </resources>

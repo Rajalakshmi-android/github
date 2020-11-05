@@ -289,9 +289,10 @@ public class ConfirmOrder extends Language implements PaytmPaymentTransactionCal
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this, R.style.CustomAlertDialog);
         View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
         final EditText gift_coupon = popUpView.findViewById(R.id.promo_code);
+        final TextView hedding = popUpView.findViewById(R.id.hedding);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
         LinearLayout cancel = popUpView.findViewById(R.id.cancel);
-
+    hedding.setText(R.string.gift_coupon);
         dialLo.setView(popUpView);
 
         final AlertDialog dialog = dialLo.create();
@@ -327,9 +328,10 @@ public class ConfirmOrder extends Language implements PaytmPaymentTransactionCal
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this, R.style.CustomAlertDialog);
         View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
         final EditText promo_code = popUpView.findViewById(R.id.promo_code);
+        final TextView hedding = popUpView.findViewById(R.id.hedding);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
         LinearLayout cancel = popUpView.findViewById(R.id.cancel);
-
+        hedding.setText(R.string.promo_code);
         dialLo.setView(popUpView);
 
         final AlertDialog dialog = dialLo.create();
