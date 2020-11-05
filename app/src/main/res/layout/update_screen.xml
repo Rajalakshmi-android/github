@@ -134,10 +134,9 @@
             android:layout_width="@dimen/dp100"
             android:layout_height="@dimen/dp50"
             android:layout_marginTop="@dimen/dp10"
-            android:autoMirrored="true"
             android:background="@mipmap/googleplay"
             android:contentDescription="@null"
-            android:rotationY="@integer/locale_mirror_flip" />
+            />
 
     </LinearLayout>
 </LinearLayout>

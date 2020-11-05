@@ -460,5 +460,10 @@
     //gray
     <string name="search_item">قل شيئا</string>
 
+    <string name="status">الحالة</string>
+    <string name="store_mob">التليفون المحمول:</string>
+    <string name="add_gift_code">قسيمة الهدية</string>
+    <string name="gift_coupon">كود قسيمة الهدية</string>
+
 
 </resources>

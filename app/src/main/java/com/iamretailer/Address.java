@@ -798,6 +798,7 @@ public class Address extends Language {
                     po1.setCount_name(getApplication().getResources().getString(R.string.selc_oun));
                     country_list.add(po1);
 
+                    Log.i("tag","countryssssss---- "+country_list.get(0).getCount_name());
                     if (json.getInt("success") == 1) {
                         JSONArray jsonArray = new JSONArray(json.getString("data"));
                         for (int y = 0; y < jsonArray.length(); y++) {
