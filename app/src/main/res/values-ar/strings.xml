@@ -227,7 +227,7 @@
     <string name="guest">ضيف المحاسبة</string>
     <string name="address_details">تفاصيل العنوان:</string>
     <string name="back_to_login">العودة إلى تسجيل الدخول</string>
-    <string name="add_promo_code">أضف الرمز الترويجي</string>
+    <string name="add_promo_code">رمز الكوبون</string>
     <string name="promo_code">رمز ترويجي</string>
     <string name="apply">تطبيق</string>
     <string name="code"> إدخال الرمز الترويجي</string>
@@ -464,6 +464,8 @@
     <string name="store_mob">التليفون المحمول:</string>
     <string name="add_gift_code">قسيمة الهدية</string>
     <string name="gift_coupon">كود قسيمة الهدية</string>
-
+    <string name="gift_suc">تم تطبيق الهدية بنجاح</string>
+    <string name="gift_remove">تمت إزالة شهادة الهدية</string>
+    <string name="gift_delete">هل تريد حذف شهادة الهدية؟</string>
 
 </resources>

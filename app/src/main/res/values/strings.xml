@@ -229,7 +229,7 @@
     <string name="guest">Guest Checkout</string>
     <string name="address_details">Address Details:</string>
     <string name="back_to_login">Back to Login</string>
-    <string name="add_promo_code">Add Promo Code</string>
+    <string name="add_promo_code">Coupon Code</string>
     <string name="promo_code">Promo Code</string>
 
     <string name="apply">Apply</string>
@@ -461,8 +461,11 @@
     <string name="status">Status</string>
     <string name="return_request">Return Request</string>
     <string name="store_mob">Mobile:</string>
-    <string name="add_gift_code">Gift Coupon</string>
-    <string name="gift_coupon">Gift Coupon Code</string>
+    <string name="add_gift_code">Gift Certificate</string>
+    <string name="gift_coupon">Gift Certificate</string>
+    <string name="gift_suc">Gift Applied Successfully</string>
+    <string name="gift_remove">Gift Certificate removed</string>
+    <string name="gift_delete">Do you want to gift certificate delete?</string>
 
 
 </resources>
