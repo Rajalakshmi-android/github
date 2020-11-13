@@ -466,6 +466,8 @@
     <string name="gift_suc">Gift Applied Successfully</string>
     <string name="gift_remove">Gift Certificate removed</string>
     <string name="gift_delete">Do you want to gift certificate delete?</string>
+    <string name="coupon_remove">Coupon code removed</string>
+    <string name="coupon_delete">Do you want to coupon code delete?</string>
 
 
 </resources>

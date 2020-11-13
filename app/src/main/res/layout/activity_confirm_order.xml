@@ -420,6 +420,7 @@
                                         android:layout_width="@dimen/dp30"
                                         android:layout_height="@dimen/dp30"
                                         android:autoMirrored="true"
+                                        android:padding="@dimen/dp1"
                                         android:contentDescription="@null"
                                         android:rotationY="@integer/locale_mirror_flip"
                                         android:src="@mipmap/promo_circle_unfil" />
