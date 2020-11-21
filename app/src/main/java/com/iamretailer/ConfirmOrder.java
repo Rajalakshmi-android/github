@@ -1354,9 +1354,9 @@ public class ConfirmOrder extends Language implements PaytmPaymentTransactionCal
 
     //-------------------------------------- Paytm integration -----------------------------
     private void paytm_method(String order_id) {
-        if (ContextCompat.checkSelfPermission(ConfirmOrder.this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+       /* if (ContextCompat.checkSelfPermission(ConfirmOrder.this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ConfirmOrder.this, new String[]{android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS}, 101);
-        }
+        }*/
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
