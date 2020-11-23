@@ -299,7 +299,7 @@ public class ContactForm extends Language {
                                 }
 
                         }
-                        loading.setVisibility(View.GONE);
+
 
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -421,7 +421,7 @@ public class ContactForm extends Language {
                         String error=array.getString(0)+"";
                         Toast.makeText(ContactForm.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
-
+                    loading.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                     loading.setVisibility(View.GONE);

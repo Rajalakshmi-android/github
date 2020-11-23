@@ -611,7 +611,7 @@ public class MainActivity extends Drawer {
                                 bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
 
-
+                                banner_list.add(bo);
                                 if (h == array.length() - 1) {
                                     BannerBo bo1 = new BannerBo();
                                     bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
@@ -619,9 +619,6 @@ public class MainActivity extends Drawer {
                                     bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
                                     banner2.add(bo);
-                                }else{
-                                    if(obj.getString("title").contains("banner"))
-                                    banner_list.add(bo);
                                 }
 
 

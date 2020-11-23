@@ -385,12 +385,15 @@ public class Filter extends AppCompatActivity {
                                     filter_sub_list = new ArrayList<>();
                                     FilterPO filterPO1 = new FilterPO();
                                     filterPO1.setFilter_name("price");
-                                    filterPO1.setSeek_min(Float.parseFloat(String.valueOf(array1.get(0))));
-                                    filterPO1.setSeek_max(Float.parseFloat(String.valueOf(array1.get(1))));
-                                    filterPO1.setPrice_values(Float.parseFloat(String.valueOf(array1.get(0))));
-                                    filterPO1.setPrice_values0(Float.parseFloat(String.valueOf(array1.get(1))));
+                                    if (array1.length() > 0) {
+                                        filterPO1.setSeek_min(Float.parseFloat(String.valueOf(array1.get(0))));
+                                        filterPO1.setPrice_values(Float.parseFloat(String.valueOf(array1.get(0))));
+                                        if (array1.length() > 1) {
+                                            filterPO1.setSeek_max(Float.parseFloat(String.valueOf(array1.get(1))));
+                                            filterPO1.setPrice_values0(Float.parseFloat(String.valueOf(array1.get(1))));
+                                        }
+                                    }
                                     filter_sub_list.add(filterPO1);
-
 
                                     filterPO.setFilterPOS(filter_sub_list);
                                     if (filterPO1.getSeek_min() > 0 && filterPO1.getSeek_max() > filterPO1.getSeek_min())
