@@ -137,12 +137,11 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+       /* mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this *//* FragmentActivity*//* , this *//* OnConnectionFailedListener*//* )
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-
+*/
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +156,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
             @Override
             public void onClick(View v) {
                 loginButton.performClick();
+
             }
         });
         gmail_login.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +191,9 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.i("tag","steppinggg ---- "+loginResult);
                 getUserProfile(AccessToken.getCurrentAccessToken());
+                Log.i("tag","steppinggg111 ---- "+loginResult);
             }
 
             @Override
@@ -579,6 +581,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.d("TAG", object.toString());
+                        Log.i("tag","steppinggg 222---- ");
                         try {
                             Log.d("last_name", object.getString("first_name") + "");
                             Log.d("last_name ", object.getString("email") + "-->mail");
@@ -598,6 +601,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.i("tag","steppinggg333 ---- "+e.toString());
                         }
 
                     }
