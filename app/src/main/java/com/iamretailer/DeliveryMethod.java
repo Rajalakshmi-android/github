@@ -94,7 +94,6 @@ public class DeliveryMethod extends Language {
         errortxt2 = findViewById(R.id.errortxt2);
         success = findViewById(R.id.success);
 
-
         DeliveryMethodList paymentListTask = new DeliveryMethodList();
         paymentListTask.execute();
 
@@ -278,8 +277,8 @@ public class DeliveryMethod extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("DeliveryMethodTask", "DeliveryMethodTask--resp" + resp);
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);

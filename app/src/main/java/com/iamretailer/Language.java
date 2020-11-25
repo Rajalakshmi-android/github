@@ -18,8 +18,6 @@ public class Language extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CommonFunctions.updateAndroidSecurityProvider(this);
-
-
         DBController db = new DBController(Language.this);
         if (db.get_lan_c() > 0) {
             change_langs(db.get_lang_code());
@@ -31,7 +29,7 @@ public class Language extends AppCompatActivity {
         ArrayList<String> lang_list = LanguageList.getLang_list();
         String set_lan = "en";
 
-        if(lang_list!=null&&lang_list.size()>0){
+        if (lang_list != null && lang_list.size() > 0) {
             for (int h = 0; h < lang_list.size(); h++) {
                 if (languageToLoad.contains(lang_list.get(h))) {
                     set_lan = lang_list.get(h);
@@ -40,11 +38,9 @@ public class Language extends AppCompatActivity {
 
             }
 
-
         }
 
         Configuration config = new Configuration();
-
         // API 17+ only.
         Locale locale = new Locale(set_lan);
         Locale.setDefault(locale);

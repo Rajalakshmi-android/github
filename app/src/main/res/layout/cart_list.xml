@@ -3,41 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp10">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/dp8"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="@dimen/dp100"
                     android:layout_height="@dimen/dp105"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/dp5"
                     android:layout_marginEnd="@dimen/dp5"
-                    android:background="@drawable/product_back1">
+                    android:layout_marginStart="@dimen/dp5"
+                    android:background="@drawable/product_back1"
+                    android:gravity="center">
 
                     <ImageView
                         android:id="@+id/cart_img"
                         android:layout_width="@dimen/dp85"
-                        android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
                         android:layout_height="@dimen/dp85"
-                        android:src="@mipmap/place_holder"
                         android:layout_gravity="center"
+                        android:autoMirrored="true"
+                        android:padding="@dimen/dp5"
+                        android:rotationY="@integer/locale_mirror_flip"
                         android:scaleType="centerCrop"
-                        android:padding="@dimen/dp5" />
+                        android:src="@mipmap/place_holder" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -46,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -55,9 +58,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/dp7"
                         android:layout_marginTop="@dimen/dp7"
                         android:padding="@dimen/dp7"
-                        android:layout_marginEnd="@dimen/dp7"
                         android:src="@mipmap/cancel_icon" />
 
                     <LinearLayout
@@ -72,27 +75,26 @@
                             android:id="@+id/cart_prod_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
                             android:paddingEnd="@dimen/dp30"
                             android:paddingStart="@dimen/dp0"
-                            android:layout_marginTop="@dimen/dp5"
                             android:text="@string/product_name"
                             android:textColor="@color/cart_text"
-                            android:textSize="@dimen/text15sp"
-                            />
+                            android:textSize="@dimen/text15sp" />
 
                         <LinearLayout
+                            android:id="@+id/option"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:id="@+id/option">
+                            android:orientation="horizontal">
 
                             <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/option_list"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/option"
-                                android:id="@+id/option_list"
-                                android:textSize="@dimen/text14sp"
-                                android:textColor="@color/cart_text" />
+                                android:textColor="@color/cart_text"
+                                android:textSize="@dimen/text14sp" />
 
                             <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/cart_prod_rate"
@@ -100,94 +102,98 @@
                                 android:layout_height="wrap_content"
                                 android:paddingStart="@dimen/dp5"
                                 android:text="@string/option"
-                                android:visibility="gone"
-                                android:textColor="@color/cart_text" />
+                                android:textColor="@color/cart_text"
+                                android:visibility="gone" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <com.iamretailer.Common.CustomTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="@dimen/text11sp"
-                                android:textStyle="bold"
                                 android:id="@+id/rupee_front"
-                                android:textColor="@color/blue"
-                                android:layout_gravity="bottom"
-                                android:layout_marginBottom="@dimen/dp2"
-                                android:gravity="bottom"
-                                />
-
-                        <com.iamretailer.Common.CustomTextview
-                            android:id="@+id/tot"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp2"
-                            android:text="@string/amount"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/text17sp"
-                            android:textStyle="bold" />
-                            <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/text11sp"
-                                android:textStyle="bold"
-                                android:gravity="bottom"
-                                android:id="@+id/rupee_back"
                                 android:layout_gravity="bottom"
                                 android:layout_marginBottom="@dimen/dp2"
-                                android:textColor="@color/blue"/>
+                                android:gravity="bottom"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text11sp"
+                                android:textStyle="bold" />
+
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/tot"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp2"
+                                android:text="@string/amount"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text17sp"
+                                android:textStyle="bold" />
+
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/rupee_back"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginBottom="@dimen/dp2"
+                                android:gravity="bottom"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text11sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_gravity="center"
-                            android:gravity="start|center_vertical">
+                            android:gravity="start|center_vertical"
+                            android:orientation="horizontal">
+
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/Quantity"
                                 android:textColor="@color/qty_tex"
-                                android:textSize="@dimen/text14sp"
-                                android:text="@string/Quantity"/>
+                                android:textSize="@dimen/text14sp" />
 
                             <FrameLayout
                                 android:layout_width="@dimen/dp60"
                                 android:layout_height="@dimen/dp30"
                                 android:layout_marginStart="@dimen/dp7"
-                                android:paddingEnd="@dimen/dp10"
                                 android:background="@drawable/optionunselect1"
-                                >
+                                android:paddingEnd="@dimen/dp10">
 
                                 <ImageView
                                     android:layout_width="@dimen/dp15"
                                     android:layout_height="@dimen/dp15"
-                                    android:src="@mipmap/drop_arrow"
-                                    android:paddingStart="@dimen/dp6"
+                                    android:layout_gravity="end|center_vertical"
                                     android:paddingBottom="@dimen/dp2"
+                                    android:paddingStart="@dimen/dp6"
                                     android:paddingTop="@dimen/dp2"
-                                    android:layout_gravity="end|center_vertical"/>
+                                    android:src="@mipmap/drop_arrow" />
+
                                 <Spinner
+                                    android:id="@+id/spin_qty"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:scrollbars="none"
                                     android:background="@android:color/transparent"
-                                    android:id="@+id/spin_qty"/>
+                                    android:scrollbars="none" />
+
                                 <com.iamretailer.Common.CustomTextview1
                                     android:id="@+id/qty_count"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:paddingTop="@dimen/dp3"
-                                    android:paddingBottom="@dimen/dp3"
-                                    android:textSize="@dimen/text14sp"
-                                    android:paddingStart="@dimen/dp5"
-                                    android:paddingEnd="@dimen/dp5"
                                     android:background="@android:color/transparent"
-                                    android:textColor="@color/qty_tex" />
+                                    android:gravity="center"
+                                    android:paddingBottom="@dimen/dp3"
+                                    android:paddingEnd="@dimen/dp5"
+                                    android:paddingStart="@dimen/dp5"
+                                    android:paddingTop="@dimen/dp3"
+                                    android:textColor="@color/qty_tex"
+                                    android:textSize="@dimen/text14sp" />
 
                             </FrameLayout>
 
@@ -201,26 +207,26 @@
                             android:visibility="gone">
 
                             <LinearLayout
+                                android:id="@+id/qty"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp30"
                                 android:layout_gravity="center"
-                                android:gravity="center"
-                                android:id="@+id/qty"
                                 android:layout_marginEnd="@dimen/dp20"
+                                android:gravity="center"
                                 android:weightSum="@integer/three">
 
                                 <LinearLayout
                                     android:layout_width="@dimen/dp28"
                                     android:layout_height="@dimen/dp28"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:background="@drawable/qty_back">
+                                    android:background="@drawable/qty_back"
+                                    android:gravity="center">
 
                                     <ImageView
                                         android:id="@+id/subtract"
-                                        android:layout_gravity="center"
                                         android:layout_width="@dimen/dp35"
                                         android:layout_height="@dimen/dp35"
+                                        android:layout_gravity="center"
                                         android:padding="@dimen/dp3"
                                         android:src="@drawable/sub" />
                                 </LinearLayout>
@@ -237,8 +243,8 @@
                                 <LinearLayout
                                     android:layout_width="@dimen/dp28"
                                     android:layout_height="@dimen/dp28"
-                                    android:gravity="center"
-                                    android:background="@drawable/qty_back">
+                                    android:background="@drawable/qty_back"
+                                    android:gravity="center">
 
                                     <ImageView
                                         android:id="@+id/add"
@@ -249,41 +255,34 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-                         
+
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="end">
 
-                            android:gravity="end"
-                            >
                             <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/out_of_stock"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/out_of_stock"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/text14sp"
+                                android:text="@string/out_ofstock"
                                 android:textColor="@color/red"
-                                android:text="@string/out_ofstock"/>
+                                android:textSize="@dimen/text14sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
-
-
-
-
-
                     </LinearLayout>
                 </FrameLayout>
 
             </LinearLayout>
         </LinearLayout>
-
-
-
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp.4dp"
-        android:layout_marginTop="@dimen/dp10"
         android:layout_marginStart="@dimen/dp120"
+        android:layout_marginTop="@dimen/dp10"
         android:background="@color/line_color" />
 </LinearLayout>

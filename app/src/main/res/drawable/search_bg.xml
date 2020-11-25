@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item >
-        <shape
-            android:shape="rectangle">
-            <stroke android:color="@color/search_box"
-                android:width="1px"/>
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1px"
+                android:color="@color/search_box" />
 
-            <corners
-                android:radius="@dimen/dp5"/>
+            <corners android:radius="@dimen/dp5" />
         </shape>
     </item>
 </layer-list>

@@ -71,7 +71,6 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         holder.cur_front = convertView.findViewById(R.id.cur_front);
         holder.cur_back = convertView.findViewById(R.id.cur_back);
         holder.line = convertView.findViewById(R.id.line);
-
         holder.product_name.setText(items.get(position).getProduct_name());
         holder.p_price.setText(items.get(position).getOff_price());
 
@@ -82,7 +81,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
 
 
         if (items.get(position).getOff_price().equalsIgnoreCase("0")) {
-            String value = String.format(Locale.ENGLISH,"%.2f", items.get(position).getPrice());
+            String value = String.format(Locale.ENGLISH, "%.2f", items.get(position).getPrice());
             holder.p_price.setText(value);
             holder.cur_back.setText(cur_right);
             holder.cur_front.setText(cur_left);
@@ -127,13 +126,11 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
             pos = position;
         }
 
-
         protected void onPreExecute() {
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage(getContext().getResources().getString(R.string.loading_wait));
             pDialog.setCancelable(false);
             pDialog.show();
-
 
         }
 
@@ -144,7 +141,6 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
             try {
 
                 Connection connection = new Connection();
-
                 response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, context);
 
             } catch (Exception e) {

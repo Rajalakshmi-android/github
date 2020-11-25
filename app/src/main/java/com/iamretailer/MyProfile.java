@@ -51,11 +51,11 @@ public class MyProfile extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         dbcon = new DBController(MyProfile.this);
-        Appconstatants.sessiondata=dbcon.getSession();
-        Appconstatants.Lang=dbcon.get_lang_code();
-        Appconstatants.CUR=dbcon.getCurCode();
+        Appconstatants.sessiondata = dbcon.getSession();
+        Appconstatants.Lang = dbcon.get_lang_code();
+        Appconstatants.CUR = dbcon.getCurCode();
         LinearLayout back = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
         header.setText(R.string.my_Acc);
@@ -108,9 +108,6 @@ public class MyProfile extends Language {
             }
         });
 
-
-
-
         f_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -124,8 +121,7 @@ public class MyProfile extends Language {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if( f_name.getText().length()>0)
-                {
+                if (f_name.getText().length() > 0) {
                     f_name.setError(null);
                 }
 
@@ -145,8 +141,7 @@ public class MyProfile extends Language {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if( l_name.getText().length()>0)
-                {
+                if (l_name.getText().length() > 0) {
                     l_name.setError(null);
                 }
             }
@@ -178,7 +173,7 @@ public class MyProfile extends Language {
                 if (mobile.getText().toString().trim().length() == 0) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
-                if (mobile.getText().toString().trim().length() != 10) {
+                if (mobile.getText().toString().trim().length() < 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -190,8 +185,8 @@ public class MyProfile extends Language {
                 if (!f_name.getText().toString().isEmpty() && f_name.getText().toString().trim().length() > 2 && Validation.validateName(f_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
-                        && mobile.getText().toString().length() == 10 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                ) {
+                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        ) {
                     UPDATE_PROFILE update_profile = new UPDATE_PROFILE();
                     update_profile.execute(Appconstatants.MY_PROFILE, f_name.getText().toString().trim(), l_name.getText().toString().trim(), email.getText().toString().trim(), mobile.getText().toString().trim());
                 }
@@ -211,14 +206,14 @@ public class MyProfile extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Profile api"+param[0]);
+            logger.info("Profile api" + param[0]);
 
             Log.d("url_", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyProfile.this);
-                logger.info("Profile api res"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyProfile.this);
+                logger.info("Profile api res" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -232,9 +227,7 @@ public class MyProfile extends Language {
             if (resp != null) {
                 try {
                     JSONObject object = new JSONObject(resp);
-                    if (object.getInt("success") == 1)
-                    {
-
+                    if (object.getInt("success") == 1) {
                         JSONObject object1 = object.getJSONObject("data");
                         cus_id = object1.isNull("customer_id") ? "" : object1.getString("customer_id");
                         f_name.setText(object1.isNull("firstname") ? "" : object1.getString("firstname"));
@@ -257,7 +250,7 @@ public class MyProfile extends Language {
                         cart.setVisibility(View.GONE);
                         error_lay.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
                         Toast.makeText(MyProfile.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -307,7 +300,7 @@ public class MyProfile extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Update api:"+param[0]);
+            logger.info("Update api:" + param[0]);
 
             String response = null;
             try {
@@ -318,8 +311,8 @@ public class MyProfile extends Language {
                 object.put("telephone", param[4]);
                 Log.d("Update_in", object.toString() + "");
                 Connection connection = new Connection();
-                response = connection.sendHttpPutjson1(param[0], object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyProfile.this);
-                logger.info("Update api resp:"+response);
+                response = connection.sendHttpPutjson1(param[0], object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyProfile.this);
+                logger.info("Update api resp:" + response);
                 Log.d("Update_url", response + "");
 
 
@@ -333,7 +326,7 @@ public class MyProfile extends Language {
 
         protected void onPostExecute(String resp) {
 
-            if(pDialog!=null)
+            if (pDialog != null)
                 pDialog.dismiss();
             if (resp != null) {
 
@@ -344,15 +337,13 @@ public class MyProfile extends Language {
                         Toast.makeText(MyProfile.this, R.string.user, Toast.LENGTH_LONG).show();
                         GET_PROFILE profile = new GET_PROFILE();
                         profile.execute(Appconstatants.MY_PROFILE);
-                        dbcon.user_data(cus_id, f_name.getText().toString() +" "+ l_name.getText().toString(), email.getText().toString(), mobile.getText().toString());
+                        dbcon.user_data(cus_id, f_name.getText().toString() + " " + l_name.getText().toString(), email.getText().toString(), mobile.getText().toString());
                         cart.setVisibility(View.VISIBLE);
                         update.setVisibility(View.GONE);
                         f_name.setEnabled(false);
                         l_name.setEnabled(false);
                         email.setEnabled(false);
                         mobile.setEnabled(false);
-
-
 
                     } else {
                         JSONArray array = json.getJSONArray("error");

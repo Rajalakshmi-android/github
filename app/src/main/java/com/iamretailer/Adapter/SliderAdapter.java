@@ -14,11 +14,8 @@ import android.widget.ImageView;
 
 import com.iamretailer.FullView;
 import com.iamretailer.ProductFullView;
-
-
 import com.iamretailer.R;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 
@@ -54,7 +51,7 @@ public class SliderAdapter extends PagerAdapter {
         if (view != null) {
             imageView = view.findViewById(R.id.image);
         }
-        if (imgurl.get(position)!=null && imgurl.get(position).length() > 0)
+        if (imgurl.get(position) != null && imgurl.get(position).length() > 0)
             Picasso.with(context).load(imgurl.get(position)).placeholder(R.mipmap.place_holder).noFade().into(imageView);
         else
             Picasso.with(context).load(R.mipmap.place_holder).placeholder(R.mipmap.place_holder).noFade().into(imageView);
@@ -70,7 +67,6 @@ public class SliderAdapter extends PagerAdapter {
                 view.getContext().startActivity(data);
             }
         });
-
 
         ViewPager viewPager = (ViewPager) container;
         viewPager.addView(view, 0);

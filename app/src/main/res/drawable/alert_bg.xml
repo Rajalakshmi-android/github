@@ -4,5 +4,5 @@
     <corners android:radius="@dimen/dp20" />
     <padding
         android:left="@dimen/dp15"
-        android:right="@dimen/dp15"/>
+        android:right="@dimen/dp15" />
 </shape>

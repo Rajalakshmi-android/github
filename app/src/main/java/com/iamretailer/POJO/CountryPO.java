@@ -2,7 +2,7 @@ package com.iamretailer.POJO;
 
 public class CountryPO {
 
-    String cont_id,count_name,zone_id;
+    String cont_id, count_name, zone_id;
     int count_id;
 
     public String getZone_id() {

@@ -1,51 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/dp60"
     android:layout_gravity="top"
-    android:background="@drawable/layer"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@drawable/layer">
 
     <LinearLayout
         android:id="@+id/menu"
         android:layout_width="@dimen/dp35"
         android:layout_height="@dimen/dp50"
         android:layout_gravity="start|center_vertical"
-        android:gravity="center"
         android:layout_marginStart="@dimen/dp5"
+        android:gravity="center"
         android:padding="@dimen/dp5">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="@dimen/dp30"
             android:layout_height="@dimen/dp20"
             android:layout_gravity="center"
-            android:src="@mipmap/backk"
-            android:id="@+id/back"
             android:autoMirrored="true"
-            android:rotationY="@integer/locale_mirror_flip"/>
+            android:rotationY="@integer/locale_mirror_flip"
+            android:src="@mipmap/backk" />
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp50"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/dp40"
         android:layout_marginEnd="@dimen/dp40"
+        android:layout_marginStart="@dimen/dp40"
         android:gravity="center|center_vertical">
 
         <com.iamretailer.Common.CustomTextview1
-            android:ellipsize="end"
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/header"
+            android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
             android:maxLines="1"
-
+            android:singleLine="true"
             android:text="@string/product_details"
             android:textColor="@color/app_text_color"
-            android:textSize="@dimen/text18sp"
-           />
+            android:textSize="@dimen/text18sp" />
 
 
     </FrameLayout>
@@ -54,8 +52,8 @@
         android:id="@+id/cart_items"
         android:layout_width="@dimen/dp50"
         android:layout_height="@dimen/dp30"
-        android:layout_marginEnd="@dimen/dp5"
         android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="@dimen/dp5"
         android:gravity="center">
 
         <RelativeLayout
@@ -87,24 +85,26 @@
                 android:padding="@dimen/dp1"
                 android:scaleType="fitStart"
                 android:text="@string/cart"
-                android:textColor="@color/white"
+                android:textColor="@color/button_textcolor"
                 android:textSize="@dimen/text10sp" />
         </RelativeLayout>
 
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="@dimen/dp10"
-        android:id="@+id/clear"
         android:visibility="gone">
+
         <com.iamretailer.Common.CustomTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text14sp"
+            android:text="@string/clear_all"
             android:textColor="@color/colorAccent"
-            android:text="@string/clear_all"/>
+            android:textSize="@dimen/text14sp" />
     </LinearLayout>
 
 </FrameLayout>

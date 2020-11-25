@@ -58,7 +58,7 @@ public class MyCart_copy extends Language {
     private TextView errortxt2;
     private String cur_left = "";
     private String cur_right = "";
-    private int out_of_stock=0;
+    private int out_of_stock = 0;
     private AndroidLogger logger;
     private AlertDialog alertReviewDialog;
     private ArrayList<CountryPO> country_list;
@@ -88,7 +88,7 @@ public class MyCart_copy extends Language {
         setContentView(R.layout.activity_my_cart__copy);
         CommonFunctions.updateAndroidSecurityProvider(this);
         db = new DBController(getApplicationContext());
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         success = (FrameLayout) findViewById(R.id.success);
         cart_list = (ListView) findViewById(R.id.cart_list);
         checkoutview = (LinearLayout) findViewById(R.id.checkoutview);
@@ -98,22 +98,20 @@ public class MyCart_copy extends Language {
         LinearLayout menu = (LinearLayout) findViewById(R.id.menu);
         error_network = (FrameLayout) findViewById(R.id.error_network);
         LinearLayout retry = (LinearLayout) findViewById(R.id.retry);
-        loading=(FrameLayout)findViewById(R.id.loading);
+        loading = (FrameLayout) findViewById(R.id.loading);
         TextView header = (TextView) findViewById(R.id.header);
         header.setText(R.string.my_Cart);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
+        fullayout = (FrameLayout) findViewById(R.id.fullayout);
         errortxt1 = (TextView) findViewById(R.id.errortxt1);
         errortxt2 = (TextView) findViewById(R.id.errortxt2);
         LinearLayout shipping = (LinearLayout) findViewById(R.id.shipping);
-        rupee_front=(TextView)findViewById(R.id.rupee_front);
-        rupee_back=(TextView)findViewById(R.id.rupee_back);
-        cart_count=(TextView)findViewById(R.id.cart_count);
-
-
+        rupee_front = (TextView) findViewById(R.id.rupee_front);
+        rupee_back = (TextView) findViewById(R.id.rupee_back);
+        cart_count = (TextView) findViewById(R.id.cart_count);
 
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang=db.get_lang_code();
-        Appconstatants.CUR=db.getCurCode();
+        Appconstatants.Lang = db.get_lang_code();
+        Appconstatants.CUR = db.getCurCode();
         list = new ArrayList<>();
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
@@ -121,13 +119,13 @@ public class MyCart_copy extends Language {
         success.setVisibility(View.GONE);
         shopnow.setVisibility(View.GONE);
         cur_left = db.get_cur_Left();
-        cur_right=db.get_cur_Right();
+        cur_right = db.get_cur_Right();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    startActivity(new Intent(MyCart_copy.this, MainActivity.class));
+                startActivity(new Intent(MyCart_copy.this, MainActivity.class));
 
             }
         });
@@ -156,16 +154,15 @@ public class MyCart_copy extends Language {
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(list!=null&&list.size()>0){
-                    for (int j=0;j<list.size();j++)
-                    {
+                if (list != null && list.size() > 0) {
+                    for (int j = 0; j < list.size(); j++) {
                         if (!list.get(j).isOut_of_stock())
                             out_of_stock++;
                     }
 
                 }
 
-                if (out_of_stock==0) {
+                if (out_of_stock == 0) {
 
                     if (db.getLoginCount() > 0) {
                         AddressListTask addressListTask = new AddressListTask();
@@ -176,15 +173,13 @@ public class MyCart_copy extends Language {
                         Intent i = new Intent(MyCart_copy.this, Login.class);
                         i.putExtra("from", 2);
                         i.putExtra("list", list);
-                        i.putExtra("has_ship",has_shopp);
-                        startActivityForResult(i,3);
+                        i.putExtra("has_ship", has_shopp);
+                        startActivityForResult(i, 3);
                     }
 
-                }
-                else
-                    {
-                        out_of_stock=0;
-                 Toast.makeText(MyCart_copy.this,R.string.out_stock,Toast.LENGTH_SHORT).show();
+                } else {
+                    out_of_stock = 0;
+                    Toast.makeText(MyCart_copy.this, R.string.out_stock, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -192,7 +187,7 @@ public class MyCart_copy extends Language {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MyCart_copy.this, ProductFullView.class);
-                Bundle mm=new Bundle();
+                Bundle mm = new Bundle();
                 mm.putString("productid", list.get(i).getProduct_id());
                 intent.putExtras(mm);
                 startActivity(intent);
@@ -202,21 +197,18 @@ public class MyCart_copy extends Language {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
 
-        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, null,false);
+        View dialogView = getLayoutInflater().inflate(R.layout.ship_cal, null, false);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
-        alertReviewDialog=dialogBuilder.create();
-        calculate=(FrameLayout)dialogView.findViewById(R.id.calculate);
-        country=(Spinner)dialogView.findViewById(R.id.country);
-        state=(Spinner)dialogView.findViewById(R.id.state);
-        pin_code=(EditText)dialogView.findViewById(R.id.pin_code);
-
-
+        alertReviewDialog = dialogBuilder.create();
+        calculate = (FrameLayout) dialogView.findViewById(R.id.calculate);
+        country = (Spinner) dialogView.findViewById(R.id.country);
+        state = (Spinner) dialogView.findViewById(R.id.state);
+        pin_code = (EditText) dialogView.findViewById(R.id.pin_code);
 
         shipping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  show_Cal_ship(getLayoutInflater());
                 show_Cal_ship();
             }
         });
@@ -226,8 +218,6 @@ public class MyCart_copy extends Language {
 
 
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -251,7 +241,7 @@ public class MyCart_copy extends Language {
         }
         rupee_front.setText(cur_left);
         rupee_back.setText(cur_right);
-        String val=String.format(Locale.ENGLISH,"%.2f", sum);
+        String val = String.format(Locale.ENGLISH, "%.2f", sum);
         subtotal.setText(val);
     }
 
@@ -279,7 +269,7 @@ public class MyCart_copy extends Language {
                 Log.d("Add_list_api", Appconstatants.addres_list);
                 Log.d("Add_list_api", Appconstatants.sessiondata);
 
-                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyCart_copy.this);
+                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("Add_list_resp" + response);
 
             } catch (Exception e) {
@@ -290,8 +280,8 @@ public class MyCart_copy extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Add_list", "Add_list--->  " + resp);
             if (resp != null) {
 
@@ -317,12 +307,12 @@ public class MyCart_copy extends Language {
                                 addressPO.setCity(object1.isNull("city") ? "" : object1.getString("city"));
                                 addressPO.setZone(object1.isNull("zone") ? "" : object1.getString("zone"));
                                 addressPO.setCountry(object1.isNull("country") ? "" : object1.getString("country"));
-                                if (!object1.isNull("address_1")&&object1.getString("address_1").length()>0)
-                                addressPOS.add(addressPO);
+                                if (!object1.isNull("address_1") && object1.getString("address_1").length() > 0)
+                                    addressPOS.add(addressPO);
 
                             }
 
-                            if (addressPOS.size()>0) {
+                            if (addressPOS.size() > 0) {
 
                                 Intent i = new Intent(MyCart_copy.this, AddressList.class);
                                 Bundle nn = new Bundle();
@@ -330,13 +320,11 @@ public class MyCart_copy extends Language {
                                 nn.putInt("has_ship", has_shopp);
                                 i.putExtras(nn);
                                 startActivity(i);
-                            }
-                            else
-                            {
+                            } else {
                                 Intent intent = new Intent(MyCart_copy.this, Address.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putInt("from", 2);
-                                bundle.putInt("has_ship",has_shopp);
+                                bundle.putInt("has_ship", has_shopp);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
 
@@ -347,7 +335,7 @@ public class MyCart_copy extends Language {
                             Intent intent = new Intent(MyCart_copy.this, Address.class);
                             Bundle bundle = new Bundle();
                             bundle.putInt("from", 2);
-                            bundle.putInt("has_ship",has_shopp);
+                            bundle.putInt("has_ship", has_shopp);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
@@ -361,10 +349,10 @@ public class MyCart_copy extends Language {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        String errors=array.getString(0)+"";
+                        JSONArray array = json.getJSONArray("error");
+                        String errors = array.getString(0) + "";
                         errortxt2.setText(errors);
-                        Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyCart_copy.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -395,6 +383,7 @@ public class MyCart_copy extends Language {
 
         }
     }
+
     private class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -404,15 +393,15 @@ public class MyCart_copy extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyCart_copy.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {
@@ -445,7 +434,7 @@ public class MyCart_copy extends Language {
                             // It's an object
                             JSONObject jsonObject = (JSONObject) dd;
 
-                            has_shopp=jsonObject.isNull("has_shipping")?0:jsonObject.getInt("has_shipping");
+                            has_shopp = jsonObject.isNull("has_shipping") ? 0 : jsonObject.getInt("has_shipping");
 
                             JSONArray array = new JSONArray(jsonObject.getString("products"));
 
@@ -509,10 +498,10 @@ public class MyCart_copy extends Language {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        String errors=array.getString(0)+"";
+                        JSONArray array = json.getJSONArray("error");
+                        String errors = array.getString(0) + "";
                         errortxt2.setText(errors);
-                        Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyCart_copy.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -553,16 +542,16 @@ public class MyCart_copy extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api"+param[0]);
+            logger.info("Cart api" + param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyCart_copy.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                logger.info("Cart resp" + response);
 
-                Log.d("Cart_list_resp", response+"");
+                Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -581,8 +570,7 @@ public class MyCart_copy extends Language {
                     if (json.getInt("success") == 1) {
 
                         Object dd = json.get("data");
-                      if (dd instanceof JSONObject) {
-                            // It's an object
+                        if (dd instanceof JSONObject) {
 
                             JSONObject jsonObject = (JSONObject) dd;
                             JSONArray array = new JSONArray(jsonObject.getString("products"));
@@ -592,13 +580,11 @@ public class MyCart_copy extends Language {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
                         }
-                    }
-                    else
-                    {
-                        JSONArray array=json.getJSONArray("error");
-                        String errors=array.getString(0)+"";
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        String errors = array.getString(0) + "";
                         errortxt2.setText(errors);
-                        Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyCart_copy.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -611,13 +597,12 @@ public class MyCart_copy extends Language {
     }
 
 
-    private void show_Cal_ship()
-    {
+    private void show_Cal_ship() {
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i!=0) {
+                if (i != 0) {
                     StateTask stateTask = new StateTask();
                     stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(i).getCount_id());
                 }
@@ -633,22 +618,17 @@ public class MyCart_copy extends Language {
             @Override
             public void onClick(View v) {
 
-                if (country.getSelectedItemPosition()>0 && state.getSelectedItemPosition()>0 && pin_code.getText().toString().length()>0)
-                {
-                    CalcTask calcTask=new CalcTask();
-                    calcTask.execute(country_list.get(country.getSelectedItemPosition()).getCount_id()+"",state_list.get(state.getSelectedItemPosition()).getZone_id(),pin_code.getText().toString());
-                }
-                else {
-                    if (country.getSelectedItemPosition()==0)
-                    {
-                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.select_coun),Toast.LENGTH_LONG).show();
+                if (country.getSelectedItemPosition() > 0 && state.getSelectedItemPosition() > 0 && pin_code.getText().toString().length() > 0) {
+                    CalcTask calcTask = new CalcTask();
+                    calcTask.execute(country_list.get(country.getSelectedItemPosition()).getCount_id() + "", state_list.get(state.getSelectedItemPosition()).getZone_id(), pin_code.getText().toString());
+                } else {
+                    if (country.getSelectedItemPosition() == 0) {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.select_coun), Toast.LENGTH_LONG).show();
                     }
-                    if (state.getSelectedItemPosition()==0)
-                    {
-                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.select_state),Toast.LENGTH_LONG).show();
+                    if (state.getSelectedItemPosition() == 0) {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.select_state), Toast.LENGTH_LONG).show();
                     }
-                    if (pin_code.getText().toString().trim().length()==0)
-                    {
+                    if (pin_code.getText().toString().trim().length() == 0) {
                         pin_code.setError(getResources().getString(R.string.oin_error));
                     }
                 }
@@ -668,12 +648,12 @@ public class MyCart_copy extends Language {
         }
 
         protected String doInBackground(Object... param) {
-            logger.info("Country list api"+Appconstatants.country_list_api);
+            logger.info("Country list api" + Appconstatants.country_list_api);
             String response = null;
             Connection connection = new Connection();
             try {
-                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyCart_copy.this);
-                logger.info("Country list api resp"+response);
+                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                logger.info("Country list api resp" + response);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -711,17 +691,17 @@ public class MyCart_copy extends Language {
 
 
                         StateTask stateTask = new StateTask();
-                        stateTask.execute(Appconstatants.country_list_api + "&id="+country_list.get(1).getCount_id());
+                        stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(1).getCount_id());
 
 
                     } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        String errors=array.get(0)+"";
+                        JSONArray array = json.getJSONArray("error");
+                        String errors = array.get(0) + "";
                         errortxt2.setText(errors);
-                        Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyCart_copy.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -758,14 +738,14 @@ public class MyCart_copy extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("State list api"+param[0]);
+            logger.info("State list api" + param[0]);
 
             String response = null;
             Connection connection = new Connection();
             try {
 
-                response = connection.connStringResponse(param[0], null, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyCart_copy.this);
-                logger.info("State list api resp"+response);
+                response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                logger.info("State list api resp" + response);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -814,10 +794,10 @@ public class MyCart_copy extends Language {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        String errors=array.get(0)+"";
+                        JSONArray array = json.getJSONArray("error");
+                        String errors = array.get(0) + "";
                         errortxt2.setText(errors);
-                        Toast.makeText(MyCart_copy.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyCart_copy.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -856,7 +836,6 @@ public class MyCart_copy extends Language {
 
             Log.d("Cal", "started");
 
-
             pDialog = new ProgressDialog(MyCart_copy.this);
             pDialog.setMessage(getResources().getString(R.string.loading_wait));
             pDialog.setCancelable(false);
@@ -877,7 +856,7 @@ public class MyCart_copy extends Language {
                 Log.d("cal_Api", Appconstatants.CAL_SHIP);
 
                 logger.info("cal_Apireq" + json);
-                response = connection.sendHttpPostjson(Appconstatants.CAL_SHIP, json, db.getSession(), Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MyCart_copy.this);
+                response = connection.sendHttpPostjson(Appconstatants.CAL_SHIP, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("cal_Api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -887,8 +866,8 @@ public class MyCart_copy extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.d("cal_Api", resp + "");
             if (resp != null) {
                 try {
@@ -898,9 +877,8 @@ public class MyCart_copy extends Language {
                         pin_code.setText("");
                         country.setSelection(0);
                         state.setSelection(0);
-                        if(alertReviewDialog!=null)
-                        alertReviewDialog.dismiss();
-
+                        if (alertReviewDialog != null)
+                            alertReviewDialog.dismiss();
                         show_Cal_ship_amount(jsonObject);
 
                     } else {
@@ -935,41 +913,38 @@ public class MyCart_copy extends Language {
         }
     }
 
-    private void show_Cal_ship_amount(JSONObject jsonObject)
-    {
+    private void show_Cal_ship_amount(JSONObject jsonObject) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyCart_copy.this);
-        View dialogView = View.inflate(MyCart_copy.this,R.layout.ship_cal_amt, null);
+        View dialogView = View.inflate(MyCart_copy.this, R.layout.ship_cal_amt, null);
         dialogBuilder.setView(dialogView);
         dialogBuilder.create();
         dialogBuilder.setCancelable(false);
-        show_amount=dialogBuilder.create();
-        String cost="";
-
-        LinearLayout ship_layer=(LinearLayout)dialogView.findViewById(R.id.ship_layer);
-        FrameLayout okay=(FrameLayout)dialogView.findViewById(R.id.okay);
+        show_amount = dialogBuilder.create();
+        String cost = "";
+        LinearLayout ship_layer = (LinearLayout) dialogView.findViewById(R.id.ship_layer);
+        FrameLayout okay = (FrameLayout) dialogView.findViewById(R.id.okay);
         ship_layer.removeAllViews();
-        Log.d("sample_check",jsonObject.toString()+"");
+        Log.d("sample_check", jsonObject.toString() + "");
         try {
 
-            JSONObject ship_meth=jsonObject.getJSONObject("shipping_method");
+            JSONObject ship_meth = jsonObject.getJSONObject("shipping_method");
 
             Iterator<String> iter = ship_meth.keys();
             while (iter.hasNext()) {
                 String key = iter.next();
                 try {
-                    JSONObject object=ship_meth.getJSONObject(key);
-                    String title=object.isNull("title")?"":object.getString("title");
-                    JSONObject object1 =object.getJSONObject("quote");
-                   Iterator<String> iter1 = object1.keys();
-                   while (iter1.hasNext())
-                    {
+                    JSONObject object = ship_meth.getJSONObject(key);
+                    String title = object.isNull("title") ? "" : object.getString("title");
+                    JSONObject object1 = object.getJSONObject("quote");
+                    Iterator<String> iter1 = object1.keys();
+                    while (iter1.hasNext()) {
                         String key1 = iter1.next();
-                        JSONObject quotes_key=object1.getJSONObject(key1);
-                        cost=quotes_key.isNull("text")?"":quotes_key.getString("text");
+                        JSONObject quotes_key = object1.getJSONObject(key1);
+                        cost = quotes_key.isNull("text") ? "" : quotes_key.getString("text");
                     }
-                    add_layer(ship_layer,title,cost);
+                    add_layer(ship_layer, title, cost);
                 } catch (Exception e) {
-                    Log.d("sample_check_ex",e.toString()+"");
+                    Log.d("sample_check_ex", e.toString() + "");
                 }
             }
         } catch (JSONException e) {
@@ -985,17 +960,16 @@ public class MyCart_copy extends Language {
     }
 
 
-    private void add_layer(LinearLayout shipping_list,String key,String cost) {
+    private void add_layer(LinearLayout shipping_list, String key, String cost) {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ship_item, shipping_list, false);
-        TextView ship_title=(TextView)convertView.findViewById(R.id.ship_title);
-        TextView ship_cost=(TextView)convertView.findViewById(R.id.ship_cost);
-        String keys=key+" : ";
-        String costs=cost+"";
+        TextView ship_title = (TextView) convertView.findViewById(R.id.ship_title);
+        TextView ship_cost = (TextView) convertView.findViewById(R.id.ship_cost);
+        String keys = key + " : ";
+        String costs = cost + "";
         ship_title.setText(keys);
         ship_cost.setText(costs);
         shipping_list.addView(convertView);
     }
-
 
 
 }

@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/items_bg"
@@ -23,8 +21,8 @@
                 android:id="@+id/back_img"
                 android:layout_width="@dimen/dp50"
                 android:layout_height="@dimen/dp50"
-                android:contentDescription="@null"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/more"
@@ -32,9 +30,9 @@
                 android:layout_height="@dimen/dp25"
                 android:layout_gravity="center"
                 android:autoMirrored="true"
+                android:contentDescription="@null"
                 android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/next"
-                android:contentDescription="@null"
                 android:visibility="gone" />
         </FrameLayout>
 
@@ -97,8 +95,8 @@
                     android:layout_height="@dimen/dp20"
                     android:layout_gravity="end|center"
                     android:autoMirrored="true"
-                    android:rotationY="@integer/locale_mirror_flip"
                     android:contentDescription="@null"
+                    android:rotationY="@integer/locale_mirror_flip"
                     android:src="@mipmap/edit_arrow" />
             </LinearLayout>
         </LinearLayout>

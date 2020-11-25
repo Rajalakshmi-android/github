@@ -60,17 +60,17 @@ public class Return_Acticity extends Language {
     private DBController dbcon;
     private String cus_id;
     private AndroidLogger logger;
-    private String quantity="";
-    private String prod_names="";
-    private String prod_model="";
-    private String fname="";
-    private String lname="";
-    private String mob="";
-    private String email="";
-    private String order_date="";
-    private String order_id="";
-    private int open=0;
-    private int reason_id=0;
+    private String quantity = "";
+    private String prod_names = "";
+    private String prod_model = "";
+    private String fname = "";
+    private String lname = "";
+    private String mob = "";
+    private String email = "";
+    private String order_date = "";
+    private String order_id = "";
+    private int open = 0;
+    private int reason_id = 0;
     private ArrayList<ProductsPO> reason_bos;
 
     @Override
@@ -78,11 +78,11 @@ public class Return_Acticity extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_return);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         dbcon = new DBController(Return_Acticity.this);
-        Appconstatants.sessiondata=dbcon.getSession();
-        Appconstatants.Lang=dbcon.get_lang_code();
-        Appconstatants.CUR=dbcon.getCurCode();
+        Appconstatants.sessiondata = dbcon.getSession();
+        Appconstatants.Lang = dbcon.get_lang_code();
+        Appconstatants.CUR = dbcon.getCurCode();
         LinearLayout back = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
         header.setText(R.string.return_fom);
@@ -106,7 +106,6 @@ public class Return_Acticity extends Language {
             order_id = getIntent().getExtras().getString("order_id");
             prod_model = getIntent().getExtras().getString("prod_model");
         }
-        Log.i("Details",quantity+"---"+prod_names+"----"+prod_model+"----"+order_id+"---"+order_date);
         tot_qty.setText(quantity);
         prod_name.setText(prod_names);
         cart = findViewById(R.id.cart);
@@ -121,18 +120,15 @@ public class Return_Acticity extends Language {
                 onBackPressed();
             }
         });
-        if(dbcon.getLoginCount()>0){
+        if (dbcon.getLoginCount() > 0) {
 
-            String str=dbcon.getName();
+            String str = dbcon.getName();
             String[] arr = str.split(" ");
-            fname=arr[0];
-            lname=arr[1];
-            Log.i("user name", str+"---"+fname+"---"+lname);
-            email=dbcon.getEmail();
-            mob=dbcon.getphone();
+            fname = arr[0];
+            lname = arr[1];
+            email = dbcon.getEmail();
+            mob = dbcon.getphone();
         }
-
-
 
 
         qty.addTextChangedListener(new TextWatcher() {
@@ -150,7 +146,7 @@ public class Return_Acticity extends Language {
             @Override
             public void afterTextChanged(Editable s) {
                 try {
-                    if(s.toString().length()>0){
+                    if (s.toString().length() > 0) {
 
                         if (Integer.parseInt(s.toString()) > Integer.parseInt(quantity)) {
                             qty.setText("");
@@ -171,8 +167,6 @@ public class Return_Acticity extends Language {
         GET_REASON REASON = new GET_REASON();
         REASON.execute(Appconstatants.REASON);
 
-
-
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,64 +177,54 @@ public class Return_Acticity extends Language {
             }
         });
 
-
-
-
-
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("fjdfgldgdg",qty.getText().toString().length()+"");
-                if(qty.getText().toString().length()==0){
+                if (qty.getText().toString().length() == 0) {
                     qty.setError(getResources().getString(R.string.qty_error));
                 }
-                if(qty.getText().toString().length()>0){
-                    Log.i("ahadhajda",qty.getText().toString()+"");
-                    if(Integer.parseInt(qty.getText().toString())<=0){
+                if (qty.getText().toString().length() > 0) {
+                    if (Integer.parseInt(qty.getText().toString()) <= 0) {
                         qty.setError(getResources().getString(R.string.qty_e));
                     }
                 }
-                if(reason_id==0){
+                if (reason_id == 0) {
                     Toast.makeText(Return_Acticity.this, R.string.qty_toast, Toast.LENGTH_SHORT).show();
                 }
 
-                if(qty.getText().toString().length()!=0&& Integer.parseInt(qty.getText().toString())>0&&reason_id!=0){
+                if (qty.getText().toString().length() != 0 && Integer.parseInt(qty.getText().toString()) > 0 && reason_id != 0) {
 
                     SAVE_RETURN update_REASON = new SAVE_RETURN();
                     update_REASON.execute(Appconstatants.RETURN_SAVE, fname, lname, email, mob,
-                            order_date,order_id,prod_names,
-                            prod_model,reason_id+"", open+""
-                            ,qty.getText().toString(),comments.getText().toString());
-
+                            order_date, order_id, prod_names,
+                            prod_model, reason_id + "", open + ""
+                            , qty.getText().toString(), comments.getText().toString());
 
 
                 }
 
 
-                   
             }
         });
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        String[] value={"Yes","No"};
-        Log.i("sdsadad",value.length +"");
+        String[] value = {"Yes", "No"};
         for (int u = 0; u < value.length; u++) {
             RadioButton rbn = new RadioButton(Return_Acticity.this);
-            String values="  " + value[u];
+            String values = "  " + value[u];
             rbn.setId(u);
             rbn.setText(values);
             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
-            drawable.setBounds(0, 0, 30, 30);
-            rbn.setCompoundDrawables(drawable, null, null, null);
+            drawable.setBounds(0, 0, 40, 40);
+            rbn.setCompoundDrawablesRelative(drawable, null, null, null);
             rbn.setButtonDrawable(null);
             rbn.setBackgroundColor(Color.TRANSPARENT);
-            rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+            rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
-            if (u==0) {
+            if (u == 0) {
                 rbn.setChecked(true);
-                open=1;
-            }
-            else {
+                open = 1;
+            } else {
                 rbn.setChecked(false);
 
             }
@@ -254,12 +238,12 @@ public class Return_Acticity extends Language {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton radioButton = group.findViewById(checkedId);
                 int mySelectedIndex = (int) radioButton.getTag();
-                Log.i("radio_button",mySelectedIndex+"");
-                if(mySelectedIndex==0){
-                    open=1;
+                Log.i("radio_button", mySelectedIndex + "");
+                if (mySelectedIndex == 0) {
+                    open = 1;
 
-                }else{
-                  open=0;
+                } else {
+                    open = 0;
 
                 }
 
@@ -269,7 +253,8 @@ public class Return_Acticity extends Language {
         res_radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                reason_id= res_radio.getCheckedRadioButtonId();;
+                reason_id = res_radio.getCheckedRadioButtonId();
+                ;
 
             }
         });
@@ -284,14 +269,14 @@ public class Return_Acticity extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("REASON api"+param[0]);
+            logger.info("REASON api" + param[0]);
 
             Log.d("url_", param[0]);
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Return_Acticity.this);
-                logger.info("REASON api res"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Return_Acticity.this);
+                logger.info("REASON api res" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -305,41 +290,39 @@ public class Return_Acticity extends Language {
             if (resp != null) {
                 try {
                     JSONObject object = new JSONObject(resp);
-                    if (object.getInt("success") == 1)
-                    {
+                    if (object.getInt("success") == 1) {
 
 
                         JSONArray jsonArray = object.getJSONArray("data");
                         reason_bos = new ArrayList<>();
-                        for(int i=0;i<jsonArray.length();i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object1 = jsonArray.getJSONObject(i);
-                            ProductsPO bo =new ProductsPO();
-                            bo.setProductid(object1.isNull("return_reason_id") ? 0: object1.getInt("return_reason_id"));
+                            ProductsPO bo = new ProductsPO();
+                            bo.setProductid(object1.isNull("return_reason_id") ? 0 : object1.getInt("return_reason_id"));
                             bo.setProduct_name(object1.isNull("name") ? "" : object1.getString("name"));
                             reason_bos.add(bo);
                         }
 
                         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        Log.i("sdsadad",reason_bos.size() +"");
+                        Log.i("sdsadad", reason_bos.size() + "");
                         for (int u = 0; u < reason_bos.size(); u++) {
                             RadioButton rbn = new RadioButton(Return_Acticity.this);
-                            String values="  " +reason_bos.get(u).getProduct_name();
+                            String values = "  " + reason_bos.get(u).getProduct_name();
                             rbn.setId(reason_bos.get(u).getProductid());
                             rbn.setText(values);
                             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
                             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
-                            drawable.setBounds(0, 0, 30, 30);
-                            rbn.setCompoundDrawables(drawable, null, null, null);
+                            drawable.setBounds(0, 0, 40, 40);
+                            rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                             rbn.setButtonDrawable(null);
                             rbn.setBackgroundColor(Color.TRANSPARENT);
-                           rbn.setPadding(0,(int) getApplicationContext().getResources().getDimension(R.dimen.dp10),(int) getApplicationContext().getResources().getDimension(R.dimen.dp20),(int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                            rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
-                            if (u==0) {
+                            if (u == 0) {
                                 rbn.setChecked(true);
-                                reason_id=reason_bos.get(u).getProductid();
+                                reason_id = reason_bos.get(u).getProductid();
 
-                            }
-                            else {
+                            } else {
                                 rbn.setChecked(false);
 
                             }
@@ -359,7 +342,7 @@ public class Return_Acticity extends Language {
                         cart.setVisibility(View.GONE);
                         error_lay.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
                         Toast.makeText(Return_Acticity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -410,7 +393,7 @@ public class Return_Acticity extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Update api:"+param[0]);
+            logger.info("Update api:" + param[0]);
 
             String response = null;
             try {
@@ -427,10 +410,10 @@ public class Return_Acticity extends Language {
                 object.put("opened", param[10]);
                 object.put("quantity", param[11]);
                 object.put("comment", param[12]);
-                Log.d("Update_in", object.toString() + "-- "+Appconstatants.Lang+" -- "+Appconstatants.CUR+" -- "+Appconstatants.sessiondata);
+                Log.d("Update_in", object.toString() + "-- " + Appconstatants.Lang + " -- " + Appconstatants.CUR + " -- " + Appconstatants.sessiondata);
                 Connection connection = new Connection();
-                response = connection.sendHttpPutjson1(param[0], object, Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Return_Acticity.this);
-                logger.info("Update api resp:"+response);
+                response = connection.sendHttpPostjson(param[0], object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Return_Acticity.this);
+                logger.info("Update api resp:" + response);
                 Log.d("Update_url", response + "");
 
 
@@ -451,8 +434,8 @@ public class Return_Acticity extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Log.d("Update_url", json.toString() + "");
-                        Toast.makeText(Return_Acticity.this, R.string.user, Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(Return_Acticity.this, R.string.return_save, Toast.LENGTH_LONG).show();
+                        finish();
                     } else {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Return_Acticity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();

@@ -76,7 +76,6 @@ public class Splash extends Language {
 
     private class CheckTask extends AsyncTask<Void, Void, Void> {
 
-
         @Override
         protected void onPreExecute() {
             Log.i("Get_Settings", "started:");
@@ -87,10 +86,8 @@ public class Splash extends Language {
             if (CommonFunctions.isNetworkConnected(Splash.this)) {
                 Log.d("session_datasss", Appconstatants.sessiondata + "");
                 if (Appconstatants.sessiondata != null && Appconstatants.sessiondata.length() > 0) {
-
-
                     GETCURRENCY getcurrency = new GETCURRENCY();
-                    getcurrency.execute(Appconstatants.CUR_LIST/*+","+Appconstatants.LICENSE_KEY+","+appId*/);
+                    getcurrency.execute(Appconstatants.CUR_LIST);
 
                 } else {
 
@@ -162,7 +159,7 @@ public class Splash extends Language {
                             Appconstatants.sessiondata = dbCon.getSession();
 
                             GETCURRENCY getcurrency = new GETCURRENCY();
-                            getcurrency.execute(Appconstatants.CUR_LIST/*+","+Appconstatants.LICENSE_KEY+","+appId*/);
+                            getcurrency.execute(Appconstatants.CUR_LIST);
 
 
                         } else if (json.getInt("success") == 2) {
@@ -255,10 +252,6 @@ public class Splash extends Language {
                                     dbCon.drop_app_cur();
                                     dbCon.insert_app_cur(cur_title, cur_code, cur_left, cur_right);
                                 }
-                               /* if (i == 0 && dbCon.get_cur_counts() <= 0) {
-                                    dbCon.drop_app_cur();
-                                    dbCon.insert_app_cur(cur_title, cur_code, cur_left, cur_right);
-                                }*/
                                 dbCon.insert_currencies(cur_title, cur_code, cur_left, cur_right);
                             }
                         }
@@ -369,11 +362,6 @@ public class Splash extends Language {
                                     dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
                                 }
 
-
-                               /* if (i == 0 && dbCon.get_lan_c() <= 0) {
-                                    dbCon.drop_app_lang();
-                                    dbCon.insert_app_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
-                                }*/
                                 dbCon.insert_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
                             }
                         }
@@ -417,7 +405,7 @@ public class Splash extends Language {
 
     private void show_alret() {
         final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
-        View popUpView = View.inflate(Splash.this,R.layout.key_lay, null);
+        View popUpView = View.inflate(Splash.this, R.layout.key_lay, null);
         TextView text = popUpView.findViewById(R.id.text2);
         text.setOnClickListener(new View.OnClickListener() {
             @Override

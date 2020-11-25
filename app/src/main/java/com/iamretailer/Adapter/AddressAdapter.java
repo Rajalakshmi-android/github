@@ -41,16 +41,16 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
     private final int from;
 
 
-    public AddressAdapter(Context context, int resource, ArrayList<AddressPO> items,int from) {
+    public AddressAdapter(Context context, int resource, ArrayList<AddressPO> items, int from) {
         super(context, resource, items);
         mInflater = LayoutInflater.from(context);
         this.res = resource;
         this.context = context;
         this.items = items;
-        this.from=from;
+        this.from = from;
         DBController dbController = new DBController(context);
-        Appconstatants.CUR= dbController.getCurCode();
-        logger=AndroidLogger.getLogger(context, Appconstatants.LOG_ID,false);
+        Appconstatants.CUR = dbController.getCurCode();
+        logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
 
     }
 
@@ -79,35 +79,35 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
             alertView = (FrameLayout) convertView;
         }
         holder.cus_name = convertView.findViewById(R.id.cus_name);
-        holder.address_1= convertView.findViewById(R.id.address_1);
-        holder.city= convertView.findViewById(R.id.city);
-        holder.country= convertView.findViewById(R.id.country);
-        holder.cus_phone= convertView.findViewById(R.id.cus_phone);
-        holder.edit= convertView.findViewById(R.id.edit);
-        holder.delete= convertView.findViewById(R.id.delete);
-        holder.select= convertView.findViewById(R.id.select);
-        holder.select1= convertView.findViewById(R.id.select1);
-        holder.pos= convertView.findViewById(R.id.pos);
-        int pos1=position+1;
-        String pos2=pos1+":";
+        holder.address_1 = convertView.findViewById(R.id.address_1);
+        holder.city = convertView.findViewById(R.id.city);
+        holder.country = convertView.findViewById(R.id.country);
+        holder.cus_phone = convertView.findViewById(R.id.cus_phone);
+        holder.edit = convertView.findViewById(R.id.edit);
+        holder.delete = convertView.findViewById(R.id.delete);
+        holder.select = convertView.findViewById(R.id.select);
+        holder.select1 = convertView.findViewById(R.id.select1);
+        holder.pos = convertView.findViewById(R.id.pos);
+        int pos1 = position + 1;
+        String pos2 = pos1 + ":";
         holder.pos.setText(pos2);
-        String c_name=items.get(position).getF_name()+" "+items.get(position).getL_name();
+        String c_name = items.get(position).getF_name() + " " + items.get(position).getL_name();
         holder.cus_name.setText(c_name);
 
-        if (items.get(position).getAdd_2()!=null || items.get(position).getAdd_2().trim().length()>0) {
-            String add_1=items.get(position).getAdd_1()+", "+items.get(position).getAdd_2();
+        if (items.get(position).getAdd_2() != null || items.get(position).getAdd_2().trim().length() > 0) {
+            String add_1 = items.get(position).getAdd_1() + ", " + items.get(position).getAdd_2();
             holder.address_1.setText(add_1);
-        }else {
+        } else {
             holder.address_1.setText(items.get(position).getAdd_1());
         }
 
-        String city_s=items.get(position).getCity()+", "+items.get(position).getZone();
+        String city_s = items.get(position).getCity() + ", " + items.get(position).getZone();
         holder.city.setText(city_s);
-        String coun_s=items.get(position).getCountry()+" - "+items.get(position).getPost_code();
+        String coun_s = items.get(position).getCountry() + " - " + items.get(position).getPost_code();
         holder.country.setText(coun_s);
         holder.cus_phone.setText(items.get(position).getPhone());
 
-        if (from==1) {
+        if (from == 1) {
             if (items.get(position).isSelect()) {
                 holder.select.setVisibility(View.VISIBLE);
                 holder.select1.setVisibility(View.GONE);
@@ -116,19 +116,16 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
                 holder.select1.setVisibility(View.VISIBLE);
 
             }
-        }
-        else
-        {
+        } else {
             holder.select.setVisibility(View.GONE);
         }
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 Intent i = new Intent(getContext(), Address.class);
                 Bundle add = new Bundle();
-                add.putString("address_id",items.get(position).getAdd_id());
+                add.putString("address_id", items.get(position).getAdd_id());
                 add.putString("first", items.get(position).getF_name());
                 add.putString("last_name", items.get(position).getL_name());
                 add.putString("company", items.get(position).getCompany());
@@ -142,30 +139,26 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
                 add.putString("company", items.get(position).getCompany());
                 add.putInt("from", 1);
                 i.putExtras(add);
-                ((AddressList)getContext()).startActivityForResult(i, 3);
+                ((AddressList) getContext()).startActivityForResult(i, 3);
 
 
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                Address_Del address_del=new Address_Del(position);
+            public void onClick(View v) {
+                Address_Del address_del = new Address_Del(position);
                 address_del.execute(items.get(position).getAdd_id());
 
             }
         });
 
 
-
-
         return alertView;
     }
 
 
-
-    private  class ViewHolder {
+    private class ViewHolder {
 
         TextView cus_name;
         TextView address_1;
@@ -173,8 +166,8 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
         TextView country;
         TextView cus_phone;
         TextView pos;
-        ImageView select,select1;
-        LinearLayout edit,delete;
+        ImageView select, select1;
+        LinearLayout edit, delete;
 
     }
 
@@ -182,11 +175,11 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
     private class Address_Del extends AsyncTask<String, Void, String> {
 
         private ProgressDialog pDialog;
-        private final int  pos;
+        private final int pos;
 
 
         Address_Del(int position) {
-            pos=position;
+            pos = position;
         }
 
 
@@ -203,7 +196,7 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Delete cart api"+ Appconstatants.cart_update_api);
+            logger.info("Delete cart api" + Appconstatants.cart_update_api);
 
 
             String response;
@@ -211,10 +204,10 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
             try {
                 JSONObject json = new JSONObject();
                 Log.d("del_session", Appconstatants.sessiondata);
-                logger.info("Delete cart api"+json);
-                response = connection.sendHttpDelete(Appconstatants.ADDRESS_DEL+param[0], json, Appconstatants.sessiondata,Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,getContext());
-                logger.info("Delete cart api"+response);
-                Log.d("del_s", Appconstatants.ADDRESS_DEL+param[0]);
+                logger.info("Delete cart api" + json);
+                response = connection.sendHttpDelete(Appconstatants.ADDRESS_DEL + param[0], json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getContext());
+                logger.info("Delete cart api" + response);
+                Log.d("del_s", Appconstatants.ADDRESS_DEL + param[0]);
                 Log.d("del_r", response + "");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -232,11 +225,11 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         items.remove(pos);
-                        ((AddressList)context).add_call();
+                        ((AddressList) context).add_call();
                         Toast.makeText(getContext(), R.string.address_del, Toast.LENGTH_SHORT).show();
                     } else {
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(getContext(),array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(getContext(), array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

@@ -35,9 +35,9 @@ public class OrderEdit extends Language {
         setContentView(R.layout.activity_order_edit);
         CommonFunctions.updateAndroidSecurityProvider(this);
         DBController dbController = new DBController(OrderEdit.this);
-        Appconstatants.sessiondata= dbController.getSession();
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         LinearLayout back = findViewById(R.id.menu);
         LinearLayout cart_items = findViewById(R.id.cart_items);
@@ -84,7 +84,7 @@ public class OrderEdit extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,OrderEdit.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, OrderEdit.this);
                 logger.info("Best sellin api" + response);
                 Log.d("prducts_api", param[0]);
                 Log.d("prducts_", response + "");
@@ -98,30 +98,25 @@ public class OrderEdit extends Language {
         protected void onPostExecute(String resp) {
             Log.i("tag", "products_Hai--->  " + resp);
 
-            if (resp != null)
-            {
+            if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
 
-                    if (json.getInt("success")==1) {
+                    if (json.getInt("success") == 1) {
 
                         JSONArray arr = new JSONArray(json.getString("data"));
-                    }
-                    else
-                    {
+                    } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        JSONArray array = json.getJSONArray("error");
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
-                        Toast.makeText(OrderEdit.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderEdit.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                     loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fullayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-    android:id="@+id/fullayout">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -16,7 +16,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg_color"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <include layout="@layout/menu_back" />
@@ -24,7 +24,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/app_bg_color">
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -63,18 +63,21 @@
                                             android:text="@string/sorting"
                                             android:textColor="@color/app_text_color"
                                             android:textSize="@dimen/text15sp" />
+
                                         <ImageView
                                             android:layout_width="@dimen/dp18"
                                             android:layout_height="@dimen/dp18"
                                             android:layout_gravity="center"
                                             android:layout_marginStart="@dimen/dp5"
+                                            android:layout_marginTop="@dimen/dp2"
                                             android:autoMirrored="true"
                                             android:gravity="center"
-                                            android:rotationY="@integer/locale_mirror_flip"
                                             android:padding="@dimen/dp3"
+                                            android:rotationY="@integer/locale_mirror_flip"
                                             android:src="@mipmap/sort" />
 
                                     </LinearLayout>
+
                                     <com.iamretailer.Common.CustomTextview
                                         android:id="@+id/sort_name"
                                         android:layout_width="wrap_content"
@@ -82,8 +85,7 @@
                                         android:layout_gravity="center"
                                         android:gravity="center"
                                         android:textColor="@color/text_color2"
-                                        android:textSize="@dimen/text14sp"
-                                       />
+                                        android:textSize="@dimen/text14sp" />
 
 
                                 </LinearLayout>
@@ -126,26 +128,27 @@
                                             android:textSize="@dimen/text14sp" />
 
                                     </LinearLayout>
+
                                     <LinearLayout
+                                        android:id="@+id/filter_lay"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0.7"
-                                        android:id="@+id/filter_lay"
-                                        android:gravity="center"
-                                        >
+                                        android:gravity="center">
+
                                         <FrameLayout
                                             android:layout_width="@dimen/dp35"
                                             android:layout_height="@dimen/dp35">
 
 
                                             <LinearLayout
+                                                android:id="@+id/filter_show"
                                                 android:layout_width="@dimen/dp5"
                                                 android:layout_height="@dimen/dp5"
-                                                android:background="@drawable/badge"
                                                 android:layout_gravity="end"
-                                                android:visibility="gone"
+                                                android:background="@drawable/badge"
                                                 android:orientation="vertical"
-                                                android:id="@+id/filter_show"/>
+                                                android:visibility="gone" />
 
                                             <ImageView
                                                 android:layout_width="@dimen/dp20"
@@ -210,8 +213,8 @@
                             android:id="@+id/category_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginEnd="@dimen/dp10"
-                            android:layout_marginStart="@dimen/dp10"
                             android:background="@android:color/transparent"
                             android:listSelector="@android:color/transparent"
                             android:scrollbars="none"
@@ -249,9 +252,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp60">
 
-                <include
-                    layout="@layout/loading"
-                    />
+                <include layout="@layout/loading" />
             </FrameLayout>
 
             <FrameLayout

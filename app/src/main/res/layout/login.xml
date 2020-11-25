@@ -32,11 +32,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="vertical">
 
-                        >
-
-                        <com.iamretailer.Common.CustomTextViewLight
+                        <com.iamretailer.Common.CustomTextview
 
                             android:id="@+id/testcustomview"
                             android:layout_width="wrap_content"
@@ -146,21 +144,18 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center_vertical"
-                                            android:layout_marginTop="@dimen/dp3"
                                             android:layout_marginEnd="@dimen/dp20"
+                                            android:layout_marginTop="@dimen/dp3"
                                             android:background="@drawable/login_edit_bg"
                                             android:gravity="start|center_vertical"
-                                            android:hint="@string/PASSWORD"
+                                            android:hint="@string/PASSWORD1"
                                             android:imeOptions="actionDone"
                                             android:inputType="textPassword"
                                             android:paddingBottom="@dimen/dp5"
                                             android:singleLine="true"
                                             android:textColor="@color/app_text_color"
                                             android:textColorHint="@color/plceholder"
-                                            android:textSize="@dimen/text15sp"
-
-
-                                            />
+                                            android:textSize="@dimen/text15sp" />
 
                                     </android.support.design.widget.TextInputLayout>
 
@@ -169,6 +164,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="end|center_vertical"
+                                        android:background="@drawable/login_edit_bg"
                                         android:gravity="end|center_vertical">
 
                                         <FrameLayout
@@ -196,7 +192,6 @@
                             </LinearLayout>
 
                         </LinearLayout>
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -278,7 +273,7 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/Log_In1"
-                                android:textColor="@color/white"
+                                android:textColor="@color/button_textcolor"
                                 android:textSize="@dimen/text20sp"
                                 android:textStyle="bold" />
                         </FrameLayout>
@@ -477,11 +472,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp5"
                             android:text="@string/guest_check"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
-
 
                 </LinearLayout>
 

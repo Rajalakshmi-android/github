@@ -2,32 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/app_bg_color1">
+    android:background="@color/app_bg_color1"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp0"
-        android:layout_marginStart="@dimen/dp20"
         android:layout_marginEnd="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp20"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/select"
                 android:layout_gravity="center"
+                android:text="@string/select"
                 android:textColor="@color/app_text_color"
-                android:textSize="@dimen/text14sp"
-                />
+                android:textSize="@dimen/text14sp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -42,8 +40,8 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingEnd="@dimen/dp10"
-                        android:background="@drawable/optionunselect">
+                        android:background="@drawable/optionunselect"
+                        android:paddingEnd="@dimen/dp10">
 
                         <Spinner
                             android:id="@+id/weight_spinner"
@@ -51,18 +49,18 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
                             android:background="@android:color/transparent"
-                            android:paddingEnd="@dimen/dp10"/>
+                            android:paddingEnd="@dimen/dp10" />
+
                         <ImageView
                             android:layout_width="@dimen/dp15"
                             android:layout_height="@dimen/dp15"
-                            android:src="@mipmap/drop_arrow"
-                            android:paddingStart="@dimen/dp6"
+                            android:layout_gravity="end|center_vertical"
+                            android:autoMirrored="true"
                             android:paddingBottom="@dimen/dp2"
+                            android:paddingStart="@dimen/dp6"
                             android:paddingTop="@dimen/dp2"
                             android:rotationY="@integer/locale_mirror_flip"
-                            android:autoMirrored="true"
-                            android:layout_gravity="end|center_vertical"/>
-
+                            android:src="@mipmap/drop_arrow" />
                     </FrameLayout>
                 </LinearLayout>
             </FrameLayout>

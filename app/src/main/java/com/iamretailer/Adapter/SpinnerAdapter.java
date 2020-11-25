@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.iamretailer.POJO.SingleOptionPO;
 import com.iamretailer.R;
 
-
 import java.util.ArrayList;
 
 public class SpinnerAdapter extends BaseAdapter {
@@ -61,7 +60,6 @@ public class SpinnerAdapter extends BaseAdapter {
             main_text = mySpinner.findViewById(R.id.name);
         }
         main_text.setText(items.get(position).getName());
-
 
         return mySpinner;
     }

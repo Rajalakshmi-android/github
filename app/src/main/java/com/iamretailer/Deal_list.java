@@ -73,7 +73,7 @@ public class Deal_list extends Language {
         load_more = findViewById(R.id.load_more);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        no_proditems=findViewById(R.id.no_proditems);
+        no_proditems = findViewById(R.id.no_proditems);
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
@@ -148,6 +148,7 @@ public class Deal_list extends Language {
             wish_list.execute(Appconstatants.Wishlist_Get);
         }
     }
+
     private class WISH_LIST extends AsyncTask<String, Void, String> {
 
         @Override
@@ -157,8 +158,6 @@ public class Deal_list extends Language {
 
         protected String doInBackground(String... param) {
             logger.info("WIsh list api" + param[0]);
-
-
             String response = null;
             try {
                 Connection connection = new Connection();
@@ -190,7 +189,7 @@ public class Deal_list extends Language {
                                 fav_item.add(bo);
                             }
 
-                            if (list!=null&&list.size() > 0) {
+                            if (list != null && list.size() > 0) {
                                 for (int u = 0; u < list.size(); u++) {
                                     for (int h = 0; h < fav_item.size(); h++) {
                                         if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
@@ -216,13 +215,13 @@ public class Deal_list extends Language {
             }
         }
     }
+
     private class DEAL_LIST extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             Log.d("Tag", "started");
         }
-
 
         protected String doInBackground(String... param) {
             logger.info("Best sellin api" + param[0]);
@@ -271,8 +270,6 @@ public class Deal_list extends Language {
                                 JSONObject jsonObject = obj.getJSONObject("option");
                                 JSONArray option = jsonObject.getJSONArray("product_option_value");
                                 if (option.length() > 0) {
-
-
                                     for (int k = 0; k < option.length(); k++) {
                                         JSONObject object1 = option.getJSONObject(k);
                                         SingleOptionPO po = new SingleOptionPO();
@@ -288,14 +285,14 @@ public class Deal_list extends Language {
 
                             list.add(bo);
                         }
-                        if (list!=null && list.size() != 0) {
+                        if (list != null && list.size() != 0) {
                             if (val == 0) {
                                 bestAdapter = new CommonAdapter(Deal_list.this, list, 0, 5);
                                 mLayoutManager = new GridLayoutManager(Deal_list.this, 2);
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(bestAdapter);
                             } else {
-                                if (cart_item != null && cart_item.size() > 0  ) {
+                                if (cart_item != null && cart_item.size() > 0) {
                                     for (int u = 0; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -307,15 +304,13 @@ public class Deal_list extends Language {
                                         }
                                     }
                                     bestAdapter.notifyDataSetChanged();
-                                }else {
+                                } else {
                                     bestAdapter.notifyDataSetChanged();
                                 }
                             }
                             no_proditems.setVisibility(View.GONE);
                             product_list.setVisibility(View.VISIBLE);
-                        }
-                        else
-                        {
+                        } else {
                             no_proditems.setVisibility(View.VISIBLE);
                             product_list.setVisibility(View.GONE);
                         }
@@ -331,7 +326,7 @@ public class Deal_list extends Language {
                         no_proditems.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.getString(0) + "";
+                        String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(Deal_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -405,8 +400,6 @@ public class Deal_list extends Language {
                             cart_counts.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
-
-
                             JSONObject jsonObject = (JSONObject) dd;
                             JSONArray array = new JSONArray(jsonObject.getString("products"));
 

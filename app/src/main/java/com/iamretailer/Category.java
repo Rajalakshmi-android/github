@@ -73,13 +73,13 @@ public class Category extends Language {
         error_network = findViewById(R.id.error_network);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-        no_items1=findViewById(R.id.no_items1);
+        no_items1 = findViewById(R.id.no_items1);
         header.setText(R.string.our_cat);
         Display display = getWindowManager().getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
         width = point.x;
-        height =point.y;
+        height = point.y;
         cat_list.addOnItemTouchListener(new RecyclerItemClickListener(Category.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -156,7 +156,7 @@ public class Category extends Language {
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
 
-                        if (arr.length()>0) {
+                        if (arr.length() > 0) {
                             for (int h = 0; h < arr.length(); h++) {
                                 JSONObject obj = arr.getJSONObject(h);
                                 BrandsPO bo = new BrandsPO();
@@ -172,14 +172,11 @@ public class Category extends Language {
                             no_items1.setVisibility(View.GONE);
                             cat_list.setVisibility(View.VISIBLE);
 
-                        }
-                        else
-                        {
+                        } else {
                             no_items1.setVisibility(View.VISIBLE);
                             cat_list.setVisibility(View.GONE);
 
                         }
-
 
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
@@ -190,7 +187,7 @@ public class Category extends Language {
                         cat_list.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.getString(0) + "";
+                        String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(Category.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -212,7 +209,6 @@ public class Category extends Language {
                                 }
                             })
                             .show();
-
                 }
 
             } else {

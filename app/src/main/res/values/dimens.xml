@@ -81,6 +81,8 @@
 	<item name="value2.5" type="dimen" format="float">2.5</item>
 	<item name="value0.3" type="dimen" format="float">0.3</item>
 	<item name="value1.2" type="dimen" format="float">1.2</item>
+	<item name="value1.4" type="dimen" format="float">1.4</item>
+	<item name="value1.3" type="dimen" format="float">1.3</item>
 
 
 
@@ -148,7 +150,11 @@
 	<dimen name="dp27">27dp</dimen>
 	<dimen name="dp78">78dp</dimen>
 	<dimen name="dp1_5">1.5dp</dimen>
+	<dimen name="dp165">165dp</dimen>
+	<dimen name="dps0_1">0.1dp</dimen>
+	<dimen name="dp48">48dp</dimen>
+	<dimen name="dp170">170dp</dimen>
 
-
+	<dimen name="dp220">220dp</dimen>
 
 </resources>

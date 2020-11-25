@@ -204,6 +204,25 @@ public class DBController extends SQLiteOpenHelper {
        // DatabaseManager.getInstance().closeDatabase();
 
     }
+    public String getcusid() {
+        String selectQuery = "SELECT  cus_id FROM user_data ";
+        String val = null;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        try {
+            while(cursor.moveToNext()){
+                val=cursor.getString(0);
+            }
+            return val;
+        } finally{
+            if(cursor != null)
+                cursor.close();
+
+
+        }
+        // DatabaseManager.getInstance().closeDatabase();
+
+    }
     public String getEmail() {
         String selectQuery = "SELECT  cus_email FROM user_data ";
         String val = null;

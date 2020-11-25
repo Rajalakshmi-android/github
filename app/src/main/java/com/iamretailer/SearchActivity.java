@@ -52,19 +52,20 @@ public class SearchActivity extends Language {
     private TextView errortxt2;
     private AndroidLogger logger;
     private SingleProductTask productTask;
-    private final int start=1,limit=10;
+    private final int start = 1, limit = 10;
     private ArrayList<ProductsPO> fav_item;
     ArrayList<ProductsPO> cart_item;
     private DBController db;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
         db = new DBController(SearchActivity.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         Appconstatants.sessiondata = db.getSession();
-        Appconstatants.Lang= db.get_lang_code();
-        Appconstatants.CUR= db.getCurCode();
+        Appconstatants.Lang = db.get_lang_code();
+        Appconstatants.CUR = db.getCurCode();
         Log.d("Session", Appconstatants.sessiondata + "Value");
         Grid = findViewById(R.id.grid);
         LinearLayout back = findViewById(R.id.menu);
@@ -89,7 +90,7 @@ public class SearchActivity extends Language {
                 loading.setVisibility(View.VISIBLE);
                 productTask = new SingleProductTask();
                 try {
-                    productTask.execute(Appconstatants.SEARCH + URLEncoder.encode(text, "UTF-8") + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
+                    productTask.execute(Appconstatants.SEARCH + URLEncoder.encode(text, "UTF-8") + "&category=" + "&sub_category=" + "&description=" + "&sort=name" + "&page=" + start + "&limit=" + limit);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -101,7 +102,6 @@ public class SearchActivity extends Language {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 onBackPressed();
             }
         });
@@ -122,9 +122,9 @@ public class SearchActivity extends Language {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int starts, int before, int count) {
 
-                if (productTask!=null)
+                if (productTask != null)
                     productTask.cancel(true);
                 search_loading.setVisibility(View.VISIBLE);
                 if (s.toString().length() > 0) {
@@ -135,14 +135,12 @@ public class SearchActivity extends Language {
                     text = s.toString();
                     productTask = new SingleProductTask();
                     try {
-                        productTask.execute(Appconstatants.SEARCH + URLEncoder.encode(text, "UTF-8") + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
+                        productTask.execute(Appconstatants.SEARCH + URLEncoder.encode(text, "UTF-8") + "&category=" + "&sub_category=" + "&description=" + "&sort=name" + "&page=" + start + "&limit=" + limit);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
 
-                }
-                else
-                {
+                } else {
                     search_loading.setVisibility(View.GONE);
                     error_network.setVisibility(View.GONE);
                     Grid.setVisibility(View.GONE);
@@ -156,11 +154,11 @@ public class SearchActivity extends Language {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(text.equalsIgnoreCase("")){
+                if (text.equalsIgnoreCase("")) {
                     search_loading.setVisibility(View.GONE);
                     Grid.setVisibility(View.GONE);
                     no_items.setVisibility(View.GONE);
-                }else{
+                } else {
                     search_loading.setVisibility(View.VISIBLE);
                     Grid.setVisibility(View.GONE);
                     no_items.setVisibility(View.GONE);
@@ -170,7 +168,6 @@ public class SearchActivity extends Language {
 
             }
         });
-
 
         loading.setVisibility(View.GONE);
 
@@ -230,7 +227,7 @@ public class SearchActivity extends Language {
                                 fav_item.add(bo);
                             }
 
-                            if (optionsPOArrayList1!=null&&optionsPOArrayList1.size() > 0) {
+                            if (optionsPOArrayList1 != null && optionsPOArrayList1.size() > 0) {
                                 for (int u = 0; u < optionsPOArrayList1.size(); u++) {
                                     for (int h = 0; h < fav_item.size(); h++) {
                                         if (Integer.parseInt(optionsPOArrayList1.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
@@ -267,15 +264,15 @@ public class SearchActivity extends Language {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Product list search api"+param[0]);
+            logger.info("Product list search api" + param[0]);
 
-            Log.d("singleurl", param[0]+"");
+            Log.d("singleurl", param[0] + "");
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata,  Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,SearchActivity.this);
-                logger.info("Product list search resp"+response);
-                Log.d("list_products", param[0]+"");
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, SearchActivity.this);
+                logger.info("Product list search resp" + response);
+                Log.d("list_products", param[0] + "");
                 Log.d("list_products", Appconstatants.sessiondata);
 
 
@@ -293,20 +290,17 @@ public class SearchActivity extends Language {
 
                     optionsPOArrayList1 = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
+                    if (json.getInt("success") == 1) {
 
                         JSONArray jarray = new JSONArray(json.getString("data"));
 
-                        if (jarray.length()==0)
-                        {
+                        if (jarray.length() == 0) {
 
                             search_loading.setVisibility(View.GONE);
                             no_items.setVisibility(View.VISIBLE);
                             Grid.setVisibility(View.GONE);
 
-                        }
-                        else {
+                        } else {
                             for (int i = 0; i < jarray.length(); i++) {
 
                                 JSONObject obj = jarray.getJSONObject(i);
@@ -318,9 +312,9 @@ public class SearchActivity extends Language {
                                 bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
                                 bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                 bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
+                                bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
                                 bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
-                                bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
+                                bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                 ArrayList<SingleOptionPO> optionPOS = new ArrayList<>();
                                 if (obj.getJSONArray("options").length() > 0) {
 
@@ -340,18 +334,14 @@ public class SearchActivity extends Language {
                                 optionsPOArrayList1.add(bo);
                             }
 
-
-
-                            if (optionsPOArrayList1!=null) {
-                                adapter1 = new CommonAdapter(SearchActivity.this, optionsPOArrayList1,0,3);
+                            if (optionsPOArrayList1 != null) {
+                                adapter1 = new CommonAdapter(SearchActivity.this, optionsPOArrayList1, 0, 3);
                                 GridLayoutManager mLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
                                 Grid.setLayoutManager(mLayoutManager);
                                 Grid.setAdapter(adapter1);
 
-                            }
-                            else
-                            {
-                                if(cart_item!=null && cart_item.size()>0) {
+                            } else {
+                                if (cart_item != null && cart_item.size() > 0) {
                                     if (optionsPOArrayList1 != null && optionsPOArrayList1.size() > 0) {
                                         for (int u = 0; u < optionsPOArrayList1.size(); u++) {
                                             for (int h = 0; h < cart_item.size(); h++) {
@@ -365,11 +355,13 @@ public class SearchActivity extends Language {
                                         }
                                         adapter1.notifyDataSetChanged();
                                     }
-                                }else{adapter1.notifyDataSetChanged();}
+                                } else {
+                                    adapter1.notifyDataSetChanged();
+                                }
 
                             }
                             search_loading.setVisibility(View.GONE);
-                            if (text.length()>0)
+                            if (text.length() > 0)
                                 Grid.setVisibility(View.VISIBLE);
                             else
                                 Grid.setVisibility(View.VISIBLE);
@@ -381,14 +373,13 @@ public class SearchActivity extends Language {
                         error_network.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
 
-                    } else
-                        {
+                    } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
 
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
 
                         Toast.makeText(SearchActivity.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
@@ -404,7 +395,7 @@ public class SearchActivity extends Language {
                                 public void onClick(View view) {
                                     loading.setVisibility(View.VISIBLE);
                                     SingleProductTask productTask = new SingleProductTask();
-                                    productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name"+"&page="+start+"&limit="+limit);
+                                    productTask.execute(Appconstatants.SEARCH + text + "&category=" + "&sub_category=" + "&description=" + "&sort=name" + "&page=" + start + "&limit=" + limit);
                                 }
                             })
                             .show();
@@ -430,15 +421,15 @@ public class SearchActivity extends Language {
 
         protected String doInBackground(String... param) {
 
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                Log.d("Cart_list_url", param[0]+"");
-                Log.d("Cart_url_list", Appconstatants.sessiondata+"");
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,SearchActivity.this);
-                logger.info("Cart resp"+response);
+                Log.d("Cart_list_url", param[0] + "");
+                Log.d("Cart_url_list", Appconstatants.sessiondata + "");
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, SearchActivity.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {
@@ -454,7 +445,7 @@ public class SearchActivity extends Language {
             if (resp != null) {
 
                 try {
-                     cart_item = new ArrayList<>();
+                    cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -474,15 +465,13 @@ public class SearchActivity extends Language {
                             }
                             cart_count.setText(String.valueOf(qty));
 
-                            if (optionsPOArrayList1!=null&&optionsPOArrayList1.size()>0  ) {
+                            if (optionsPOArrayList1 != null && optionsPOArrayList1.size() > 0) {
                                 for (int u = 0; u < optionsPOArrayList1.size(); u++) {
                                     for (int h = 0; h < cart_item.size(); h++) {
-                                        if (Integer.parseInt(optionsPOArrayList1.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                        if (Integer.parseInt(optionsPOArrayList1.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                             optionsPOArrayList1.get(u).setCart_list(true);
                                             break;
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             optionsPOArrayList1.get(u).setCart_list(false);
                                         }
                                     }
@@ -508,10 +497,7 @@ public class SearchActivity extends Language {
         }
     }
 
-
-
-    public void cart_inc()
-    {
+    public void cart_inc() {
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
     }

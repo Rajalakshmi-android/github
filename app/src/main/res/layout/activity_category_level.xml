@@ -16,74 +16,72 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:id="@+id/success"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp3"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="@integer/two">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/dp0"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp3"
-                    android:orientation="horizontal"
-                    android:weightSum="@integer/two"
-                    android:id="@+id/success"
-                    android:visibility="gone">
+                    android:layout_marginTop="@dimen/dp25"
+                    android:layout_weight="@dimen/value_0_65">
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/main_cat_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp18"
+                        android:divider="@null"
+                        android:listSelector="@android:color/transparent"
+                        android:scrollbars="none" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_weight="@dimen/value_1_35"
+                    android:orientation="vertical">
+
+                    <com.iamretailer.Common.CustomTextview1
+                        android:id="@+id/cat_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="@dimen/text18sp"
+                        android:theme="@style/LoginEditTexts" />
 
                     <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/dp25"
-                        android:layout_weight="@dimen/value_0_65">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <android.support.v7.widget.RecyclerView
-                            android:id="@+id/main_cat_list"
+                            android:id="@+id/sub_cat_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp18"
                             android:divider="@null"
-                            android:listSelector="@android:color/transparent"
                             android:scrollbars="none" />
-
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp20"
-                        android:layout_weight="@dimen/value_1_35"
-                        android:orientation="vertical">
-
-                        <com.iamretailer.Common.CustomTextview1
-                            android:id="@+id/cat_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp15"
-                            android:textColor="@color/app_text_color"
-                            android:textSize="@dimen/text18sp"
-                            android:theme="@style/LoginEditTexts" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/sub_cat_list"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:divider="@null"
-                                android:scrollbars="none" />
-                        </LinearLayout>
-
-                    </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
 
             <com.iamretailer.Common.CustomTextview
                 android:id="@+id/no_items1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="@dimen/dp10"
-                android:text="@string/no_items"
+                android:text="@string/no_cat_found"
                 android:textColor="@color/app_text_color"
                 android:visibility="gone" />
 

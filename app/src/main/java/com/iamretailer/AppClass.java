@@ -5,6 +5,7 @@ import android.content.Context;
 
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.Common.DatabaseManager;
@@ -17,7 +18,7 @@ import io.fabric.sdk.android.Fabric;
 
 
 public class AppClass extends Application {
-    private static  Context context;
+    private static Context context;
 
     public static Context getContext() {
         return context;
@@ -32,6 +33,7 @@ public class AppClass extends Application {
                 .build();
         Fabric.with(fabric);
         context = getApplicationContext();
+        FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         DatabaseManager.initializeInstance(new DBController(getApplicationContext()));
         OneSignal.startInit(this)

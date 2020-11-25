@@ -1,8 +1,8 @@
 package com.iamretailer.POJO;
 
 public class OrdersPO {
-    String order_id,order_name,order_status,order_date,order_products,order_total,order_cur,order_cur_val,order_total_raw,order_time;
-    String cur_id,sym_left,sym_right,decimal,value,quantity;
+    String order_id, order_name, order_status, order_date, order_products, order_total, order_cur, order_cur_val, order_total_raw, order_time;
+    String cur_id, sym_left, sym_right, decimal, value, quantity;
 
     public String getPayment() {
         return payment;
@@ -12,7 +12,15 @@ public class OrdersPO {
         this.payment = payment;
     }
 
-    String payment;
+    String payment,return_id;
+
+    public String getReturn_id() {
+        return return_id;
+    }
+
+    public void setReturn_id(String return_id) {
+        this.return_id = return_id;
+    }
 
     public String getQuantity() {
         return quantity;

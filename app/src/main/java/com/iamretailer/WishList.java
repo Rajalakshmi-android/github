@@ -49,7 +49,7 @@ public class WishList extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         LinearLayout back = findViewById(R.id.menu);
         LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_count = findViewById(R.id.cart_count);
@@ -64,8 +64,8 @@ public class WishList extends Language {
         TextView header = findViewById(R.id.header);
         header.setText(R.string.wish_list);
         DBController dbController = new DBController(WishList.this);
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
         LinearLayout retry = findViewById(R.id.retry);
         Button shop = findViewById(R.id.shop);
         back.setOnClickListener(new View.OnClickListener() {
@@ -136,14 +136,14 @@ public class WishList extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("WIsh list api"+param[0]);
+            logger.info("WIsh list api" + param[0]);
 
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,WishList.this);
-                logger.info("WIsh list api resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, WishList.this);
+                logger.info("WIsh list api resp" + response);
                 Log.d("wish_api", param[0]);
                 Log.d("wish_res", response + "");
             } catch (Exception e) {
@@ -199,7 +199,7 @@ public class WishList extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0)+"";
+                        String error = array.getString(0) + "";
                         errortxt1.setText(error);
                         Toast.makeText(WishList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -242,14 +242,14 @@ public class WishList extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
 
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,WishList.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, WishList.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {
@@ -296,8 +296,7 @@ public class WishList extends Language {
         }
     }
 
-    public void wish_list()
-    {
+    public void wish_list() {
         WISH_LIST wish_list = new WISH_LIST();
         wish_list.execute(Appconstatants.Wishlist_Get);
     }

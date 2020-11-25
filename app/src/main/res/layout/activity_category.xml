@@ -12,7 +12,6 @@
 
         <include layout="@layout/menu_back" />
 
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -30,12 +29,13 @@
                 android:id="@+id/no_items1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="@dimen/dp10"
                 android:text="@string/no_categories_found"
                 android:textColor="@color/app_text_color"
                 android:visibility="gone" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

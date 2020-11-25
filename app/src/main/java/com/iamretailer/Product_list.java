@@ -46,7 +46,6 @@ public class Product_list extends Language {
     private int val = 0;
     private TextView errortxt1;
     private TextView errortxt2;
-
     private AndroidLogger logger;
     private DBController dbController;
     private ArrayList<SingleOptionPO> optionPOS;
@@ -59,8 +58,10 @@ public class Product_list extends Language {
     private ArrayList<ProductsPO> banner_items;
     private String title = "";
     private String head = "";
-    private boolean cart=true;
+    private boolean cart = true;
     ArrayList<ProductsPO> cart_item;
+    private ArrayList<ProductsPO> fav_item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,15 +82,13 @@ public class Product_list extends Language {
         errortxt2 = findViewById(R.id.errortxt2);
         no_proditems = findViewById(R.id.no_proditems);
         Bundle bundle = getIntent().getExtras();
-        if(bundle !=null){
+        if (bundle != null) {
             from = bundle.getString("view_all");
             head = bundle.getString("head");
-           banner_id = bundle.getString("banner_id");
-          title = bundle.getString("title");
+            banner_id = bundle.getString("banner_id");
+            title = bundle.getString("title");
 
         }
-
-
         dbController = new DBController(Product_list.this);
         Appconstatants.sessiondata = dbController.getSession();
         Appconstatants.Lang = dbController.get_lang_code();
@@ -132,7 +131,7 @@ public class Product_list extends Language {
                 limit = 20;
                 val = 0;
                 loadin = false;
-                cart=true;
+                cart = true;
                 no_proditems.setVisibility(View.GONE);
                 if (from.equals("best_sell")) {
                     BEST_SELLING best_selling = new BEST_SELLING();
@@ -153,7 +152,6 @@ public class Product_list extends Language {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //  super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
                     visibleItemCount = product_list.getChildCount();
                     firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
@@ -164,7 +162,6 @@ public class Product_list extends Language {
                                 loadin = true;
                                 val = 1;
                                 load_more.setVisibility(View.VISIBLE);
-                                Log.i("tag","paging22-------"+start+" -- "+limit +" -- "+visibleItemCount+" -- "+firstVisibleItem);
                                 BEST_SELLING best_selling = new BEST_SELLING();
                                 best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
                             }
@@ -203,8 +200,7 @@ public class Product_list extends Language {
     @Override
     public void onResume() {
         super.onResume();
-        if (!cart)
-        {
+        if (!cart) {
             CartTask cartTask = new CartTask();
             cartTask.execute(Appconstatants.cart_api);
         }
@@ -299,7 +295,7 @@ public class Product_list extends Language {
                                 product_list.setAdapter(bestAdapter);
 
                             } else {
-                                if(cart_item!=null && cart_item.size()>0) {
+                                if (cart_item != null && cart_item.size() > 0) {
                                     for (int u = 0; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -310,36 +306,46 @@ public class Product_list extends Language {
                                             }
                                         }
                                     }
-                                    bestAdapter.notifyDataSetChanged();
-                                }else {
 
-                                    bestAdapter.notifyDataSetChanged();
                                 }
+
+                                if (fav_item != null && fav_item.size() > 0) {
+                                    for (int u = 0; u < list.size(); u++) {
+                                        for (int h = 0; h < fav_item.size(); h++) {
+                                            if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                list.get(u).setWish_list(true);
+                                                break;
+                                            } else {
+                                                list.get(u).setWish_list(false);
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                bestAdapter.notifyDataSetChanged();
+
                             }
                             no_proditems.setVisibility(View.GONE);
                         } else {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
-                        if (cart)
-                        {
-                        CartTask cartTask = new CartTask();
-                        cartTask.execute(Appconstatants.cart_api);
-                        cart=false;
+                        if (cart) {
+                            CartTask cartTask = new CartTask();
+                            cartTask.execute(Appconstatants.cart_api);
+                            cart = false;
                         }
 
-                        //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
-                        Log.i("tag","paging-------"+start);
                         start = start + 1;
-                        Log.i("tag","paging11-------"+start);
 
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
                         Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -429,8 +435,6 @@ public class Product_list extends Language {
                                 JSONObject jsonObject = obj.getJSONObject("option");
                                 JSONArray option = jsonObject.getJSONArray("product_option_value");
                                 if (option.length() > 0) {
-
-
                                     for (int k = 0; k < option.length(); k++) {
                                         JSONObject object1 = option.getJSONObject(k);
                                         SingleOptionPO po = new SingleOptionPO();
@@ -455,7 +459,7 @@ public class Product_list extends Language {
                                 product_list.setLayoutManager(mLayoutManager);
                                 product_list.setAdapter(featuredAdapter);
                             } else {
-                                if ( cart_item != null&&cart_item.size() > 0 ) {
+                                if (cart_item != null && cart_item.size() > 0) {
                                     for (int u = 0; u < feat_list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -466,27 +470,38 @@ public class Product_list extends Language {
                                             }
                                         }
                                     }
-                                    featuredAdapter.notifyDataSetChanged();
-                                }else {
-                                    featuredAdapter.notifyDataSetChanged();
+
                                 }
+                                if (fav_item != null && fav_item.size() > 0) {
+                                    for (int u = 0; u < feat_list.size(); u++) {
+                                        for (int h = 0; h < fav_item.size(); h++) {
+                                            if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                feat_list.get(u).setWish_list(true);
+                                                break;
+                                            } else {
+                                                feat_list.get(u).setWish_list(false);
+
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                featuredAdapter.notifyDataSetChanged();
                             }
                             no_proditems.setVisibility(View.GONE);
 
                         } else {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
-                        //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
 
                         start = start + 1;
-                        if (cart)
-                        {
+                        if (cart) {
                             CartTask cartTask = new CartTask();
                             cartTask.execute(Appconstatants.cart_api);
-                            cart=false;
+                            cart = false;
                         }
-
 
 
                     } else {
@@ -494,7 +509,7 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt1.setText(error);
                         Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
@@ -560,7 +575,7 @@ public class Product_list extends Language {
             if (resp != null) {
 
                 try {
-                     cart_item = new ArrayList<>();
+                    cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
@@ -581,7 +596,7 @@ public class Product_list extends Language {
                             cart_counts.setText(String.valueOf(qty));
 
                             if (from.equals("best_sell")) {
-                                if (list != null&&list.size() > 0 ) {
+                                if (list != null && list.size() > 0) {
                                     for (int u = 0; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -595,7 +610,7 @@ public class Product_list extends Language {
                                     bestAdapter.notifyDataSetChanged();
                                 }
                             } else if (from.equals("banners")) {
-                                if ( banner_items != null&&banner_items.size() > 0) {
+                                if (banner_items != null && banner_items.size() > 0) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -611,7 +626,7 @@ public class Product_list extends Language {
                                 }
                             } else {
 
-                                if ( feat_list != null&&feat_list.size() > 0 ) {
+                                if (feat_list != null && feat_list.size() > 0) {
                                     for (int u = 0; u < feat_list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -668,7 +683,7 @@ public class Product_list extends Language {
             Log.i("tag", "products_Hai--->  " + resp);
             if (resp != null) {
                 try {
-                    ArrayList<ProductsPO> fav_item = new ArrayList<>();
+                    fav_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
@@ -699,7 +714,7 @@ public class Product_list extends Language {
                                     bestAdapter.notifyDataSetChanged();
                                 }
                             } else if (from.equals("banners")) {
-                                if ( banner_items != null&&banner_items.size() > 0 ) {
+                                if (banner_items != null && banner_items.size() > 0) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
                                             if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
@@ -803,7 +818,6 @@ public class Product_list extends Language {
                                 JSONArray option = jsonObject.getJSONArray("product_option_value");
                                 if (option.length() > 0) {
 
-
                                     for (int k = 0; k < option.length(); k++) {
                                         JSONObject object1 = option.getJSONObject(k);
                                         SingleOptionPO po = new SingleOptionPO();
@@ -820,7 +834,7 @@ public class Product_list extends Language {
                             banner_items.add(bo);
                         }
 
-                        if (banner_items != null&& banner_items.size() != 0) {
+                        if (banner_items != null && banner_items.size() != 0) {
                             if (val == 0) {
                                 bestAdapter = new CommonAdapter(Product_list.this, banner_items, 0, 2);
                                 mLayoutManager = new GridLayoutManager(Product_list.this, 2);
@@ -828,7 +842,7 @@ public class Product_list extends Language {
                                 product_list.setAdapter(bestAdapter);
 
                             } else {
-                                if ( cart_item != null&&cart_item.size() > 0) {
+                                if (cart_item != null && cart_item.size() > 0) {
                                     for (int u = 0; u < banner_items.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
@@ -840,24 +854,36 @@ public class Product_list extends Language {
                                             }
                                         }
                                     }
-                                    bestAdapter.notifyDataSetChanged();
-                                }else {
-                                    bestAdapter.notifyDataSetChanged();
                                 }
+                                if (fav_item != null && fav_item.size() > 0) {
+                                    if (banner_items != null && banner_items.size() > 0) {
+                                        for (int u = 0; u < banner_items.size(); u++) {
+                                            for (int h = 0; h < fav_item.size(); h++) {
+                                                if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                                    banner_items.get(u).setWish_list(true);
+                                                    break;
+                                                } else {
+                                                    banner_items.get(u).setWish_list(false);
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                bestAdapter.notifyDataSetChanged();
+
                             }
                             no_proditems.setVisibility(View.GONE);
                         } else {
                             no_proditems.setVisibility(View.VISIBLE);
                         }
 
-                        if (cart)
-                        {
+                        if (cart) {
                             CartTask cartTask = new CartTask();
                             cartTask.execute(Appconstatants.cart_api);
-                            cart=false;
+                            cart = false;
                         }
 
-                        //loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
 
@@ -868,7 +894,7 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error=array.getString(0) + "";
+                        String error = array.getString(0) + "";
                         errortxt2.setText(error);
                         Toast.makeText(Product_list.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

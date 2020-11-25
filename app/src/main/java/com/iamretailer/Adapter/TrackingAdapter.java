@@ -1,44 +1,19 @@
 package com.iamretailer.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.iamretailer.Allen;
 import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.DBController;
-import com.iamretailer.Deal_list;
-import com.iamretailer.Login;
-import com.iamretailer.MainActivity;
 import com.iamretailer.POJO.PlacePO;
-import com.iamretailer.POJO.ProductsPO;
-import com.iamretailer.ProductFullView;
-import com.iamretailer.Product_list;
 import com.iamretailer.R;
-import com.iamretailer.SearchActivity;
 import com.logentries.android.AndroidLogger;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
-
-import stutzen.co.network.Connection;
 
 public class TrackingAdapter extends RecyclerView.Adapter<TrackingAdapter.MyViewHolder> {
 
@@ -66,11 +41,11 @@ public class TrackingAdapter extends RecyclerView.Adapter<TrackingAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
 
-        if(items.get(position).getCommand()!=null & items.get(position).getCommand().length()>0){
+        if (items.get(position).getCommand() != null & items.get(position).getCommand().length() > 0) {
             holder.command.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.command.setVisibility(View.GONE);
         }
         holder.status.setText(items.get(position).getStatus());
@@ -85,18 +60,15 @@ public class TrackingAdapter extends RecyclerView.Adapter<TrackingAdapter.MyView
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
-
         final TextView date;
         final TextView status;
         final TextView command;
 
         MyViewHolder(View itemView) {
             super(itemView);
-
-             date = itemView.findViewById(R.id.date);
-             status = itemView.findViewById(R.id.status);
-             command = itemView.findViewById(R.id.command);
+            date = itemView.findViewById(R.id.date);
+            status = itemView.findViewById(R.id.status);
+            command = itemView.findViewById(R.id.command);
 
 
         }

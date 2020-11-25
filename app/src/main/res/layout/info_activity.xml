@@ -1,0 +1,64 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center|center_vertical"
+            android:gravity="center|center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <com.iamretailer.Common.CustomTextview
+                    android:id="@+id/app_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/button_textcolor"
+                    android:textSize="@dimen/text18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp">
+
+                <com.iamretailer.Common.CustomTextview
+                    android:id="@+id/cur_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white_tran"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp100"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp15"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/logo1" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

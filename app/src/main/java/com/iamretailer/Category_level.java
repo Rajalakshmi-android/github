@@ -3,10 +3,12 @@ package com.iamretailer;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -48,12 +50,11 @@ public class Category_level extends Language {
     private Sub_Category_Adapter categoryAdapter;
     private TextView cat_name;
     private AndroidLogger logger;
-    private int pos=0;
+    private int pos = 0;
     private int width;
     private int height;
     private LinearLayout success;
     private TextView no_items1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +74,9 @@ public class Category_level extends Language {
         fullayout = findViewById(R.id.fullayout);
         sub_cat_list = findViewById(R.id.sub_cat_list);
         cat_name = findViewById(R.id.cat_name);
-        success=findViewById(R.id.success);
+        success = findViewById(R.id.success);
         LinearLayout retry = findViewById(R.id.retry);
-        no_items1=findViewById(R.id.no_items1);
+        no_items1 = findViewById(R.id.no_items1);
         DBController controller = new DBController(Category_level.this);
         Appconstatants.sessiondata = controller.getSession();
         Appconstatants.Lang = controller.get_lang_code();
@@ -85,12 +86,10 @@ public class Category_level extends Language {
             pos = bundle.getInt("pos");
         }
         Display display = getWindowManager().getDefaultDisplay();
-
         Point point = new Point();
         display.getSize(point);
         width = point.x;
-        height =point.y;
-
+        height = point.y;
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +110,13 @@ public class Category_level extends Language {
         main_list.addOnItemTouchListener(new RecyclerItemClickListener(Category_level.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                if (Build.VERSION.SDK_INT >= 24) {
+                    cat_name.setText(Html.fromHtml(cate_list.get(position).getStore_name(), Html.FROM_HTML_MODE_LEGACY));
+                } else {
+                    cat_name.setText(Html.fromHtml(cate_list.get(position).getStore_name()));
+                }
 
-                cat_name.setText(cate_list.get(position).getStore_name());
+
                 for (int j = 0; j < cate_list.size(); j++) {
                     cate_list.get(j).setSelect(false);
                 }
@@ -190,13 +194,12 @@ public class Category_level extends Language {
 
                 try {
                     cate_list = new ArrayList<>();
-
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
 
-                        if (arr.length()>0) {
+                        if (arr.length() > 0) {
 
                             for (int h = 0; h < arr.length(); h++) {
 
@@ -237,16 +240,19 @@ public class Category_level extends Language {
                             adapter1 = new BrandzAdapter(Category_level.this, cate_list, 2, width, height);
                             main_list.setAdapter(adapter1);
                             main_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                            cat_name.setText(cate_list.get(pos).getStore_name());
+                            if (Build.VERSION.SDK_INT >= 24) {
+                                cat_name.setText(Html.fromHtml(cate_list.get(pos).getStore_name(), Html.FROM_HTML_MODE_LEGACY));
+                            } else {
+                                cat_name.setText(Html.fromHtml(cate_list.get(pos).getStore_name()));
+                            }
+
                             categoryAdapter = new Sub_Category_Adapter(Category_level.this, cate_list.get(pos).getArrayList());
                             sub_cat_list.setAdapter(categoryAdapter);
                             sub_cat_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                             cate_list.get(pos).setSelect(true);
                             success.setVisibility(View.VISIBLE);
                             no_items1.setVisibility(View.GONE);
-                        }
-                        else
-                        {
+                        } else {
                             no_items1.setVisibility(View.VISIBLE);
                             success.setVisibility(View.GONE);
                         }
@@ -259,7 +265,7 @@ public class Category_level extends Language {
                         no_items1.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        String error_msg=array.getString(0) + "";
+                        String error_msg = array.getString(0) + "";
                         errortxt2.setText(error_msg);
                         Toast.makeText(Category_level.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }

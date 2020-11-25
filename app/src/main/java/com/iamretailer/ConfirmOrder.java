@@ -5,10 +5,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.JSONParser;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.PlacePO;
 import com.iamretailer.Paymentgateway.Paypal.PaypalConfig;
@@ -35,6 +39,9 @@ import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.razorpay.Checkout;
 import com.squareup.picasso.Picasso;
 
@@ -44,11 +51,12 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 import stutzen.co.network.Connection;
 
-public class ConfirmOrder extends Language {
+public class ConfirmOrder extends Language implements PaytmPaymentTransactionCallback {
 
     private LinearLayout place_list;
     private FrameLayout order;
@@ -64,7 +72,7 @@ public class ConfirmOrder extends Language {
     private String lname;
     private String company;
     private String addressone;
-    private String addresstwo="";
+    private String addresstwo = "";
     private String city;
     private String pincode;
     private String country;
@@ -95,8 +103,19 @@ public class ConfirmOrder extends Language {
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
     private String pay_code;
+    private int paytms_code=1;
+    private String mid="";
+    private String custid="";
+    private String price_amount="";
+    private ImageView gift_tag;
+    private TextView gift_text;
+    private ImageView gift_circle;
+    private String vocher="";
+    private String coupon="";
+    private String vocher1="";
+    private String coupon1="";
 
-    //------paypal
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +127,7 @@ public class ConfirmOrder extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
+        custid=db.getcusid();
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();
         order = findViewById(R.id.order);
@@ -146,14 +166,20 @@ public class ConfirmOrder extends Language {
         country_name = findViewById(R.id.country);
         cus_mobile = findViewById(R.id.mobile);
         LinearLayout promo_code = findViewById(R.id.promo_code);
+        LinearLayout gift_coupon = findViewById(R.id.gift_coupon);
         promo_circle = findViewById(R.id.promo_circle);
         promo_tag = findViewById(R.id.promo_tag);
         promo_text = findViewById(R.id.promo_text);
+        gift_circle = findViewById(R.id.gift_circle);
+        gift_tag = findViewById(R.id.gift_tag);
+        gift_text = findViewById(R.id.gift_text);
+        vocher="";
+
 
         header.setText(R.string.confirm);
         String c_name = fname + " " + lname;
         cus_name.setText(c_name);
-        if (addresstwo!=null&&addresstwo.length() != 0) {
+        if (addresstwo != null && addresstwo.length() != 0) {
             String cus_add = addressone + ", " + addresstwo + ",";
             cus_address_one.setText(cus_add);
 
@@ -173,10 +199,28 @@ public class ConfirmOrder extends Language {
         promo_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show_promo();
+                if(coupon!=null && !coupon.equalsIgnoreCase("")) {
+                    showdeletePopup(1);
+                }else {
+                    show_promo();
+                }
 
             }
         });
+
+        gift_coupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("tag","vocher-------"+vocher);
+                if(vocher!=null && !vocher.equalsIgnoreCase("")) {
+                    showdeletePopup(2);
+                }else{
+                    show_gift();
+                }
+
+            }
+        });
+
 
 
         error_network = findViewById(R.id.error_network);
@@ -186,6 +230,14 @@ public class ConfirmOrder extends Language {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                if(vocher!=null && !vocher.equalsIgnoreCase("")) {
+                    DeleteCouponTask1 couponTask = new DeleteCouponTask1();
+                    couponTask.execute(vocher);
+                }
+                if(coupon!=null && !coupon.equalsIgnoreCase("")) {
+                    DeleteCouponTask couponTask = new DeleteCouponTask();
+                    couponTask.execute(coupon);
+                }
             }
         });
         place_list = findViewById(R.id.listview);
@@ -206,10 +258,13 @@ public class ConfirmOrder extends Language {
                     OrderTask OrderTask = new OrderTask();
                     OrderTask.execute(order_id);
 
+                } else if (pay_code.equalsIgnoreCase("paytm")) {
+
+                    paytm_method(order_id);
                 } else {
                     getPayment(order_id);
                 }
-
+               // paytm_method(order_id);
             }
         });
         add_edit.setOnClickListener(new View.OnClickListener() {
@@ -249,16 +304,61 @@ public class ConfirmOrder extends Language {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
 
+
+
     }
 
+
+    private void show_gift() {
+        AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this, R.style.CustomAlertDialog);
+        View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
+        final  EditText gift_coupons = popUpView.findViewById(R.id.promo_code);
+        final TextView hedding = popUpView.findViewById(R.id.hedding);
+        LinearLayout apply = popUpView.findViewById(R.id.apply);
+        LinearLayout cancel = popUpView.findViewById(R.id.cancel);
+        hedding.setText(R.string.gift_coupon);
+        dialLo.setView(popUpView);
+     if(vocher!=null){
+       gift_coupons.setText(vocher);
+     }
+        final AlertDialog dialog = dialLo.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dialog.setCancelable(true);
+
+        dialog.show();
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gift_coupons.getText().toString().trim().length() == 0) {
+                    gift_coupons.setError(getResources().getString(R.string.prom_code));
+                } else {
+                    dialog.dismiss();
+                    CouponTask1 couponTask = new CouponTask1();
+                    couponTask.execute(gift_coupons.getText().toString().trim());
+                }
+
+
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+    }
 
     private void show_promo() {
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this, R.style.CustomAlertDialog);
         View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
         final EditText promo_code = popUpView.findViewById(R.id.promo_code);
+        final TextView hedding = popUpView.findViewById(R.id.hedding);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
         LinearLayout cancel = popUpView.findViewById(R.id.cancel);
-
+        hedding.setText(R.string.promo_code);
         dialLo.setView(popUpView);
 
         final AlertDialog dialog = dialLo.create();
@@ -291,7 +391,6 @@ public class ConfirmOrder extends Language {
     }
 
     private class ConfirmOrderTask extends AsyncTask<String, Void, String> {
-
 
         @Override
         protected void onPreExecute() {
@@ -381,9 +480,9 @@ public class ConfirmOrder extends Language {
                         if (totals.size() > 0) {
                             subtotal.setText(totals.get(totals.size() - 1).getTot_amt_txt());
 
-                            if (db.get_cur_Left()!=null&&db.get_cur_Left().length() > 0)
+                            if (db.get_cur_Left() != null && db.get_cur_Left().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Left(), "").replace(",", ""));
-                            else if (db.get_cur_Right()!=null&&db.get_cur_Right().length() > 0)
+                            else if (db.get_cur_Right() != null && db.get_cur_Right().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Right(), "").replace(",", ""));
                         }
                         success.setVisibility(View.VISIBLE);
@@ -419,8 +518,6 @@ public class ConfirmOrder extends Language {
                                 }
                             })
                             .show();
-
-
                 }
 
             } else {
@@ -451,6 +548,7 @@ public class ConfirmOrder extends Language {
 
         protected String doInBackground(String... param) {
             logger.info("Place order api" + param[0]);
+            Log.i("place_order", param[0] + "");
             String response = null;
             try {
                 Connection connection = new Connection();
@@ -468,8 +566,8 @@ public class ConfirmOrder extends Language {
 
         protected void onPostExecute(String resp) {
             Log.i("confirm_order", "confirm_order--->  " + resp);
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             if (resp != null) {
 
                 try {
@@ -484,14 +582,6 @@ public class ConfirmOrder extends Language {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.retry, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        order.performClick();
-                                    }
-                                })
-                                .show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -523,9 +613,6 @@ public class ConfirmOrder extends Language {
         }
     }
 
-
-
-
     private void details() {
         final Dialog dialog = new Dialog(ConfirmOrder.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -540,8 +627,6 @@ public class ConfirmOrder extends Language {
         dialog.getWindow().setAttributes(lp);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-
-
         TextView order_id = dialog.findViewById(R.id.orderid);
         final LinearLayout details = dialog.findViewById(R.id.details);
         TextView header = dialog.findViewById(R.id.header);
@@ -569,14 +654,12 @@ public class ConfirmOrder extends Language {
             }
         });
 
-
         dialog.show();
 
 
     }
 
     private void addLayout(final PlacePO placePO, LinearLayout view_list) {
-
         View convertView = LayoutInflater.from(this).inflate(R.layout.place_list, view_list, false);
         TextView name = convertView.findViewById(R.id.p_name);
         ImageView imag = convertView.findViewById(R.id.place_img);
@@ -584,8 +667,6 @@ public class ConfirmOrder extends Language {
         TextView qunt = convertView.findViewById(R.id.p_qty);
         TextView amount = convertView.findViewById(R.id.total);
         TextView p_option = convertView.findViewById(R.id.p_option);
-
-
         name.setText(placePO.getProduct_name());
         price.setText(placePO.getPrcie());
         qunt.setText(placePO.getQty());
@@ -628,6 +709,194 @@ public class ConfirmOrder extends Language {
         super.onDestroy();
     }
 
+    private void showdeletePopup(final int from) {
+        android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(ConfirmOrder.this);
+        View popUpView = View.inflate(ConfirmOrder.this,R.layout.call_popup, null);
+        dial.setView(popUpView);
+        final android.app.AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity = Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.show();
+        final TextView heading = popUpView.findViewById(R.id.heading);
+        final TextView alert = popUpView.findViewById(R.id.alert);
+        final TextView no = popUpView.findViewById(R.id.no);
+        final TextView yes = popUpView.findViewById(R.id.yes);
+        heading.setVisibility(View.GONE);
+        if(from==1)
+            alert.setText(R.string.coupon_delete);
+            else
+        alert.setText(R.string.gift_delete);
+        no.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                popupStore.dismiss();
+            }
+        });
+        yes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                popupStore.dismiss();
+                if(from==1){
+                    if (coupon != null && !coupon.equalsIgnoreCase("")) {
+                        DeleteCouponTask couponTask = new DeleteCouponTask();
+                        couponTask.execute(coupon);
+                    }
+                }else {
+                    if (vocher != null && !vocher.equalsIgnoreCase("")) {
+                        DeleteCouponTask1 couponTask = new DeleteCouponTask1();
+                        couponTask.execute(vocher);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private class DeleteCouponTask1 extends AsyncTask<String, Void, String> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d("Login", "started");
+
+
+            pDialog = new ProgressDialog(ConfirmOrder.this);
+            pDialog.setMessage(getResources().getString(R.string.loading_wait));
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... param) {
+
+            logger.info("Coupon api " + Appconstatants.COUPON_API);
+
+            String response = null;
+            Connection connection = new Connection();
+            try {
+                JSONObject json = new JSONObject();
+                json.put("voucher", param[0]);
+                logger.info("Coupon api req " + json);
+                response = connection.sendHttpDelete(Appconstatants.Gift_COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                logger.info("Coupon api resp " + response);
+                Log.d("voucher_res", response + "");
+                Log.d("voucher_res", json.toString() + " -- "+Appconstatants.Gift_COUPON_API);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            if (pDialog != null)
+                pDialog.dismiss();
+
+            if (resp != null) {
+                try {
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        vocher="";
+                        Toast.makeText(ConfirmOrder.this, R.string.gift_remove, Toast.LENGTH_LONG).show();
+                        gift_circle.setImageResource(R.mipmap.promo_circle_unfil);
+                        gift_tag.setImageResource(R.mipmap.promo_tag_unfill);
+                        gift_text.setTextColor(getResources().getColor(R.color.prom_tex));
+                        ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
+                        confirmOrderTask.execute(Appconstatants.Confirm_Order);
+
+
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(ConfirmOrder.this, R.string.error_net, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    private class CouponTask1 extends AsyncTask<String, Void, String> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d("Login", "started");
+
+
+            pDialog = new ProgressDialog(ConfirmOrder.this);
+            pDialog.setMessage(getResources().getString(R.string.loading_wait));
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... param) {
+
+            logger.info("Coupon api " + Appconstatants.COUPON_API);
+
+            String response = null;
+            Connection connection = new Connection();
+            try {
+                JSONObject json = new JSONObject();
+                json.put("voucher", param[0]);
+                 vocher1=param[0];
+                logger.info("Coupon api req " + json);
+                response = connection.sendHttpPostjson(Appconstatants.Gift_COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                logger.info("Coupon api resp " + response);
+                Log.d("voucher_res", response + "");
+                Log.d("voucher_res", json.toString() + " -- "+Appconstatants.Gift_COUPON_API);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            if (pDialog != null)
+                pDialog.dismiss();
+
+            if (resp != null) {
+                try {
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        vocher=vocher1;
+                        Toast.makeText(ConfirmOrder.this, R.string.gift_suc, Toast.LENGTH_LONG).show();
+                        gift_circle.setImageResource(R.mipmap.promo_circle_fill);
+                        gift_tag.setImageResource(R.mipmap.promo_tag);
+                        gift_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                        ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
+                        confirmOrderTask.execute(Appconstatants.Confirm_Order);
+
+
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(ConfirmOrder.this, R.string.error_net, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     private class CouponTask extends AsyncTask<String, Void, String> {
         private ProgressDialog pDialog;
@@ -653,6 +922,7 @@ public class ConfirmOrder extends Language {
             try {
                 JSONObject json = new JSONObject();
                 json.put("coupon", param[0]);
+                coupon1= param[0];
                 logger.info("Coupon api req " + json);
                 response = connection.sendHttpPostjson(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Coupon api resp " + response);
@@ -666,14 +936,14 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
+            if (pDialog != null)
                 pDialog.dismiss();
 
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
-
+                        coupon=coupon1;
                         Toast.makeText(ConfirmOrder.this, R.string.coupon_suc, Toast.LENGTH_LONG).show();
                         promo_circle.setImageResource(R.mipmap.promo_circle_fill);
                         promo_tag.setImageResource(R.mipmap.promo_tag);
@@ -686,7 +956,6 @@ public class ConfirmOrder extends Language {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_LONG).show();
@@ -697,6 +966,76 @@ public class ConfirmOrder extends Language {
             }
         }
     }
+
+    private class DeleteCouponTask extends AsyncTask<String, Void, String> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d("Login", "started");
+
+
+            pDialog = new ProgressDialog(ConfirmOrder.this);
+            pDialog.setMessage(getResources().getString(R.string.loading_wait));
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... param) {
+
+            logger.info("Coupon api " + Appconstatants.COUPON_API);
+
+            String response = null;
+            Connection connection = new Connection();
+            try {
+                JSONObject json = new JSONObject();
+                json.put("coupon", param[0]);
+                logger.info("Coupon api req " + json);
+                response = connection.sendHttpDelete(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                logger.info("Coupon api resp " + response);
+                Log.d("promo_res", response + "");
+                Log.d("promo_res", json.toString() + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            if (pDialog != null)
+                pDialog.dismiss();
+
+            if (resp != null) {
+                try {
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        coupon="";
+                        Toast.makeText(ConfirmOrder.this, R.string.coupon_remove, Toast.LENGTH_LONG).show();
+                        promo_circle.setImageResource(R.mipmap.promo_circle_unfil);
+                        promo_tag.setImageResource(R.mipmap.promo_tag_unfill);
+                        promo_text.setTextColor(getResources().getColor(R.color.prom_tex));
+                        ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
+                        confirmOrderTask.execute(Appconstatants.Confirm_Order);
+
+
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(ConfirmOrder.this, R.string.error_net, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
 
     //-----------------------Paypal integration----------------------------------
 
@@ -730,10 +1069,9 @@ public class ConfirmOrder extends Language {
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("paymentExample", "The user canceled.");
-                // Toast.makeText(ConfirmOrder.this, R.string.failed, Toast.LENGTH_LONG).show();
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
                 Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-                //  Toast.makeText(ConfirmOrder.this, R.string.failed, Toast.LENGTH_LONG).show();
+
             }
         } else if (requestCode == 3 && data != null) {
             fname = data.getStringExtra("first");
@@ -766,6 +1104,7 @@ public class ConfirmOrder extends Language {
 
     }
 
+
     //--------------------------------------Razor Pay integration-----------------------------
 
 
@@ -779,8 +1118,7 @@ public class ConfirmOrder extends Language {
             options.put("name", getResources().getString(R.string.app_name));//Razorpay Corp
             options.put("description", "Order Payment");//Demoing Charges
             options.put("currency", "INR");
-            // options.put("currency", db.getCurCode());
-            Log.d("Cur_va", db.getCurCode()+" ");
+            Log.d("Cur_va", db.getCurCode() + " ");
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", db.getEmail());
@@ -871,7 +1209,7 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
+            if (pDialog != null)
                 pDialog.dismiss();
             Log.i("Cart", "payment_success11--" + resp);
             if (resp != null) {
@@ -945,9 +1283,6 @@ public class ConfirmOrder extends Language {
 
                 JSONObject json = new JSONObject();
                 json.put("order_id", order_id);
-                //  json.put("order_id", param[0]);
-
-
                 Log.d("Cart_input", json.toString());
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 Log.i("tag", "payment_success_item" + json);
@@ -965,8 +1300,8 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if(pDialog!=null)
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
             Log.i("Cart", "payment_success11--" + resp);
             if (resp != null) {
                 try {
@@ -1016,5 +1351,93 @@ public class ConfirmOrder extends Language {
 
         }
     }
+
+    //-------------------------------------- Paytm integration -----------------------------
+    private void paytm_method(String order_id) {
+       /* if (ContextCompat.checkSelfPermission(ConfirmOrder.this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ConfirmOrder.this, new String[]{android.Manifest.permission.READ_SMS, android.Manifest.permission.RECEIVE_SMS}, 101);
+        }*/
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        mid = "WeRYUn90855748070201"; /// your marchant id
+       // PaytmPGService Service = PaytmPGService.getStagingService("");
+        // when app is ready to publish use production service
+        PaytmPGService  Service = PaytmPGService.getProductionService();
+
+        // now call paytm service here
+        //below parameter map is required to construct PaytmOrder object, Merchant should replace below map values with his own values
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        //these are mandatory parameters
+        price_amount=String.valueOf(pay_tot);
+        paramMap.put("requestType", "Payment");
+        paramMap.put("MID", mid); //MID provided by paytm
+        paramMap.put("ORDER_ID", order_id);
+        paramMap.put("CUST_ID", custid);
+        paramMap.put("CHANNEL_ID", "WAP");
+        paramMap.put("TXN_AMOUNT",price_amount );
+        paramMap.put("WEBSITE", "WEBSTAGING");
+        paramMap.put( "EMAIL" , db.getEmail());   // no need
+        paramMap.put( "MOBILE_NO" , db.getphone());  // no need
+        paramMap.put( "CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+order_id);
+        paramMap.put( "CHECKSUMHASH" , "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+
+        PaytmOrder Order = new PaytmOrder(paramMap);
+        Log.e("checksum ", "param "+ paramMap.toString());
+        Service.initialize(Order,null);
+        // start payment service call here
+        Service.startPaymentTransaction(ConfirmOrder.this, true, true,
+                ConfirmOrder.this  );
+
+
+    }
+
+
+
+    @Override
+    public void onTransactionResponse(Bundle inResponse) {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+        Log.i("tag","paytm_response---- "+inResponse.toString());
+    }
+
+    @Override
+    public void networkNotAvailable() {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Network connection error: Check your internet connectivity", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void clientAuthenticationFailed(String inErrorMessage)  {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Authentication failed: Server error" + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void someUIErrorOccurred(String inErrorMessage) {
+        /*Display the error message as below */
+        Toast.makeText(getApplicationContext(), "UI Error " + inErrorMessage , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl)  {
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Unable to load webpage " + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressedCancelTransaction(){
+        /*Display the message as below */
+        Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTransactionCancel(String s, Bundle bundle) {
+        Log.e("checksum ", "  transaction cancel " );
+        Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+    }
+
+
 
 }

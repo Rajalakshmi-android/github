@@ -1,43 +1,32 @@
 package com.iamretailer;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iamretailer.Adapter.CommonAdapter;
 import com.iamretailer.Adapter.TrackingAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
@@ -45,21 +34,14 @@ import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.PlacePO;
 
-
-
 import com.logentries.android.AndroidLogger;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 
 import stutzen.co.network.Connection;
@@ -75,6 +57,7 @@ public class ViewDetails extends Language {
     private LinearLayout ordertotview;
     private FrameLayout loading;
     private FrameLayout fullayout;
+    private FrameLayout success;
     private TextView errortxt1;
     private TextView errortxt2;
     private String cur_left = "";
@@ -116,8 +99,8 @@ public class ViewDetails extends Language {
         bun = new Bundle();
         bun = getIntent().getExtras();
         Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();  // deprecated
-        int height = display.getHeight();  // deprecated
+        int width = display.getWidth();
+        int height = display.getHeight();
         int maxHeight= (int) (height-(height*0.80));
         final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(ViewDetails.this);
         View sheetView = ViewDetails.this.getLayoutInflater().inflate(R.layout.track, null);
@@ -159,6 +142,7 @@ public class ViewDetails extends Language {
         cus_address_two = findViewById(R.id.address_two);
         country_name = findViewById(R.id.country);
         tracking = findViewById(R.id.tracking);
+        success = findViewById(R.id.success);
 
         ImageView del_image = findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);
@@ -219,6 +203,7 @@ public class ViewDetails extends Language {
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
                 no_network.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 OrderTask task = new OrderTask();
                 task.execute(Appconstatants.myorder_api + "&id=" + bun.getString("id"));
 
@@ -355,8 +340,8 @@ public class ViewDetails extends Language {
                     JSONObject object = new JSONObject(json.getString("data"));
                     Log.i("reeee",object.toString());
                     paymethod.setText(object.isNull("payment_method") ? "" : object.getString("payment_method"));
-                    order_date.setText(CommonFunctions.convert_date(object.isNull("date_added") ? "" : object.getString("date_added")));
-                    order_dated=CommonFunctions.convert_dates(object.isNull("date_added") ? "" : object.getString("date_added"));
+                    order_date.setText(object.isNull("date_added") ? "" : object.getString("date_added"));
+                    order_dated=object.isNull("date_added") ? "" : object.getString("date_added");
                     ship_method.setText(object.isNull("shipping_method") ? "" : object.getString("shipping_method"));
 
                     String shipping_firstname=object.isNull("shipping_firstname")?"":object.getString("shipping_firstname");
@@ -447,21 +432,7 @@ public class ViewDetails extends Language {
                         for (int h = 0; h < arr1.length(); h++) {
                             JSONObject obj = arr1.getJSONObject(h);
                             PlacePO bo2 = new PlacePO();
-                           // bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
-                            DateFormat originalFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-                            DateFormat targetFormat1 = new SimpleDateFormat("dd, MMM yyyy", Locale.ENGLISH);
-                            Date dat1 = null;
-                            if (!obj.isNull("date_added")) {
-                                try {
-                                    dat1 = originalFormat1.parse(obj.getString("date_added"));
-                                    String formattedDate1 = targetFormat1.format(dat1);
-                                    bo2.setDate(formattedDate1);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                bo2.setDate("");
-                            }
+                            bo2.setDate(obj.isNull("date_added") ? "" : obj.getString("date_added"));
                             bo2.setCommand(obj.isNull("comment") ? "" : obj.getString("comment"));
                             bo2.setStatus(obj.isNull("status") ? "" : obj.getString("status"));
                             list3.add(bo2);
@@ -473,10 +444,12 @@ public class ViewDetails extends Language {
 
                     loading.setVisibility(View.GONE);
                     no_network.setVisibility(View.GONE);
+                    success.setVisibility(View.VISIBLE);
                     }
                     else
                     {
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         no_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array=json.getJSONArray("error");
@@ -488,6 +461,7 @@ public class ViewDetails extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     loading.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
@@ -507,6 +481,7 @@ public class ViewDetails extends Language {
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 loading.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
             }
         }
     }
@@ -538,6 +513,11 @@ public class ViewDetails extends Language {
         price.setText(a1);
         qunt.setText(placePO.getQty());
         amount.setText(b1);
+        if (Appconstatants.returns_menu == 1) {
+            returnlay.setVisibility(View.VISIBLE);
+        }else{
+            returnlay.setVisibility(View.GONE);
+        }
         returnlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

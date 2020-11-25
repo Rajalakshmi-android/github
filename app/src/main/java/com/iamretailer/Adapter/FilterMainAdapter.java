@@ -21,7 +21,6 @@ public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.My
     private final ArrayList<FilterPO> items;
     private final Context context;
 
-
     public FilterMainAdapter(Context ctx, ArrayList<FilterPO> imageModelArrayList) {
         inflater = LayoutInflater.from(ctx);
         this.items = imageModelArrayList;
@@ -41,40 +40,30 @@ public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.My
 
         holder.filter_name.setText(getCapsSentences(items.get(position).getFilter_name()));
 
-        if (items.get(position).isSelected())
-        {
+        if (items.get(position).isSelected()) {
             holder.bg_img.setImageResource(R.mipmap.filterfilled);
             holder.bg_view.setVisibility(View.VISIBLE);
             holder.filter_name.setTextColor(context.getResources().getColor(R.color.colorAccent));
 
-        }
-        else
-        {
+        } else {
             holder.bg_img.setImageResource(R.mipmap.filternormal);
             holder.bg_view.setVisibility(View.GONE);
             holder.filter_name.setTextColor(context.getResources().getColor(R.color.app_text_color));
 
         }
-
-            int cc=0;
-            for (int h=0;h<items.get(position).getFilterPOS().size();h++)
-            {
-                if (items.get(position).getFilterPOS().get(h).isSelected())
+        int cc = 0;
+        for (int h = 0; h < items.get(position).getFilterPOS().size(); h++) {
+            if (items.get(position).getFilterPOS().get(h).isSelected())
                 cc++;
-            }
-
-            if (cc==0)
-            {
-                holder.count.setVisibility(View.GONE);
-                holder.count_tex.setText("0");
-            }
-            else
-            {
-                holder.count.setVisibility(View.VISIBLE);
-                String vv=cc+"";
-                holder.count_tex.setText(vv);
-            }
-
+        }
+        if (cc == 0) {
+            holder.count.setVisibility(View.GONE);
+            holder.count_tex.setText("0");
+        } else {
+            holder.count.setVisibility(View.VISIBLE);
+            String vv = cc + "";
+            holder.count_tex.setText(vv);
+        }
 
 
     }
@@ -91,19 +80,16 @@ public class FilterMainAdapter extends RecyclerView.Adapter<FilterMainAdapter.My
         final LinearLayout bg_view;
         final LinearLayout count;
 
-
         MyViewHolder(View itemView) {
             super(itemView);
-
             bg_img = itemView.findViewById(R.id.bg_image);
             filter_name = itemView.findViewById(R.id.filter_name);
-            bg_view= itemView.findViewById(R.id.bg_view);
-            count= itemView.findViewById(R.id.count);
-            count_tex= itemView.findViewById(R.id.count_tex);
+            bg_view = itemView.findViewById(R.id.bg_view);
+            count = itemView.findViewById(R.id.count);
+            count_tex = itemView.findViewById(R.id.count_tex);
 
         }
     }
-
 
     private String getCapsSentences(String tagName) {
         String[] splits = tagName.toLowerCase().split(" ");

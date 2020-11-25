@@ -11,23 +11,7 @@ public class OptionsPO implements Serializable {
     double offer_rate;
     String title;
     int id;
-    String prefix,weight,manufact;
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
-    public String getManufact() {
-        return manufact;
-    }
-
-    public void setManufact(String manufact) {
-        this.manufact = manufact;
-    }
+    String prefix;
 
     public String getPrefix() {
         return prefix;
@@ -64,14 +48,6 @@ public class OptionsPO implements Serializable {
     }
 
     ArrayList<SingleOptionPO> singleOptionPOS;
-
-    public ArrayList<SingleOptionPO> getSingleOptionPOS() {
-        return singleOptionPOS;
-    }
-
-    public void setSingleOptionPOS(ArrayList<SingleOptionPO> singleOptionPOS) {
-        this.singleOptionPOS = singleOptionPOS;
-    }
 
     public boolean isSelect() {
         return select;
@@ -142,18 +118,9 @@ public class OptionsPO implements Serializable {
     }
 
     ArrayList<SingleOptionPO> valuelist;
-   ArrayList<OptionsPO> valuelists;
 
-    public ArrayList<OptionsPO> getValuelists() {
-        return valuelists;
-    }
-
-    public void setValuelists(ArrayList<OptionsPO> valuelists) {
-        this.valuelists = valuelists;
-    }
-
-    String name,type,value,required;
-    int product_option_id,option_id;
+    String name, type, value, required;
+    int product_option_id, option_id;
 
     public String getName() {
         return name;
@@ -209,10 +176,9 @@ public class OptionsPO implements Serializable {
     String price;
     String p_name;
     String productrate;
-    String productoffer;
     String description;
     String image;
-    String model,url;
+    String model, url;
 
     public String getUrl() {
         return url;
@@ -220,24 +186,6 @@ public class OptionsPO implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    int cat_id,parent_id;
-
-    public int getCat_id() {
-        return cat_id;
-    }
-
-    public void setCat_id(int cat_id) {
-        this.cat_id = cat_id;
-    }
-
-    public int getParent_id() {
-        return parent_id;
-    }
-
-    public void setParent_id(int parent_id) {
-        this.parent_id = parent_id;
     }
 
     public String getTax() {
@@ -308,22 +256,6 @@ public class OptionsPO implements Serializable {
         this.productrate = productrate;
     }
 
-    public String getProductoffer() {
-        return productoffer;
-    }
-
-    public void setProductoffer(String productoffer) {
-        this.productoffer = productoffer;
-    }
-
-    public double getRates() {
-        return rates;
-    }
-
-    public void setRates(double rates) {
-        this.rates = rates;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -331,7 +263,8 @@ public class OptionsPO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    double rate,rates;
+
+    double rate;
 
     public double getRate() {
         return rate;

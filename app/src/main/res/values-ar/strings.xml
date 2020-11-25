@@ -52,16 +52,17 @@
     <string name="no_con">لا يوجد اتصال</string>
     <string name="check_network"> الرجاء التحقق من اتصالك بالإنترنت \ n &amp; حاول مجددا.</string>
     <string name="amount">كمية :</string>
-    <string name="USERNAME_Email">البريد الإلكتروني</string>
-    <string name="PASSWORD">كلمه السر</string>
+    <string name="USERNAME_Email">البريد الإلكتروني*</string>
+    <string name="PASSWORD">كلمه السر*</string>
+    <string name="PASSWORD1">كلمه السر</string>
     <string name="Log_In">تسجيل الدخول</string>
     <string name="B_text">ليس لديك حساب؟</string>
     <string name="sign_up">انشاء حساب جديد</string>
     <string name="forgot_password">هل نسيت كلمة المرور؟</string>
     <string name="Log_In1">تسجيل الدخول</string>
     <string name="sign">سجل</string>
-    <string name="phone">رقم الهاتف المحمول</string>
-    <string name="frist_name">الاسم الاول</string>
+    <string name="phone">رقم الهاتف المحمول*</string>
+    <string name="frist_name">الاسم الاول*</string>
     <string name="Signup">سجل</string>
     <string name="S_text">هل لديك حساب بالفعل؟  </string>
     <string name="Forgot">هل نسيت كلمة المرور</string>
@@ -100,9 +101,9 @@
     <string name="no_cart_list">حاليا لا يوجد لديك عناصر في سلة التسوق الخاصة بك</string>
     <string name="show_now">تسوق الآن</string>
     <string name="option">خيارات</string>
-    <string name="last_name">الكنية</string>
+    <string name="last_name">الكنية*</string>
     <string name="your_pass">كلمتك السرية</string>
-    <string name="Con_PASSWORD">تأكيد كلمة المرور</string>
+    <string name="Con_PASSWORD">تأكيد كلمة المرور*</string>
     <string name="send_mail">ارسل بريد</string>
     <string name="back_login">العودة إلى تسجيل الدخول</string>
     <string name="order">طلب:</string>
@@ -135,13 +136,13 @@
     <string name="pay_card">عربة التسوق الرئيسية تنتهي ** 00</string>
     <string name="delivery_add">عنوان التسليم</string>
     <string name="ur_add">عنوانك</string>
-    <string name="first_name">الاسم الاول</string>
+    <string name="first_name">الاسم الاول*</string>
     <string name="succ">نجاح</string>
     <string name="cmp">شركة</string>
-    <string name="add_1">العنوان الأول</string>
+    <string name="add_1">العنوان الأول*</string>
     <string name="add_2">سطر العنوان 2</string>
-    <string name="city">مدينة</string>
-    <string name="pin">الرمز السري</string>
+    <string name="city">مدينة*</string>
+    <string name="pin">الرمز السري*</string>
     <string name="Quantity">كمية</string>
     <string name="two">2</string>
     <string name="edit_profile">تعديل الملف الشخصي</string>
@@ -153,7 +154,7 @@
     <string name="facebook">تسجيل الدخول باستخدام الفيسبوك</string>
     <string name="gmail">تسجيل الدخول عبر جوجل</string>
     <string name="contactus">اتصل بنا</string>
-    <string name="your_name">اسمك</string>
+    <string name="your_name">اسمك*</string>
     <string name="submitts">إرسال</string>
     <string name="got_any_intriguing_questions_adorable_compliments_or_helpful_feedback_we_d_love_to_hear_from_you">تلقيت أي أسئلة مثيرة للاهتمام أو مجاملات رائعة أو تعليقات مفيدة. يسعدنا أن نسمع منك!</string>
     <string name="comments_type_here">اكتب التعليقات هنا ..</string>
@@ -226,7 +227,7 @@
     <string name="guest">ضيف المحاسبة</string>
     <string name="address_details">تفاصيل العنوان:</string>
     <string name="back_to_login">العودة إلى تسجيل الدخول</string>
-    <string name="add_promo_code">أضف الرمز الترويجي</string>
+    <string name="add_promo_code">رمز الكوبون</string>
     <string name="promo_code">رمز ترويجي</string>
     <string name="apply">تطبيق</string>
     <string name="code"> إدخال الرمز الترويجي</string>
@@ -300,9 +301,9 @@
     <string name="razorpay">رازورباي</string>
     <string name="colrs">اللون</string>
     <string name="colss">الألوان</string>
-    <string name="radio">radio</string>
+    <string name="radio">مذياع</string>
     <string name="size">بحجم</string>
-    <string name="chelk_box">checkbox</string>
+    <string name="chelk_box">خانة الاختيار</string>
     <string name="pay_type">يجب تحديد نوع الدفع</string>
     <string name="store">فروعنا</string>
     <string name="store1">متاجرنا</string>
@@ -325,10 +326,25 @@
     <string name="back_to">ارجع الى</string>
     <string name="get_in_touch">ابقى على تواصل!</string>
     <string name="sumbit_queries">أرسل استفساراتك هنا ..</string>
-    <string name="comment">تعليقات</string>
+    <string name="comment"> تعليقات*</string>
     <string name="order_id">رقم التعريف الخاص بالطلب : </string>
     <string name="pending">قيد الانتظار</string>
     <string name="checkss"> للخروج السريع </string>
+    <string name="price_range">نطاق السعر</string>
+    <string name="from">من عند:</string>
+    <string name="too">إلى:</string>
+    <string name="no_categories_found">لم يتم العثور على فئات</string>
+    <string name="no_data_found">لاتوجد بيانات !!</string>
+    <string name="no_filter">لم يتم العثور على مرشح</string>
+    <string name="pay_msg">فشل معاملة الدفع ، في حالة خصم أي مبلغ من حسابك ، يرجى الاتصال +918525990990</string>
+    <string name="pay_failed">فشل معاملة الدفع </string>
+    <string name="pay_fail">عملية الدفع فشلت:</string>
+    <string name="pay_sucess">تم الدفع بنجاح:</string>
+    <string name="err_pay">خطأ في الدفع:</string>
+    <string name="per_grant">تم تأمين التصريح</string>
+    <string name="per_den">طلب الاذن مرفوض</string>
+
+
 
 
     //stemp
@@ -384,8 +400,72 @@
     <string name="rating">-50%</string>
     <string name="rating1">٪</string>
     <string name="kg">/كلغ</string>
-    <string name="selc_oun">حدد الدولة</string>
-    <string name="sel_sta">اختر ولايه</string>
+    <string name="selc_oun">حدد الدولة*</string>
+    <string name="sel_sta">اختر ولايه*</string>
     <string name="del_by">التوصيل بواسطه</string>
+
+    <string name="per_msg">الرجاء منح الأذونات</string>
+    <string name="fil_bg">مصنف بواسطة</string>
+    <string name="clear_all"> امسح الكل</string>
+    <string name="track">شحنة المسار</string>
+    <string name="prod_name"> اسم المنتج : </string>
+    <string name="qtys"> كمية* : </string>
+    <string name="reason_for_return">سبب الإرجاع * : </string>
+    <string name="prod_open">المنتج مفتوح * : </string>
+    <string name="other_details">تفاصيل أو عيوب أخرى :  </string>
+    <string name="other_details1">تفاصيل أو عيوب أخرى  </string>
+    <string name="return_fom">طلب إلغاء الطلب </string>
+    <string name="qty_toast">يجب ألا تكون الكمية أكبر من كمية الطلب </string>
+    <string name="nos"> لا</string>
+    <string name="yess">نعم</string>
+    <string name="qty_error">الرجاء إدخال الكمية الخاصة بك</string>
+    <string name="out_of">بعيدا عن المكان</string>
+    <string name="appinfo">معلومات التطبيق</string>
+    <string name="helps"> مساعدة</string>
+
+
+    <string name="returns">إرجاع</string>
+    <string name="returns_title">بعودة النظام</string>
+    <string name="returns_id">معرف العودة</string>
+    <string name="returns_id1">معرّف الإرجاع:</string>
+    <string name="order_id1">رقم التعريف الخاص بالطلب:</string>
+    <string name="order_date">تاريخ الطلب:</string>
+    <string name="return_date">تاريخ العودة:</string>
+    <string name="return_history">Return History</string>
+    <string name="return_reason">سبب الإرجاع</string>
+    <string name="no_orders1">لا عودة بعد !!</string>
+    <string name="return_info">إرجاع المعلومات</string>
+    <string name="return_infos">معلومات المنتج</string>
+    <string name="model">نموذج :</string>
+    <string name="reason">السبب :</string>
+    <string name="opens">افتح :</string>
+    <string name="status1">الحالة :</string>
+    <string name="return_request">طلب ارجاع</string>
+    //food app
+    <string name="l_eat">دعونا نأكل </string>
+    <string name="q_food">نوعية الغذاء</string>
+    <string name="packge">صفقة:</string>
+    <string name="app_version">نسخة التطبيق: </string>
+    <string name="return_save">تم إلغاء الطلب بنجاح</string>
+
+
+    <string name="updatea">تنبيه التحديث!</string>
+    <string name="download_size">حجم التنزيل:</string>
+    <string name="updateplay">يوصي التطبيق بالتحديث إلى أحدث إصدار. تستمر في استخدام هذا التطبيق أثناء تنزيل التحديث.</string>
+    <string name="now"><b>الآن (عبر أي شبكة)</b> \nقد يتم تطبيق رسوم البيانات</string>
+    <string name="wifi"><b>عندما تكون شبكة Wi-fi متاحة</b></string>
+    <string name="no_thanks">لا شكرا</string>
+    <string name="updates">تحديث</string>
+
+    //gray
+    <string name="search_item">قل شيئا</string>
+
+    <string name="status">الحالة</string>
+    <string name="store_mob">التليفون المحمول:</string>
+    <string name="add_gift_code">قسيمة الهدية</string>
+    <string name="gift_coupon">كود قسيمة الهدية</string>
+    <string name="gift_suc">تم تطبيق الهدية بنجاح</string>
+    <string name="gift_remove">تمت إزالة شهادة الهدية</string>
+    <string name="gift_delete">هل تريد حذف شهادة الهدية؟</string>
 
 </resources>

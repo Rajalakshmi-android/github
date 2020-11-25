@@ -22,10 +22,10 @@
                 android:layout_height="match_parent">
 
                 <ListView
-                    android:layout_marginBottom="@dimen/dp5"
                     android:id="@+id/wish_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:layout_marginStart="@dimen/dp5"
                     android:layout_marginTop="@dimen/dp10"
                     android:divider="@null"
@@ -63,7 +63,7 @@
                             android:paddingEnd="@dimen/dp20"
                             android:paddingStart="@dimen/dp20"
                             android:text="@string/shop_now"
-                            android:textColor="@color/white"
+                            android:textColor="@color/button_textcolor"
                             android:textSize="@dimen/text12sp" />
 
 

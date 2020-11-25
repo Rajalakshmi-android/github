@@ -99,14 +99,13 @@ public class Address extends Language {
         LinearLayout retry = findViewById(R.id.retry);
         LinearLayout back = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
-        success=findViewById(R.id.success);
+        success = findViewById(R.id.success);
         header.setText(R.string.delivery_add);
         LinearLayout cart_items = findViewById(R.id.cart_items);
         fullayout = findViewById(R.id.fullayout);
         cart_items.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +114,6 @@ public class Address extends Language {
             }
         });
         loading = findViewById(R.id.loading);
-
 
         CountryTask countryTask = new CountryTask();
         countryTask.execute();
@@ -131,7 +129,6 @@ public class Address extends Language {
 
             }
         });
-
 
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -149,7 +146,6 @@ public class Address extends Language {
                     StateTask stateTask = new StateTask();
                     stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(i).getCount_id());
                 }
-
 
             }
 
@@ -235,7 +231,7 @@ public class Address extends Language {
                 if (pincode.getText().toString().length() != 6) {
                     pincode.setError(getResources().getString(R.string.pin_error1));
                 }
-                if (mobile.getText().toString().length() != 10) {
+                if (mobile.getText().toString().length() < 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -254,7 +250,7 @@ public class Address extends Language {
                         && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
                         && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
                         && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                        && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
                         && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
                         ) {
 
@@ -369,12 +365,10 @@ public class Address extends Language {
 
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
                     Log.d("Add_resp_new", json.toString() + "");
                     logger.info("Address save new user api req" + json);
-
 
                     response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
@@ -390,17 +384,13 @@ public class Address extends Language {
                     logger.info("Address save old user api resp" + response);
                     Log.d("Add_respex", response);
                 } else if (from == 4) {
-
                     logger.info("Address save new user api" + Appconstatants.address_save);
-
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
                     Log.d("Add_resp_new", json.toString() + "");
                     logger.info("Address save new user api req" + json);
-
 
                     response = connection.sendHttpPostjson(Appconstatants.SAVE_ADD_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
@@ -412,12 +402,10 @@ public class Address extends Language {
 
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
                     Log.d("Add_resp_newsssssss", json.toString() + "");
                     logger.info("Address save new user api req" + json);
-
 
                     response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
@@ -435,7 +423,7 @@ public class Address extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("Add_Save", "ADD_save--->  " + resp+"");
+            Log.i("Add_Save", "ADD_save--->  " + resp + "");
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
@@ -469,9 +457,7 @@ public class Address extends Language {
                                 SaveBillAddress addressTask = new SaveBillAddress();
                                 addressTask.execute(add_id);
 
-
                             }
-
 
                         }
 
@@ -503,7 +489,6 @@ public class Address extends Language {
                                 }
                             })
                             .show();
-
                 }
 
             } else {
@@ -563,9 +548,7 @@ public class Address extends Language {
                     object.put("address_id", param[0]);
                     logger.info("Bill Address save new  user api req" + object);
 
-
                     response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
-
 
                     logger.info("Bill Address save new  user api resp" + response);
                     Log.d("Add_resp_new", object.toString());
@@ -617,7 +600,7 @@ public class Address extends Language {
                         i.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
                         i.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
                         startActivity(i);
-                        //  }
+
 
                     } else {
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
@@ -660,7 +643,6 @@ public class Address extends Language {
 
     private class SaveBillAddress1 extends AsyncTask<Object, Void, String> {
 
-
         @Override
         protected void onPreExecute() {
             Log.d("Add_Save", "started");
@@ -699,16 +681,13 @@ public class Address extends Language {
                     response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     logger.info("Bill Address save guest api resp" + response);
                     Log.d("guest_sav_resp", response);
-                } else /*(from==2)*/ {
+                } else {
                     logger.info("Bill Address save new  user api" + Appconstatants.bill_address_save);
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
-
                     response = connection.sendHttpPostjson(Appconstatants.bill_address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
-
                     logger.info("Bill Address save new  user api resp" + response);
                 }
 
@@ -779,16 +758,13 @@ public class Address extends Language {
                             }
                         })
                         .show();
-
             }
-
 
         }
     }
 
 
     private class CountryTask extends AsyncTask<Object, Void, String> {
-
 
         @Override
         protected void onPreExecute() {
@@ -822,7 +798,7 @@ public class Address extends Language {
                     po1.setCount_name(getApplication().getResources().getString(R.string.selc_oun));
                     country_list.add(po1);
 
-
+                    Log.i("tag","countryssssss---- "+country_list.get(0).getCount_name());
                     if (json.getInt("success") == 1) {
                         JSONArray jsonArray = new JSONArray(json.getString("data"));
                         for (int y = 0; y < jsonArray.length(); y++) {
@@ -837,7 +813,7 @@ public class Address extends Language {
                         country.setAdapter(c_adapter);
 
                         if (from == 1) {
-                            if(cc!=null){
+                            if (cc != null) {
                                 f_name.setText(cc.getString("first"));
                                 l_name.setText(cc.getString("last_name"));
                                 company.setText(cc.getString("company"));
@@ -847,13 +823,12 @@ public class Address extends Language {
                                 pincode.setText(cc.getString("pincode"));
                                 mobile.setText(cc.getString("phone"));
                                 company.setText(cc.getString("company"));
-                                String con=cc.getString("country");
+                                String con = cc.getString("country");
                                 for (int y = 0; y < country_list.size(); y++) {
-                                    if(con!=null){
+                                    if (con != null) {
                                         if (con.equalsIgnoreCase(country_list.get(y).getCount_name())) {
                                             country.setSelection(y);
-
-                                    }
+                                        }
 
                                     }
                                 }
@@ -946,22 +921,20 @@ public class Address extends Language {
                             state_list.add(po1);
                         }
 
-
-                         s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
-                          state.setAdapter(s_adapter);
+                        s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
+                        state.setAdapter(s_adapter);
 
                         if (from == 1) {
 
-                            String stat=cc.getString("state");
+                            String stat = cc.getString("state");
                             for (int y = 0; y < state_list.size(); y++) {
-                                if(cc!=null){
-                                    if(stat!=null){
+                                if (cc != null) {
+                                    if (stat != null) {
                                         if (stat.equalsIgnoreCase(state_list.get(y).getCount_name())) {
                                             state.setSelection(y);
                                         }
 
                                     }
-
 
                                 }
                             }
@@ -1058,8 +1031,6 @@ public class Address extends Language {
 
                     if (json.getInt("success") == 1) {
 
-                       /* AddressListTask addressListTask = new AddressListTask();
-                        addressListTask.execute();*/
                         if (from == 2) {
                             SaveBillAddress addressTask = new SaveBillAddress();
                             addressTask.execute(add_ids);

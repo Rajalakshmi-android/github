@@ -1,10 +1,12 @@
 package com.iamretailer;
 
 import android.app.ActionBar;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -33,14 +35,15 @@ import com.logentries.android.AndroidLogger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import stutzen.co.network.Connection;
 
 public class StoreLocator extends FragmentActivity implements OnMapReadyCallback {
 
-    private final String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381"};
-    private final String[] lng = {"77.799435", "77.9803", "78.119775", "80.270718", "77.756652", "76.955832", "77.4892"};
-    String[] saddress = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal"};
-    private final int[] simg = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival};
+
+    String[] saddress = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal", "Nanjangud"};
+    private final int[] simg = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival, R.mipmap.rsz_blue};
     private AndroidLogger logger;
     private TextView cart_count;
 
@@ -50,7 +53,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_locator);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID,false);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maphome)).getMapAsync(this);
         LinearLayout backclick = findViewById(R.id.menu);
         TextView header = findViewById(R.id.header);
@@ -64,9 +67,9 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
             }
         });
         DBController dbController = new DBController(StoreLocator.this);
-        Appconstatants.sessiondata= dbController.getSession();
-        Appconstatants.Lang= dbController.get_lang_code();
-        Appconstatants.CUR= dbController.getCurCode();
+        Appconstatants.sessiondata = dbController.getSession();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
 
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,12 +102,14 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        for (int i = 0; i < lat.length; i++) {
+        for (int i = 0; i < Appconstatants.lat.length; i++) {
             Marker marker = googleMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(lat[i]), Double.parseDouble(lng[i])))
+                    .position(new LatLng(Double.parseDouble(Appconstatants.lat[i]), Double.parseDouble(Appconstatants.lng[i])))
+                    .title(saddress[i])
                     .icon(BitmapDescriptorFactory
-                            .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, simg[i]))));
+                            .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, R.mipmap.rsz_destiny))));
         }
+
         if (googleMap != null) {
             googleMap.getUiSettings().setZoomControlsEnabled(false);
             googleMap.setTrafficEnabled(true);
@@ -113,12 +118,31 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
             googleMap.moveCamera(center);
             googleMap.animateCamera(zoom);
         }
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Uri gmmIntentUri = Uri.parse("geo:" + marker.getPosition().latitude + "," + marker.getPosition().longitude);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+
+                return true;
+            }
+        });
+
+
     }
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -136,15 +160,15 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
 
         protected String doInBackground(String... param) {
 
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,StoreLocator.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, StoreLocator.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
             } catch (Exception e) {

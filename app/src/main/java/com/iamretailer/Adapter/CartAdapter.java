@@ -10,12 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +42,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
     private final String cur_left;
     private final String cur_right;
     private final AndroidLogger logger;
-    private ArrayList<String> qty_list;
     private AlertDialog alertReviewDialog;
     private final LayoutInflater inflater;
 
@@ -60,7 +57,6 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         Appconstatants.CUR = db.getCurCode();
         logger = AndroidLogger.getLogger(context, Appconstatants.LOG_ID, false);
         inflater = context.getLayoutInflater();
-
 
     }
 
@@ -101,28 +97,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         holder.option = convertView.findViewById(R.id.option);
         holder.rupee_front = convertView.findViewById(R.id.rupee_front);
         holder.rupee_back = convertView.findViewById(R.id.rupee_back);
-        holder.spin_qty = convertView.findViewById(R.id.spin_qty);
-        holder.qty_count = convertView.findViewById(R.id.qty_count);
 
-        qty_list = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            if (i != 4)
-                qty_list.add("0" + i);
-            else
-                qty_list.add("More");
-        }
-
-        SpinnerAdapter1 spinnerAdapter1 = new SpinnerAdapter1(context, qty_list);
-        holder.spin_qty.setAdapter(spinnerAdapter1);
-
-        if (items.get(position).getCartvalue() <= 3) {
-            holder.spin_qty.setSelection(items.get(position).getCartvalue() - 1);
-            holder.qty_count.setVisibility(View.GONE);
-        } else {
-            holder.spin_qty.setVisibility(View.GONE);
-            String value = items.get(position).getCartvalue() + "";
-            holder.qty_count.setText(value);
-        }
 
         if (items.get(position).getProducturl().isEmpty())
             Picasso.with(getContext()).load(R.mipmap.place_holder).into(holder.cart_img);
@@ -131,10 +106,10 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
         if (items.get(position).isOut_of_stock()) {
             holder.out_of_stock.setVisibility(View.GONE);
-            holder.qty.setVisibility(View.VISIBLE);
+
         } else {
             holder.out_of_stock.setVisibility(View.VISIBLE);
-            holder.qty.setVisibility(View.GONE);
+
         }
 
 
@@ -199,40 +174,10 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         });
 
 
-        holder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                if (i != 3) {
-
-                    if (items.get(position).getCartvalue() - 1 != i) {
-                        CartUpdate cartUpdate = new CartUpdate(position);
-                        cartUpdate.execute(items.get(position).getKey(), qty_list.get(i));
-                    }
-                } else {
-                    //     quantity_change(position);
-                    holder.spin_qty.setSelection(items.get(position).getCartvalue() - 1);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        holder.qty_count.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // quantity_change(position);
-            }
-        });
-
         holder.cart_value.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantity_change(position, items.get(position).getCartvalue() + "",items.get(position).getProduct_name());
+                quantity_change(position, items.get(position).getCartvalue() + "", items.get(position).getProduct_name());
 
             }
         });
@@ -252,10 +197,8 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         ImageView remove;
         TextView out_of_stock, rupee_front, rupee_back;
         LinearLayout qty, option;
-        Spinner spin_qty;
-        TextView qty_count;
-    }
 
+    }
 
     private void quantity_change(final int pos, String qtys, String name) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);

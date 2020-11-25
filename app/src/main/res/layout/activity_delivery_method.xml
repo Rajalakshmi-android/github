@@ -13,9 +13,9 @@
         <include layout="@layout/menu_back" />
 
         <FrameLayout
+            android:id="@+id/success"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/success"
             android:visibility="gone">
 
 
@@ -79,7 +79,6 @@
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
 
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -105,7 +104,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="@string/continues"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_textcolor"
                     android:textSize="@dimen/text20sp"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.POJO.SingleOptionPO;
 import com.iamretailer.R;
 
@@ -22,7 +21,6 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
     private final ArrayList<SingleOptionPO> items;
     private final int res;
     private final LayoutInflater mInflater;
-
 
     public ReviewAdapter(Context context, int resource, ArrayList<SingleOptionPO> items) {
         super(context, resource, items);
@@ -67,9 +65,8 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
         holder.r4 = convertView.findViewById(R.id.r4);
         holder.r5 = convertView.findViewById(R.id.r5);
 
-
         holder.comts.setText(items.get(position).getRev_text());
-        holder.rev_date.setText(CommonFunctions.date_format(items.get(position).getRev_date()));
+        holder.rev_date.setText(items.get(position).getRev_date());
         holder.user_name.setText(items.get(position).getRev_author());
         holder.user_first.setText(String.valueOf(items.get(position).getRev_author().charAt(0)).toUpperCase());
 
@@ -83,7 +80,6 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
                 holder.r5.setImageResource(R.mipmap.un_fill);
                 break;
             case 1:
-
                 holder.r1.setImageResource(R.mipmap.fill);
                 holder.r2.setImageResource(R.mipmap.un_fill);
                 holder.r3.setImageResource(R.mipmap.un_fill);
@@ -131,7 +127,6 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
             holder.review_bg.setBackground(getContext().getResources().getDrawable(R.drawable.rev_bg));
         else
             holder.review_bg.setBackground(getContext().getResources().getDrawable(R.drawable.rev_bg));
-
 
         return alertView;
     }

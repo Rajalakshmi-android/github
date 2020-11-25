@@ -2,11 +2,9 @@ package com.iamretailer.POJO;
 
 public class AddressPO {
 
-
     String address;
     Boolean value;
-    String add_id,f_name,l_name,company,add_1,add_2,post_code,city,zone,country;
-    String con_id;
+    String add_id, f_name, l_name, company, add_1, add_2, post_code, city, zone, country;
     boolean select;
 
     public boolean isSelect() {
@@ -26,14 +24,6 @@ public class AddressPO {
     }
 
     String phone;
-
-    public String getCon_id() {
-        return con_id;
-    }
-
-    public void setCon_id(String con_id) {
-        this.con_id = con_id;
-    }
 
     public String getZone_id() {
         return zone_id;

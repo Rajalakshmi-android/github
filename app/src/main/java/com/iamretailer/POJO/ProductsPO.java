@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class ProductsPO implements Serializable {
-    String offer,weight,manufact;
+    String offer, weight, manufact;
     String product_name;
     double prod_offer_rate;
     double total;
@@ -32,7 +32,7 @@ public class ProductsPO implements Serializable {
     String producturl;
     int productid;
     boolean out_of_stock;
-    String off_price,mrp;
+    String off_price, mrp;
     ArrayList<SingleOptionPO> singleOptionPOS;
 
     public ArrayList<SingleOptionPO> getSingleOptionPOS() {
@@ -68,14 +68,6 @@ public class ProductsPO implements Serializable {
 
     public void setOff_price(String off_price) {
         this.off_price = off_price;
-    }
-
-    public String getMrp() {
-        return mrp;
-    }
-
-    public void setMrp(String mrp) {
-        this.mrp = mrp;
     }
 
     public boolean isOut_of_stock() {
@@ -125,7 +117,7 @@ public class ProductsPO implements Serializable {
     double amount;
     double price;
 
-ArrayList<OptionsPO> optionlist;
+    ArrayList<OptionsPO> optionlist;
 
     public ArrayList<OptionsPO> getOptionlist() {
         return optionlist;
@@ -151,21 +143,7 @@ ArrayList<OptionsPO> optionlist;
         this.key = key;
     }
 
-
-
-
-
     String product_id;
-
-    public String getMin() {
-        return min;
-    }
-
-    public void setMin(String min) {
-        this.min = min;
-    }
-
-    String min;
 
     public boolean isSpecial() {
         return special;
@@ -176,7 +154,6 @@ ArrayList<OptionsPO> optionlist;
     }
 
     boolean special;
-
 
     public String getProduct_id() {
         return product_id;
@@ -194,24 +171,6 @@ ArrayList<OptionsPO> optionlist;
         this.cartvalue = cartvalue;
     }
 
-    public String getCart_war() {
-        return cart_war;
-    }
-
-    public void setCart_war(String cart_war) {
-        this.cart_war = cart_war;
-    }
-
-    public String getCart_brand_name() {
-        return cart_brand_name;
-    }
-
-    public void setCart_brand_name(String cart_brand_name) {
-        this.cart_brand_name = cart_brand_name;
-    }
-
-
-
     public String getProducturl() {
         return producturl;
     }
@@ -227,8 +186,6 @@ ArrayList<OptionsPO> optionlist;
     public void setProductid(int productid) {
         this.productid = productid;
     }
-
-
 
     public String getOffer() {
         return offer;

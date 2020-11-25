@@ -12,23 +12,23 @@
         android:padding="@dimen/dp15">
 
         <LinearLayout
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:id="@+id/cancel"
-            >
+            android:layout_gravity="end">
 
             <ImageView
                 android:layout_width="@dimen/dp12"
                 android:layout_height="@dimen/dp12"
-                android:src="@mipmap/cancel_icon"
-                android:rotationY="@integer/locale_mirror_flip"
+                android:layout_margin="@dimen/dp5"
                 android:autoMirrored="true"
                 android:contentDescription="@null"
-                android:layout_margin="@dimen/dp5"/>
+                android:rotationY="@integer/locale_mirror_flip"
+                android:src="@mipmap/cancel_icon" />
         </LinearLayout>
 
         <com.iamretailer.Common.CustomTextview
+            android:id="@+id/hedding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -37,13 +37,13 @@
             android:textSize="@dimen/text15sp" />
 
         <com.iamretailer.Common.CustomEditext
+            android:id="@+id/promo_code"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
             android:layout_marginEnd="@dimen/dp10"
             android:layout_marginStart="@dimen/dp10"
             android:background="@drawable/login_edit_bg"
             android:gravity="center"
-            android:id="@+id/promo_code"
             android:inputType="number"
             android:paddingBottom="@dimen/dp5"
             android:textColor="@color/cart_text"
@@ -51,15 +51,14 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/apply"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp45"
             android:layout_marginEnd="@dimen/dp10"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginTop="@dimen/dp15"
             android:background="@drawable/login_button"
-            android:gravity="center"
-            android:id="@+id/apply"
-            >
+            android:gravity="center">
 
             <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
@@ -67,7 +66,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:text="@string/apply"
-                android:textColor="@color/white"
+                android:textColor="@color/button_textcolor"
                 android:textSize="@dimen/text18sp"
                 android:textStyle="bold" />
 

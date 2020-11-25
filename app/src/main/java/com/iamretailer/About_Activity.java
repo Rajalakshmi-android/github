@@ -41,7 +41,6 @@ public class About_Activity extends Language {
     private AndroidLogger logger;
     private AboutTask productTask;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +80,6 @@ public class About_Activity extends Language {
                 loading.setVisibility(View.VISIBLE);
                 productTask = new AboutTask();
                 productTask.execute(Appconstatants.ABOUT);
-
             }
         });
 
@@ -126,7 +124,6 @@ public class About_Activity extends Language {
                 logger.info("Product list search resp" + response);
                 Log.d("list_products", param[0]);
                 Log.d("list_products", Appconstatants.sessiondata);
-
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/add"
@@ -12,9 +10,9 @@
         android:layout_marginEnd="@dimen/dp20"
         android:layout_marginStart="@dimen/dp20"
         android:layout_marginTop="@dimen/dp15"
-        android:padding="@dimen/dp20"
         android:background="@drawable/addresslist_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/dp20">
 
         <LinearLayout
             android:id="@+id/select_bg"
@@ -38,8 +36,8 @@
                         android:gravity="center"
                         android:text="@string/address"
                         android:textColor="@color/app_text_color"
-                        android:textSize="@dimen/text14sp"
-                        />
+                        android:textSize="@dimen/text14sp" />
+
                     <com.iamretailer.Common.CustomTextview1
                         android:id="@+id/pos"
                         android:layout_width="wrap_content"
@@ -48,10 +46,7 @@
                         android:paddingStart="@dimen/dp3"
                         android:text="@string/address"
                         android:textColor="@color/app_text_color"
-                        android:textSize="@dimen/text14sp"
-                        />
-
-
+                        android:textSize="@dimen/text14sp" />
 
 
                 </LinearLayout>
@@ -65,11 +60,12 @@
                     <LinearLayout
                         android:id="@+id/edit"
                         android:layout_width="@dimen/dp30"
+                        android:layout_height="match_parent"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="end"
                         android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
-                        android:layout_height="match_parent">
+                        android:gravity="end"
+                        android:rotationY="@integer/locale_mirror_flip">
+
                         <ImageView
                             android:layout_width="@dimen/dp18"
                             android:layout_height="@dimen/dp18"
@@ -81,11 +77,11 @@
                     <LinearLayout
                         android:id="@+id/delete"
                         android:layout_width="@dimen/dp25"
+                        android:layout_height="match_parent"
                         android:layout_gravity="end|center_vertical"
-                        android:gravity="end"
                         android:autoMirrored="true"
-                        android:rotationY="@integer/locale_mirror_flip"
-                        android:layout_height="match_parent">
+                        android:gravity="end"
+                        android:rotationY="@integer/locale_mirror_flip">
 
                         <ImageView
                             android:layout_width="@dimen/dp13"
@@ -120,8 +116,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/user"
                         android:textColor="@color/add_text1"
-                        android:textSize="@dimen/text16sp"
-                        />
+                        android:textSize="@dimen/text16sp" />
 
                     <com.iamretailer.Common.CustomTextview
                         android:id="@+id/address_1"
@@ -129,9 +124,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/user"
                         android:textColor="@color/add_text2"
-                        android:textSize="@dimen/text14sp"
-
-                        />
+                        android:textSize="@dimen/text14sp" />
 
                     <com.iamretailer.Common.CustomTextview
                         android:id="@+id/city"
@@ -139,9 +132,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/user"
                         android:textColor="@color/add_text2"
-                        android:textSize="@dimen/text14sp"
-
-                        />
+                        android:textSize="@dimen/text14sp" />
 
 
                 </LinearLayout>
@@ -158,8 +149,8 @@
                 <LinearLayout
                     android:layout_width="@dimen/dp0"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="@dimen/value1.5">
+                    android:layout_weight="@dimen/value1.5"
+                    android:orientation="vertical">
 
                     <com.iamretailer.Common.CustomTextview
                         android:id="@+id/country"
@@ -177,8 +168,7 @@
                         android:layout_height="wrap_content"
                         android:text="871927912`90"
                         android:textColor="@color/text_color1"
-                        android:textSize="@dimen/text15sp"
-                        />
+                        android:textSize="@dimen/text15sp" />
 
 
                 </LinearLayout>
@@ -186,8 +176,8 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="@dimen/value0.5"
                     android:layout_gravity="end"
+                    android:layout_weight="@dimen/value0.5"
                     android:gravity="end">
 
                     <ImageView
@@ -196,18 +186,18 @@
                         android:layout_height="@dimen/dp30"
                         android:layout_gravity="end"
                         android:gravity="center"
-                        android:src="@mipmap/addres_selects"
-                        />
+                        android:src="@mipmap/addres_selects" />
+
                     <ImageView
                         android:id="@+id/select1"
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp30"
                         android:layout_gravity="end"
-                        android:gravity="top"
                         android:autoMirrored="true"
+                        android:gravity="top"
                         android:rotationY="@integer/locale_mirror_flip"
                         android:src="@mipmap/gray_circle1"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </FrameLayout>
 
             </LinearLayout>

@@ -3,12 +3,10 @@ package com.iamretailer.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -71,10 +69,8 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         holder.status = convertView.findViewById(R.id.status);
         holder.symbol = convertView.findViewById(R.id.symbol);
         holder.symbol1 = convertView.findViewById(R.id.symbol1);
-        holder.image = convertView.findViewById(R.id.image);
         holder.symbol.setText(cur_left);
         holder.symbol1.setText(cur_right);
-
 
         holder.order_id.setText(items.get(position).getPayment());
         holder.order.setText(items.get(position).getOrder_id());
@@ -82,21 +78,19 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         holder.status.setText(items.get(position).getOrder_status());
         holder.order_placed.setText(items.get(position).getOrder_date());
         String val = String.format(Locale.ENGLISH, "%.2f", Double.parseDouble(items.get(position).getOrder_total_raw()));
-
         holder.order_amount.setText(val);
+
         if (items.get(position).getOrder_status().equalsIgnoreCase("Pending")) {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.orange_status));
 
         } else if (items.get(position).getOrder_status().equalsIgnoreCase("Failed")) {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.red));
-            holder.image.setVisibility(View.GONE);
 
         } else if (items.get(position).getOrder_status().equalsIgnoreCase("Success")) {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.green_status));
 
         } else {
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
-            holder.image.setVisibility(View.GONE);
         }
 
         return alertView;
@@ -111,10 +105,8 @@ public class OrderAdapter extends ArrayAdapter<OrdersPO> {
         TextView status;
         TextView symbol;
         TextView symbol1;
-        ImageView image;
 
 
     }
-
 
 }

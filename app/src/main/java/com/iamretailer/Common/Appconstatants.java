@@ -6,11 +6,11 @@ public class Appconstatants {
 
     public static String key="x-oc-merchant-id";
 
-    public static String value="cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
+    public static String value="nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";///"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
 
     public static String key1="X-Oc-Session";
 
-    public static String domain ="https://shopzenstage.stutzen.in/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
+    public static String domain ="http://shopzen.stutzen.in/";//"https://shopzenstage.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
 
     public static String sessiondata ="5050f4ca981c9fc266f6b1e0b7";
 
@@ -96,6 +96,8 @@ public class Appconstatants {
 
     public static String COUPON_API=domain+"index.php?route=rest/cart/coupon";
 
+    public static String Gift_COUPON_API=domain+"index.php?route=rest/cart/voucher";
+
     public static String UPDATE_ADD_API=domain+"index.php?route=rest/account/address&id=";
 
     public static String SAVE_ADD_API=domain+"index.php?route=rest/account/address";
@@ -138,6 +140,13 @@ public class Appconstatants {
 
     public  static  String LICENSE_KEY="1234567890";
     public static int need_brand_product=1;
+    public static int store_locator=1;
+    public static int returns_menu=1;
+    public static int whatsapp_mode=1;
+    public static String whatsapp_number="9965077905";
+
+    public static String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381","12.120000"};
+    public static String[] lng = {"77.799435", "77.9803", "78.119775", "80.270718", "77.756652", "76.955832", "77.4892","76.680000"};
 
     public static String Payment_Success =domain+"index.php?route=rest/razorpay";
 
@@ -147,5 +156,10 @@ public class Appconstatants {
 
     public static String RETURN_SAVE=domain+"index.php?route=rest/return/returns";
     public static String REASON=domain+"index.php?route=rest/return/returnReason";
+    public static String Return_List=domain+"index.php?route=rest/return/returns";
+    public static String Return_Detail=domain+"index.php?route=rest/return/returns&id=";
+
+    public static String Store_list=domain+"index.php?route=feed/rest_api/stores";
+    public static String Store_Detail=domain+"index.php?route=feed/rest_api/stores&id=";
 
 }
