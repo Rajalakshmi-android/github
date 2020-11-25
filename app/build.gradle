@@ -95,8 +95,5 @@ dependencies {
     implementation files('libs/iamretailerconnection.aar')
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'org.jsoup:jsoup:1.13.1'
-    compile('com.paytm:pgplussdk:1.4.4') {
-        transitive = true;
-    }
 
 }
