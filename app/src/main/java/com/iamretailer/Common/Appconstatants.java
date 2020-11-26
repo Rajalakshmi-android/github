@@ -10,7 +10,7 @@ public class Appconstatants {
 
     public static String key1="X-Oc-Session";
 
-    public static String domain ="http://shopzen.stutzen.in/";//"https://shopzenstage.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
+    public static String domain ="https://shopzen.stutzen.in/";//"https://shopzenstage.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
 
     public static String sessiondata ="5050f4ca981c9fc266f6b1e0b7";
 
