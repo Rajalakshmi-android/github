@@ -469,5 +469,8 @@
     <string name="coupon_remove">Coupon code removed</string>
     <string name="coupon_delete">Do you want to coupon code delete?</string>
 
+    //yellow
+    <string name="search_product">Search Products</string>
+
 
 </resources>

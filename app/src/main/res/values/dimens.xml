@@ -156,5 +156,7 @@
 	<dimen name="dp170">170dp</dimen>
 
 	<dimen name="dp220">220dp</dimen>
+	<dimen name="dp195">195dp</dimen>
+	<dimen name="dp185">185dp</dimen>
 
 </resources>
