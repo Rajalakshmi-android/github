@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -303,9 +304,11 @@ public class ConfirmOrder extends Language {
 
 
     private void show_gift() {
+        Log.i("dgfdgdg","gdgdfgdg");
         AlertDialog.Builder dialLo = new AlertDialog.Builder(ConfirmOrder.this, R.style.CustomAlertDialog);
         View popUpView = getLayoutInflater().inflate(R.layout.promo_code, null);
         final  EditText gift_coupons = popUpView.findViewById(R.id.promo_code);
+        gift_coupons.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         final TextView hedding = popUpView.findViewById(R.id.hedding);
         LinearLayout apply = popUpView.findViewById(R.id.apply);
         LinearLayout cancel = popUpView.findViewById(R.id.cancel);

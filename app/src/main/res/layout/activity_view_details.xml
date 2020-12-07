@@ -15,6 +15,7 @@
         android:visibility="gone">
 
         <LinearLayout
+            android:id="@+id/linerly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp60"
@@ -484,6 +485,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/calllay"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp60"
             android:layout_gravity="bottom"

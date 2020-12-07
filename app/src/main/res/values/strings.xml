@@ -275,7 +275,7 @@
     <string name="p_payment">Proceed Payment</string>
     <string name="c_w_balance">Current Wallet Balance:</string>
     <string name="offer_range">75% - 20% OFF ON YOUR FIRST PURCHASE</string>
-    <string name="offercode">Offercodes</string>
+    <string name="offercode">555555</string>
     <string name="scratch">Scratch to get the code</string>
     <string name="your_wallet_amount">Your Wallet Amount:</string>
     <string name="mail_id">please enter the mail id</string>
@@ -402,7 +402,7 @@
     <string name="no_categories_found">No Categories found</string>
     <string name="no_data_found">No Data found !!</string>
     <string name="no_filter">No filter found</string>
-    <string name="pay_msg">Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990</string>
+    <string name="pay_msg">Payment Transaction Failed .If any amount deducted from your account.Please contact us</string>
     <string name="pay_failed">Payment Transaction Failed </string>
     <string name="pay_fail">Payment failed:</string>
     <string name="pay_sucess">Payment Successful:</string>

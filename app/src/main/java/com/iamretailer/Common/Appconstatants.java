@@ -142,7 +142,10 @@ public class Appconstatants {
     public static int need_brand_product=1;
     public static int store_locator=1;
     public static int returns_menu=1;
-    public static int whatsapp_mode=1;
+    public static int whatsapp_mode=0;
+    public static int fblogin=1;
+    public static int view_detail_call=0;
+    public static int return_view_detail_call=0;
     public static String whatsapp_number="9965077905";
 
     public static String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381","12.120000"};
@@ -161,5 +164,6 @@ public class Appconstatants {
 
     public static String Store_list=domain+"index.php?route=feed/rest_api/stores";
     public static String Store_Detail=domain+"index.php?route=feed/rest_api/stores&id=";
+    public static String COUPON=domain+"index.php?route=rest/coupon/getCoupon";
 
 }

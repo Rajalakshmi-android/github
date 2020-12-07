@@ -77,6 +77,7 @@ public class ReturnViewDetails extends Language {
     private TextView email,product_name,model,reason,open,comment,return_id;
     private TextView order_id,qty;
     private TextView return_date;
+    private LinearLayout linerly,calllay;
 
 
     @Override
@@ -141,7 +142,19 @@ public class ReturnViewDetails extends Language {
 
         tracking = findViewById(R.id.tracking);
         success = findViewById(R.id.success);
-
+        linerly = findViewById(R.id.linerly);
+        calllay = findViewById(R.id.calllay);
+        if(Appconstatants.view_detail_call==1){
+            calllay.setVisibility(View.VISIBLE);
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, (int) getResources().getDimension(R.dimen.dp60), 0, (int) getResources().getDimension(R.dimen.dp60));
+            linerly.setLayoutParams(lp);
+        }else{
+            calllay.setVisibility(View.GONE);
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, (int) getResources().getDimension(R.dimen.dp60), 0, 0);
+            linerly.setLayoutParams(lp);
+        }
         String head=getResources().getString(R.string.return_request);
         order_ids=bun.getString("id");
         header.setText(head);

@@ -159,7 +159,7 @@ public class MainActivity extends Drawer {
         category = findViewById(R.id.category);
         whatsapp=findViewById(R.id.whatsapp);
         whats=findViewById(R.id.whats_img);
-        offerPopup();
+        offerPopup(MainActivity.this);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -883,6 +883,8 @@ public class MainActivity extends Drawer {
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                         bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
+                                        bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                        bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         optionPOS = new ArrayList<>();
                                         if (dd instanceof JSONArray) {
@@ -925,6 +927,8 @@ public class MainActivity extends Drawer {
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                         bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
+                                        bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                        bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         optionPOS = new ArrayList<>();
                                         if (dd instanceof JSONArray) {
@@ -1750,56 +1754,5 @@ public class MainActivity extends Drawer {
 
     }
 
-    private void offerPopup() {
-        android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(MainActivity.this);
-        View popUpView = View.inflate(MainActivity.this,R.layout.offer_code_popup, null);
-        ImageView imageView=popUpView.findViewById(R.id.close);
-        TextView textView=popUpView.findViewById(R.id.copycode);
-        dial.setView(popUpView);
-        final android.app.AlertDialog popupStore = dial.create();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(popupStore.getWindow().getAttributes());
-        lp.gravity = Gravity.CENTER;
-        popupStore.getWindow().setAttributes(lp);
-        popupStore.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        popupStore.show();
-       final ScratchTextView scratchTextView = popUpView.findViewById(R.id.scratch);
-        scratchTextView.setRevealListener(new ScratchTextView.IRevealListener() {
-            @Override
-            public void onRevealed(ScratchTextView tv) {
-
-            }
-
-            @Override
-            public void onRevealPercentChangedListener(ScratchTextView stv, float percent) {
-                if (percent>=0.5) {
-                    Log.d("Reveal Percentage", "onRevealPercentChangedListener: " + String.valueOf(percent));
-                }
-            }
-        });
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupStore.hide();
-            }
-        });
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(scratchTextView.isRevealed()==true){
-                    Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_SHORT).show();
-                   // pushid=scratchTextView.getText().toString().trim();
-                    ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("code", scratchTextView.getText().toString().trim());
-                    clipboard.setPrimaryClip(clip);
-                 //   System.out.print(clip.getItemAt(0));
-                }else{
-                    Toast.makeText(getApplicationContext(), "Scratch to reveal", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
 
 }

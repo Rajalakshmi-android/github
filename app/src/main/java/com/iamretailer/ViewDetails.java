@@ -78,6 +78,7 @@ public class ViewDetails extends Language {
     private TextView del;
     private ArrayList<PlacePO> list3;
     private LinearLayout delete;
+   private LinearLayout calllay,linerly;
     private RecyclerView horizontalListView;
     private TrackingAdapter featuredProduct;
     private String order_ids="";
@@ -143,6 +144,19 @@ public class ViewDetails extends Language {
         country_name = findViewById(R.id.country);
         tracking = findViewById(R.id.tracking);
         success = findViewById(R.id.success);
+        linerly = findViewById(R.id.linerly);
+        calllay = findViewById(R.id.calllay);
+        if(Appconstatants.view_detail_call==1){
+            calllay.setVisibility(View.VISIBLE);
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, (int) getResources().getDimension(R.dimen.dp60), 0, (int) getResources().getDimension(R.dimen.dp60));
+            linerly.setLayoutParams(lp);
+        }else{
+            calllay.setVisibility(View.GONE);
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, (int) getResources().getDimension(R.dimen.dp60), 0, 0);
+            linerly.setLayoutParams(lp);
+        }
 
         ImageView del_image = findViewById(R.id.del_image);
         delivery= findViewById(R.id.delivery);

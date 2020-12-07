@@ -8,10 +8,10 @@
                 android:bottom="1px"
                 android:right="1px" />
             <corners
-                android:bottomLeftRadius="@dimen/dp10"
-                android:bottomRightRadius="@dimen/dp10"
-                android:topLeftRadius="@dimen/dp10"
-                android:topRightRadius="@dimen/dp10" />
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
         </shape>
     </item>
     <item>
@@ -21,10 +21,10 @@
                 android:bottom="2px"
                 android:right="2px" />
             <corners
-                android:bottomLeftRadius="@dimen/dp10"
-                android:bottomRightRadius="@dimen/dp10"
-                android:topLeftRadius="@dimen/dp10"
-                android:topRightRadius="@dimen/dp10" />
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
         </shape>
     </item>
     <item>
@@ -34,10 +34,10 @@
                 android:bottom="2px"
                 android:right="2px" />
             <corners
-                android:bottomLeftRadius="@dimen/dp10"
-                android:bottomRightRadius="@dimen/dp10"
-                android:topLeftRadius="@dimen/dp10"
-                android:topRightRadius="@dimen/dp10" />
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
         </shape>
     </item>
     <item>
@@ -49,10 +49,10 @@
                 android:right="1px"
                 android:top="1px" />
             <corners
-                android:bottomLeftRadius="@dimen/dp10"
-                android:bottomRightRadius="@dimen/dp10"
-                android:topLeftRadius="@dimen/dp10"
-                android:topRightRadius="@dimen/dp10" />
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
         </shape>
     </item>
 </layer-list>
