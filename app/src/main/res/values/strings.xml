@@ -274,7 +274,9 @@
     <string name="wal_success">Paid</string>
     <string name="p_payment">Proceed Payment</string>
     <string name="c_w_balance">Current Wallet Balance:</string>
-
+    <string name="offer_range">75% - 20% OFF ON YOUR FIRST PURCHASE</string>
+    <string name="offercode">Offercodes</string>
+    <string name="scratch">Scratch to get the code</string>
     <string name="your_wallet_amount">Your Wallet Amount:</string>
     <string name="mail_id">please enter the mail id</string>
     <string name="pass_word">please enter the password</string>
@@ -471,6 +473,8 @@
 
     //yellow
     <string name="search_product">Search Products</string>
+    <string name="SPECIAL_PRICE">SPECIAL PRICE</string>
+    <string name="copy_code">COPY THE COUPON CODE</string>
 
 
 </resources>

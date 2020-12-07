@@ -1,9 +1,12 @@
 package com.iamretailer;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooltechworks.views.ScratchTextView;
 import com.iamretailer.Adapter.BrandzAdapter;
 import com.iamretailer.Adapter.CommonAdapter;
 import com.iamretailer.Adapter.DemoInfiniteAdapter;
@@ -155,6 +159,7 @@ public class MainActivity extends Drawer {
         category = findViewById(R.id.category);
         whatsapp=findViewById(R.id.whatsapp);
         whats=findViewById(R.id.whats_img);
+        offerPopup();
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1742,6 +1747,58 @@ public class MainActivity extends Drawer {
             }
         });
 
+
+    }
+
+    private void offerPopup() {
+        android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(MainActivity.this);
+        View popUpView = View.inflate(MainActivity.this,R.layout.offer_code_popup, null);
+        ImageView imageView=popUpView.findViewById(R.id.close);
+        TextView textView=popUpView.findViewById(R.id.copycode);
+        dial.setView(popUpView);
+        final android.app.AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity = Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        popupStore.show();
+       final ScratchTextView scratchTextView = popUpView.findViewById(R.id.scratch);
+        scratchTextView.setRevealListener(new ScratchTextView.IRevealListener() {
+            @Override
+            public void onRevealed(ScratchTextView tv) {
+
+            }
+
+            @Override
+            public void onRevealPercentChangedListener(ScratchTextView stv, float percent) {
+                if (percent>=0.5) {
+                    Log.d("Reveal Percentage", "onRevealPercentChangedListener: " + String.valueOf(percent));
+                }
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupStore.hide();
+            }
+        });
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(scratchTextView.isRevealed()==true){
+                    Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_SHORT).show();
+                   // pushid=scratchTextView.getText().toString().trim();
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("code", scratchTextView.getText().toString().trim());
+                    clipboard.setPrimaryClip(clip);
+                 //   System.out.print(clip.getItemAt(0));
+                }else{
+                    Toast.makeText(getApplicationContext(), "Scratch to reveal", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
