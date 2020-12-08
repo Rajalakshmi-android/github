@@ -24,7 +24,7 @@
                 android:layout_height="@dimen/dp25"
                 android:layout_gravity="end"
                 android:src="@mipmap/del"
-                app:tint="@color/light_brown">
+                app:tint="@color/view">
             </ImageView></LinearLayout>
 
         <ImageView
