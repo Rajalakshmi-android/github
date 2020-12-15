@@ -1,11 +1,35 @@
 package com.iamretailer.POJO;
 
 public class OrdersPO {
-    String order_id, order_name, order_status, order_date, order_products, order_total, order_cur, order_cur_val, order_total_raw, order_time;
+    String order_id, order_name, order_status, order_date, order_products, order_total, order_cur, order_cur_val, order_total_raw, order_time,geocode,latitude,langtitude;
     String cur_id, sym_left, sym_right, decimal, value, quantity;
 
     public String getPayment() {
         return payment;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLangtitude() {
+        return langtitude;
+    }
+
+    public void setLangtitude(String langtitude) {
+        this.langtitude = langtitude;
+    }
+
+    public String getGeocode() {
+        return geocode;
+    }
+
+    public void setGeocode(String geocode) {
+        this.geocode = geocode;
     }
 
     public void setPayment(String payment) {

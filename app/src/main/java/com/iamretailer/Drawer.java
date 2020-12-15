@@ -46,7 +46,7 @@ import com.iamretailer.POJO.CurPO;
 import com.iamretailer.POJO.LangPO;
 import com.logentries.android.AndroidLogger;
 import com.squareup.picasso.Picasso;
-
+import com.iamretailer.POJO.OrdersPO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -135,7 +135,7 @@ public class Drawer extends Language {
         }else{
             returns.setVisibility(View.GONE);
         }
-        if (Appconstatants.store_locator == 1) {
+        if (Appconstatants.store_locator == 1 && dbCon.get_store_lists() > 0) {
             store.setVisibility(View.VISIBLE);
         } else {
             store.setVisibility(View.GONE);
@@ -245,7 +245,7 @@ public class Drawer extends Language {
 
     }
     private class CouponTask extends AsyncTask<Object, Void, String> {
-           Context cn;
+        Context cn;
 
         public CouponTask(Context context) {
             cn=context;
