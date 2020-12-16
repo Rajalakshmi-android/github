@@ -63,9 +63,12 @@ public class ChangePassword extends Language {
                 if (pass1.getText().toString().trim().length() <= 5) {
                     pass1.setError(getResources().getString(R.string.pass_res));
                 }
-                if (!pass1.getText().toString().equals(pass2.getText().toString())) {
-                    Toast.makeText(ChangePassword.this, R.string.pwd_mis, Toast.LENGTH_SHORT).show();
+
+                if (!(pass1.getText().toString().equals(pass2.getText().toString()))) {
+                    Toast.makeText(ChangePassword.this, R.string.pwd_mis, Toast.LENGTH_LONG).show();
                 }
+                Log.i("Fhgfhfh",pass1.getText().toString().trim()+"  "+pass2.getText().toString().trim());
+
                 if (pass1.getText().toString().trim().equals(pass2.getText().toString().trim()) && pass1.getText().toString().length() > 5 && pass2.getText().toString().length() > 5) {
 
                     CHANGE_Task change_task = new CHANGE_Task();
