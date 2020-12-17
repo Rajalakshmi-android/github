@@ -159,7 +159,7 @@ public class MainActivity extends Drawer {
         category = findViewById(R.id.category);
         whatsapp=findViewById(R.id.whatsapp);
         whats=findViewById(R.id.whats_img);
-        offerPopup(MainActivity.this);
+       // offerPopup(MainActivity.this);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
