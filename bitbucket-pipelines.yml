@@ -1,0 +1,25 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: atlassian/default-image:2
+
+pipelines:
+  default:
+    - parallel:
+      - step:
+          name: Theme Deployment
+          image: google/cloud-sdk:latest
+          deployment: production
+          script:
+            # Gcloud auth and check
+            - echo $KEY_FILE_IAR | base64 -d > ./gcloud-api-key.json
+            #- gcloud auth activate-service-account --key-file gcloud-api-key.json
+            - gcloud auth activate-service-account bbpipeline@iamretailer-281612.iam.gserviceaccount.com --key-file=./gcloud-api-key.json
+        
+            # Upload Themes
+            - apt-get update
+            - apt-get -qq install zip curl
+            - zip -r app.zip app
+            - gsutil cp app.zip gs://iar_themes/themes/fashion
+            - gsutil acl ch -u AllUsers:R gs://iar_themes/themes/fashion/app.zip
