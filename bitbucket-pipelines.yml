@@ -21,5 +21,5 @@ pipelines:
             - apt-get update
             - apt-get -qq install zip curl
             - zip -r app.zip app
-            - gsutil cp app.zip gs://iar_themes/themes/fashion
+            - gsutil cp app.zip gs://iar_themes/themes/fashion/app.zip
             - gsutil acl ch -u AllUsers:R gs://iar_themes/themes/fashion/app.zip
