@@ -556,14 +556,19 @@ public class Splash extends Language {
                         Log.i("reeee",object.toString());
                         OrdersPO bo=new OrdersPO();
                         bo.setGeocode(object.isNull("store_geocode") ? "" : object.getString("store_geocode"));
+                        bo.setGuestval(object.isNull("config_checkout_guest") ? "0" : object.getString("config_checkout_guest"));
                         list3.add(bo);
                         if(value){
                             dbCon.drop_storelist();
+                            dbCon.drop_guestval();
                             if(list3!=null&&list3.size()>0){
                                 for(int i=0;i<list3.size();i++){
                                     if(list3.get(i).getGeocode()!=null&&!list3.get(i).getGeocode().equalsIgnoreCase("")&&list3.get(i).getGeocode().trim().length()>0){
 
                                         dbCon.insert_storelist(list3.get(i).getGeocode());
+                                    }
+                                    if(i==0){
+                                        dbCon.insert_guestval(list3.get(0).getGuestval());
                                     }
 
                                 }

@@ -43,6 +43,8 @@ public class DBController extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(app_lang);
         String storelist="CREATE TABLE IF NOT EXISTS storelist(storegecode TEXT)";
         sqLiteDatabase.execSQL(storelist);
+        String guestval="CREATE TABLE IF NOT EXISTS guestval(guestvalue TEXT)";
+        sqLiteDatabase.execSQL(guestval);
 
         String currency="CREATE TABLE IF NOT EXISTS currencies(cur_title TEXT,cur_code TEXT,cur_sym_left TEXT,cur_sym_rght TEXT)";
         sqLiteDatabase.execSQL(currency);
@@ -385,6 +387,13 @@ public class DBController extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM storelist"); //delete all rows in a table
         db.close();
     }
+    public void drop_guestval()
+    {
+        Log.d("guestval","deleted");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM guestval"); //delete all rows in a table
+        db.close();
+    }
     public void insert_storelist(String lang_id)
     {
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
@@ -393,6 +402,16 @@ public class DBController extends SQLiteOpenHelper {
         database.insert("storelist", null, values);
         DatabaseManager.getInstance().closeDatabase();
         Log.d("Local_db","storelist inserted");
+
+    }
+    public void insert_guestval(String lang_id)
+    {
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put("guestvalue",lang_id);
+        database.insert("guestval", null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d("Local_db","guestval inserted");
 
     }
     public void drop_app_lang()
@@ -441,7 +460,25 @@ public class DBController extends SQLiteOpenHelper {
         }
 
     }
+    public String get_guestvalue()
+    {
+        String selectQuery = "SELECT  guestvalue FROM guestval";
+        String lang=null;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        try {
+            while(cursor.moveToNext()){
 
+                lang=cursor.getString(0);
+            }
+            return lang;
+        } finally{
+            if(cursor != null)
+                cursor.close();
+
+        }
+
+    }
     public int get_lan_lists() {
         String selectQuery = "SELECT count(*) from language";
         int val = 0;

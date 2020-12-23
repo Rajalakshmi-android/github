@@ -82,7 +82,7 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
             for(int i=0;i<storelist.size();i++){
                 if(storelist.get(i).getGeocode()!=null&&!storelist.get(i).getGeocode().equalsIgnoreCase("")){
                     String val=storelist.get(i).getGeocode();
-                    String[] separated = val.split(",-");
+                    String[] separated = val.split(",");
                    OrdersPO bo= new OrdersPO();
                    bo.setLatitude(separated[0]);
                    bo.setLangtitude(separated[1]);

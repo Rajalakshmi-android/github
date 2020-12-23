@@ -24,6 +24,14 @@ public class OrdersPO {
         this.langtitude = langtitude;
     }
 
+    public String getGuestval() {
+        return guestval;
+    }
+
+    public void setGuestval(String guestval) {
+        this.guestval = guestval;
+    }
+
     public String getGeocode() {
         return geocode;
     }
@@ -36,7 +44,7 @@ public class OrdersPO {
         this.payment = payment;
     }
 
-    String payment,return_id;
+    String payment,return_id,guestval;
 
     public String getReturn_id() {
         return return_id;

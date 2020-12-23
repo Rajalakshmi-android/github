@@ -124,7 +124,13 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         from = getIntent().getIntExtra("from", 0);
         has_ship = getIntent().getIntExtra("has_ship", 1);
         if (from == 2) {
-            guest.setVisibility(View.VISIBLE);
+            String val=db.get_guestvalue();
+            if(val!=null&&val.equalsIgnoreCase("1")){
+                guest.setVisibility(View.VISIBLE);
+            }else{
+                guest.setVisibility(View.GONE);
+            }
+
         } else {
             guest.setVisibility(View.GONE);
         }
