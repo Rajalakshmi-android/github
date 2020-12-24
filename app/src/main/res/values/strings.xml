@@ -475,6 +475,8 @@
     <string name="search_product">Search Products</string>
     <string name="SPECIAL_PRICE">SPECIAL PRICE</string>
     <string name="copy_code">COPY THE COUPON CODE</string>
-
+    <string name="our_brand">Our Brands</string>
+    <string name="night_day_cracker">Featured Crackers</string>
+    <string name="our_best">Our Best Selling</string>
 
 </resources>
