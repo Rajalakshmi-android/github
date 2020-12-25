@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.iamretailer.POJO.CurPO;
 import com.iamretailer.POJO.LangPO;
+import com.iamretailer.POJO.OrdersPO;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,10 @@ public class DBController extends SQLiteOpenHelper {
 
         String app_lang="CREATE TABLE IF NOT EXISTS app_lan(lang_id TEXT,lang_name TEXT,lang_code TEXT)";
         sqLiteDatabase.execSQL(app_lang);
+        String storelist="CREATE TABLE IF NOT EXISTS storelist(storegecode TEXT)";
+        sqLiteDatabase.execSQL(storelist);
+        String guestval="CREATE TABLE IF NOT EXISTS guestval(guestvalue TEXT)";
+        sqLiteDatabase.execSQL(guestval);
 
         String currency="CREATE TABLE IF NOT EXISTS currencies(cur_title TEXT,cur_code TEXT,cur_sym_left TEXT,cur_sym_rght TEXT)";
         sqLiteDatabase.execSQL(currency);
@@ -204,6 +209,25 @@ public class DBController extends SQLiteOpenHelper {
        // DatabaseManager.getInstance().closeDatabase();
 
     }
+    public String getcusid() {
+        String selectQuery = "SELECT  cus_id FROM user_data ";
+        String val = null;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        try {
+            while(cursor.moveToNext()){
+                val=cursor.getString(0);
+            }
+            return val;
+        } finally{
+            if(cursor != null)
+                cursor.close();
+
+
+        }
+        // DatabaseManager.getInstance().closeDatabase();
+
+    }
     public String getEmail() {
         String selectQuery = "SELECT  cus_email FROM user_data ";
         String val = null;
@@ -317,7 +341,25 @@ public class DBController extends SQLiteOpenHelper {
 
         }
     }
+    public ArrayList<OrdersPO> get_store_list()
+    {
+        String selectQuery = "SELECT storegecode FROM storelist";
+        ArrayList<OrdersPO> POS=new ArrayList<OrdersPO>();
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        try {
+            while(cursor.moveToNext()){
+                OrdersPO langPO=new OrdersPO();
+                langPO.setGeocode(cursor.getString(0));
+                POS.add(langPO);
+            }
+            return POS;
+        } finally{
+            if(cursor != null)
+                cursor.close();
 
+        }
+    }
 
     public void drop_lang()
     {
@@ -336,6 +378,40 @@ public class DBController extends SQLiteOpenHelper {
         database.insert("app_lan", null, values);
         DatabaseManager.getInstance().closeDatabase();
         Log.d("Local_db","language inserted");
+
+    }
+    public void drop_storelist()
+    {
+        Log.d("storelist","deleted");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM storelist"); //delete all rows in a table
+        db.close();
+    }
+    public void drop_guestval()
+    {
+        Log.d("guestval","deleted");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM guestval"); //delete all rows in a table
+        db.close();
+    }
+    public void insert_storelist(String lang_id)
+    {
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put("storegecode",lang_id);
+        database.insert("storelist", null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d("Local_db","storelist inserted");
+
+    }
+    public void insert_guestval(String lang_id)
+    {
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put("guestvalue",lang_id);
+        database.insert("guestval", null, values);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d("Local_db","guestval inserted");
 
     }
     public void drop_app_lang()
@@ -384,7 +460,25 @@ public class DBController extends SQLiteOpenHelper {
         }
 
     }
+    public String get_guestvalue()
+    {
+        String selectQuery = "SELECT  guestvalue FROM guestval";
+        String lang=null;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        try {
+            while(cursor.moveToNext()){
 
+                lang=cursor.getString(0);
+            }
+            return lang;
+        } finally{
+            if(cursor != null)
+                cursor.close();
+
+        }
+
+    }
     public int get_lan_lists() {
         String selectQuery = "SELECT count(*) from language";
         int val = 0;
@@ -404,6 +498,24 @@ public class DBController extends SQLiteOpenHelper {
         //DatabaseManager.getInstance().closeDatabase();
     }
 
+    public int get_store_lists() {
+        String selectQuery = "SELECT count(*) from storelist";
+        int val = 0;
+        SQLiteDatabase database = DatabaseManager.getInstance().openReadDatabase();
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        try {
+            while(cursor.moveToNext()){
+                val=cursor.getInt(0);
+            }
+            return val;
+        } finally{
+            if(cursor != null)
+                cursor.close();
+
+        }
+        //DatabaseManager.getInstance().closeDatabase();
+    }
 
     public void insert_currencies(String title,String cur_code,String cur_sym_left,String cur_sym_right)
     {

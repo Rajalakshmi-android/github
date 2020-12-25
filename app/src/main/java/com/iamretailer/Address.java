@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -21,7 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iamretailer.Adapter.CountryAdapter;
+import com.iamretailer.Adapter.StateAdapter;
+import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
+import com.iamretailer.Common.DBController;
+import com.iamretailer.Common.Validation;
+import com.iamretailer.POJO.CountryPO;
 import com.logentries.android.AndroidLogger;
 
 import org.json.JSONArray;
@@ -29,53 +32,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import com.iamretailer.Adapter.CountryAdapter;
-import com.iamretailer.Adapter.StateAdapter;
-import com.iamretailer.Common.Appconstatants;
-import com.iamretailer.Common.DBController;
-import com.iamretailer.Common.Validation;
-import com.iamretailer.POJO.CountryPO;
-
 import stutzen.co.network.Connection;
 
 
 public class Address extends Language {
-    LinearLayout back;
-    EditText f_name, l_name, mobile, company, addressone, addressstwo, city, pincode, passone, passtwo;
-    FrameLayout cont;
-    CheckBox terms;
-    Spinner state, country;
-    FrameLayout error_network;
-    LinearLayout retry;
-    ArrayList<CountryPO> country_list;
-    ArrayList<CountryPO> state_list;
-    DBController dbController;
+    private EditText f_name;
+    private EditText l_name;
+    private EditText mobile;
+    private EditText company;
+    private EditText addressone;
+    private EditText addressstwo;
+    private EditText city;
+    private EditText pincode;
+    private FrameLayout cont;
+    private Spinner state;
+    private Spinner country;
+    private FrameLayout error_network;
+    private ArrayList<CountryPO> country_list;
+    private ArrayList<CountryPO> state_list;
     private int from = 0;
-    TextView header;
-    LinearLayout cart_items;
-    FrameLayout loading;
-    ProgressDialog pDialog1;
-    Bundle cc;
-    FrameLayout fullayout;
-    TextView errortxt1, errortxt2;
-    LinearLayout loading_bar;
-    private String address_id="";
-    AndroidLogger logger;
-    StateAdapter s_adapter;
-    CountryAdapter c_adapter;
-    String zone="";
-    String coun="";
-     String first_name="";
-     String last_name="";
-    private String cmpy="";
-    private String add_one="";
-    private String add_two="";
-    private String pin_code="";
-    private String city_name="";
-    private String phone="";
-    private String zone1="";
-    int has_ship;
-    private int add_ids =0;
+    private FrameLayout loading;
+    private ProgressDialog pDialog1;
+    private Bundle cc;
+    private FrameLayout fullayout;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private String address_id = "";
+    private AndroidLogger logger;
+    private StateAdapter s_adapter;
+    private int has_ship;
+    private int add_ids = 0;
+    private LinearLayout success;
+    private int pos=0;
 
 
     @Override
@@ -83,43 +71,42 @@ public class Address extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        dbController = new DBController(Address.this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
+        DBController dbController = new DBController(Address.this);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         if (Appconstatants.sessiondata == null || Appconstatants.sessiondata.length() <= 0)
             Appconstatants.sessiondata = dbController.getSession();
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
         cc = new Bundle();
         cc = getIntent().getExtras();
-        from = cc.getInt("from");
-        address_id=cc.getString("address_id");
-        Log.d("from_values",from+"");
-        has_ship=cc.getInt("has_ship");
-        Appconstatants.Lang=dbController.get_lang_code();
-        f_name = (EditText) findViewById(R.id.full_name);
-        l_name = (EditText) findViewById(R.id.username2);
-        mobile = (EditText) findViewById(R.id.mobile);
-        passone = (EditText) findViewById(R.id.passone);
-        passtwo = (EditText) findViewById(R.id.passtwo);
-        company = (EditText) findViewById(R.id.company);
-        addressone = (EditText) findViewById(R.id.address_one);
-        addressstwo = (EditText) findViewById(R.id.address_two);
-        city = (EditText) findViewById(R.id.city);
-        pincode = (EditText) findViewById(R.id.pin_code);
-        cont = (FrameLayout) findViewById(R.id.cont);
-        state = (Spinner) findViewById(R.id.state);
-        country = (Spinner) findViewById(R.id.country);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        retry = (LinearLayout) findViewById(R.id.retry);
-        back = (LinearLayout) findViewById(R.id.menu);
-        header = (TextView) findViewById(R.id.header);
+        from = cc != null ? cc.getInt("from") : 0;
+        if (cc != null) {
+            address_id = cc.getString("address_id");
+            has_ship = cc.getInt("has_ship");
+        }
+        Appconstatants.Lang = dbController.get_lang_code();
+        f_name = findViewById(R.id.full_name);
+        l_name = findViewById(R.id.username2);
+        mobile = findViewById(R.id.mobile);
+        company = findViewById(R.id.company);
+        addressone = findViewById(R.id.address_one);
+        addressstwo = findViewById(R.id.address_two);
+        city = findViewById(R.id.city);
+        pincode = findViewById(R.id.pin_code);
+        cont = findViewById(R.id.cont);
+        state = findViewById(R.id.state);
+        country = findViewById(R.id.country);
+        error_network = findViewById(R.id.error_network);
+        LinearLayout retry = findViewById(R.id.retry);
+        LinearLayout back = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        success = findViewById(R.id.success);
         header.setText(R.string.delivery_add);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        fullayout = findViewById(R.id.fullayout);
         cart_items.setVisibility(View.GONE);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,8 +114,7 @@ public class Address extends Language {
                 onBackPressed();
             }
         });
-        loading = (FrameLayout) findViewById(R.id.loading);
-
+        loading = findViewById(R.id.loading);
 
         CountryTask countryTask = new CountryTask();
         countryTask.execute();
@@ -138,22 +124,30 @@ public class Address extends Language {
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
                 error_network.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 CountryTask countryTask = new CountryTask();
                 countryTask.execute();
 
             }
         });
 
-
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (i!=0) {
+                if (i != 0) {
+                    state_list = new ArrayList<>();
+                    CountryPO po = new CountryPO();
+                    po.setZone_id("0");
+                    po.setCont_id("0");
+                    po.setCount_name(getResources().getString(R.string.sel_sta));
+                    state_list.add(po);
+                    s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
+                    state.setAdapter(s_adapter);
+                    pos=i;
                     StateTask stateTask = new StateTask();
                     stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(i).getCount_id());
                 }
-
 
             }
 
@@ -177,8 +171,7 @@ public class Address extends Language {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if( f_name.getText().length()>0)
-                {
+                if (f_name.getText().length() > 0) {
                     f_name.setError(null);
                 }
 
@@ -198,205 +191,18 @@ public class Address extends Language {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if( l_name.getText().length()>0)
-                {
+                if (l_name.getText().length() > 0) {
                     l_name.setError(null);
                 }
             }
         });
         cont.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                if (from == 1)
-                {
-
-                    if (f_name.getText().toString().trim().equals("")) {
-                        f_name.setError(getResources().getString(R.string.f_na));
-                    }
-                    if (!Validation.validateName(f_name.getText().toString().trim()))
-                    {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (f_name.getText().toString().trim().length()<=2)
-                    {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (l_name.getText().toString().trim().equals("")) {
-                        l_name.setError(getResources().getString(R.string.l_na));
-                    }
-                    if (!Validation.validateName(l_name.getText().toString().trim()))
-                    {
-                        l_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (addressone.getText().toString().trim().equals("")) {
-                        addressone.setError(getResources().getString(R.string.add_de));
-                    }
-                    if (addressone.getText().toString().length() <= 3) {
-                        addressone.setError(getResources().getString(R.string.add_de_valid));
-                    }
-                    if (city.getText().toString().trim().equals("")) {
-                        city.setError(getResources().getString(R.string.city_error));
-                    }
-                    if (city.getText().toString().trim().length()<=2)
-                    {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-
-                    if (!Validation.validateName(city.getText().toString().trim()))
-                    {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-                    if (pincode.getText().toString().trim().equals("")) {
-                        pincode.setError(getResources().getString(R.string.oin_error));
-                    }
-                    if (pincode.getText().toString().length() != 6) {
-                        pincode.setError(getResources().getString(R.string.pin_error1));
-                    }
-                    if (mobile.getText().toString().length() != 10) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-
-                    if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches())
-                    {
-                      mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-                    if (country.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.cont_Sele, Toast.LENGTH_SHORT).show();
-                    }
-                    if (state.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length()>=2
-
-                            && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                            && !addressone.getText().toString().trim().isEmpty()  && addressone.getText().toString().length()>=3
-                            && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length()>2
-                            && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                            && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                            && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                            )
-                    {
-
-                        UPDATE_ADD addressTask = new UPDATE_ADD();
-                        addressTask.execute(f_name.getText().toString().trim(), l_name.getText().toString().trim(), city.getText().toString().trim(), addressone.getText().toString().trim(), addressstwo.getText().toString().trim(), country_list.get(country.getSelectedItemPosition()).getCount_id() + "", pincode.getText().toString().trim(), state_list.get(state.getSelectedItemPosition()).getZone_id(),mobile.getText().toString(),company.getText().toString().trim());
-
-
-                    }
-                }
-                else if(from==2){
-
-                    if (f_name.getText().toString().trim().equals("")) {
-                        f_name.setError(getResources().getString(R.string.f_na));
-                    }
-                    if (!Validation.validateName(f_name.getText().toString().trim()))
-                    {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (f_name.getText().toString().trim().length()<=2)
-                    {
-                        f_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (l_name.getText().toString().trim().equals("")) {
-                        l_name.setError(getResources().getString(R.string.l_na));
-                    }
-                    if (!Validation.validateName(l_name.getText().toString().trim()))
-                    {
-                        l_name.setError(getResources().getString(R.string.valid_name));
-                    }
-                    if (addressone.getText().toString().trim().equals("")) {
-                        addressone.setError(getResources().getString(R.string.add_de));
-                    }
-                    if (addressone.getText().toString().length() <= 3) {
-                        addressone.setError(getResources().getString(R.string.add_de_valid));
-                    }
-                    if (city.getText().toString().trim().equals("")) {
-                        city.setError(getResources().getString(R.string.city_error));
-                    }
-                    if (city.getText().toString().trim().length()<=2)
-                    {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-
-                    if (!Validation.validateName(city.getText().toString().trim()))
-                    {
-                        city.setError(getResources().getString(R.string.valid_city));
-                    }
-                    if (pincode.getText().toString().trim().equals("")) {
-                        pincode.setError(getResources().getString(R.string.oin_error));
-                    }
-                    if (pincode.getText().toString().length() != 6) {
-                        pincode.setError(getResources().getString(R.string.pin_error1));
-                    }
-                    if (mobile.getText().toString().length() != 10) {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-
-                    if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches())
-                    {
-                        mobile.setError(getResources().getString(R.string.mobl_error));
-                    }
-                    if (country.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.cont_Sele, Toast.LENGTH_SHORT).show();
-                    }
-                    if (state.getSelectedItemPosition() == 0) {
-                        Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
-                    }
-                    if(add_ids!=0){
-                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length()>=2
-
-                                && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                                && !addressone.getText().toString().trim().isEmpty()  && addressone.getText().toString().length()>=3
-                                && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length()>2
-                                && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                                && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                                && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                                )
-                        {
-
-                            UPDATE_ADD addressTask = new UPDATE_ADD();
-                            addressTask.execute(f_name.getText().toString().trim(), l_name.getText().toString().trim(), city.getText().toString().trim(), addressone.getText().toString().trim(), addressstwo.getText().toString().trim(), country_list.get(country.getSelectedItemPosition()).getCount_id() + "", pincode.getText().toString().trim(), state_list.get(state.getSelectedItemPosition()).getZone_id(),mobile.getText().toString(),company.getText().toString().trim());
-
-
-                        }
-                    }else {
-                        if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length() > 2
-
-                                && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
-                                && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
-                                && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() >= 2
-                                && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                                && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
-                                && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
-                                ) {
-
-
-                            AddressTask addressTask = new AddressTask();
-                            addressTask.execute(f_name.getText().toString().trim(),
-                                    l_name.getText().toString().trim(),
-                                    city.getText().toString().trim(),
-                                    addressone.getText().toString().trim(),
-                                    addressstwo.getText().toString().trim(),
-                                    country_list.get(country.getSelectedItemPosition()).getCount_id() + "",
-                                    pincode.getText().toString().trim(),
-                                    state_list.get(state.getSelectedItemPosition()).getZone_id(),
-                                    mobile.getText().toString(), company.getText().toString().trim());
-
-                        }
-                    }
-                }
-                else
-                    {
-
+            public void onClick(View view) {
                 if (f_name.getText().toString().trim().equals("")) {
                     f_name.setError(getResources().getString(R.string.f_na));
                 }
                 if (!Validation.validateName(f_name.getText().toString().trim())) {
-                    f_name.setError(getResources().getString(R.string.valid_name));
-                }
-
-                if (f_name.getText().toString().trim().length() <= 2) {
                     f_name.setError(getResources().getString(R.string.valid_name));
                 }
                 if (l_name.getText().toString().trim().equals("")) {
@@ -414,11 +220,11 @@ public class Address extends Language {
                 if (city.getText().toString().trim().equals("")) {
                     city.setError(getResources().getString(R.string.city_error));
                 }
-
-                if (!Validation.validateName(city.getText().toString().trim())) {
+                if (city.getText().toString().trim().length() <= 2) {
                     city.setError(getResources().getString(R.string.valid_city));
                 }
-                if (city.getText().toString().trim().length() <= 2) {
+
+                if (!Validation.validateName(city.getText().toString().trim())) {
                     city.setError(getResources().getString(R.string.valid_city));
                 }
                 if (pincode.getText().toString().trim().equals("")) {
@@ -427,9 +233,10 @@ public class Address extends Language {
                 if (pincode.getText().toString().length() != 6) {
                     pincode.setError(getResources().getString(R.string.pin_error1));
                 }
-                if (mobile.getText().toString().length() != 10) {
+                if (mobile.getText().toString().length() < 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
+
                 if (!Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
@@ -440,46 +247,71 @@ public class Address extends Language {
                     Toast.makeText(Address.this, R.string.stat, Toast.LENGTH_SHORT).show();
                 }
 
-                if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) && f_name.getText().toString().trim().length() > 2
-
-                        && !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
+                if (!f_name.getText().toString().trim().isEmpty() && Validation.validateName(f_name.getText().toString().trim()) &&
+                        !l_name.getText().toString().trim().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
-                        && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() >= 2
+                        && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
                         && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                        && mobile.getText().toString().length() == 10 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
                         && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
                         ) {
 
-                    Log.d("from_valuess_s", from + "");
+                    if (from == 1) {
 
-                    if (has_ship==1 || from==4) {
-                        AddressTask addressTask = new AddressTask();
-                        addressTask.execute(f_name.getText().toString().trim(),
-                                l_name.getText().toString().trim(),
-                                city.getText().toString().trim(),
-                                addressone.getText().toString().trim(),
-                                addressstwo.getText().toString().trim(),
-                                country_list.get(country.getSelectedItemPosition()).getCount_id() + "",
-                                pincode.getText().toString().trim(),
-                                state_list.get(state.getSelectedItemPosition()).getZone_id(),
-                                mobile.getText().toString(), company.getText().toString().trim());
-                    }else
-                    {
-                        SaveBillAddress1 addressTask = new SaveBillAddress1();
-                        addressTask.execute(f_name.getText().toString().trim(),
-                                l_name.getText().toString().trim(),
-                                city.getText().toString().trim(),
-                                addressone.getText().toString().trim(),
-                                addressstwo.getText().toString().trim(),
-                                country_list.get(country.getSelectedItemPosition()).getCount_id(),
-                                pincode.getText().toString().trim(),
-                                state_list.get(state.getSelectedItemPosition()).getZone_id(),
-                                mobile.getText().toString().trim());
+                        UPDATE_ADD addressTask = new UPDATE_ADD();
+                        addressTask.execute(f_name.getText().toString().trim(), l_name.getText().toString().trim(), city.getText().toString().trim(), addressone.getText().toString().trim(), addressstwo.getText().toString().trim(), country_list.get(country.getSelectedItemPosition()).getCount_id() + "", pincode.getText().toString().trim(), state_list.get(state.getSelectedItemPosition()).getZone_id(), mobile.getText().toString(), company.getText().toString().trim());
+
+                    } else if (from == 2) {
+
+                        if (add_ids != 0) {
+
+                            UPDATE_ADD addressTask = new UPDATE_ADD();
+                            addressTask.execute(f_name.getText().toString().trim(), l_name.getText().toString().trim(), city.getText().toString().trim(), addressone.getText().toString().trim(), addressstwo.getText().toString().trim(), country_list.get(country.getSelectedItemPosition()).getCount_id() + "", pincode.getText().toString().trim(), state_list.get(state.getSelectedItemPosition()).getZone_id(), mobile.getText().toString(), company.getText().toString().trim());
+
+                        } else {
+
+                            AddressTask addressTask = new AddressTask();
+                            addressTask.execute(f_name.getText().toString().trim(),
+                                    l_name.getText().toString().trim(),
+                                    city.getText().toString().trim(),
+                                    addressone.getText().toString().trim(),
+                                    addressstwo.getText().toString().trim(),
+                                    country_list.get(country.getSelectedItemPosition()).getCount_id() + "",
+                                    pincode.getText().toString().trim(),
+                                    state_list.get(state.getSelectedItemPosition()).getZone_id(),
+                                    mobile.getText().toString(), company.getText().toString().trim());
+
+                        }
+                    } else {
+
+                        if (has_ship == 1 || from == 4) {
+                            AddressTask addressTask = new AddressTask();
+                            addressTask.execute(f_name.getText().toString().trim(),
+                                    l_name.getText().toString().trim(),
+                                    city.getText().toString().trim(),
+                                    addressone.getText().toString().trim(),
+                                    addressstwo.getText().toString().trim(),
+                                    country_list.get(country.getSelectedItemPosition()).getCount_id() + "",
+                                    pincode.getText().toString().trim(),
+                                    state_list.get(state.getSelectedItemPosition()).getZone_id(),
+                                    mobile.getText().toString(), company.getText().toString().trim());
+                        } else {
+                            SaveBillAddress1 addressTask = new SaveBillAddress1();
+                            addressTask.execute(f_name.getText().toString().trim(),
+                                    l_name.getText().toString().trim(),
+                                    city.getText().toString().trim(),
+                                    addressone.getText().toString().trim(),
+                                    addressstwo.getText().toString().trim(),
+                                    country_list.get(country.getSelectedItemPosition()).getCount_id(),
+                                    pincode.getText().toString().trim(),
+                                    state_list.get(state.getSelectedItemPosition()).getZone_id(),
+                                    mobile.getText().toString().trim());
+                        }
+
+
                     }
                 }
-
             }
-        }
 
 
         });
@@ -491,16 +323,14 @@ public class Address extends Language {
 
         @Override
         protected void onPreExecute() {
-            Log.d("Add_Save", "started");
-                pDialog1 = new ProgressDialog(Address.this);
-                pDialog1.setMessage(getResources().getString(R.string.loading_wait));
-                pDialog1.setCancelable(false);
-                pDialog1.show();
+            pDialog1 = new ProgressDialog(Address.this);
+            pDialog1.setMessage(getResources().getString(R.string.loading_wait));
+            pDialog1.setCancelable(false);
+            pDialog1.show();
 
         }
 
         protected String doInBackground(Object... param) {
-
 
 
             String response = null;
@@ -515,92 +345,73 @@ public class Address extends Language {
                 json.put("country_id", param[5]);
                 json.put("postcode", param[6]);
                 json.put("zone_id", param[7]);
-                json.put("phone",param[8]);
-                json.put("company",param[9]);
+                json.put("phone", param[8]);
+                json.put("company", param[9]);
                 Log.d("Add_save", json.toString());
                 Log.d("Add_save", Appconstatants.address_save);
                 Log.d("Add_save", Appconstatants.sessiondata);
 
-                Log.d("From",from+"");
-
-                if (from==3)
-                {
-                    logger.info("Address save guest api"+Appconstatants.guest_api);
+                if (from == 3) {
+                    logger.info("Address save guest api" + Appconstatants.guest_api);
                     Log.d("Add_save", Appconstatants.guest_api);
                     json.put("email", cc.getString("email"));
                     json.put("telephone", param[8]);
                     Log.d("guest_url", Appconstatants.guest_api);
-                    Log.d("guest_req",json.toString());
-                    logger.info("Address save guest api req"+json);
-                    response = connection.sendHttpPostjson(Appconstatants.guest_api,json,Appconstatants.sessiondata,Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                    logger.info("Address save guest api resp"+response);
-                    Log.d("guest_resp",response);
-                }
-                else if (from==2 )
-                {
-                    logger.info("Address save new user api"+Appconstatants.address_save);
+                    Log.d("guest_req", json.toString());
+                    logger.info("Address save guest api req" + json);
+                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    logger.info("Address save guest api resp" + response);
+                    Log.d("guest_resp", response);
+                } else if (from == 2) {
+                    logger.info("Address save new user api" + Appconstatants.address_save);
 
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
-                    Log.d("Add_resp_new", json.toString()+"");
-                    logger.info("Address save new user api req"+json);
+                    Log.d("Add_resp_new", json.toString() + "");
+                    logger.info("Address save new user api req" + json);
 
+                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
-
-                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-
-                    logger.info("Address save new user api resp"+response);
+                    logger.info("Address save new user api resp" + response);
                     Log.d("Add_resp_new", response);
-                }
-                else if (from==1)
-                {
-                    logger.info("Address save old user api"+Appconstatants.address_save+"&existing=1");
-                    JSONObject object=new JSONObject();
-                    object.put("address_id",address_id);
-                    Log.d("Add_req_ex", object.toString()+"");
-                    logger.info("Address save old user api req"+json);
-                    response = connection.sendHttpPostjson(Appconstatants.address_save+"&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                    logger.info("Address save old user api resp"+response);
+                } else if (from == 1) {
+                    logger.info("Address save old user api" + Appconstatants.address_save + "&existing=1");
+                    JSONObject object = new JSONObject();
+                    object.put("address_id", address_id);
+                    Log.d("Add_req_ex", object.toString() + "");
+                    logger.info("Address save old user api req" + json);
+                    response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    logger.info("Address save old user api resp" + response);
                     Log.d("Add_respex", response);
-                }else if (from==4)
-                {
-
-                    logger.info("Address save new user api"+Appconstatants.address_save);
-
+                } else if (from == 4) {
+                    logger.info("Address save new user api" + Appconstatants.address_save);
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
-                    Log.d("Add_resp_new", json.toString()+"");
-                    logger.info("Address save new user api req"+json);
+                    Log.d("Add_resp_new", json.toString() + "");
+                    logger.info("Address save new user api req" + json);
 
+                    response = connection.sendHttpPostjson(Appconstatants.SAVE_ADD_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
-
-                    response = connection.sendHttpPostjson(Appconstatants.SAVE_ADD_API, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-
-                    logger.info("Address save new user api resp"+response);
+                    logger.info("Address save new user api resp" + response);
                     Log.d("Add_resp_new", response);
 
-                }else{
-                    logger.info("Address save new user apisssssssssssssss"+Appconstatants.address_save);
+                } else {
+                    logger.info("Address save new user apisssssssssssssss" + Appconstatants.address_save);
 
                     JSONObject custom_field_obj = new JSONObject();
                     JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
-                    Log.d("Add_resp_newsssssss", json.toString()+"");
-                    logger.info("Address save new user api req"+json);
+                    Log.d("Add_resp_newsssssss", json.toString() + "");
+                    logger.info("Address save new user api req" + json);
 
+                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
-
-                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-
-                    logger.info("Address save new user api resp"+response);
+                    logger.info("Address save new user api resp" + response);
                     Log.d("Add_resp_new", response);
 
                 }
@@ -614,27 +425,22 @@ public class Address extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("Add_Save", "ADD_save--->  " + resp);
+            Log.i("Add_Save", "ADD_save--->  " + resp + "");
             if (resp != null) {
-                Log.i("werhgi",resp+"");
                 try {
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
+                    if (json.getInt("success") == 1) {
 
-                        if (from==4)
-                        {
-                            Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
+                        if (from == 4) {
+                            Toast.makeText(Address.this, R.string.address_save, Toast.LENGTH_LONG).show();
 
                             Intent intent = new Intent();
                             setResult(3, intent);
                             finish();
 
-                        }
-                        else {
+                        } else {
 
-                            if (from==3)
-                            {
+                            if (from == 3) {
                                 SaveBillAddress addressTask = new SaveBillAddress();
                                 addressTask.execute(f_name.getText().toString().trim(),
                                         l_name.getText().toString().trim(),
@@ -646,42 +452,45 @@ public class Address extends Language {
                                         state_list.get(state.getSelectedItemPosition()).getZone_id(),
                                         mobile.getText().toString().trim());
 
-                            }
-                            else
-                            {
+                            } else {
 
-                                String add_id=json.getString("id");
+                                String add_id = json.getString("id");
                                 add_ids = json.getInt("id");
                                 SaveBillAddress addressTask = new SaveBillAddress();
                                 addressTask.execute(add_id);
 
-
                             }
-
 
                         }
 
                     } else {
                         if (pDialog1 != null && pDialog1.isShowing())
                             pDialog1.dismiss();
-                        JSONArray array=json.getJSONArray("error");
-                        Toast.makeText(Address.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        cont.performClick();
+                                    }
+                                })
+                                .show();
+
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.i("hgkfhk",e.toString()+"");
                     if (pDialog1 != null && pDialog1.isShowing())
                         pDialog1.dismiss();
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                   cont.performClick();
+                                    cont.performClick();
                                 }
                             })
                             .show();
-
                 }
 
             } else {
@@ -717,8 +526,7 @@ public class Address extends Language {
 
                 Log.d("Add_save", Appconstatants.bill_address_save);
                 Log.d("Add_save", Appconstatants.sessiondata);
-                if (from==3)
-                {
+                if (from == 3) {
                     JSONObject json = new JSONObject();
                     json.put("firstname", param[0]);
                     json.put("lastname", param[1]);
@@ -728,41 +536,34 @@ public class Address extends Language {
                     json.put("country_id", param[5]);
                     json.put("postcode", param[6]);
                     json.put("zone_id", param[7]);
-                    json.put("phone",param[8]);
-                    logger.info("Bill Address save guest api"+Appconstatants.guest_shipping_api);
+                    json.put("phone", param[8]);
+                    logger.info("Bill Address save guest api" + Appconstatants.guest_shipping_api);
                     Log.d("guest_sav_req", json.toString());
                     Log.d("guest_sav_url", Appconstatants.guest_shipping_api);
-                    logger.info("Bill Address save guest api req"+json);
-                    response = connection.sendHttpPostjson(Appconstatants.guest_shipping_api, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                    logger.info("Bill Address save guest api resp"+response);
+                    logger.info("Bill Address save guest api req" + json);
+                    response = connection.sendHttpPostjson(Appconstatants.guest_shipping_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    logger.info("Bill Address save guest api resp" + response);
                     Log.d("guest_sav_resp", response);
-                }
-                else if (from==2){
-                    logger.info("Bill Address save new  user api"+Appconstatants.bill_address_save+"&existing=1");
-                    JSONObject object=new JSONObject();
-                    object.put("address_id",param[0]);
-                    logger.info("Bill Address save new  user api req"+object);
+                } else if (from == 2) {
+                    logger.info("Bill Address save new  user api" + Appconstatants.bill_address_save + "&existing=1");
+                    JSONObject object = new JSONObject();
+                    object.put("address_id", param[0]);
+                    logger.info("Bill Address save new  user api req" + object);
 
+                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save+"&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-
-
-
-                    logger.info("Bill Address save new  user api resp"+response);
+                    logger.info("Bill Address save new  user api resp" + response);
                     Log.d("Add_resp_new", object.toString());
-                }
-                else if (from==1)
-                {
-                    logger.info("Bill Address save old user api"+Appconstatants.bill_address_save+"&existing=1");
-                    JSONObject object=new JSONObject();
-                    object.put("address_id",address_id);
+                } else if (from == 1) {
+                    logger.info("Bill Address save old user api" + Appconstatants.bill_address_save + "&existing=1");
+                    JSONObject object = new JSONObject();
+                    object.put("address_id", address_id);
                     Log.d("Add_req_existing", object.toString());
-                    logger.info("Bill Address save old user api req"+object);
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save+"&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
+                    logger.info("Bill Address save old user api req" + object);
+                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     Log.d("Add_respex", response);
-                    logger.info("Bill Address save old user api resp"+response);
+                    logger.info("Bill Address save old user api resp" + response);
                 }
-
 
 
             } catch (Exception e) {
@@ -779,213 +580,16 @@ public class Address extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
-                        Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
-
-
-                      /*  if (from == 3) {
-
-
-                            Intent intent = new Intent();
-                            intent.putExtra("first", f_name.getText().toString());
-                            intent.putExtra("last_name", l_name.getText().toString());
-                            intent.putExtra("company", company.getText().toString());
-                            intent.putExtra("addressone", addressone.getText().toString());
-                            intent.putExtra("addresstwo", addressstwo.getText().toString());
-                            intent.putExtra("city", city.getText().toString());
-                            intent.putExtra("pincode", pincode.getText().toString());
-                            intent.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("phone",mobile.getText().toString());
-                            setResult(3, intent);
-                            finish();
-
-                        } else {*/
-
-                            Intent i;
-                            if (has_ship==1)
-                            {
-                                i = new Intent(Address.this, DeliveryMethod.class);
-                            }
-                            else
-                            {
-                                i = new Intent(Address.this, PaymentMethod.class);
-                            }
-
-                            i.putExtra("addres_id",address_id);
-                            i.putExtra("fname", f_name.getText().toString());
-                            i.putExtra("lname", l_name.getText().toString());
-                            i.putExtra("from", from);
-                            i.putExtra("company", company.getText().toString());
-                            i.putExtra("addressone", addressone.getText().toString());
-                            i.putExtra("addresstwo", addressstwo.getText().toString());
-                            i.putExtra("city", city.getText().toString());
-                            i.putExtra("pincode", pincode.getText().toString());
-                            i.putExtra("mobile", mobile.getText().toString());
-                            i.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
-                            i.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
-                            startActivity(i);
-                      //  }
-
-                    } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.retry, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        cont.performClick();
-                                    }
-                                })
-                                .show();
-
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    cont.performClick();
-                                }
-                            })
-                            .show();
-
-                }
-            } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.retry, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                               cont.performClick();
-                            }
-                        })
-                        .show();
-
-            }
-
-
-        }
-    }
-
-
-
-
-
-    private class SaveBillAddress1 extends AsyncTask<Object, Void, String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("Add_Save", "started");
-            pDialog1 = new ProgressDialog(Address.this);
-            pDialog1.setMessage(getResources().getString(R.string.loading_wait));
-            pDialog1.setCancelable(false);
-            pDialog1.show();
-        }
-
-        protected String doInBackground(Object... param) {
-
-            String response = null;
-            Connection connection = new Connection();
-            try {
-
-                JSONObject json = new JSONObject();
-                json.put("firstname", param[0]);
-                json.put("lastname", param[1]);
-                json.put("city", param[2]);
-                json.put("address_1", param[3]);
-                json.put("address_2", param[4]);
-                json.put("country_id", param[5]);
-                json.put("postcode", param[6]);
-                json.put("zone_id", param[7]);
-                json.put("phone",param[8]);
-                Log.d("Add_save", Appconstatants.bill_address_save);
-                Log.d("Add_save", Appconstatants.sessiondata);
-                if (from==3)
-                {
-                    logger.info("Bill Address save guest api"+Appconstatants.guest_api);
-                    Log.d("guest_sav_req", json.toString());
-                    Log.d("guest_sav_url", Appconstatants.guest_shipping_api);
-                    logger.info("Bill Address save guest api req"+json);
-                    json.put("email", cc.getString("email"));
-                    json.put("telephone", param[8]);
-
-                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                    logger.info("Bill Address save guest api resp"+response);
-                    Log.d("guest_sav_resp", response);
-                }
-                else /*(from==2)*/{
-                    logger.info("Bill Address save new  user api"+Appconstatants.bill_address_save);
-                    JSONObject custom_field_obj = new JSONObject();
-                    JSONObject address = new JSONObject();
-                    // address.put("3","demo address 3");
-                    custom_field_obj.put("address", address);
-                    json.put("custom_field", custom_field_obj);
-
-
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-
-
-
-                    logger.info("Bill Address save new  user api resp"+response);
-                }
-                /*else if (from==1)
-                {
-                    logger.info("Bill Address save old user api"+Appconstatants.bill_address_save+"&existing=1");
-                    JSONObject object=new JSONObject();
-                    object.put("address_id",address_id);
-                    Log.d("Add_req_existing", object.toString());
-                    logger.info("Bill Address save old user api req"+object);
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save+"&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                    Log.d("Add_respex", response);
-                    logger.info("Bill Address save old user api resp"+response);
-                }*/
-
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-            return response;
-        }
-
-        protected void onPostExecute(String resp) {
-
-            Log.i("Add_Save", "ADD_save--->  " + resp);
-            pDialog1.dismiss();
-            if (resp != null) {
-                try {
-                    JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
-                        Toast.makeText(Address.this,  R.string.address_save, Toast.LENGTH_LONG).show();
-
-
-                      /*  if (from == 3) {
-
-
-                            Intent intent = new Intent();
-                            intent.putExtra("first", f_name.getText().toString());
-                            intent.putExtra("last_name", l_name.getText().toString());
-                            intent.putExtra("company", company.getText().toString());
-                            intent.putExtra("addressone", addressone.getText().toString());
-                            intent.putExtra("addresstwo", addressstwo.getText().toString());
-                            intent.putExtra("city", city.getText().toString());
-                            intent.putExtra("pincode", pincode.getText().toString());
-                            intent.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
-                            intent.putExtra("phone",mobile.getText().toString());
-                            setResult(3, intent);
-                            finish();
-
-                        } else {*/
-
+                    if (json.getInt("success") == 1) {
+                        Toast.makeText(Address.this, R.string.address_save, Toast.LENGTH_LONG).show();
                         Intent i;
+                        if (has_ship == 1) {
+                            i = new Intent(Address.this, DeliveryMethod.class);
+                        } else {
                             i = new Intent(Address.this, PaymentMethod.class);
-                        i.putExtra("addres_id",address_id);
+                        }
+
+                        i.putExtra("addres_id", address_id);
                         i.putExtra("fname", f_name.getText().toString());
                         i.putExtra("lname", l_name.getText().toString());
                         i.putExtra("from", from);
@@ -998,7 +602,7 @@ public class Address extends Language {
                         i.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
                         i.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
                         startActivity(i);
-                        //  }
+
 
                     } else {
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
@@ -1036,30 +640,59 @@ public class Address extends Language {
                         .show();
 
             }
-
-
         }
     }
 
-    /*private class AddressListTask extends AsyncTask<Object, Void, String> {
-
+    private class SaveBillAddress1 extends AsyncTask<Object, Void, String> {
 
         @Override
         protected void onPreExecute() {
-            Log.d("Add_list", "started");
+            Log.d("Add_Save", "started");
+            pDialog1 = new ProgressDialog(Address.this);
+            pDialog1.setMessage(getResources().getString(R.string.loading_wait));
+            pDialog1.setCancelable(false);
+            pDialog1.show();
         }
 
         protected String doInBackground(Object... param) {
-            logger.info("Add_list_api"+Appconstatants.addres_list);
 
             String response = null;
             Connection connection = new Connection();
             try {
-                Log.d("Add_list_api", Appconstatants.addres_list);
-                Log.d("Add_list_api", Appconstatants.sessiondata);
 
-                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Address.this);
-                logger.info("Add_list_resp"+response);
+                JSONObject json = new JSONObject();
+                json.put("firstname", param[0]);
+                json.put("lastname", param[1]);
+                json.put("city", param[2]);
+                json.put("address_1", param[3]);
+                json.put("address_2", param[4]);
+                json.put("country_id", param[5]);
+                json.put("postcode", param[6]);
+                json.put("zone_id", param[7]);
+                json.put("phone", param[8]);
+                Log.d("Add_save", Appconstatants.bill_address_save);
+                Log.d("Add_save", Appconstatants.sessiondata);
+                if (from == 3) {
+                    logger.info("Bill Address save guest api" + Appconstatants.guest_api);
+                    Log.d("guest_sav_req", json.toString());
+                    Log.d("guest_sav_url", Appconstatants.guest_shipping_api);
+                    logger.info("Bill Address save guest api req" + json);
+                    json.put("email", cc.getString("email"));
+                    json.put("telephone", param[8]);
+
+                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    logger.info("Bill Address save guest api resp" + response);
+                    Log.d("guest_sav_resp", response);
+                } else {
+                    logger.info("Bill Address save new  user api" + Appconstatants.bill_address_save);
+                    JSONObject custom_field_obj = new JSONObject();
+                    JSONObject address = new JSONObject();
+                    custom_field_obj.put("address", address);
+                    json.put("custom_field", custom_field_obj);
+                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    logger.info("Bill Address save new  user api resp" + response);
+                }
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1069,106 +702,71 @@ public class Address extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            Log.i("Add_list", "Add_list--->  " + resp);
-            if (resp != null)
-            {
 
+            Log.i("Add_Save", "ADD_save--->  " + resp);
+            pDialog1.dismiss();
+            if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1)
-                    {
+                    if (json.getInt("success") == 1) {
+                        Toast.makeText(Address.this, R.string.address_save, Toast.LENGTH_LONG).show();
+                        Intent i;
+                        i = new Intent(Address.this, PaymentMethod.class);
+                        i.putExtra("addres_id", address_id);
+                        i.putExtra("fname", f_name.getText().toString());
+                        i.putExtra("lname", l_name.getText().toString());
+                        i.putExtra("from", from);
+                        i.putExtra("company", company.getText().toString());
+                        i.putExtra("addressone", addressone.getText().toString());
+                        i.putExtra("addresstwo", addressstwo.getText().toString());
+                        i.putExtra("city", city.getText().toString());
+                        i.putExtra("pincode", pincode.getText().toString());
+                        i.putExtra("mobile", mobile.getText().toString());
+                        i.putExtra("country", country_list.get(country.getSelectedItemPosition()).getCount_name());
+                        i.putExtra("state", state_list.get(state.getSelectedItemPosition()).getCount_name());
+                        startActivity(i);
 
-                        JSONObject object=json.getJSONObject("data");
-                        JSONArray array=object.getJSONArray("addresses");
-                        if (array.length()>0)
-                        {
-                            JSONObject object1=array.getJSONObject(0);
-                            address_id=object1.isNull("address_id")?"":object1.getString("address_id");
-                            f_name.setText(object1.isNull("firstname")?"":object1.getString("firstname"));
-                            l_name.setText(object1.isNull("lastname")?"":object1.getString("lastname"));
-                            company.setText(object1.isNull("company")?"":object1.getString("company"));
-                            addressone.setText(object1.isNull("address_1")?"":object1.getString("address_1"));
-                            addressstwo.setText(object1.isNull("address_2")?"":object1.getString("address_2"));
-                            pincode.setText(object1.isNull("postcode")?"":object1.getString("postcode"));
-                            city.setText(object1.isNull("city")?"":object1.getString("city"));
-                            mobile.setText(object1.isNull("phone")?"":object1.getString("phone"));
+                    } else {
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        cont.performClick();
+                                    }
+                                })
+                                .show();
 
-
-                            //first_name=object1.isNull("firstname")?"":object1.getString("firstname");
-                            //last_name=object1.isNull("lastname")?"":object1.getString("lastname");
-                            //cmpy=object1.isNull("company")?"":object1.getString("company");
-                            //add_one=object1.isNull("address_1")?"":object1.getString("address_1");
-                            //add_two=object1.isNull("address_2")?"":object1.getString("address_2");
-                            //  pin_code=object1.isNull("postcode")?"":object1.getString("postcode");
-                            //  city_name=object1.isNull("city")?"":object1.getString("city");
-                            // phone=object1.isNull("phone")?"":object1.getString("phone");
-
-
-                            String zone_id=object1.isNull("zone_id")?"":object1.getString("zone_id");
-                            zone1=object1.isNull("zone")?"":object1.getString("zone");
-                            zone=object1.isNull("zone")?"":object1.getString("zone");
-                            String zone_code=object1.isNull("zone_code")?"":object1.getString("zone_code");
-                            String coun_id=object1.isNull("country_id")?"":object1.getString("country_id");
-                            coun=object1.isNull("country")?"":object1.getString("country");
-
-                            Log.d("country_",coun+"");
-                            for (int y = 0; y < country_list.size(); y++) {
-                                if (coun.equalsIgnoreCase(country_list.get(y).getCount_name())) {
-                                    country.setSelection(y);
-                                }
-                            }
-
-
-                         from=2;
-                        }
-                        else
-                        {
-                            from=5;
-                        }
-                        loading.setVisibility(View.GONE);
-                        error_network.setVisibility(View.GONE);
-
-
-                    } else
-                        {
-                            error_network.setVisibility(View.VISIBLE);
-                            loading.setVisibility(View.GONE);
-                            errortxt1.setText(R.string.error_msg);
-                            JSONArray array=json.getJSONArray("error");
-                            errortxt2.setText(array.get(0)+"");
-                            Toast.makeText(Address.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
+
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    CountryTask countryTask = new CountryTask();
-                                    countryTask.execute();
-
+                                    cont.performClick();
                                 }
                             })
                             .show();
-                }
 
+                }
             } else {
-                errortxt1.setText(R.string.no_con);
-                errortxt2.setText(R.string.check_network);
-                error_network.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                cont.performClick();
+                            }
+                        })
+                        .show();
             }
 
         }
-    }*/
+    }
+
 
     private class CountryTask extends AsyncTask<Object, Void, String> {
-
 
         @Override
         protected void onPreExecute() {
@@ -1176,12 +774,12 @@ public class Address extends Language {
         }
 
         protected String doInBackground(Object... param) {
-            logger.info("Country list api"+Appconstatants.country_list_api);
+            logger.info("Country list api" + Appconstatants.country_list_api);
             String response = null;
             Connection connection = new Connection();
             try {
-                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                logger.info("Country list api resp"+response);
+                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                logger.info("Country list api resp" + response);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1196,15 +794,13 @@ public class Address extends Language {
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
-                    country_list = new ArrayList<CountryPO>();
+                    country_list = new ArrayList<>();
                     CountryPO po1 = new CountryPO();
                     po1.setCount_id(0);
-                    po1.setCount_name("Select Country");
-                    po1.setCount_iso_code_2("");
-                    po1.setCount_iso_code_3("");
+                    po1.setCount_name(getApplication().getResources().getString(R.string.selc_oun));
                     country_list.add(po1);
 
-
+                    Log.i("tag","countryssssss---- "+country_list.get(0).getCount_name());
                     if (json.getInt("success") == 1) {
                         JSONArray jsonArray = new JSONArray(json.getString("data"));
                         for (int y = 0; y < jsonArray.length(); y++) {
@@ -1212,79 +808,69 @@ public class Address extends Language {
                             CountryPO po = new CountryPO();
                             po.setCount_id(object.getInt("country_id"));
                             po.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
 
                             country_list.add(po);
                         }
-                         c_adapter = new CountryAdapter(Address.this, R.layout.country_row, country_list);
+                        CountryAdapter c_adapter = new CountryAdapter(Address.this, R.layout.country_row, country_list);
                         country.setAdapter(c_adapter);
 
                         if (from == 1) {
-                            f_name.setText(cc.getString("first"));
-                            l_name.setText(cc.getString("last_name"));
-                            company.setText(cc.getString("company"));
-                            addressone.setText(cc.getString("addressone"));
-                            addressstwo.setText(cc.getString("addresstwo"));
-                            city.setText(cc.getString("city"));
-                            pincode.setText(cc.getString("pincode"));
-                            mobile.setText(cc.getString("phone"));
-                            company.setText(cc.getString("company"));
-                            for (int y = 0; y < country_list.size(); y++) {
-                                if (cc.getString("country").equalsIgnoreCase(country_list.get(y).getCount_name())) {
-                                    country.setSelection(y);
+                            if (cc != null) {
+                                f_name.setText(cc.getString("first"));
+                                l_name.setText(cc.getString("last_name"));
+                                company.setText(cc.getString("company"));
+                                addressone.setText(cc.getString("addressone"));
+                                addressstwo.setText(cc.getString("addresstwo"));
+                                city.setText(cc.getString("city"));
+                                pincode.setText(cc.getString("pincode"));
+                                mobile.setText(cc.getString("phone"));
+                                company.setText(cc.getString("company"));
+                                String con = cc.getString("country");
+                                for (int y = 0; y < country_list.size(); y++) {
+                                    if (con != null) {
+                                        if (con.equalsIgnoreCase(country_list.get(y).getCount_name())) {
+                                            country.setSelection(y);
+                                        }
+
+                                    }
                                 }
                             }
 
                         }
 
-                        state_list = new ArrayList<CountryPO>();
+                        state_list = new ArrayList<>();
                         CountryPO po = new CountryPO();
                         po.setZone_id("0");
                         po.setCont_id("0");
-                        po.setCount_name("Select State");
-                        po.setCount_iso_code_2("");
-                        po.setCount_iso_code_3("");
+                        po.setCount_name(getResources().getString(R.string.sel_sta));
                         state_list.add(po);
                         s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
                         state.setAdapter(s_adapter);
+                        success.setVisibility(View.VISIBLE);
                         error_network.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
-
-
-                        //StateTask stateTask = new StateTask();
-                        //stateTask.execute(Appconstatants.country_list_api + "&id="+country_list.get(1).getCount_id());
-
-
                     } else {
                         error_network.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.get(0)+"");
-                        Toast.makeText(Address.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");
+                        String error_msg = array.get(0) + "";
+                        errortxt2.setText(error_msg);
+                        Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    CountryTask countryTask = new CountryTask();
-                                    countryTask.execute();
-
-                                }
-                            })
-                            .show();
-
+                    errortxt1.setText(R.string.error_msg);
+                    success.setVisibility(View.GONE);
+                    errortxt2.setText("");
+                    error_network.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }
             } else {
                 errortxt1.setText(R.string.no_con);
+                success.setVisibility(View.GONE);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.GONE);
@@ -1300,15 +886,15 @@ public class Address extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("State list api"+param[0]);
-            Log.i("State list api",param[0]+"");
+            logger.info("State list api" + param[0]);
+            Log.i("State list api", param[0] + "");
 
             String response = null;
             Connection connection = new Connection();
             try {
 
-                response = connection.connStringResponse(param[0], null, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                logger.info("State list api resp"+response);
+                response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                logger.info("State list api resp" + response);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1334,68 +920,64 @@ public class Address extends Language {
                             po1.setZone_id(object.isNull("zone_id") ? "" : object.getString("zone_id"));
                             po1.setCont_id(object.isNull("country_id") ? "" : object.getString("country_id"));
                             po1.setCount_name(object.isNull("name") ? "" : object.getString("name"));
-                            po1.setCount_iso_code_2(object.isNull("iso_code_2") ? "" : object.getString("iso_code_2"));
-                            po1.setCount_iso_code_3(object.isNull("iso_code_3") ? "" : object.getString("iso_code_3"));
-
                             state_list.add(po1);
                         }
 
-
-                         s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
-                          state.setAdapter(s_adapter);
+                        s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
+                        state.setAdapter(s_adapter);
 
                         if (from == 1) {
 
+                            String stat = cc.getString("state");
                             for (int y = 0; y < state_list.size(); y++) {
-                                if (cc.getString("state").equalsIgnoreCase(state_list.get(y).getCount_name())) {
-                                    state.setSelection(y);
+                                if (cc != null) {
+                                    if (stat != null) {
+                                        if (stat.equalsIgnoreCase(state_list.get(y).getCount_name())) {
+                                            state.setSelection(y);
+                                        }
+
+                                    }
+
                                 }
                             }
                         }
-                            error_network.setVisibility(View.GONE);
-                            loading.setVisibility(View.GONE);
+                        success.setVisibility(View.VISIBLE);
+                        error_network.setVisibility(View.GONE);
+                        loading.setVisibility(View.GONE);
 
                     } else {
-                        loading.setVisibility(View.GONE);
-                        error_network.setVisibility(View.VISIBLE);
-                        errortxt1.setText(R.string.error_msg);
-                        JSONArray array=json.getJSONArray("error");
-                        errortxt2.setText(array.get(0)+"");
-                        Toast.makeText(Address.this,array.getString(0)+"",Toast.LENGTH_SHORT).show();
+                        JSONArray array = json.getJSONArray("error");;
+                        Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading.setVisibility(View.VISIBLE);
-                    error_network.setVisibility(View.GONE);
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
+                    Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    CountryTask countryTask = new CountryTask();
-                                    countryTask.execute();
-
+                                    StateTask stateTask = new StateTask();
+                                    stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(pos).getCount_id());
                                 }
                             })
                             .show();
                 }
 
             } else {
-                errortxt1.setText(R.string.no_con);
-                errortxt2.setText(R.string.check_network);
-                error_network.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                StateTask stateTask = new StateTask();
+                                stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(pos).getCount_id());
+                            }
+                        })
+                        .show();
+
             }
 
         }
-    }
-
-    public void onBackPressed() {
-        super.onBackPressed();
-
     }
 
     private class UPDATE_ADD extends AsyncTask<String, Void, String> {
@@ -1427,10 +1009,10 @@ public class Address extends Language {
                 Log.d("Add_save", Appconstatants.address_save);
                 Log.d("Add_save", Appconstatants.sessiondata);
                 Connection connection = new Connection();
-                if(from==2){
-                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + add_ids, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
-                }else{
-                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + address_id, json, Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,Address.this);
+                if (from == 2) {
+                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + add_ids, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                } else {
+                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + address_id, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                 }
 
                 Log.d("Add_resp", response + "");
@@ -1454,13 +1036,11 @@ public class Address extends Language {
 
                     if (json.getInt("success") == 1) {
 
-                       /* AddressListTask addressListTask = new AddressListTask();
-                        addressListTask.execute();*/
-                        if(from==2){
+                        if (from == 2) {
                             SaveBillAddress addressTask = new SaveBillAddress();
                             addressTask.execute(add_ids);
-                        }else{
-                            Toast.makeText(Address.this,  R.string.address_update, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(Address.this, R.string.address_update, Toast.LENGTH_LONG).show();
 
                             Intent intent = new Intent();
                             intent.putExtra("first", f_name.getText().toString());
@@ -1477,8 +1057,6 @@ public class Address extends Language {
                             setResult(3, intent);
                             finish();
                         }
-
-
 
 
                     } else {
@@ -1527,7 +1105,6 @@ public class Address extends Language {
 
         }
     }
-
 
 
 }

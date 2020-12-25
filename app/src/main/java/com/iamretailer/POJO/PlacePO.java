@@ -1,8 +1,48 @@
 package com.iamretailer.POJO;
+
 import java.util.ArrayList;
+
 public class PlacePO {
     int place_img;
-    String product_name,qty,key,product_id,model,total_amt,price,order_id,payment,tot_title,tot_amt_txt;
+    String product_name;
+    String qty;
+    String key;
+    String product_id;
+    String model;
+    String total_amt;
+    String price;
+    String order_id;
+    String payment;
+    String tot_title;
+    String tot_amt_txt;
+    String date;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    String command;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public ArrayList<OptionsPO> getOptionlist() {
         return optionlist;
@@ -110,7 +150,7 @@ public class PlacePO {
         this.qty = qty;
     }
 
-   String url;
+    String url;
 
     public String getUrl() {
         return url;
@@ -120,11 +160,8 @@ public class PlacePO {
         this.url = url;
     }
 
-
-
-
-   int product_option_id, option_id;
-    String type,value,required;
+    int product_option_id, option_id;
+    String type, value, required;
 
     public String getPrice() {
         return price;

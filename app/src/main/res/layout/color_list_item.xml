@@ -9,26 +9,24 @@
         android:layout_marginEnd="@dimen/dp20">
 
         <FrameLayout
-            android:padding="@dimen/dp3"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="@dimen/dp3">
 
             <com.iamretailer.Common.CustomTextview1
                 android:id="@+id/colortxt"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:background="@drawable/black_round"
+                android:gravity="center"
                 android:singleLine="true"
                 android:textSize="@dimen/text13sp" />
         </FrameLayout>
 
         <LinearLayout
-
             android:id="@+id/colortic"
             android:layout_width="@dimen/dp30"
             android:layout_height="@dimen/dp30"
@@ -39,10 +37,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:autoMirrored="true"
                 android:contentDescription="@null"
-                android:src="@mipmap/white_tic"
                 android:rotationY="@integer/locale_mirror_flip"
-                android:autoMirrored="true"/>
+                android:src="@mipmap/white_tic" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

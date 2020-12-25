@@ -52,16 +52,17 @@
     <string name="no_con">No Connection</string>
     <string name="check_network"> Please check your internet  \nconnectivity &amp; try again.</string>
     <string name="amount">Amount :</string>
-    <string name="USERNAME_Email">Email</string>
-    <string name="PASSWORD">Password</string>
+    <string name="USERNAME_Email">Email*</string>
+    <string name="PASSWORD">Password*</string>
+    <string name="PASSWORD1">Password</string>
     <string name="Log_In">Login</string>
     <string name="B_text">Don\'t have an account?</string>
     <string name="sign_up">Create a new account</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="Log_In1">Login</string>
     <string name="sign">Sign Up</string>
-    <string name="phone">Mobile Number</string>
-    <string name="frist_name">First Name</string>
+    <string name="phone">Mobile Number*</string>
+    <string name="frist_name">First Name*</string>
     <string name="Signup">Sign Up</string>
     <string name="S_text">Already having an account?  </string>
     <string name="Forgot">Forgot Password</string>
@@ -78,6 +79,8 @@
     <string name="paymets">Payment Method</string>
     <string name="shpp">Shipping Method:</string>
     <string name="ship">Shipping Information</string>
+    <string name="track">Track Shipment</string>
+    <string name="del_by">Delivery by</string>
     <string name="sub">Subtotal</string>
     <string name="tot">Order Total</string>
     <string name="favorite">Favorite</string>
@@ -100,9 +103,9 @@
     <string name="no_cart_list">Currently you have no items in your cart</string>
     <string name="show_now">Shop Now</string>
     <string name="option">Options</string>
-    <string name="last_name">Last Name</string>
+    <string name="last_name">Last Name*</string>
     <string name="your_pass">Your Password</string>
-    <string name="Con_PASSWORD">Confirm Password</string>
+    <string name="Con_PASSWORD">Confirm Password*</string>
     <string name="send_mail">Send Mail</string>
     <string name="back_login">Back to Login</string>
     <string name="order">Order:</string>
@@ -135,13 +138,13 @@
     <string name="pay_card">Master Cart ending **00</string>
     <string name="delivery_add">Delivery Address</string>
     <string name="ur_add">Your Address</string>
-    <string name="first_name">First Name</string>
+    <string name="first_name">First Name*</string>
     <string name="succ">Success</string>
     <string name="cmp">Company</string>
-    <string name="add_1">Address Line 1</string>
+    <string name="add_1">Address Line 1*</string>
     <string name="add_2">Address Line 2</string>
-    <string name="city">City</string>
-    <string name="pin">Pincode</string>
+    <string name="city">City*</string>
+    <string name="pin">Pincode*</string>
     <string name="Quantity">Quantity</string>
     <string name="two">2</string>
     <string name="edit_profile">EDIT PROFILE</string>
@@ -153,7 +156,7 @@
     <string name="facebook">Login with Facebook</string>
     <string name="gmail">Login with Google</string>
     <string name="contactus">Contact Us</string>
-    <string name="your_name">Your Name</string>
+    <string name="your_name">Your Name*</string>
     <string name="submitts">Submit</string>
     <string name="got_any_intriguing_questions_adorable_compliments_or_helpful_feedback_we_d_love_to_hear_from_you">Got any intriguing questions, adorable compliments or helpful feedback. We’d love to hear from you!</string>
     <string name="comments_type_here">Comments type here..</string>
@@ -226,8 +229,9 @@
     <string name="guest">Guest Checkout</string>
     <string name="address_details">Address Details:</string>
     <string name="back_to_login">Back to Login</string>
-    <string name="add_promo_code">Add Promo Code</string>
+    <string name="add_promo_code">Coupon Code</string>
     <string name="promo_code">Promo Code</string>
+
     <string name="apply">Apply</string>
     <string name="code"> Enter Promo Code</string>
     <string name="my_Acc">My Profile</string>
@@ -239,7 +243,7 @@
     <string name="app_not">App not installed on your device</string>
     <string name="user_not">Please Login to view your Details</string>
     <string name="tel">tel:</string>
-    <string name="phone_num">+918525990990</string>
+    <string name="phone_num">+917639001662</string>
     <string name="no_items_yet">No items yet</string>
     <string name="wish_add">Item Added to Wishlist</string>
     <string name="dele_wish">Wish List Deleted Successfully</string>
@@ -270,7 +274,9 @@
     <string name="wal_success">Paid</string>
     <string name="p_payment">Proceed Payment</string>
     <string name="c_w_balance">Current Wallet Balance:</string>
-
+    <string name="offer_range">75% - 20% OFF ON YOUR FIRST PURCHASE</string>
+    <string name="offercode">555555</string>
+    <string name="scratch">Scratch to get the code</string>
     <string name="your_wallet_amount">Your Wallet Amount:</string>
     <string name="mail_id">please enter the mail id</string>
     <string name="pass_word">please enter the password</string>
@@ -297,6 +303,7 @@
     <string name="ore_br">(order id:</string>
     <string name="comp">is completed. Thank you for ordering.</string>
     <string name="cod">Cash on Delivery</string>
+    <string name="razorpay">razorpay</string>
     <string name="colrs">Color</string>
     <string name="colss">Colours</string>
     <string name="radio">radio</string>
@@ -324,8 +331,8 @@
     <string name="back_to">Back to</string>
     <string name="get_in_touch">Get in touch!</string>
     <string name="sumbit_queries">Submit your queries here..</string>
-    <string name="comment">Comments</string>
-    <string name="order_id">Order ID : </string>
+    <string name="comment">Comments*</string>
+    <string name="order_id">Order ID  </string>
     <string name="pending">Pending</string>
     <string name="checkss"> For Fast Checkout </string>
 
@@ -373,5 +380,103 @@
     <string name="address_update">Address Updated Successfully</string>
     <string name="no_orders">No Orders Yet!!</string>
 
+    <string name="per_enable">Enable Permissions from settings</string>
+    <string name="enable">ENABLE</string>
+    <string name="packge">package:</string>
+    <string name="app_version">App Version: </string>
+    <string name="no_cat_found">No Categories found.</string>
+
+    <string name="menu">Menu</string>
+    <string name="most_p">Populat Items</string>
+    <string name="newly_f">Fresh Products</string>
+    <string name="rating">-50%</string>
+    <string name="rating1">%</string>
+    <string name="kg">/Kg</string>
+    <string name="selc_oun">Select Country*</string>
+    <string name="sel_sta">Select State*</string>
+    <string name="fil_bg">Filter By</string>
+    <string name="clear_all">Clear All</string>
+    <string name="price_range">Price Range</string>
+    <string name="from">From:</string>
+    <string name="too">To:</string>
+    <string name="no_categories_found">No Categories found</string>
+    <string name="no_data_found">No Data found !!</string>
+    <string name="no_filter">No filter found</string>
+    <string name="pay_msg">Payment Transaction Failed .If any amount deducted from your account.Please contact us</string>
+    <string name="pay_failed">Payment Transaction Failed </string>
+    <string name="pay_fail">Payment failed:</string>
+    <string name="pay_sucess">Payment Successful:</string>
+    <string name="err_pay">Error in payment:</string>
+    <string name="per_msg">Please Grant Permissions</string>
+    <string name="per_grant">Permission granted</string>
+    <string name="per_den">Permission denied</string>
+
+    //return form
+    <string name="prod_name">Product Name : </string>
+    <string name="qtys">Quantity * : </string>
+    <string name="reason_for_return">Reason for Return * : </string>
+    <string name="prod_open">Product is Opened * : </string>
+    <string name="other_details">Faulty or other details :  </string>
+    <string name="other_details1">Faulty or other details  </string>
+    <string name="return_fom">Order Cancellation Request </string>
+    <string name="qty_toast">Quantity should not greater than order quantity </string>
+    <string name="nos">No</string>
+    <string name="yess">Yes</string>
+    <string name="qty_error">Please enter your Quantity</string>
+    <string name="out_of">Out of</string>
+    <string name="appinfo">App Info</string>
+    <string name="helps">Help</string>
+
+    <string name="returns">Return</string>
+    <string name="returns_title">Order Return</string>
+    <string name="returns_id">Return id</string>
+    <string name="returns_id1">Return id:</string>
+    <string name="order_id1">Order id:</string>
+    <string name="order_date">Order date:</string>
+    <string name="return_date">Return date:</string>
+    <string name="return_history">Return History</string>
+    <string name="return_reason">Reason for Return</string>
+    <string name="no_orders1">No Return Yet!!</string>
+    <string name="return_info">Return Info</string>
+    <string name="return_infos">Product Information</string>
+    <string name="model">Model :</string>
+    <string name="reason">Reason :</string>
+    <string name="opens">Open :</string>
+    <string name="status1">status :</string>
+    //food app
+    <string name="l_eat">Let\'s eat </string>
+    <string name="q_food">Quality Food</string>
+    <string name="return_save">Order Cancelled successfully</string>
+
+
+
+    <string name="updatea">Update Alert !</string>
+    <string name="download_size">Download size:</string>
+    <string name="updateplay">i.am.retailer recommends that you update to the latest version. You keep using this app while downloading the update.</string>
+    <string name="now"><b>Now (over any network)</b> \nData charges may apply</string>
+    <string name="wifi"><b>When Wi-fi is available</b></string>
+    <string name="no_thanks">NO THANKS</string>
+    <string name="updates">Update</string>
+
+    //gray
+    <string name="search_item">Say somthing</string>
+    <string name="status">Status</string>
+    <string name="return_request">Return Request</string>
+    <string name="store_mob">Mobile:</string>
+    <string name="add_gift_code">Gift Certificate</string>
+    <string name="gift_coupon">Gift Certificate</string>
+    <string name="gift_suc">Gift Applied Successfully</string>
+    <string name="gift_remove">Gift Certificate removed</string>
+    <string name="gift_delete">Do you want to gift certificate delete?</string>
+    <string name="coupon_remove">Coupon code removed</string>
+    <string name="coupon_delete">Do you want to coupon code delete?</string>
+
+    //yellow
+    <string name="search_product">Search Products</string>
+    <string name="SPECIAL_PRICE">SPECIAL PRICE</string>
+    <string name="copy_code">COPY THE COUPON CODE</string>
+    <string name="our_brand">Our Brands</string>
+    <string name="night_day_cracker">Featured Crackers</string>
+    <string name="our_best">Our Best Selling</string>
 
 </resources>

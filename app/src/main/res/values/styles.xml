@@ -9,12 +9,8 @@
     </style>
 
     <style name="LoginEditTexts" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
 
-        <!-- Hint color and label color in FALSE state -->
-        <!-- <item name="android:textColorHint">#9E9E9E</item>-->
         <item name="android:textColorHint">@color/plceholder</item>
-        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorAccent">@color/app_text_color</item>
         <item name="colorControlNormal">@color/app_text_color</item>
         <item name="colorControlActivated">@color/app_text_color</item>
@@ -28,5 +24,9 @@
 
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/alert_bg</item>
+    </style>
+    <style name="RadioButtonStyle" parent="@android:style/Widget.CompoundButton">
+        <item name="android:background">@drawable/radiobutton_selector</item>
+        <item name="android:button">@null</item>
     </style>
 </resources>

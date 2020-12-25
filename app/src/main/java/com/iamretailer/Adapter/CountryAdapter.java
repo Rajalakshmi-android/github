@@ -1,7 +1,7 @@
 package com.iamretailer.Adapter;
 
 import android.content.Context;
-import android.view.Gravity;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,6 @@ public class CountryAdapter extends ArrayAdapter<CountryPO> {
 
     public CountryAdapter(Context context, int resource, ArrayList<CountryPO> objects) {
         super(context, resource, 0, objects);
-
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mResource = resource;
@@ -30,25 +29,24 @@ public class CountryAdapter extends ArrayAdapter<CountryPO> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView,
-                                ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
 
     private View createItemView(int position, View convertView, ViewGroup parent) {
         final View view = mInflater.inflate(mResource, parent, false);
 
-        TextView textView = (TextView) view.findViewById(R.id.txt);
+        TextView textView = view.findViewById(R.id.txt);
 
-        if (position==0)
-        {
+        if (position == 0) {
             textView.setTextColor(mContext.getResources().getColor(R.color.plceholder));
-            textView.setPadding(0,0,0,0);
+
         }
         textView.setText(items.get(position).getCount_name());
 

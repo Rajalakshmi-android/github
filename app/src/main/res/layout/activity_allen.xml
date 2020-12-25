@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-    android:id="@+id/fullayout">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -17,7 +16,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg_color"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <include layout="@layout/menu_back" />
@@ -25,7 +24,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/app_bg_color">
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -63,37 +62,30 @@
                                             android:gravity="start|center_horizontal"
                                             android:text="@string/sorting"
                                             android:textColor="@color/app_text_color"
-                                            android:textSize="@dimen/text14sp" />
+                                            android:textSize="@dimen/text15sp" />
 
-                                        <LinearLayout
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginStart="@dimen/dp2">
-
-                                            <com.iamretailer.Common.CustomTextview
-                                                android:id="@+id/sort_name"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="center"
-                                                android:layout_marginTop="@dimen/dp1"
-                                                android:gravity="center"
-                                                android:textColor="@color/text_color2"
-                                                android:textSize="@dimen/text14sp" />
-
-                                            <ImageView
-                                                android:layout_width="@dimen/dp10"
-                                                android:layout_height="@dimen/dp10"
-                                                android:layout_gravity="center"
-                                                android:layout_marginStart="@dimen/dp5"
-                                                android:layout_marginTop="@dimen/dp3"
-                                                android:gravity="center"
-                                                android:rotationY="@integer/locale_mirror_flip"
-                                                android:autoMirrored="true"
-                                                android:src="@mipmap/sort" />
-                                        </LinearLayout>
-
+                                        <ImageView
+                                            android:layout_width="@dimen/dp18"
+                                            android:layout_height="@dimen/dp18"
+                                            android:layout_gravity="center"
+                                            android:layout_marginStart="@dimen/dp5"
+                                            android:layout_marginTop="@dimen/dp2"
+                                            android:autoMirrored="true"
+                                            android:gravity="center"
+                                            android:padding="@dimen/dp3"
+                                            android:rotationY="@integer/locale_mirror_flip"
+                                            android:src="@mipmap/sort" />
 
                                     </LinearLayout>
+
+                                    <com.iamretailer.Common.CustomTextview
+                                        android:id="@+id/sort_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:textColor="@color/text_color2"
+                                        android:textSize="@dimen/text14sp" />
 
 
                                 </LinearLayout>
@@ -109,34 +101,65 @@
                                     android:layout_gravity="center"
                                     android:layout_weight="@integer/one"
                                     android:gravity="center"
-                                    android:weightSum="2"
-                                    >
+                                    android:weightSum="2">
 
 
-                                        <LinearLayout
-                                            android:layout_width="0dp"
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1.3"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <com.iamretailer.Common.CustomTextview
+                                            android:id="@+id/product_count"
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:gravity="center"
-                                            android:layout_weight="1.5"
-                                            android:orientation="horizontal">
+                                            android:text="@string/cart"
+                                            android:textColor="@color/text_color2"
+                                            android:textSize="@dimen/text14sp" />
 
-                                            <com.iamretailer.Common.CustomTextview
-                                                android:id="@+id/product_count"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="@string/cart"
-                                                android:textColor="@color/text_color2"
-                                                android:textSize="@dimen/text14sp" />
+                                        <com.iamretailer.Common.CustomTextview
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/dp5"
+                                            android:text="@string/products"
+                                            android:textColor="@color/text_color2"
+                                            android:textSize="@dimen/text14sp" />
 
-                                            <com.iamretailer.Common.CustomTextview
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginStart="@dimen/dp5"
-                                                android:text="@string/products"
-                                                android:textColor="@color/text_color2"
-                                                android:textSize="@dimen/text14sp" />
+                                    </LinearLayout>
 
-                                        </LinearLayout>
+                                    <LinearLayout
+                                        android:id="@+id/filter_lay"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.7"
+                                        android:gravity="center">
+
+                                        <FrameLayout
+                                            android:layout_width="@dimen/dp35"
+                                            android:layout_height="@dimen/dp35">
+
+
+                                            <LinearLayout
+                                                android:id="@+id/filter_show"
+                                                android:layout_width="@dimen/dp5"
+                                                android:layout_height="@dimen/dp5"
+                                                android:layout_gravity="end"
+                                                android:background="@drawable/badge"
+                                                android:orientation="vertical"
+                                                android:visibility="gone" />
+
+                                            <ImageView
+                                                android:layout_width="@dimen/dp20"
+                                                android:layout_height="@dimen/dp20"
+                                                android:layout_gravity="center"
+                                                android:autoMirrored="true"
+                                                android:gravity="center"
+                                                android:rotationY="@integer/locale_mirror_flip"
+                                                android:src="@mipmap/filter_black" />
+                                        </FrameLayout>
+                                    </LinearLayout>
 
 
                                 </LinearLayout>
@@ -171,8 +194,8 @@
 
                                 <ProgressBar
                                     android:id="@+id/progress1"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="@dimen/dp40"
+                                    android:layout_height="@dimen/dp40"
                                     android:layout_gravity="center"
                                     android:indeterminate="true"
                                     android:indeterminateDrawable="@drawable/custom_progress"
@@ -190,8 +213,8 @@
                             android:id="@+id/category_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginEnd="@dimen/dp10"
-                            android:layout_marginStart="@dimen/dp10"
                             android:background="@android:color/transparent"
                             android:listSelector="@android:color/transparent"
                             android:scrollbars="none"
@@ -229,9 +252,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp60">
 
-                <include
-                    layout="@layout/loading"
-                    />
+                <include layout="@layout/loading" />
             </FrameLayout>
 
             <FrameLayout

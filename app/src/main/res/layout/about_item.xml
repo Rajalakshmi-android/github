@@ -24,7 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:elevation="@dimen/dp3"
                 android:gravity="center"
                 android:paddingEnd="@dimen/dp10"
                 android:paddingStart="@dimen/dp10"

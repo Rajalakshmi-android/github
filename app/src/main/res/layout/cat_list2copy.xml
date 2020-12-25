@@ -2,60 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="vertical">
 
-    >
-        <LinearLayout
+    <LinearLayout
+        android:id="@+id/items_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/brand"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/items_bg"
-            >
-            <FrameLayout
-                android:id="@+id/brand"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/search_center">
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:layout_gravity="center"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/more"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_gravity="center"
+                android:autoMirrored="true"
+                android:contentDescription="@null"
+                android:rotationY="@integer/locale_mirror_flip"
+                android:src="@mipmap/next"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginBottom="@dimen/dp5">
+
+            <com.iamretailer.Common.CustomTextview1
+                android:id="@+id/store_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/search_center">
-                <ImageView
-                    android:id="@+id/back_img"
-                    android:layout_width="@dimen/dp50"
-                    android:layout_height="@dimen/dp50"
-                    android:layout_gravity="center"
-                    />
-                <ImageView
-                    android:id="@+id/more"
-                    android:layout_width="@dimen/dp25"
-                    android:layout_height="@dimen/dp25"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/next"
-                    android:autoMirrored="true"
-                    android:rotationY="@integer/locale_mirror_flip"
-                    android:visibility="gone" />
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="@dimen/dp5"
-                >
-                <com.iamretailer.Common.CustomTextview1
-                    android:id="@+id/store_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:singleLine="true"
-                    android:textColor="@color/app_text_color"
-                    android:textSize="@dimen/text14sp" />
-            </FrameLayout>
-        </LinearLayout>
+                android:singleLine="true"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/text14sp" />
+        </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/sub_cat_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sub_cat_item"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,23 +71,23 @@
                 android:layout_weight="1.7">
 
                 <com.iamretailer.Common.CustomTextview
+                    android:id="@+id/names"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/names"
-                    android:textColor="@color/app_text_color"
-                    android:text="@string/product"
                     android:layout_marginStart="@dimen/dp5"
                     android:padding="@dimen/dp5"
-                    android:textSize="@dimen/text15sp"/>
+                    android:text="@string/product"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/text15sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="0.3"
-                android:gravity="center"
-                android:layout_gravity="center">
+                android:gravity="center">
 
 
                 <ImageView
@@ -92,17 +95,19 @@
                     android:layout_height="@dimen/dp20"
                     android:layout_gravity="end|center"
                     android:autoMirrored="true"
+                    android:contentDescription="@null"
                     android:rotationY="@integer/locale_mirror_flip"
-                    android:src="@mipmap/edit_arrow"/>
+                    android:src="@mipmap/edit_arrow" />
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0_1"
-            android:paddingStart="@dimen/dp5"
+            android:layout_gravity="bottom"
+            android:background="@color/view_line"
             android:paddingEnd="@dimen/dp5"
-            android:background="#1e484848"
-            android:layout_gravity="bottom"/>
+            android:paddingStart="@dimen/dp5" />
     </FrameLayout>
 
 </LinearLayout>

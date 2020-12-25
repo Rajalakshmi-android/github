@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#11bbbbbb" />
+            <padding
+                android:bottom="1px"
+                android:right="1px" />
+            <corners
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#11bbbbbb" />
+            <padding
+                android:bottom="2px"
+                android:right="2px" />
+            <corners
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#33bbbbbb" />
+            <padding
+                android:bottom="2px"
+                android:right="2px" />
+            <corners
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ffffff" />
+            <padding
+                android:bottom="1px"
+                android:left="1px"
+                android:right="1px"
+                android:top="1px" />
+            <corners
+                android:bottomLeftRadius="@dimen/dp8"
+                android:bottomRightRadius="@dimen/dp8"
+                android:topLeftRadius="@dimen/dp8"
+                android:topRightRadius="@dimen/dp8" />
+        </shape>
+    </item>
+</layer-list>

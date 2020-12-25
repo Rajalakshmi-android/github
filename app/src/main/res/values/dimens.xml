@@ -81,6 +81,8 @@
 	<item name="value2.5" type="dimen" format="float">2.5</item>
 	<item name="value0.3" type="dimen" format="float">0.3</item>
 	<item name="value1.2" type="dimen" format="float">1.2</item>
+	<item name="value1.4" type="dimen" format="float">1.4</item>
+	<item name="value1.3" type="dimen" format="float">1.3</item>
 
 
 
@@ -132,9 +134,30 @@
     <dimen name="dp43">43dp</dimen>
     <dimen name="dp17">17dp</dimen>
     <dimen name="dp63">63dp</dimen>
-
-	//pink
-	<dimen name="dpp2">2px</dimen>
+	<dimen name="dp350">350dp</dimen>
 	<dimen name="dpp1">1px</dimen>
+	<dimen name="dpp2">2px</dimen>
+	<dimen name="dpp3">3px</dimen>
+	<dimen name="text6sp">6sp</dimen>
+	<dimen name="dp125">125dp</dimen>
+	<dimen name="dp157">157dp</dimen>
+	<dimen name="dp68">68dp</dimen>
+	<dimen name="dp94">94dp</dimen>
+	<dimen name="dp29">29dp</dimen>
+	<dimen name="dp31">31dp</dimen>
+	<dimen name="dp34">34dp</dimen>
+	<dimen name="dp1_0">0.1dp</dimen>
+	<dimen name="dp27">27dp</dimen>
+	<dimen name="dp78">78dp</dimen>
+	<dimen name="dp1_5">1.5dp</dimen>
+	<dimen name="dp165">165dp</dimen>
+	<dimen name="dps0_1">0.1dp</dimen>
+	<dimen name="dp48">48dp</dimen>
+	<dimen name="dp170">170dp</dimen>
+
+	<dimen name="dp220">220dp</dimen>
+	<dimen name="dp195">195dp</dimen>
+	<dimen name="dp185">185dp</dimen>
+	<dimen name="dp155">155dp</dimen>
 
 </resources>

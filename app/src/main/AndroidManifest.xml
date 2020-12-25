@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
     <application
         android:name=".AppClass"
         android:allowBackup="true"
@@ -51,6 +52,11 @@
         <activity android:name=".ConfirmOrder" />
         <activity android:name=".MyOrders" />
         <activity android:name=".ViewDetails" />
+        <activity android:name=".Return_Acticity" />
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".ReturnlistActivity" />
+        <activity android:name=".ReturnViewDetails" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -128,6 +134,11 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBjxSwGKm3rgFm-dkaGXZ2cMlYl6NI3oEw" />
 
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_OlAwsv8U7Qf2jR" />
+
+
         <activity
             android:name=".ContactForm"
             android:windowSoftInputMode="adjustResize" />
@@ -137,8 +148,13 @@
         <activity android:name=".About_Activity" />
         <activity android:name=".Webactivity" />
         <activity android:name=".PaymentAct" />
-        <activity android:name=".MyCart"/>
-        <meta-data android:value="rzp_live_Il11upgKqcMaXI" android:name="com.razorpay.ApiKey"/>
+        <activity android:name=".MyCart" />
+        <activity android:name=".MyCart_copy" />
+        <activity android:name=".Filter" />
+
+
+
+
     </application>
 
 </manifest>

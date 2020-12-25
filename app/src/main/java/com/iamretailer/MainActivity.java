@@ -1,12 +1,12 @@
 package com.iamretailer;
 
-import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,28 +18,26 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
-import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.DecelerateInterpolator;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooltechworks.views.ScratchTextView;
 import com.iamretailer.Adapter.BrandzAdapter;
 import com.iamretailer.Adapter.CommonAdapter;
 import com.iamretailer.Adapter.DemoInfiniteAdapter;
@@ -62,8 +60,12 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -72,123 +74,97 @@ import stutzen.co.network.Connection;
 import static android.support.design.widget.TabLayout.OnClickListener;
 
 public class MainActivity extends Drawer {
-    LinearLayout cart_items;
-    DBController db;
-    public TextView cart_count;
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle toggle;
-    LinearLayout sidemenu;
-    FrameLayout drawerview;
+    private DBController db;
+    private TextView cart_count;
+    private DrawerLayout drawerLayout;
     private int backcount;
     private RecyclerView grid;
-    private ArrayList<BrandsPO> seller_list, cate_list2;
-    private BrandzAdapter adapter1;
+    private ArrayList<BrandsPO> seller_list;
     private FrameLayout fullayout;
     private ArrayList<BannerBo> banner_list;
     private ArrayList<BannerBo> banner2;
-    JazzyViewPager baner2;
+    private JazzyViewPager baner2;
     private ArrayList<ProductsPO> list;
-    RecyclerView horizontalListView;
-    // CirclePageIndicator dots;
-    RecyclerView best_selling_list;
-    FrameLayout loading;
-    TextView cart_count1;
+    private RecyclerView horizontalListView;
+    private RecyclerView best_selling_list;
+    private FrameLayout loading;
+    private TextView cart_count1;
     private ArrayList<ProductsPO> feat_list;
-    LoopingViewPager pager1;
-
-    PageIndicatorView indicatorView;
-
-    LinearLayout search;
-    TextView search_text;
-    LinearLayout view_all_feat, view_all_best;
-    TextView errortxt1, errortxt2;
-    TextView categ;
-    LinearLayout loading_bar;
-    int level = 0;
-    FrameLayout top;
-    AndroidLogger logger;
-    TextView no_items, no_items1;
-    CommonAdapter bestAdapters;
+    private PageIndicatorView indicatorView;
+    private LinearLayout view_all_feat;
+    private LinearLayout view_all_best;
+    private int level = 0;
+    private AndroidLogger logger;
+    private TextView no_items;
+    private TextView no_items1;
+    private CommonAdapter bestAdapters;
     private ArrayList<SingleOptionPO> optionPOS;
-   // private LinearLayout cat_seall;
-    CommonAdapter featuredProduct;
-   // private ScrollView stickyscroll;
-   // private FrameLayout topbg;
-   // private LinearLayout app_bgss;
-    private int width,height;
-    private int width1;
+    private CommonAdapter featuredProduct;
     private LoopingViewPager pager;
-    private ArrayList<ProductsPO> cart_item;
-    private GridLayoutManager mLayoutManager;
-    LinearLayout categ_preloader,most_preloader,newly_preloader;
-    private LinearLayout cate_bottom;
-    private LinearLayout contact;
-    private LinearLayout cart_bottom;
+    private LinearLayout categ_preloader;
+    private LinearLayout most_preloader;
+    private LinearLayout newly_preloader;
     private TextView cart_count_bot;
-    private LinearLayout deal_bottom;
-    private ArrayList<BrandsPO> seller_lists;
+    private TextView cat_no_items;
     private LinearLayout category;
-    private ArrayList<ProductsPO> productbO;
-
+    private ArrayList<ProductsPO> fav_item;
+    private LinearLayout helps;
+    private String currentVersion;
+    private String downloadsize;
+    LinearLayout whatsapp;
+    ImageView whats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DBController(MainActivity.this);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        Log.i("tag","jgdljgldfjgldjg1111 "+db.get_lang_code());
-        if (db.get_lan_c()>0)
-        {
+        if (db.get_lan_c() > 0) {
             change_langs(db.get_lang_code());
-            Log.i("tag","jgdljgldfjgldjg "+db.get_lang_code());
-            //change_langs("ar");
         }
-        Appconstatants.Lang=db.get_lang_code();
+        Appconstatants.Lang = db.get_lang_code();
         setContentView(R.layout.activity_main);
         if (Appconstatants.sessiondata == null || Appconstatants.sessiondata.length() == 0)
             Appconstatants.sessiondata = db.getSession();
-        Appconstatants.CUR=db.getCurCode();
-        Log.d("Curen_code",Appconstatants.CUR+"asdad"+db.getCurCode()+"");
+        Appconstatants.CUR = db.getCurCode();
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
-        grid = (RecyclerView) findViewById(R.id.grid);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        sidemenu = (LinearLayout) findViewById(R.id.sidemenu);
-        drawerview = (FrameLayout) findViewById(R.id.drawerview);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        horizontalListView = (RecyclerView) findViewById(R.id.features_list);
-        // dots = (CirclePageIndicator) findViewById(R.id.dots);
-        best_selling_list = (RecyclerView) findViewById(R.id.best_selling_list);
-        baner2 = (JazzyViewPager) findViewById(R.id.baner2);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        cart_count1 = (TextView) findViewById(R.id.cart_count1);
-        pager = (LoopingViewPager) findViewById(R.id.pager);
-        search = (LinearLayout) findViewById(R.id.search);
-        indicatorView = (PageIndicatorView) findViewById(R.id.dots);
-        view_all_feat = (LinearLayout) findViewById(R.id.view_all_feat);
-        view_all_best = (LinearLayout) findViewById(R.id.view_all_best);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        categ = (TextView) findViewById(R.id.categ);
-        //cat_seall = (LinearLayout) findViewById(R.id.cat_seeall);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        no_items = (TextView) findViewById(R.id.no_items);
-        no_items1 = (TextView) findViewById(R.id.no_items1);
-        categ_preloader=(LinearLayout)findViewById(R.id.categ_preloader);
-        most_preloader=(LinearLayout)findViewById(R.id.most_preloader);
-        newly_preloader=(LinearLayout)findViewById(R.id.newly_preloader);
-        cate_bottom = (LinearLayout) findViewById(R.id.cate_bottom);
-        contact = (LinearLayout) findViewById(R.id.contact);
-        cart_bottom = (LinearLayout) findViewById(R.id.cart_bottom);
-        deal_bottom = (LinearLayout) findViewById(R.id.deal_bottom);
-        cart_count_bot = (TextView) findViewById(R.id.cart_count_bot);
-        category = (LinearLayout) findViewById(R.id.category);
+        grid = findViewById(R.id.grid);
+        fullayout = findViewById(R.id.fullayout);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        drawerLayout = findViewById(R.id.drawer);
+        LinearLayout sidemenu = findViewById(R.id.sidemenu);
+        FrameLayout drawerview = findViewById(R.id.drawerview);
+        cart_count = findViewById(R.id.cart_count);
+        horizontalListView = findViewById(R.id.features_list);
+        best_selling_list = findViewById(R.id.best_selling_list);
+        baner2 = findViewById(R.id.baner2);
+        loading = findViewById(R.id.loading);
+        cart_count1 = findViewById(R.id.cart_count1);
+        pager = findViewById(R.id.pager);
+        LinearLayout search = findViewById(R.id.search);
+        indicatorView = findViewById(R.id.dots);
+        view_all_feat = findViewById(R.id.view_all_feat);
+        view_all_best = findViewById(R.id.view_all_best);
+        no_items = findViewById(R.id.no_items);
+        no_items1 = findViewById(R.id.no_items1);
+        categ_preloader = findViewById(R.id.categ_preloader);
+        most_preloader = findViewById(R.id.most_preloader);
+        newly_preloader = findViewById(R.id.newly_preloader);
+        LinearLayout cate_bottom = findViewById(R.id.cate_bottom);
+        LinearLayout contact = findViewById(R.id.contact);
+        LinearLayout cart_bottom = findViewById(R.id.cart_bottom);
+        LinearLayout deal_bottom = findViewById(R.id.deal_bottom);
+        cart_count_bot = findViewById(R.id.cart_count_bot);
+        cat_no_items = findViewById(R.id.cat_no_items);
+        category = findViewById(R.id.category);
+        whatsapp=findViewById(R.id.whatsapp);
+        whats=findViewById(R.id.whats_img);
+       // offerPopup(MainActivity.this);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(seller_list!=null&&seller_list.size()>0){
+                if (seller_list != null && seller_list.size() > 0) {
 
                     if (level == 0) {
                         Intent intent = new Intent(MainActivity.this, Category.class);
@@ -200,7 +176,7 @@ public class MainActivity extends Drawer {
                         intent.putExtras(pos);
                         startActivity(intent);
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.pl_loading), Toast.LENGTH_SHORT).show();
                 }
 
@@ -209,13 +185,11 @@ public class MainActivity extends Drawer {
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dbCon.getLoginCount()>0) {
+                if (dbCon.getLoginCount() > 0) {
                     startActivity(new Intent(getApplicationContext(), MyProfile.class));
-                }
-                else
-                {
+                } else {
                     Intent intent = new Intent(getApplicationContext(), Login.class);
-                    intent.putExtra("from", 7);
+                    intent.putExtra("from", 5);
                     startActivity(intent);
                 }
             }
@@ -234,7 +208,7 @@ public class MainActivity extends Drawer {
         });
 
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -244,13 +218,11 @@ public class MainActivity extends Drawer {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        drawerview(drawerview, drawerLayout, MainActivity.this);
+        drawerview(drawerview, drawerLayout);
 
         grid.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
-
                 if (position == 3) {
 
                     if (level == 0) {
@@ -265,7 +237,7 @@ public class MainActivity extends Drawer {
                     }
                 } else {
 
-                    if (seller_list.get(position).getArrayList().size() == 0) {
+                    if (seller_list.get(position).getArrayList() != null && seller_list.get(position).getArrayList().size() == 0) {
                         Intent u = new Intent(MainActivity.this, Allen.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("id", seller_list.get(position).getS_id());
@@ -283,7 +255,6 @@ public class MainActivity extends Drawer {
 
             }
         }));
-
 
 
         cart_items.setOnClickListener(new OnClickListener() {
@@ -320,8 +291,8 @@ public class MainActivity extends Drawer {
             if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale
-                                (MainActivity.this, android.Manifest.permission.CALL_PHONE)) {
-                    Snackbar.make(findViewById(android.R.id.content), "Please Grant Permissions", Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                        (MainActivity.this, android.Manifest.permission.CALL_PHONE)) {
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.per_msg), Snackbar.LENGTH_INDEFINITE).setAction(getResources().getString(R.string.enable),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -331,13 +302,17 @@ public class MainActivity extends Drawer {
                 } else {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 212);
                 }
-            } else {
-
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        new GetVersionCode().execute();
 
         GetBannerTask task1 = new GetBannerTask();
         task1.execute(Appconstatants.BANNER_IMAGEa);
@@ -348,7 +323,9 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle best = new Bundle();
                 best.putString("view_all", "best_sell");
-                best.putString("head", "Best Selling");
+                best.putString("head", getResources().getString(R.string.bests));
+                best.putString("banner_id", "");
+                best.putString("title", "");
                 intent.putExtras(best);
                 startActivity(intent);
             }
@@ -359,24 +336,55 @@ public class MainActivity extends Drawer {
                 Intent intent = new Intent(MainActivity.this, Product_list.class);
                 Bundle feat = new Bundle();
                 feat.putString("view_all", "feat");
-                feat.putString("head","Feature Products");
+                feat.putString("head", getResources().getString(R.string.featuress));
+                feat.putString("banner_id", "");
+                feat.putString("title", "");
+
                 intent.putExtras(feat);
                 startActivity(intent);
             }
         });
+        if(Appconstatants.whatsapp_mode==1){
+            whatsapp.setVisibility(View.VISIBLE);
+        }else{
+            whatsapp.setVisibility(View.GONE);
+        }
 
+        whatsapp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWhatsApp();
+            }
+        });
 
+    }
+    private void openWhatsApp() {
+        try {
+            Uri uri = Uri.parse("smsto:" +Appconstatants.whatsapp_number);
+            Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+            i.setPackage("com.whatsapp");
+            startActivity(Intent.createChooser(i, ""));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("tag","whatsapp----"+e);
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp")));
+
+        }
 
     }
 
     public void onResume() {
         super.onResume();
-        BEST_SELLING best_selling = new BEST_SELLING();
-        best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
+        CartTask cartTask = new CartTask();
+        cartTask.execute(Appconstatants.cart_api);
         backcount = 0;
 
 
-        Log.i("resume", "login&logout.............");
+        if (db.getLoginCount() > 0) {
+            WISH_LIST wish_list = new WISH_LIST();
+            wish_list.execute(Appconstatants.Wishlist_Get);
+        }
+
         if (db.getLoginCount() > 0) {
 
             email.setText(db.getName());
@@ -386,7 +394,6 @@ public class MainActivity extends Drawer {
             change_pwd.setVisibility(View.VISIBLE);
             wish.setVisibility(View.VISIBLE);
             address.setVisibility(View.VISIBLE);
-           // wallet.setVisibility(View.VISIBLE);
         } else {
             gologout.setVisibility(View.GONE);
             login.setVisibility(View.VISIBLE);
@@ -394,7 +401,6 @@ public class MainActivity extends Drawer {
             change_pwd.setVisibility(View.GONE);
             wish.setVisibility(View.GONE);
             address.setVisibility(View.GONE);
-           //wallet.setVisibility(View.GONE);
         }
     }
 
@@ -428,10 +434,9 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
-                Log.d("cat_url_res", response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -444,7 +449,7 @@ public class MainActivity extends Drawer {
             if (resp != null) {
 
                 try {
-                    seller_list = new ArrayList<BrandsPO>();
+                    seller_list = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
@@ -456,28 +461,25 @@ public class MainActivity extends Drawer {
 
                             for (int h = 0; h < arr.length(); h++) {
                                 JSONObject obj = arr.getJSONObject(h);
-                                if (obj.getJSONArray("categories").length() > 0)
+                                if (!obj.isNull("categories") && obj.getJSONArray("categories").length() > 0)
                                     level++;
                             }
 
                             int size = arr.length();
-                            Log.i("category size",arr.length()+"");
+                            ArrayList<BrandsPO> cate_list2;
                             if (size <= 3) {
-                                Log.i("tag","step11-----");
                                 for (int h = 0; h < arr.length(); h++) {
                                     JSONObject obj = arr.getJSONObject(h);
                                     BrandsPO bo = new BrandsPO();
                                     bo.setS_id(obj.isNull("category_id") ? "" : obj.getString("category_id"));
                                     bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     bo.setBg_img_url(obj.isNull("image") ? "" : obj.getString("image"));
-                                    Log.d("values_1s", obj.getJSONArray("categories").length() + "");
 
                                     JSONArray array = obj.getJSONArray("categories");
                                     cate_list2 = new ArrayList<>();
                                     for (int g = 0; g < array.length(); g++) {
                                         JSONObject object = array.getJSONObject(g);
                                         BrandsPO po = new BrandsPO();
-                                        Log.d("url_resp_Catname", object.getString("name") + "");
                                         po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
                                         po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
                                         cate_list2.add(po);
@@ -488,7 +490,6 @@ public class MainActivity extends Drawer {
 
                                 }
                             } else {
-                                Log.i("tag","step-----");
                                 for (int h = 0; h < 4; h++) {
                                     JSONObject obj = arr.getJSONObject(h);
                                     BrandsPO bo = new BrandsPO();
@@ -500,7 +501,6 @@ public class MainActivity extends Drawer {
                                     for (int g = 0; g < array.length(); g++) {
                                         JSONObject object = array.getJSONObject(g);
                                         BrandsPO po = new BrandsPO();
-                                        Log.d("url_resp_Catname", object.getString("name") + "");
                                         po.setS_id(object.isNull("category_id") ? "" : object.getString("category_id"));
                                         po.setStore_name(object.isNull("name") ? "" : object.getString("name"));
                                         cate_list2.add(po);
@@ -513,18 +513,22 @@ public class MainActivity extends Drawer {
                                 }
 
                             }
+                            categ_preloader.setVisibility(View.GONE);
+                            cat_no_items.setVisibility(View.GONE);
+                            grid.setVisibility(View.VISIBLE);
+                        } else {
+                            categ_preloader.setVisibility(View.GONE);
+                            cat_no_items.setVisibility(View.VISIBLE);
+                            grid.setVisibility(View.GONE);
 
                         }
-                        Log.i("skjdjkf",seller_list.size()+"");
-                        adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1,0,0);
+                        BrandzAdapter adapter1 = new BrandzAdapter(MainActivity.this, seller_list, 1, 0, 0);
                         grid.setAdapter(adapter1);
-                        mLayoutManager=new GridLayoutManager(MainActivity.this,4);
+                        GridLayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 4);
                         grid.setLayoutManager(mLayoutManager);
-                        categ_preloader.setVisibility(View.GONE);
-                        grid.setVisibility(View.VISIBLE);
 
-                        GetCategoryTask cattask = new GetCategoryTask();
-                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);
+                        BEST_SELLING best_selling = new BEST_SELLING();
+                        best_selling.execute(Appconstatants.Best_Sell + "&limit=5");
 
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -534,12 +538,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -549,12 +553,12 @@ public class MainActivity extends Drawer {
                 }
 
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -579,7 +583,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Banner api :" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -593,7 +597,7 @@ public class MainActivity extends Drawer {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
                 try {
-                    banner_list = new ArrayList<BannerBo>();
+                    banner_list = new ArrayList<>();
                     banner2 = new ArrayList<>();
 
                     JSONObject json = new JSONObject(resp);
@@ -609,15 +613,15 @@ public class MainActivity extends Drawer {
                                 BannerBo bo = new BannerBo();
                                 bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
                                 bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                bo.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
+                                bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
+
 
                                 banner_list.add(bo);
-
                                 if (h == array.length() - 1) {
                                     BannerBo bo1 = new BannerBo();
                                     bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
                                     bo1.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                    bo.setBanner_id(obj.isNull("id")?"":obj.getString("id"));
+                                    bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
                                     banner2.add(bo);
                                 }
@@ -625,13 +629,9 @@ public class MainActivity extends Drawer {
 
                             }
                         }
-                        Log.d("banner2_", banner2.size() + "");
-                        Log.d("banner2_", banner_list.size() + "");
 
                         loading.setVisibility(View.GONE);
-
-                        setupJazziness(JazzyViewPager.TransitionEffect.Standard);
-
+                        setupJazziness();
                         Brandtask brandtask = new Brandtask();
                         brandtask.execute(Appconstatants.CAT_LIST);
 
@@ -645,12 +645,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -660,12 +660,12 @@ public class MainActivity extends Drawer {
                 }
 
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -689,7 +689,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
                 Log.d("cat_url_res", response);
@@ -699,16 +699,17 @@ public class MainActivity extends Drawer {
             }
             return response;
         }
+
         protected void onPostExecute(String resp) {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
                 try {
-                    seller_lists = new ArrayList<BrandsPO>();
+                    ArrayList<BrandsPO> seller_lists = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray arr = new JSONArray(json.getString("data"));
                         if (arr.length() > 0) {
-                            if(arr.length()<5){
+                            if (arr.length() < 5) {
                                 for (int h = 0; h < arr.length(); h++) {
 
                                     JSONObject obj = arr.getJSONObject(h);
@@ -717,7 +718,7 @@ public class MainActivity extends Drawer {
                                     bo.setStore_name(obj.isNull("name") ? "" : obj.getString("name"));
                                     seller_lists.add(bo);
                                 }
-                            }else{
+                            } else {
                                 for (int h = 0; h < 5; h++) {
 
                                     JSONObject obj = arr.getJSONObject(h);
@@ -728,15 +729,15 @@ public class MainActivity extends Drawer {
                                 }
                             }
                             category.removeAllViews();
-                            if(seller_lists!=null&&seller_lists.size()>0){
-                                for(int i=0;i<seller_lists.size();i++){
-                                    addLayoutss(seller_lists.get(i),category,i);
+                            if (seller_lists != null && seller_lists.size() > 0) {
+                                for (int i = 0; i < seller_lists.size(); i++) {
+                                    addLayoutss(seller_lists.get(i), category);
                                 }
-                            }else{
+                            } else {
                                 category.setVisibility(View.GONE);
                             }
                         }
-                        loading.setVisibility(View.GONE);
+
 
                     } else {
                         loading.setVisibility(View.GONE);
@@ -745,18 +746,27 @@ public class MainActivity extends Drawer {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
                     loading.setVisibility(View.GONE);
                     category.setVisibility(View.GONE);
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    loading.setVisibility(View.VISIBLE);
+                                    GetBannerTask task1 = new GetBannerTask();
+                                    task1.execute(Appconstatants.BANNER_IMAGEa);
+                                }
+                            })
+                            .show();
+
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
                 loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -766,32 +776,30 @@ public class MainActivity extends Drawer {
         }
     }
 
-    private void addLayoutss(final BrandsPO brandsbo, LinearLayout payment_list, int pos) {
+    private void addLayoutss(final BrandsPO brandsbo, LinearLayout payment_list) {
         View convertView = LayoutInflater.from(this).inflate(R.layout.categlist, payment_list, false);
-        TextView namess = (TextView) convertView.findViewById(R.id.name);
-        LinearLayout view_all = (LinearLayout) convertView.findViewById(R.id.view_all);
-        final TextView no_proditems = (TextView) convertView.findViewById(R.id.no_proditems);
-        final RecyclerView product_list = (RecyclerView)convertView. findViewById(R.id.product_list);
-        final FrameLayout product_success = (FrameLayout)convertView. findViewById(R.id.success);
-        final FrameLayout product_loading = (FrameLayout)convertView. findViewById(R.id.loading);
-        final FrameLayout no_network = (FrameLayout) convertView.findViewById(R.id.error_network);
-        LinearLayout retry = (LinearLayout) convertView.findViewById(R.id.retry);
-        namess.setText(brandsbo.getStore_name()+"");
-        Log.i("tag","listview----");
-        GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
-        cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+        TextView namess = convertView.findViewById(R.id.name);
+        LinearLayout view_all = convertView.findViewById(R.id.view_all);
+        final TextView no_proditems = convertView.findViewById(R.id.no_proditems);
+        final RecyclerView product_list = convertView.findViewById(R.id.product_list);
+        final FrameLayout product_success = convertView.findViewById(R.id.success);
+        final FrameLayout product_loading = convertView.findViewById(R.id.loading);
+        final FrameLayout no_network = convertView.findViewById(R.id.error_network);
+        LinearLayout retry = convertView.findViewById(R.id.retry);
+        namess.setText(brandsbo.getStore_name());
+        GetProductTask cattask = new GetProductTask(no_proditems, product_list, product_success, product_loading, no_network);
+        cattask.execute(Appconstatants.CATEGORY_PRODUCT + brandsbo.getS_id());
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 product_success.setVisibility(View.GONE);
                 product_loading.setVisibility(View.VISIBLE);
                 no_network.setVisibility(View.GONE);
-                GetProductTask cattask = new GetProductTask(no_proditems,product_list,product_success,product_loading,no_network);
-                cattask.execute(Appconstatants.CATEGORY_PRODUCT+brandsbo.getS_id());
+                GetProductTask cattask = new GetProductTask(no_proditems, product_list, product_success, product_loading, no_network);
+                cattask.execute(Appconstatants.CATEGORY_PRODUCT + brandsbo.getS_id());
 
             }
         });
-
 
 
         view_all.setOnClickListener(new View.OnClickListener() {
@@ -811,17 +819,22 @@ public class MainActivity extends Drawer {
 
 
     private class GetProductTask extends AsyncTask<String, Void, String> {
-        TextView no_proditem;
-        RecyclerView product_lists;
-        FrameLayout product_successs,product_loadings,no_network;
-        public GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading,FrameLayout no_net) {
-            no_proditem=no_proditems;
-            product_lists=product_list;
-            product_successs=product_success;
-            product_loadings=product_loading;
-            no_network=no_net;
+        final TextView no_proditem;
+        final RecyclerView product_lists;
+        final FrameLayout product_successs;
+        final FrameLayout product_loadings;
+        final FrameLayout no_network;
+        CommonAdapter prod_Adapters;
+
+        GetProductTask(TextView no_proditems, RecyclerView product_list, FrameLayout product_success, FrameLayout product_loading, FrameLayout no_net) {
+            no_proditem = no_proditems;
+            product_lists = product_list;
+            product_successs = product_success;
+            product_loadings = product_loading;
+            no_network = no_net;
 
         }
+
         @Override
         protected void onPreExecute() {
             Log.d("tag", "started");
@@ -834,22 +847,22 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
-                Log.d("cat_url_res", response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
             return response;
         }
+
         protected void onPostExecute(String resp) {
             Log.i("tag", "Hai--->" + resp);
             if (resp != null) {
 
                 try {
-                    productbO = new ArrayList<>();
+                    ArrayList<ProductsPO> productbO = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
 
                     if (json.getInt("success") == 1) {
@@ -858,8 +871,7 @@ public class MainActivity extends Drawer {
                             JSONArray arr = new JSONArray(json.getString("data"));
 
                             if (arr.length() > 0) {
-                                Log.i("mfnmd",arr.length()+"");
-                                if(arr.length()<10){
+                                if (arr.length() < 10) {
                                     for (int h = 0; h < arr.length(); h++) {
                                         JSONObject obj = arr.getJSONObject(h);
                                         ProductsPO bo = new ProductsPO();
@@ -870,17 +882,16 @@ public class MainActivity extends Drawer {
                                         bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                        bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                        bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
+                                        bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                        bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                         JSONArray dd = obj.getJSONArray("option");
-                                        Log.i("jhfdgdhfg",dd+"dfddf");
                                         optionPOS = new ArrayList<>();
-                                        if (dd instanceof JSONArray){
-                                            Log.i("khghgjhg","lkhkjhjkhkj");
+                                        if (dd instanceof JSONArray) {
                                             JSONArray jsonObject = obj.getJSONArray("option");
-                                            if(jsonObject.length()>0){
+                                            if (jsonObject.length() > 0) {
                                                 JSONObject object = jsonObject.getJSONObject(0);
                                                 JSONArray option = object.getJSONArray("product_option_value");
-                                                Log.i("khghgjhg",option.length()+"");
                                                 if (option.length() > 0) {
 
 
@@ -892,10 +903,10 @@ public class MainActivity extends Drawer {
 
                                                     }
                                                     bo.setSingleOptionPOS(optionPOS);
-                                                }else{
+                                                } else {
                                                     bo.setSingleOptionPOS(optionPOS);
                                                 }
-                                            }else{
+                                            } else {
                                                 bo.setSingleOptionPOS(optionPOS);
                                             }
 
@@ -904,7 +915,7 @@ public class MainActivity extends Drawer {
                                         }
                                         productbO.add(bo);
                                     }
-                                }else{
+                                } else {
                                     for (int h = 0; h < 10; h++) {
                                         JSONObject obj = arr.getJSONObject(h);
                                         ProductsPO bo = new ProductsPO();
@@ -915,7 +926,9 @@ public class MainActivity extends Drawer {
                                         bo.setProducturl(obj.isNull("image") ? "" : obj.getString("image"));
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                        bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                        bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
+                                        bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                        bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         optionPOS = new ArrayList<>();
                                         if (dd instanceof JSONArray) {
@@ -941,8 +954,8 @@ public class MainActivity extends Drawer {
                             }
                             if (productbO.size() != 0) {
 
-                                bestAdapters = new CommonAdapter(MainActivity.this, productbO,1,1);
-                                product_lists.setAdapter(bestAdapters);
+                                prod_Adapters = new CommonAdapter(MainActivity.this, productbO, 1, 1);
+                                product_lists.setAdapter(prod_Adapters);
                                 product_lists.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 product_loadings.setVisibility(View.GONE);
                                 product_successs.setVisibility(View.VISIBLE);
@@ -963,8 +976,7 @@ public class MainActivity extends Drawer {
                             no_proditem.setVisibility(View.VISIBLE);
                             product_lists.setVisibility(View.GONE);
                         }
-                    }
-                    else {
+                    } else {
                         no_network.setVisibility(View.VISIBLE);
                         product_loadings.setVisibility(View.GONE);
                         JSONArray array = json.getJSONArray("error");
@@ -998,7 +1010,7 @@ public class MainActivity extends Drawer {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
@@ -1015,14 +1027,14 @@ public class MainActivity extends Drawer {
             if (resp != null) {
 
                 try {
-                    cart_item = new ArrayList<>();
+                    ArrayList<ProductsPO> cart_item = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
-                            cart_count1.setText(0 + "");
-                            cart_count_bot.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
+                            cart_count1.setText(String.valueOf(0));
+                            cart_count_bot.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -1038,45 +1050,60 @@ public class MainActivity extends Drawer {
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                                 cart_item.add(bo);
                             }
-                            cart_count.setText(qty + "");
-                            cart_count1.setText(qty + "");
-                            cart_count_bot.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
+                            cart_count1.setText(String.valueOf(qty));
+                            cart_count_bot.setText(String.valueOf(qty));
                         }
-
-                        if (feat_list.size()>0 && feat_list!=null) {
-                            for (int u = 0; u < feat_list.size(); u++) {
-                                for (int h = 0; h < cart_item.size(); h++) {
-                                    if (Integer.parseInt(feat_list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
-                                        feat_list.get(u).setCart_list(true);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        feat_list.get(u).setCart_list(false);
+                        if (cart_item.size() > 0) {
+                            if (feat_list != null && feat_list.size() > 0) {
+                                for (int u = 0; u < feat_list.size(); u++) {
+                                    for (int h = 0; h < cart_item.size(); h++) {
+                                        if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                            feat_list.get(u).setCart_list(true);
+                                            break;
+                                        } else {
+                                            feat_list.get(u).setCart_list(false);
+                                        }
                                     }
                                 }
+                                featuredProduct.notifyDataSetChanged();
                             }
-                            featuredProduct.notifyDataSetChanged();
-                        }
 
-                        if (list.size()>0 && list!=null) {
-                            for (int u = 0; u < list.size(); u++) {
-                                for (int h = 0; h < cart_item.size(); h++) {
-                                    if (Integer.parseInt(list.get(u).getProduct_id())==Integer.parseInt(cart_item.get(h).getProduct_id())) {
-                                        list.get(u).setCart_list(true);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        list.get(u).setCart_list(false);
+                            if (list != null && list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
+                                    for (int h = 0; h < cart_item.size(); h++) {
+                                        if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
+                                            list.get(u).setCart_list(true);
+                                            break;
+                                        } else {
+                                            list.get(u).setCart_list(false);
+                                        }
                                     }
                                 }
+
+
+                                bestAdapters.notifyDataSetChanged();
+                            }
+                        } else {
+                            if (feat_list != null && feat_list.size() > 0) {
+                                for (int u = 0; u < feat_list.size(); u++) {
+
+                                    feat_list.get(u).setCart_list(false);
+                                }
+                                featuredProduct.notifyDataSetChanged();
                             }
 
+                            if (list != null && list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
 
-                           bestAdapters.notifyDataSetChanged();
+                                    list.get(u).setCart_list(false);
+
+                                }
+
+
+                                bestAdapters.notifyDataSetChanged();
+                            }
                         }
-
 
 
                     } else {
@@ -1094,70 +1121,32 @@ public class MainActivity extends Drawer {
         }
     }
 
-
-
-
-    private void setupJazziness(JazzyViewPager.TransitionEffect effect) {
-
+    private void setupJazziness() {
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
-       // pager.setPageMargin(15);
-
-        try {
-            Field mScroller;
-            android.view.animation.Interpolator sInterpolator = new DecelerateInterpolator();
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(pager.getContext(), sInterpolator);
-            mScroller.set(pager, scroller);
-        } catch (NoSuchFieldException e) {
-
-        } catch (IllegalArgumentException e) {
-
-        } catch (IllegalAccessException e) {
-
-        }
-
-
     }
 
-    private void banner2(JazzyViewPager.TransitionEffect effect) {
+    private void banner2() {
 
         baner2.setAdapter(new MainAdapter2());
-        baner2.setTransitionEffect(effect);
-        //baner2.setPageMargin(30);
+        baner2.setTransitionEffect(JazzyViewPager.TransitionEffect.Standard);
 
-        try {
-            Field mScroller;
-            android.view.animation.Interpolator sInterpolator = new DecelerateInterpolator();
-            mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(baner2.getContext(), sInterpolator);
-            mScroller.set(baner2, scroller);
-        } catch (NoSuchFieldException e) {
-
-        } catch (IllegalArgumentException e) {
-
-        } catch (IllegalAccessException e) {
-
-        }
     }
 
 
     private class MainAdapter2 extends PagerAdapter {
+        @NonNull
         @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
+        public Object instantiateItem(@NonNull ViewGroup container, final int position) {
             final ImageView imgDisplay;
-
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.banner_roundview2, container, false);
-            imgDisplay = (ImageView) viewLayout.findViewById(R.id.browsebackground);
-
-            LinearLayout banner=(LinearLayout) viewLayout.findViewById(R.id.banners);
+            imgDisplay = viewLayout.findViewById(R.id.browsebackground);
+            LinearLayout banner = viewLayout.findViewById(R.id.banners);
             banner.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Appconstatants.need_brand_product==1) {
+                    if (Appconstatants.need_brand_product == 1) {
                         Intent intent = new Intent(MainActivity.this, Product_list.class);
                         Bundle best = new Bundle();
                         best.putString("view_all", "banners");
@@ -1170,7 +1159,6 @@ public class MainActivity extends Drawer {
                 }
             });
 
-            Log.i("banner_image", banner2.get(position).getImage());
             if (banner2.get(position).getImage().length() > 0 && banner2.get(position).getImage() != null)
                 Picasso.with(getApplicationContext()).load(banner2.get(position).getImage()).placeholder(R.mipmap.place_holder).into(imgDisplay);
             else
@@ -1181,7 +1169,7 @@ public class MainActivity extends Drawer {
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object obj) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object obj) {
             container.removeView(baner2.findViewFromObject(position));
         }
 
@@ -1191,7 +1179,7 @@ public class MainActivity extends Drawer {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object obj) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object obj) {
             if (view instanceof OutlineContainer) {
                 return ((OutlineContainer) view).getChildAt(0) == obj;
             } else {
@@ -1200,26 +1188,6 @@ public class MainActivity extends Drawer {
         }
     }
 
-    public class FixedSpeedScroller extends Scroller {
-
-        private int mDuration = 1000;
-
-
-        public FixedSpeedScroller(Context context, android.view.animation.Interpolator interpolator) {
-            super(context, interpolator);
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy) {
-
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-    }
 
     private class FEATURE_TASK extends AsyncTask<String, Void, String> {
 
@@ -1234,7 +1202,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 Log.d("prducts_api", param[0]);
                 logger.info("Feature Product api :" + response);
                 Log.d("prducts_", response + "");
@@ -1249,7 +1217,6 @@ public class MainActivity extends Drawer {
             Log.i("tag", "products_Hai--->  " + resp);
             if (resp != null) {
                 try {
-
 
                     feat_list = new ArrayList<>();
                     JSONObject json = new JSONObject(resp);
@@ -1273,18 +1240,17 @@ public class MainActivity extends Drawer {
                                     bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                                     bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getInt("rating"));
-                                    bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                                    bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
-                                    bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                    bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                    bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
+                                    bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
 
                                     Object dd = obj.get("option");
                                     optionPOS = new ArrayList<>();
-                                    if (dd instanceof JSONObject)
-                                    {
-                                        JSONObject jsonObject=obj.getJSONObject("option");
-                                        JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                        if (option.length()>0) {
+                                    if (dd instanceof JSONObject) {
+                                        JSONObject jsonObject = obj.getJSONObject("option");
+                                        JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                        if (option.length() > 0) {
 
 
                                             for (int k = 0; k < option.length(); k++) {
@@ -1296,9 +1262,7 @@ public class MainActivity extends Drawer {
                                             }
                                             bo.setSingleOptionPOS(optionPOS);
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         bo.setSingleOptionPOS(optionPOS);
                                     }
                                     feat_list.add(bo);
@@ -1306,8 +1270,8 @@ public class MainActivity extends Drawer {
 
                             }
 
-                            if (feat_list.size() != 0 && feat_list!=null) {
-                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list,1,1);
+                            if (feat_list != null && feat_list.size() != 0) {
+                                featuredProduct = new CommonAdapter(MainActivity.this, feat_list, 1, 1);
                                 horizontalListView.setAdapter(featuredProduct);
                                 horizontalListView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items1.setVisibility(View.GONE);
@@ -1318,7 +1282,7 @@ public class MainActivity extends Drawer {
                                 no_items1.setVisibility(View.VISIBLE);
                                 horizontalListView.setVisibility(View.GONE);
                                 view_all_feat.setVisibility(View.GONE);
-                              newly_preloader.setVisibility(View.GONE);
+                                newly_preloader.setVisibility(View.GONE);
                             }
 
 
@@ -1329,6 +1293,9 @@ public class MainActivity extends Drawer {
                             newly_preloader.setVisibility(View.GONE);
 
                         }
+
+                        GetCategoryTask cattask = new GetCategoryTask();
+                        cattask.execute(Appconstatants.CATEGORY_PRODUCT);
 
                         CartTask cartTask = new CartTask();
                         cartTask.execute(Appconstatants.cart_api);
@@ -1342,12 +1309,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
                                 }
@@ -1355,12 +1322,12 @@ public class MainActivity extends Drawer {
                             .show();
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
                             }
@@ -1385,7 +1352,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Best selling api:" + response);
                 Log.d("prducts_api", param[0]);
                 Log.d("prducts_", response + "");
@@ -1419,17 +1386,16 @@ public class MainActivity extends Drawer {
                                     bo.setProducturl(obj.isNull("thumb") ? "" : obj.getString("thumb"));
                                     bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                     bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
-                                    bo.setWeight(obj.isNull("weight")?"":obj.getString("weight"));
-                                    bo.setManufact(obj.isNull("manufacturer")?"":obj.getString("manufacturer"));
-                                    bo.setWish_list(obj.isNull("wish_list") ? false : obj.getBoolean("wish_list"));
+                                    bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                    bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
+                                    bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
                                     bo.setCart_list(false);
                                     Object dd = obj.get("option");
                                     optionPOS = new ArrayList<>();
-                                    if (dd instanceof JSONObject)
-                                    {
-                                        JSONObject jsonObject=obj.getJSONObject("option");
-                                        JSONArray option=jsonObject.getJSONArray("product_option_value");
-                                        if (option.length()>0) {
+                                    if (dd instanceof JSONObject) {
+                                        JSONObject jsonObject = obj.getJSONObject("option");
+                                        JSONArray option = jsonObject.getJSONArray("product_option_value");
+                                        if (option.length() > 0) {
 
 
                                             for (int k = 0; k < option.length(); k++) {
@@ -1441,9 +1407,7 @@ public class MainActivity extends Drawer {
                                             }
                                             bo.setSingleOptionPOS(optionPOS);
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         bo.setSingleOptionPOS(optionPOS);
                                     }
                                     list.add(bo);
@@ -1453,14 +1417,14 @@ public class MainActivity extends Drawer {
                             }
 
 
-                            if (list.size() != 0 && list!=null) {
-                                bestAdapters = new CommonAdapter(MainActivity.this, list,1,1);
+                            if (list != null && list.size() != 0) {
+                                bestAdapters = new CommonAdapter(MainActivity.this, list, 1, 1);
                                 best_selling_list.setAdapter(bestAdapters);
                                 best_selling_list.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                                 no_items.setVisibility(View.GONE);
                                 best_selling_list.setVisibility(View.VISIBLE);
                                 view_all_best.setVisibility(View.VISIBLE);
-                               most_preloader.setVisibility(View.GONE);
+                                most_preloader.setVisibility(View.GONE);
                                 best_selling_list.setVisibility(View.VISIBLE);
                             } else {
                                 no_items.setVisibility(View.VISIBLE);
@@ -1476,11 +1440,10 @@ public class MainActivity extends Drawer {
                             view_all_best.setVisibility(View.GONE);
 
                         }
-                        banner2(JazzyViewPager.TransitionEffect.Standard);
+                        banner2();
 
                         FEATURE_TASK feature_task = new FEATURE_TASK();
                         feature_task.execute(Appconstatants.Feature_api + "&limit=5");
-
 
 
                         loading.setVisibility(View.GONE);
@@ -1492,12 +1455,12 @@ public class MainActivity extends Drawer {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     GetBannerTask task1 = new GetBannerTask();
                                     task1.execute(Appconstatants.BANNER_IMAGEa);
 
@@ -1507,12 +1470,12 @@ public class MainActivity extends Drawer {
 
                 }
             } else {
-                loading_bar.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
                 Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 GetBannerTask task1 = new GetBannerTask();
                                 task1.execute(Appconstatants.BANNER_IMAGEa);
 
@@ -1524,40 +1487,23 @@ public class MainActivity extends Drawer {
         }
     }
 
-    private void setAppLocale(String localeCode){
-        try {
-
-
-            Resources resources = getResources();
-            DisplayMetrics dm = resources.getDisplayMetrics();
-            Configuration config = resources.getConfiguration();
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
-                config.setLocale(new Locale(localeCode.toLowerCase()));
-            } else {
-                config.locale = new Locale(localeCode.toLowerCase());
-            }
-            resources.updateConfiguration(config, dm);
-        }
-        catch (Exception e)
-        {
-            Log.d("dssf",e.toString()+"");
-        }
-    }
 
     private void change_langs(String languageToLoad) {
 
-        ArrayList<String> lang_list= LanguageList.getLang_list();
-        String set_lan="en";
+        ArrayList<String> lang_list = LanguageList.getLang_list();
+        String set_lan = "en";
+        if (lang_list != null && lang_list.size() > 0) {
 
-        for (int h=0;h<lang_list.size();h++)
-        {
-            if (languageToLoad.contains(lang_list.get(h)))
-            {
-                set_lan = lang_list.get(h);
+            for (int h = 0; h < lang_list.size(); h++) {
+                if (languageToLoad.contains(lang_list.get(h))) {
+                    set_lan = lang_list.get(h);
+
+                }
 
             }
-
         }
+
+
         Configuration config = new Configuration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 
@@ -1579,12 +1525,10 @@ public class MainActivity extends Drawer {
     }
 
 
-    public void cart_inc()
-    {
+    public void cart_inc() {
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
     }
-
 
 
     @Override
@@ -1592,20 +1536,20 @@ public class MainActivity extends Drawer {
         switch (requestCode) {
             case 212: {
 
-                if (grantResults[0]== PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i("reekkk", "Permission_granted");
 
                 } else {
                     Log.i("reeaaaaaa", "inside");
-                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
-                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                    Snackbar.make(findViewById(android.R.id.content), R.string.per_enable,
+                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.enable,
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent();
                                     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                                     intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    intent.setData(Uri.parse("package:" + getPackageName()));
+                                    intent.setData(Uri.parse(R.string.packge + getPackageName()));
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -1617,4 +1561,198 @@ public class MainActivity extends Drawer {
             }
         }
     }
+
+    private class WISH_LIST extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("Tag", "started");
+        }
+
+        protected String doInBackground(String... param) {
+            logger.info("WIsh list api" + param[0]);
+
+
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
+                logger.info("WIsh list api resp" + response);
+                Log.d("wish_api", param[0]);
+                Log.d("wish_res", response + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("tag", "products_Hai--->  " + resp);
+            if (resp != null) {
+                try {
+                    fav_item = new ArrayList<>();
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        JSONArray array = json.getJSONArray("data");
+
+                        if (array.length() > 0) {
+                            for (int h = 0; h < array.length(); h++) {
+                                JSONObject obj = array.getJSONObject(h);
+                                ProductsPO bo = new ProductsPO();
+                                bo.setProduct_id(obj.isNull("product_id") ? "" : obj.getString("product_id"));
+                                fav_item.add(bo);
+                            }
+
+                            if (list != null && list.size() > 0) {
+                                for (int u = 0; u < list.size(); u++) {
+                                    for (int h = 0; h < fav_item.size(); h++) {
+                                        if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            list.get(u).setWish_list(true);
+                                            break;
+                                        } else {
+                                            list.get(u).setWish_list(false);
+                                        }
+                                    }
+                                }
+                                bestAdapters.notifyDataSetChanged();
+                            }
+
+
+                            if (feat_list != null && feat_list.size() > 0) {
+                                for (int u = 0; u < feat_list.size(); u++) {
+                                    for (int h = 0; h < fav_item.size(); h++) {
+                                        if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
+                                            feat_list.get(u).setWish_list(true);
+                                            break;
+                                        } else {
+                                            feat_list.get(u).setWish_list(false);
+                                        }
+                                    }
+                                }
+                                featuredProduct.notifyDataSetChanged();
+                            }
+
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+            }
+        }
+    }
+
+
+    private class GetVersionCode extends AsyncTask<Void, String, String> {
+
+        @Override
+
+        protected String doInBackground(Void... voids) {
+
+            String newVersion = null;
+            String newsize = null;
+            try {
+                Document document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + MainActivity.this.getPackageName() + "&hl=en")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get();
+                if (document != null) {
+                    Elements element = document.getElementsContainingOwnText("Current Version");
+                    for (Element ele : element) {
+                        if (ele.siblingElements() != null) {
+                            Elements sibElemets = ele.siblingElements();
+                            for (Element sibElemet : sibElemets) {
+                                newVersion = sibElemet.text();
+                            }
+                        }
+                    }
+                    Elements element1 = document.getElementsContainingOwnText("Size");
+                    for (Element ele : element1) {
+                        if (ele.siblingElements() != null) {
+                            Elements sibElemets = ele.siblingElements();
+                            for (Element sibElemet : sibElemets) {
+                                newsize = sibElemet.text();
+                            }
+                        }
+                    }
+                } else {
+                    Log.i("gkhjfikj", document.toString() + "dsafsaff");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.i("gkhjfikj", e.toString() + "");
+            }
+            Log.d("update", "Current version " + currentVersion + "playstore version " + newVersion + "size" + newsize);
+            downloadsize = newsize;
+
+            return newVersion;
+        }
+
+
+        @Override
+
+        protected void onPostExecute(String onlineVersion) {
+
+            super.onPostExecute(onlineVersion);
+
+            if (onlineVersion != null && !onlineVersion.isEmpty()) {
+
+                if (Float.valueOf(currentVersion) < Float.valueOf(onlineVersion)) {
+
+                    showDetailpopup();
+
+                }
+            }
+
+            Log.d("update", "Current version " + currentVersion + "playstore version " + onlineVersion);
+
+        }
+    }
+
+
+    private void showDetailpopup() {
+        AlertDialog.Builder dial = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popUpView = inflater.inflate(R.layout.update_screen, null);
+        dial.setView(popUpView);
+        final AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity = Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.show();
+        TextView update = (TextView) popUpView.findViewById(R.id.update);
+        TextView nothanks = (TextView) popUpView.findViewById(R.id.nothanks);
+        TextView downsize = (TextView) popUpView.findViewById(R.id.downsize);
+        downsize.setText(downloadsize);
+        Log.d("sdfsfsd", "fjfgjfjfj");
+        update.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()));
+                startActivity(intent);
+                popupStore.dismiss();
+            }
+        });
+
+        nothanks.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                popupStore.dismiss();
+            }
+        });
+
+
+    }
+
+
 }

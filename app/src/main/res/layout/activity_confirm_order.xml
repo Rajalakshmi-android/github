@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fullayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:id="@+id/fullayout"
-    >
+    android:background="@color/app_bg_color1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,8 +32,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-
-
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -51,9 +48,10 @@
                                     android:layout_width="@dimen/dp20"
                                     android:layout_height="@dimen/dp20"
                                     android:layout_margin="@dimen/dp5"
-                                    android:src="@mipmap/add_address"
                                     android:autoMirrored="true"
-                                    android:rotationY="@integer/locale_mirror_flip"/>
+                                    android:contentDescription="@null"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:src="@mipmap/add_address" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -118,7 +116,6 @@
                                         android:textColor="@color/text_color1"
                                         android:textSize="@dimen/text14sp" />
 
-
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -133,6 +130,7 @@
                                     android:layout_width="@dimen/dp20"
                                     android:layout_height="@dimen/dp20"
                                     android:autoMirrored="true"
+                                    android:contentDescription="@null"
                                     android:rotationY="@integer/locale_mirror_flip"
                                     android:src="@mipmap/edit_arrow" />
 
@@ -157,14 +155,16 @@
                                 android:layout_width="@dimen/dp20"
                                 android:layout_height="@dimen/dp20"
                                 android:layout_margin="@dimen/dp5"
-                                android:src="@mipmap/payment_icon"
                                 android:autoMirrored="true"
-                                android:rotationY="@integer/locale_mirror_flip"/>
+                                android:contentDescription="@null"
+                                android:rotationY="@integer/locale_mirror_flip"
+                                android:src="@mipmap/payment_icon" />
 
                             <com.iamretailer.Common.CustomTextview
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:paddingEnd="@dimen/dp0"
                                 android:paddingStart="@dimen/dp5"
                                 android:text="@string/pay_method"
                                 android:textColor="@color/text_color1"
@@ -181,6 +181,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:paddingEnd="@dimen/dp0"
                                 android:paddingStart="@dimen/dp35"
                                 android:weightSum="@integer/three">
 
@@ -215,6 +216,7 @@
                                             android:layout_width="@dimen/dp20"
                                             android:layout_height="@dimen/dp20"
                                             android:autoMirrored="true"
+                                            android:contentDescription="@null"
                                             android:rotationY="@integer/locale_mirror_flip"
                                             android:src="@mipmap/edit_arrow" />
 
@@ -244,6 +246,7 @@
                                 android:layout_height="@dimen/dp20"
                                 android:layout_margin="@dimen/dp5"
                                 android:autoMirrored="true"
+                                android:contentDescription="@null"
                                 android:rotationY="@integer/locale_mirror_flip"
                                 android:src="@mipmap/confirm_cart" />
 
@@ -251,6 +254,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:paddingEnd="@dimen/dp0"
                                 android:paddingStart="@dimen/dp5"
                                 android:text="@string/items"
                                 android:textColor="@color/text_color1"
@@ -263,6 +267,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp10"
                             android:orientation="vertical"
+                            android:paddingEnd="@dimen/dp0"
                             android:paddingStart="@dimen/dp5" />
 
                         <View
@@ -271,15 +276,15 @@
                             android:background="@color/line_color" />
 
 
-
                         <LinearLayout
                             android:id="@+id/promo_code"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/dp10"
-                            android:gravity="center"
                             android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:layout_marginBottom="@dimen/dp5"
+                            android:gravity="center"
                             android:orientation="horizontal"
                             android:weightSum="@integer/three">
 
@@ -296,6 +301,7 @@
                                     android:layout_gravity="center"
                                     android:layout_margin="@dimen/dp5"
                                     android:autoMirrored="true"
+                                    android:contentDescription="@null"
                                     android:rotationY="@integer/locale_mirror_flip"
                                     android:src="@mipmap/promo_tag_unfill" />
 
@@ -312,8 +318,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/add_promo_code"
                                     android:textColor="@color/prom_tex"
-                                    android:textSize="@dimen/text16sp"
-                                    />
+                                    android:textSize="@dimen/text16sp" />
 
                             </LinearLayout>
 
@@ -323,9 +328,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center"
                                 android:layout_weight="@integer/one"
-                                android:gravity="end|center_vertical"
-
-                                >
+                                android:gravity="end|center_vertical">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -337,8 +340,6 @@
                                         android:id="@+id/promo_circle"
                                         android:layout_width="@dimen/dp30"
                                         android:layout_height="@dimen/dp30"
-                                        android:autoMirrored="true"
-                                        android:rotationY="@integer/locale_mirror_flip"
                                         android:src="@mipmap/promo_circle_unfil" />
                                 </LinearLayout>
 
@@ -348,6 +349,89 @@
                         </LinearLayout>
 
                         <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp.4dp"
+                            android:background="@color/line_color" />
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/gift_coupon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="@integer/three">
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:layout_weight="@dimen/value0.4">
+
+                                <ImageView
+                                    android:id="@+id/gift_tag"
+                                    android:layout_width="@dimen/dp25"
+                                    android:layout_height="@dimen/dp25"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="@dimen/dp5"
+                                    android:autoMirrored="true"
+                                    android:contentDescription="@null"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:src="@mipmap/promo_tag_unfill" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="@dimen/value_1_6">
+
+                                <com.iamretailer.Common.CustomTextview1
+                                    android:id="@+id/gift_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/add_gift_code"
+                                    android:textColor="@color/prom_tex"
+                                    android:textSize="@dimen/text16sp" />
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center"
+                                android:layout_weight="@integer/one"
+                                android:gravity="end|center_vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|center_vertical"
+                                    android:layout_marginEnd="@dimen/dp30">
+
+                                    <ImageView
+                                        android:id="@+id/gift_circle"
+                                        android:layout_width="@dimen/dp30"
+                                        android:layout_height="@dimen/dp30"
+                                        android:autoMirrored="true"
+                                        android:contentDescription="@null"
+                                        android:rotationY="@integer/locale_mirror_flip"
+                                        android:src="@mipmap/promo_circle_unfil" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp.4dp"
                             android:layout_marginTop="@dimen/dp10"
@@ -414,7 +498,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp100"
                     android:layout_gravity="bottom"
-                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <View
@@ -446,19 +529,20 @@
                                     android:text="@string/total"
                                     android:textColor="@color/total_text"
                                     android:textSize="@dimen/text13sp" />
+
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start|center_vertical">
 
-                                <com.iamretailer.Common.CustomTextview
-                                    android:id="@+id/subtotal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=""
-                                    android:textColor="@color/amt"
-                                    android:textSize="@dimen/text20sp"
-                                    android:textStyle="bold" />
+                                    <com.iamretailer.Common.CustomTextview
+                                        android:id="@+id/subtotal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text=""
+                                        android:textColor="@color/amt"
+                                        android:textSize="@dimen/text20sp"
+                                        android:textStyle="bold" />
 
 
                                 </LinearLayout>
@@ -506,7 +590,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:gravity="bottom"
                                         android:text="@string/check"
-                                        android:textColor="@color/white"
+                                        android:textColor="@color/button_textcolor"
                                         android:textSize="@dimen/text18sp"
                                         android:textStyle="bold" />
 
@@ -515,6 +599,7 @@
                                         android:layout_height="@dimen/dp23"
                                         android:layout_marginStart="@dimen/dp4"
                                         android:autoMirrored="true"
+                                        android:contentDescription="@null"
                                         android:rotationY="@integer/locale_mirror_flip"
                                         android:src="@mipmap/but_cart" />
 
@@ -562,8 +647,7 @@
                     android:layout_marginTop="@dimen/dp60" />
             </FrameLayout>
 
-            <include
-                layout="@layout/loading" />
+            <include layout="@layout/loading" />
 
         </FrameLayout>
     </LinearLayout>

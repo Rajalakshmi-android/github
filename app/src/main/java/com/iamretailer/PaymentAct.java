@@ -18,39 +18,27 @@ import com.logentries.android.AndroidLogger;
 import stutzen.co.network.Connection;
 
 public class PaymentAct extends AppCompatActivity {
-    WebView webView;
-
-    LinearLayout menu;
-    TextView header;
-    LinearLayout cart_items;
-    DBController controller;
-    FrameLayout loading,error_network;
-    AndroidLogger logger;
-    LinearLayout loading_bar;
-    FrameLayout fullayout;
-
-
+    private WebView webView;
+    private FrameLayout loading;
+    private AndroidLogger logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        controller=new DBController(PaymentAct.this);
-        Appconstatants.sessiondata=controller.getSession();
-        Appconstatants.Lang=controller.get_lang_code();
-        Appconstatants.CUR=controller.getCurCode();
-        menu=(LinearLayout)findViewById(R.id.menu);
-        header=(TextView)findViewById(R.id.header);
-        loading=(FrameLayout)findViewById(R.id.loading);
-        error_network=(FrameLayout)findViewById(R.id.error_network);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        DBController controller = new DBController(PaymentAct.this);
+        Appconstatants.sessiondata = controller.getSession();
+        Appconstatants.Lang = controller.get_lang_code();
+        Appconstatants.CUR = controller.getCurCode();
+        LinearLayout menu = findViewById(R.id.menu);
+        TextView header = findViewById(R.id.header);
+        loading = findViewById(R.id.loading);
         header.setText(getResources().getString(R.string.pay));
-        cart_items=(LinearLayout)findViewById(R.id.cart_items);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
         cart_items.setVisibility(View.GONE);
-        webView=(WebView)findViewById(R.id.webview);
-        loading_bar=(LinearLayout)findViewById(R.id.loading_bar);
-        fullayout=(FrameLayout)findViewById(R.id.fullayout);
+        webView = findViewById(R.id.webview);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,8 +48,7 @@ public class PaymentAct extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-       // webView.loadUrl(Appconstatants.PAYMENT);
-        PAYMENT payment=new PAYMENT();
+        PAYMENT payment = new PAYMENT();
         payment.execute(Appconstatants.PAYMENT);
 
     }
@@ -79,7 +66,7 @@ public class PaymentAct extends AppCompatActivity {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang,Appconstatants.CUR,PaymentAct.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, PaymentAct.this);
                 logger.info("payment--> api:" + response);
                 Log.d("payment-->api", param[0]);
                 Log.d("payment-->resp", response + "");
@@ -94,53 +81,9 @@ public class PaymentAct extends AppCompatActivity {
 
             loading.setVisibility(View.GONE);
             webView.loadDataWithBaseURL(null, resp, "text/html", "utf-8", null);
-            /*Log.i("tag", "payment-->" + resp);
-            if (resp != null) {
-                try {
-                    JSONObject json = new JSONObject(resp);
-                    if (json.getInt("success") == 1) {
 
-
-                        loading.setVisibility(View.GONE);
-                    } else {
-                        JSONArray array = json.getJSONArray("error");
-                        Toast.makeText(PaymentAct.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                            .setAction(R.string.retry, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
-                                    PAYMENT payment=new PAYMENT();
-                                    payment.execute(Appconstatants.PAYMENT);
-
-                                }
-                            })
-                            .show();
-
-                }
-            } else {
-                loading_bar.setVisibility(View.GONE);
-                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
-                        .setAction(R.string.retry, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                loading_bar.setVisibility(View.VISIBLE);
-                                PAYMENT payment=new PAYMENT();
-                                payment.execute(Appconstatants.PAYMENT);
-                            }
-                        })
-                        .show();
-
-            }*/
         }
     }
-
 
 
 }

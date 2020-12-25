@@ -4,7 +4,6 @@ public class SingleOptionPO {
     String imga_url;
     String name;
     String price_format;
-
     int product_option_value_id;
     int option_value_id;
     int quantity;
@@ -30,7 +29,7 @@ public class SingleOptionPO {
         this.type = type;
     }
 
-    String rev_author,rev_text,rev_date;
+    String rev_author, rev_text, rev_date;
     int rating;
 
     public int getRating() {
@@ -57,7 +56,6 @@ public class SingleOptionPO {
         this.rev_text = rev_text;
     }
 
-
     public String getRev_date() {
         return rev_date;
     }
@@ -81,8 +79,6 @@ public class SingleOptionPO {
     public void setPrice_tax(double price_tax) {
         this.price_tax = price_tax;
     }
-
-
 
     public String getImga_url() {
         return imga_url;
@@ -131,15 +127,5 @@ public class SingleOptionPO {
     public void setPrice(double price) {
         this.price = price;
     }
-    public String getPrice_format() {
-        return price_format;
-    }
-
-    public void setPrice_format(String price_format) {
-        this.price_format = price_format;
-    }
-
-
-
 
 }

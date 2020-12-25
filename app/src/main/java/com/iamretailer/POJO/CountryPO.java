@@ -2,7 +2,7 @@ package com.iamretailer.POJO;
 
 public class CountryPO {
 
-    String cont_id,count_name,count_iso_code_2,count_iso_code_3,zone_id;
+    String cont_id, count_name, zone_id;
     int count_id;
 
     public String getZone_id() {
@@ -37,19 +37,5 @@ public class CountryPO {
         this.count_name = count_name;
     }
 
-    public String getCount_iso_code_2() {
-        return count_iso_code_2;
-    }
 
-    public void setCount_iso_code_2(String count_iso_code_2) {
-        this.count_iso_code_2 = count_iso_code_2;
-    }
-
-    public String getCount_iso_code_3() {
-        return count_iso_code_3;
-    }
-
-    public void setCount_iso_code_3(String count_iso_code_3) {
-        this.count_iso_code_3 = count_iso_code_3;
-    }
 }

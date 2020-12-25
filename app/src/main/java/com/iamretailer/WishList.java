@@ -3,7 +3,6 @@ package com.iamretailer;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,22 +29,19 @@ import com.iamretailer.POJO.ProductsPO;
 
 import stutzen.co.network.Connection;
 
-
 public class WishList extends Language {
 
-    LinearLayout back, cart_items;
-    TextView cart_count;
-    ListView wish_list;
+    private TextView cart_count;
+    private ListView wish_list;
     private ArrayList<ProductsPO> feat_list;
-    FrameLayout error_network, loading, fullayout;
-    LinearLayout loading_bar ,retry;
-    TextView errortxt1, errortxt2;
-    Wish_list_adapter wishListAdapter;
-    Button  shop;
-    TextView header;
-    FrameLayout no_items;
-    AndroidLogger logger;
-    DBController dbController;
+    private FrameLayout error_network;
+    private FrameLayout loading;
+    private FrameLayout fullayout;
+    private FrameLayout success;
+    private TextView errortxt1;
+    private TextView errortxt2;
+    private FrameLayout no_items;
+    private AndroidLogger logger;
 
 
     @Override
@@ -53,25 +49,25 @@ public class WishList extends Language {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
         CommonFunctions.updateAndroidSecurityProvider(this);
-        logger=AndroidLogger.getLogger(getApplicationContext(),Appconstatants.LOG_ID,false);
-        back = (LinearLayout) findViewById(R.id.menu);
-        cart_items = (LinearLayout) findViewById(R.id.cart_items);
-        cart_count = (TextView) findViewById(R.id.cart_count);
-        no_items = (FrameLayout) findViewById(R.id.no_items);
-        wish_list = (ListView) findViewById(R.id.wish_list);
-        error_network = (FrameLayout) findViewById(R.id.error_network);
-        loading = (FrameLayout) findViewById(R.id.loading);
-        loading_bar = (LinearLayout) findViewById(R.id.loading_bar);
-        fullayout = (FrameLayout) findViewById(R.id.fullayout);
-        errortxt1 = (TextView) findViewById(R.id.errortxt1);
-        errortxt2 = (TextView) findViewById(R.id.errortxt2);
-        header = (TextView) findViewById(R.id.header);
+        logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
+        LinearLayout back = findViewById(R.id.menu);
+        LinearLayout cart_items = findViewById(R.id.cart_items);
+        cart_count = findViewById(R.id.cart_count);
+        no_items = findViewById(R.id.no_items);
+        wish_list = findViewById(R.id.wish_list);
+        error_network = findViewById(R.id.error_network);
+        success = findViewById(R.id.success);
+        loading = findViewById(R.id.loading);
+        fullayout = findViewById(R.id.fullayout);
+        errortxt1 = findViewById(R.id.errortxt1);
+        errortxt2 = findViewById(R.id.errortxt2);
+        TextView header = findViewById(R.id.header);
         header.setText(R.string.wish_list);
-        dbController=new DBController(WishList.this);
-        Appconstatants.Lang=dbController.get_lang_code();
-        Appconstatants.CUR=dbController.getCurCode();
-        retry = (LinearLayout) findViewById(R.id.retry);
-        shop = (Button) findViewById(R.id.shop);
+        DBController dbController = new DBController(WishList.this);
+        Appconstatants.Lang = dbController.get_lang_code();
+        Appconstatants.CUR = dbController.getCurCode();
+        LinearLayout retry = findViewById(R.id.retry);
+        Button shop = findViewById(R.id.shop);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +104,7 @@ public class WishList extends Language {
             @Override
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
+                success.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
@@ -139,14 +136,14 @@ public class WishList extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("WIsh list api"+param[0]);
+            logger.info("WIsh list api" + param[0]);
 
 
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,WishList.this);
-                logger.info("WIsh list api resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, WishList.this);
+                logger.info("WIsh list api resp" + response);
                 Log.d("wish_api", param[0]);
                 Log.d("wish_res", response + "");
             } catch (Exception e) {
@@ -164,7 +161,6 @@ public class WishList extends Language {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         JSONArray array = json.getJSONArray("data");
-                        Log.d("wish_res", "ddsadsa");
 
                         if (array.length() > 0) {
                             for (int h = 0; h < array.length(); h++) {
@@ -179,11 +175,14 @@ public class WishList extends Language {
                             }
                             if (feat_list.size() != 0) {
 
-                                wishListAdapter = new Wish_list_adapter(WishList.this, R.layout.wish_list_item, feat_list);
+                                Wish_list_adapter wishListAdapter = new Wish_list_adapter(WishList.this, R.layout.wish_list_item, feat_list);
                                 wish_list.setAdapter(wishListAdapter);
 
                             }
                             no_items.setVisibility(View.GONE);
+                            wish_list.setVisibility(View.VISIBLE);
+
+
                         } else {
                             no_items.setVisibility(View.VISIBLE);
                             wish_list.setVisibility(View.GONE);
@@ -192,25 +191,29 @@ public class WishList extends Language {
 
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.GONE);
+                        success.setVisibility(View.VISIBLE);
 
                     } else {
                         loading.setVisibility(View.GONE);
+                        success.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
                         errortxt1.setText(R.string.error_msg);
                         JSONArray array = json.getJSONArray("error");
-                        errortxt1.setText(array.getString(0) + "");
+                        String error = array.getString(0) + "";
+                        errortxt1.setText(error);
                         Toast.makeText(WishList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    loading_bar.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
+                    success.setVisibility(View.GONE);
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loading_bar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.VISIBLE);
                                     WISH_LIST wish_list = new WISH_LIST();
                                     wish_list.execute(Appconstatants.Wishlist_Get);
 
@@ -223,6 +226,7 @@ public class WishList extends Language {
                 errortxt1.setText(R.string.no_con);
                 errortxt2.setText(R.string.check_network);
                 error_network.setVisibility(View.VISIBLE);
+                success.setVisibility(View.GONE);
 
             }
 
@@ -230,7 +234,7 @@ public class WishList extends Language {
     }
 
 
-    public class CartTask extends AsyncTask<String, Void, String> {
+    class CartTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -238,14 +242,14 @@ public class WishList extends Language {
         }
 
         protected String doInBackground(String... param) {
-            logger.info("Cart api:"+param[0]);
+            logger.info("Cart api:" + param[0]);
 
             String response = null;
             try {
                 Connection connection = new Connection();
 
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,WishList.this);
-                logger.info("Cart resp"+response);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, WishList.this);
+                logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
             } catch (Exception e) {
@@ -265,7 +269,7 @@ public class WishList extends Language {
                     if (json.getInt("success") == 1) {
                         Object dd = json.get("data");
                         if (dd instanceof JSONArray) {
-                            cart_count.setText(0 + "");
+                            cart_count.setText(String.valueOf(0));
 
                         } else if (dd instanceof JSONObject) {
 
@@ -276,7 +280,7 @@ public class WishList extends Language {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
                                 qty = qty + (Integer.parseInt(jsonObject1.isNull("quantity") ? "" : jsonObject1.getString("quantity")));
                             }
-                            cart_count.setText(qty + "");
+                            cart_count.setText(String.valueOf(qty));
                         }
                     } else {
                         JSONArray array = json.getJSONArray("error");
@@ -292,8 +296,7 @@ public class WishList extends Language {
         }
     }
 
-    public void wish_list()
-    {
+    public void wish_list() {
         WISH_LIST wish_list = new WISH_LIST();
         wish_list.execute(Appconstatants.Wishlist_Get);
     }

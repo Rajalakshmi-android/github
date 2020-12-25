@@ -6,20 +6,19 @@
     android:gravity="center"
     android:orientation="vertical">
 
-
     <com.iamretailer.Common.CustomTextview1
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingTop="@dimen/dp3"
-        android:paddingBottom="@dimen/dp3"
-        android:text="@string/product"
-        android:textSize="@dimen/text14sp"
-        android:paddingStart="@dimen/dp7"
-        android:paddingEnd="@dimen/dp7"
         android:background="@android:color/transparent"
-        android:textColor="@color/qty_tex" />
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp3"
+        android:paddingEnd="@dimen/dp7"
+        android:paddingStart="@dimen/dp7"
+        android:paddingTop="@dimen/dp3"
+        android:text="@string/product"
+        android:textColor="@color/qty_tex"
+        android:textSize="@dimen/text14sp" />
 
 </LinearLayout>

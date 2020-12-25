@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_bg_color"
     android:focusableInTouchMode="true"
+    android:layoutDirection="locale"
     android:orientation="vertical">
 
     <LinearLayout
@@ -36,31 +37,13 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
 
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white">
-
-                            <LinearLayout
-                                android:id="@+id/search_loading"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp10"
-                                android:gravity="center"
-                                android:visibility="gone">
-
-                                <ProgressBar
-                                    android:padding="@dimen/dp5"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_gravity="center"
-                                    android:indeterminate="true"
-                                    android:indeterminateDrawable="@drawable/custom_progress" />
-                            </LinearLayout>
+                            android:layout_height="match_parent">
 
                             <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/no_items"
@@ -80,6 +63,7 @@
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:background="@null"
+                                android:layoutDirection="locale"
                                 android:textColor="@color/app_text_color"
                                 android:textSize="@dimen/text13sp"
                                 tools:ignore="WebViewLayout" />
@@ -105,7 +89,6 @@
                 </FrameLayout>
 
             </FrameLayout>
-
 
         </FrameLayout>
     </LinearLayout>

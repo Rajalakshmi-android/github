@@ -7,55 +7,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <com.iamretailer.Common.CustomTextview1
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/black"
+            android:textSize="@dimen/text20sp" />
 
-            android:textSize="@dimen/text20sp"
-           android:layout_marginTop="@dimen/dp10"
-            />
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="@dimen/dp10"
-            android:background="@color/app_view_color"/>
+            android:background="@color/app_view_color" />
 
         <com.iamretailer.Common.CustomTextview
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp10"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:gravity="center"
             android:text="@string/your_form_submitted_successfully"
             android:textColor="@color/app_text_color"
             android:textSize="@dimen/text17sp" />
+
         <LinearLayout
+            android:id="@+id/okay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp15"
             android:layout_marginBottom="@dimen/dp10"
-            android:id="@+id/okay"
+            android:layout_marginTop="@dimen/dp15"
             android:background="@drawable/buy_back">
+
             <com.iamretailer.Common.CustomTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ok"
-                android:paddingStart="@dimen/dp30"
+                android:paddingBottom="@dimen/dp5"
                 android:paddingEnd="@dimen/dp30"
+                android:paddingStart="@dimen/dp30"
                 android:paddingTop="@dimen/dp5"
+                android:text="@string/ok"
+                android:textColor="@color/button_textcolor"
                 android:textSize="@dimen/text18sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:paddingBottom="@dimen/dp5"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

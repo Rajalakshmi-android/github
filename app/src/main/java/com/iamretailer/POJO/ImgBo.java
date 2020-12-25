@@ -2,24 +2,24 @@ package com.iamretailer.POJO;
 
 public class ImgBo {
 
-	private boolean imgSel;
-	
-	private String url;
+    private boolean imgSel;
 
-	public boolean isImgSel() {
-		return imgSel;
-	}
+    private String url;
 
-	public void setImgSel(boolean imgSel) {
-		this.imgSel = imgSel;
-	}
+    public boolean isImgSel() {
+        return imgSel;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setImgSel(boolean imgSel) {
+        this.imgSel = imgSel;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
 }

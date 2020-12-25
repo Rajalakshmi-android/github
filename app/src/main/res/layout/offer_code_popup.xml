@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp30"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/hello"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/offerpopupshadow"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+            <ImageView
+                android:layout_marginEnd="@dimen/dp15"
+                android:id="@+id/close"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_gravity="end"
+                android:src="@mipmap/del"
+                app:tint="@color/view">
+            </ImageView></LinearLayout>
+
+        <ImageView
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp10"
+            android:id="@+id/coupon_image"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/dp180"
+            android:src="@mipmap/giftc">
+        </ImageView>
+        <TextView
+            android:id="@+id/coupon_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:layout_gravity="center"
+            android:text="@string/SPECIAL_PRICE"/>
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text11sp"
+            android:layout_gravity="center"
+            android:text="@string/offer_range"/>
+
+        <com.cooltechworks.views.ScratchTextView
+            android:id="@+id/scratch"
+            android:layout_width="@dimen/dp200"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp10"
+            android:gravity="center"
+            android:textIsSelectable="true"
+            android:text="@string/offercode"
+            android:textSize="@dimen/text30sp"
+            android:textStyle="bold" />
+        />
+        <TextView
+            android:layout_marginTop="@dimen/dp3"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/dp15"
+            android:layout_height="wrap_content"
+            android:text="@string/scratch"
+            android:layout_gravity="center">
+
+        </TextView>
+
+        <TextView
+            android:background="@drawable/copybutton"
+            android:id="@+id/copycode"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp20"
+            android:textSize="@dimen/text15sp"
+            android:textColor="@color/white"
+            android:layout_width="@dimen/dp210"
+            android:gravity="center"
+            android:layout_height="@dimen/dp30"
+            android:text="@string/copy_code"
+            android:clickable="true"
+            android:layout_gravity="center">
+
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>

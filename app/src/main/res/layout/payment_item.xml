@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_marginBottom="@dimen/dp5"
+        android:id="@+id/paylayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp5"
+        android:layout_marginTop="@dimen/dp20"
         android:orientation="horizontal"
-        android:weightSum="@integer/one"
-        android:id="@+id/paylayout"
-        >
+        android:weightSum="@integer/one">
 
         <com.iamretailer.Common.CustomTextview1
+            android:id="@+id/payment_text"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
             android:layout_weight="0.7"
             android:gravity="start"
-            android:layout_gravity="start|center_vertical"
-            android:id="@+id/payment_text"
-            android:layout_height="wrap_content"
             android:text="@string/update_changes"
             android:textColor="@color/cart_text"
-            android:textSize="@dimen/text14sp"
-            />
+            android:textSize="@dimen/text14sp" />
+
         <LinearLayout
-            android:layout_marginRight="@dimen/dp5"
-
             android:layout_width="0dp"
-            android:layout_weight="0.3"
-            android:layout_gravity="end|center_vertical"
-            android:gravity="end"
             android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="@dimen/dp5"
+            android:layout_weight="0.3"
+            android:gravity="end">
 
-            >
             <ImageView
+                android:id="@+id/paymentimg"
                 android:layout_width="@dimen/dp35"
                 android:layout_height="@dimen/dp30"
-                android:layout_marginTop="@dimen/dp6"
                 android:layout_marginBottom="@dimen/dp6"
-                android:id="@+id/paymentimg"/>
+                android:layout_marginTop="@dimen/dp6"
+                android:contentDescription="@null" />
         </LinearLayout>
 
     </LinearLayout>
+
     <View
-        android:background="@color/line_pay"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.5dp"
+        android:background="@color/line_pay" />
 
 
 </LinearLayout>
