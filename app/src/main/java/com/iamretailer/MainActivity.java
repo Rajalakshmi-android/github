@@ -1,9 +1,12 @@
 package com.iamretailer;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooltechworks.views.ScratchTextView;
 import com.iamretailer.Adapter.BrandzAdapter;
 import com.iamretailer.Adapter.CommonAdapter;
 import com.iamretailer.Adapter.DemoInfiniteAdapter;
@@ -155,6 +159,7 @@ public class MainActivity extends Drawer {
         category = findViewById(R.id.category);
         whatsapp=findViewById(R.id.whatsapp);
         whats=findViewById(R.id.whats_img);
+       // offerPopup(MainActivity.this);
 
         cate_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -878,6 +883,8 @@ public class MainActivity extends Drawer {
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                         bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
+                                        bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                        bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         optionPOS = new ArrayList<>();
                                         if (dd instanceof JSONArray) {
@@ -920,6 +927,8 @@ public class MainActivity extends Drawer {
                                         bo.setQty(obj.isNull("quantity") ? 0 : obj.getInt("quantity"));
                                         bo.setP_rate(obj.isNull("rating") ? 0 : obj.getDouble("rating"));
                                         bo.setWish_list(!obj.isNull("wish_list") && obj.getBoolean("wish_list"));
+                                        bo.setWeight(obj.isNull("weight") ? "" : obj.getString("weight"));
+                                        bo.setManufact(obj.isNull("manufacturer") ? "" : obj.getString("manufacturer"));
                                         JSONArray dd = obj.getJSONArray("option");
                                         optionPOS = new ArrayList<>();
                                         if (dd instanceof JSONArray) {
@@ -1744,5 +1753,6 @@ public class MainActivity extends Drawer {
 
 
     }
+
 
 }

@@ -24,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -31,10 +32,12 @@ import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.logentries.android.AndroidLogger;
+import com.iamretailer.POJO.OrdersPO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import stutzen.co.network.Connection;
@@ -42,10 +45,13 @@ import stutzen.co.network.Connection;
 public class StoreLocator extends FragmentActivity implements OnMapReadyCallback {
 
 
-    String[] saddress = {"Sivakasi", "Dindigul", "Madurai", "Chennai", "Tirunelveli", "Coimbatore", "Kodaikanal", "Nanjangud"};
-    private final int[] simg = {R.mipmap.rsz_blue, R.mipmap.rsz_moon, R.mipmap.festival, R.mipmap.rsz_moon, R.mipmap.rsz_blue, R.mipmap.festival, R.mipmap.festival, R.mipmap.rsz_blue};
+
     private AndroidLogger logger;
+    private String latitude,langtitude;
     private TextView cart_count;
+    private ArrayList<OrdersPO> storelist;
+    private ArrayList<OrdersPO> loactionlist;
+
 
 
     @Override
@@ -70,7 +76,22 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
         Appconstatants.sessiondata = dbController.getSession();
         Appconstatants.Lang = dbController.get_lang_code();
         Appconstatants.CUR = dbController.getCurCode();
+        storelist = dbController.get_store_list();
+        loactionlist=new ArrayList<>();
+        if(storelist!=null&&storelist.size()>0){
+            for(int i=0;i<storelist.size();i++){
+                if(storelist.get(i).getGeocode()!=null&&!storelist.get(i).getGeocode().equalsIgnoreCase("")){
+                    String val=storelist.get(i).getGeocode();
+                    String[] separated = val.split(",");
+                   OrdersPO bo= new OrdersPO();
+                   bo.setLatitude(separated[0]);
+                   bo.setLangtitude(separated[1]);
+                   loactionlist.add(bo);
 
+                }
+            }
+
+        }
         cart_items.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,21 +123,28 @@ public class StoreLocator extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        for (int i = 0; i < Appconstatants.lat.length; i++) {
+        for (int i = 0; i < loactionlist.size(); i++) {
+            latitude=loactionlist.get(0).getLatitude();
+            langtitude=loactionlist.get(0).getLangtitude();
             Marker marker = googleMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(Appconstatants.lat[i]), Double.parseDouble(Appconstatants.lng[i])))
-                    .title(saddress[i])
+                    .position(new LatLng(Double.parseDouble(loactionlist.get(i).getLatitude()), Double.parseDouble(loactionlist.get(i).getLangtitude())))
                     .icon(BitmapDescriptorFactory
                             .fromBitmap(createBitmapFromLayoutWithText(StoreLocator.this, R.mipmap.rsz_destiny))));
         }
 
+
+
         if (googleMap != null) {
+            LatLng location = new LatLng(Double.parseDouble(latitude), Double.parseDouble(langtitude));
             googleMap.getUiSettings().setZoomControlsEnabled(false);
+            CameraPosition.Builder builder = CameraPosition.builder();
+            builder.target(location);
+            builder.zoom(9);
+            CameraPosition cameraPosition = builder.build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+            googleMap.moveCamera(cameraUpdate);
             googleMap.setTrafficEnabled(true);
-            CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(9.925201, 78.119775));
-            CameraUpdate zoom = CameraUpdateFactory.zoomTo(8);
-            googleMap.moveCamera(center);
-            googleMap.animateCamera(zoom);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(latitude), Double.parseDouble(langtitude)) , 9.0f));
         }
 
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

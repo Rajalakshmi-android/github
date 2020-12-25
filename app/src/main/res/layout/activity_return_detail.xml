@@ -12,9 +12,10 @@
         android:id="@+id/success"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
+            android:id="@+id/linerly"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dp60"
@@ -139,6 +140,9 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/order_id1"
+                                            android:singleLine="true"
+                                            android:maxLength="20"
+                                            android:ellipsize="end"
                                             android:textColor="@color/button_textcolor"
                                             android:textSize="@dimen/text13sp" />
 
@@ -604,6 +608,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/calllay"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp60"
             android:layout_gravity="bottom"

@@ -243,7 +243,7 @@
     <string name="app_not">App not installed on your device</string>
     <string name="user_not">Please Login to view your Details</string>
     <string name="tel">tel:</string>
-    <string name="phone_num">+918525990990</string>
+    <string name="phone_num">+917639001662</string>
     <string name="no_items_yet">No items yet</string>
     <string name="wish_add">Item Added to Wishlist</string>
     <string name="dele_wish">Wish List Deleted Successfully</string>
@@ -274,7 +274,9 @@
     <string name="wal_success">Paid</string>
     <string name="p_payment">Proceed Payment</string>
     <string name="c_w_balance">Current Wallet Balance:</string>
-
+    <string name="offer_range">75% - 20% OFF ON YOUR FIRST PURCHASE</string>
+    <string name="offercode">555555</string>
+    <string name="scratch">Scratch to get the code</string>
     <string name="your_wallet_amount">Your Wallet Amount:</string>
     <string name="mail_id">please enter the mail id</string>
     <string name="pass_word">please enter the password</string>
@@ -400,7 +402,7 @@
     <string name="no_categories_found">No Categories found</string>
     <string name="no_data_found">No Data found !!</string>
     <string name="no_filter">No filter found</string>
-    <string name="pay_msg">Payment Transaction Failed .If any amount deducted from your account.Please contact +918525990990</string>
+    <string name="pay_msg">Payment Transaction Failed .If any amount deducted from your account.Please contact us</string>
     <string name="pay_failed">Payment Transaction Failed </string>
     <string name="pay_fail">Payment failed:</string>
     <string name="pay_sucess">Payment Successful:</string>
@@ -469,5 +471,12 @@
     <string name="coupon_remove">Coupon code removed</string>
     <string name="coupon_delete">Do you want to coupon code delete?</string>
 
+    //yellow
+    <string name="search_product">Search Products</string>
+    <string name="SPECIAL_PRICE">SPECIAL PRICE</string>
+    <string name="copy_code">COPY THE COUPON CODE</string>
+    <string name="our_brand">Our Brands</string>
+    <string name="night_day_cracker">Featured Crackers</string>
+    <string name="our_best">Our Best Selling</string>
 
 </resources>

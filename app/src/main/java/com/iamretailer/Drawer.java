@@ -2,9 +2,13 @@ package com.iamretailer;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -21,12 +25,15 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooltechworks.views.ScratchTextView;
 import com.facebook.login.LoginManager;
+import com.iamretailer.Adapter.AddressAdapter;
 import com.iamretailer.Adapter.CurAdapter;
 import com.iamretailer.Adapter.LangAdapter;
 import com.iamretailer.Common.Appconstatants;
@@ -34,10 +41,12 @@ import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.Common.LanguageList;
 import com.iamretailer.Common.LocaleHelper;
+import com.iamretailer.POJO.AddressPO;
 import com.iamretailer.POJO.CurPO;
 import com.iamretailer.POJO.LangPO;
 import com.logentries.android.AndroidLogger;
-
+import com.squareup.picasso.Picasso;
+import com.iamretailer.POJO.OrdersPO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -126,7 +135,7 @@ public class Drawer extends Language {
         }else{
             returns.setVisibility(View.GONE);
         }
-        if (Appconstatants.store_locator == 1) {
+        if (Appconstatants.store_locator == 1 && dbCon.get_store_lists() > 0) {
             store.setVisibility(View.VISIBLE);
         } else {
             store.setVisibility(View.GONE);
@@ -166,6 +175,133 @@ public class Drawer extends Language {
 
     }
 
+    public void offerPopup(Context context) {
+        CouponTask coupon = new CouponTask(context);
+        coupon.execute();
+
+
+    }
+    public void offerPopupshow(Context context, String image, String coupon_code, String coupon_title, String amount) {
+
+        android.app.AlertDialog.Builder dial = new android.app.AlertDialog.Builder(context);
+        View popUpView = View.inflate(context,R.layout.offer_code_popup, null);
+        ImageView imageView=popUpView.findViewById(R.id.close);
+        TextView textView=popUpView.findViewById(R.id.copycode);
+        TextView coupon_price=popUpView.findViewById(R.id.coupon_price);
+        TextView amounts=popUpView.findViewById(R.id.amount);
+        ImageView coupon_image=popUpView.findViewById(R.id.coupon_image);
+        dial.setView(popUpView);
+        final android.app.AlertDialog popupStore = dial.create();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(popupStore.getWindow().getAttributes());
+        lp.gravity = Gravity.CENTER;
+        popupStore.getWindow().setAttributes(lp);
+        popupStore.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        popupStore.show();
+        final ScratchTextView scratchTextView = popUpView.findViewById(R.id.scratch);
+        scratchTextView.setText(coupon_code+"");
+        coupon_price.setText(coupon_title+"");
+        amounts.setText("Coupon Maximum Order Amount is"+amount);
+        if (image != null && image.length() != 0)
+            Picasso.with(context).load(image).placeholder(R.mipmap.giftc).into(coupon_image);
+        else
+            Picasso.with(context).load(R.mipmap.giftc).placeholder(R.mipmap.giftc).into(coupon_image);
+        scratchTextView.setRevealListener(new ScratchTextView.IRevealListener() {
+            @Override
+            public void onRevealed(ScratchTextView tv) {
+
+            }
+
+            @Override
+            public void onRevealPercentChangedListener(ScratchTextView stv, float percent) {
+                if (percent>=0.5) {
+                    Log.d("Reveal Percentage", "onRevealPercentChangedListener: " + String.valueOf(percent));
+                }
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupStore.hide();
+            }
+        });
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(scratchTextView.isRevealed()==true){
+                    Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_SHORT).show();
+                    // pushid=scratchTextView.getText().toString().trim();
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("code", scratchTextView.getText().toString().trim());
+                    clipboard.setPrimaryClip(clip);
+                    Log.i("clip ",clip+" ");
+                    //   System.out.print(clip.getItemAt(0));
+                }else{
+                    Toast.makeText(getApplicationContext(), "Scratch to reveal", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+    private class CouponTask extends AsyncTask<Object, Void, String> {
+        Context cn;
+
+        public CouponTask(Context context) {
+            cn=context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("coupon", "started");
+        }
+
+        protected String doInBackground(Object... param) {
+            logger.info("coupon_api" + Appconstatants.COUPON);
+
+            String response = null;
+            Connection connection = new Connection();
+            try {
+                Log.d("coupon_api", Appconstatants.COUPON);
+                Log.d("coupon_api", Appconstatants.sessiondata);
+
+                response = connection.connStringResponse(Appconstatants.COUPON, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, cn);
+                logger.info("coupon_resp" + response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("coupon", "coupon response  " + resp);
+            if (resp != null) {
+
+                try {
+                    JSONObject json = new JSONObject(resp);
+
+                    if (json.getInt("success") == 1) {
+
+                        JSONObject object = json.getJSONObject("data");
+                        String image=json.getString("coupon_image");
+                        String coupon_code=json.getString("coupon_code");
+                        String coupon_title=json.getString("coupon_title");
+                        String amount=json.getString("coupon_maximum_order_amount");
+                        offerPopupshow(cn,image,coupon_code,coupon_title,amount);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            } else {
+
+            }
+
+        }
+    }
     private class CartTask extends AsyncTask<String, Void, String> {
 
         @Override

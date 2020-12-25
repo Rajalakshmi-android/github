@@ -63,6 +63,7 @@ public class Address extends Language {
     private int has_ship;
     private int add_ids = 0;
     private LinearLayout success;
+    private int pos=0;
 
 
     @Override
@@ -143,6 +144,7 @@ public class Address extends Language {
                     state_list.add(po);
                     s_adapter = new StateAdapter(Address.this, R.layout.country_row, state_list);
                     state.setAdapter(s_adapter);
+                    pos=i;
                     StateTask stateTask = new StateTask();
                     stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(i).getCount_id());
                 }
@@ -944,32 +946,35 @@ public class Address extends Language {
                         loading.setVisibility(View.GONE);
 
                     } else {
-                        loading.setVisibility(View.GONE);
-                        error_network.setVisibility(View.VISIBLE);
-                        success.setVisibility(View.GONE);
-                        errortxt1.setText(R.string.error_msg);
-                        JSONArray array = json.getJSONArray("error");
-                        String error_msg = array.get(0) + "";
-                        errortxt2.setText(error_msg);
+                        JSONArray array = json.getJSONArray("error");;
                         Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    errortxt1.setText(R.string.error_msg);
-                    success.setVisibility(View.GONE);
-                    errortxt2.setText("");
-                    error_network.setVisibility(View.VISIBLE);
-                    loading.setVisibility(View.GONE);
+                    Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    StateTask stateTask = new StateTask();
+                                    stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(pos).getCount_id());
+                                }
+                            })
+                            .show();
                 }
 
             } else {
-                errortxt1.setText(R.string.no_con);
-                success.setVisibility(View.GONE);
-                errortxt2.setText(R.string.check_network);
-                error_network.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                StateTask stateTask = new StateTask();
+                                stateTask.execute(Appconstatants.country_list_api + "&id=" + country_list.get(pos).getCount_id());
+                            }
+                        })
+                        .show();
+
             }
 
         }

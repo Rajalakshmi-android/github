@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.multidex.BuildConfig;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +27,7 @@ import com.iamretailer.Common.DBController;
 import com.iamretailer.POJO.LangPO;
 import com.logentries.android.AndroidLogger;
 import com.onesignal.OneSignal;
+import com.iamretailer.POJO.OrdersPO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,6 +47,8 @@ public class Splash extends Language {
     private String pushid;
     private String pushregid;
     private String appId = "";
+    private ArrayList<OrdersPO> list;
+    private ArrayList <OrdersPO> list3;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -365,8 +369,8 @@ public class Splash extends Language {
                                 dbCon.insert_lang(object1.isNull("language_id") ? "" : object1.getString("language_id"), object1.isNull("name") ? "" : object1.getString("name"), object1.isNull("code") ? "" : object1.getString("code"));
                             }
                         }
-                        Intent i = new Intent(Splash.this, MainActivity.class);
-                        startActivity(i);
+                        Storelist orderTask = new Storelist();
+                        orderTask.execute(Appconstatants.Store_list, Appconstatants.sessiondata);
 
                     } else {
                         JSONArray array = object.getJSONArray("error");
@@ -401,8 +405,213 @@ public class Splash extends Language {
             }
         }
     }
+    private class Storelist extends AsyncTask<String, Void, String> {
+        Boolean val=true;
+        @Override
+        protected void onPreExecute() {
+            Log.d("Order", "started");
+        }
+
+        protected String doInBackground(String... param) {
+
+            logger.info("Order list api" + Appconstatants.Return_List);
+            Log.d("Order_url", param[0]);
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Splash.this);
+                logger.info("Order list api resp" + response);
+                Log.d("Order_resp", response);
+                Log.d("url", Appconstatants.Lang);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("Myorder", "order_Resp--->" + resp);
+
+            if (resp != null) {
+
+                try {
+                    list = new ArrayList<OrdersPO>();
+                    list3 = new ArrayList<OrdersPO>();
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+
+                        JSONArray arr = new JSONArray(json.getString("data"));
+
+                        if (arr.length() == 0) {
 
 
+                        } else {
+
+                            for (int h = 0; h < arr.length(); h++) {
+                                JSONObject obj = arr.getJSONObject(h);
+                                OrdersPO bo = new OrdersPO();
+                                bo.setOrder_id(obj.isNull("store_id") ? "" : obj.getString("store_id"));
+                                list.add(bo);
+                            }
+
+                        }
+
+                         if(list!=null&&list.size()>0){
+                             for(int i=0;i<list.size();i++){
+
+                                 if(i==(list.size()-1)){
+                                     val=true;
+                                 }else{
+                                     val=false;
+                                 }
+                                 OrderTask task = new OrderTask(val);
+                                 task.execute(Appconstatants.Store_Detail +list.get(i).getOrder_id());
+                             }
+
+                         }else{
+
+                             Intent i = new Intent(Splash.this, MainActivity.class);
+                             startActivity(i);
+                         }
+
+
+
+
+
+
+
+                    } else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(Splash.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    CheckTask task = new CheckTask();
+                                    task.execute();
+
+                                }
+                            })
+                            .show();
+
+                }
+
+            } else {
+                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                CheckTask task = new CheckTask();
+                                task.execute();
+
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+    private class OrderTask extends AsyncTask<String, Void, String> {
+        Boolean value;
+        public OrderTask(Boolean val) {
+            value=val;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("View_Orders", "started");
+        }
+        protected String doInBackground(String... param) {
+
+
+            logger.info("View_Order_ api"+param[0]);
+            Log.d("View_Order_rl", param[0]);
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Splash.this);
+                logger.info("View_Order_api resp"+response);
+                Log.d("View_Order_r", response);
+                Log.d("View_Order_r", Appconstatants.sessiondata);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+
+            if (resp != null) {
+
+                try {
+
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success")==1)
+                    {
+                        JSONObject object = new JSONObject(json.getString("data"));
+                        Log.i("reeee",object.toString());
+                        OrdersPO bo=new OrdersPO();
+                        bo.setGeocode(object.isNull("store_geocode") ? "" : object.getString("store_geocode"));
+                        bo.setGuestval(object.isNull("config_checkout_guest") ? "0" : object.getString("config_checkout_guest"));
+                        list3.add(bo);
+                        if(value){
+                            dbCon.drop_storelist();
+                            dbCon.drop_guestval();
+                            if(list3!=null&&list3.size()>0){
+                                for(int i=0;i<list3.size();i++){
+                                    if(list3.get(i).getGeocode()!=null&&!list3.get(i).getGeocode().equalsIgnoreCase("")&&list3.get(i).getGeocode().trim().length()>0){
+
+                                        dbCon.insert_storelist(list3.get(i).getGeocode());
+                                    }
+                                    if(i==0){
+                                        dbCon.insert_guestval(list3.get(0).getGuestval());
+                                    }
+
+                                }
+
+                            }
+                            Intent i = new Intent(Splash.this, MainActivity.class);
+                            startActivity(i);
+                        }
+
+                    }
+                  else {
+                        JSONArray array = json.getJSONArray("error");
+                        Toast.makeText(Splash.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                            .setAction(R.string.retry, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    CheckTask task = new CheckTask();
+                                    task.execute();
+
+                                }
+                            })
+                            .show();
+
+                }
+
+            } else {
+                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                        .setAction(R.string.retry, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                CheckTask task = new CheckTask();
+                                task.execute();
+
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
     private void show_alret() {
         final AlertDialog.Builder dial = new AlertDialog.Builder(Splash.this);
         View popUpView = View.inflate(Splash.this, R.layout.key_lay, null);
