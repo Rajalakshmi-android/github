@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -665,7 +666,7 @@ public class ProductFullView extends Language {
                 Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
                 drawable.setBounds(0, 0, 50, 50);
                 rbn.setCompoundDrawablesRelative(drawable, null, null, null);
-                rbn.setButtonDrawable(null);
+                rbn.setButtonDrawable(new StateListDrawable());
                 rbn.setBackgroundColor(Color.TRANSPARENT);
                 rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
@@ -731,7 +732,7 @@ public class ProductFullView extends Language {
                 Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
                 drawable.setBounds(0, 0, 50, 50);
                 rbn.setCompoundDrawablesRelative(drawable, null, null, null);
-                rbn.setButtonDrawable(null);
+                rbn.setButtonDrawable(new StateListDrawable());
                 rbn.setBackgroundColor(Color.TRANSPARENT);
                 rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
