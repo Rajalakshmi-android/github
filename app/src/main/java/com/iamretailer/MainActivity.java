@@ -2,6 +2,7 @@ package com.iamretailer;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -358,7 +359,7 @@ public class MainActivity extends Drawer {
         });
 
     }
-    private void openWhatsApp() {
+  /*  private void openWhatsApp() {
         try {
             Uri uri = Uri.parse("smsto:" +Appconstatants.whatsapp_number);
             Intent i = new Intent(Intent.ACTION_SENDTO, uri);
@@ -371,8 +372,43 @@ public class MainActivity extends Drawer {
 
         }
 
+    }*/
+    private void openWhatsApp() {
+        try {
+        String smsNumber = Appconstatants.whatsapp_number;
+        boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+        if (isWhatsappInstalled) {
+
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            sendIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(smsNumber) + "@s.whatsapp.net");//phone number without "+" prefix
+
+            startActivity(sendIntent);
+        } else {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp")));
+            Toast.makeText(this, "WhatsApp not Installed",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("tag","whatsapp----"+e.toString());
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp")));
+
+        }
     }
 
+    private boolean whatsappInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        boolean app_installed = false;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
     public void onResume() {
         super.onResume();
         CartTask cartTask = new CartTask();
