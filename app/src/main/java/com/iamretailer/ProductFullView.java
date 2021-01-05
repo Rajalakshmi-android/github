@@ -827,7 +827,7 @@ public class ProductFullView extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Single product resp" + response);
                 Log.d("products_vv", response);
                 Log.d("products_ses", Appconstatants.sessiondata);
@@ -1148,7 +1148,7 @@ public class ProductFullView extends Language {
                 Log.d("Cart_input", json.toString());
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 logger.info("Cart Save req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.cart_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.sendHttpPostjson(Appconstatants.cart_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Cart Save resp" + response);
 
 
@@ -1222,7 +1222,7 @@ public class ProductFullView extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata + "");
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
@@ -1306,14 +1306,14 @@ public class ProductFullView extends Language {
                         Log.d("app_1", "Installed package :" + packageInfo.packageName);
                         if (packageInfo.packageName.equalsIgnoreCase("com.whatsapp")) {
                             i.setPackage("com.whatsapp");
-                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.domain);
+                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.APP_DOMAIN_NAME);
                             i.setType("image/*");
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));
                             check++;
                         } else if (packageInfo.packageName.equalsIgnoreCase("com.whatsapp.w4b")) {
                             i.setPackage("com.whatsapp.w4b");
-                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.domain);
+                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.APP_DOMAIN_NAME);
                             i.setType("image/*");
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));
@@ -1391,7 +1391,7 @@ public class ProductFullView extends Language {
 
                 logger.info("Post Review req" + json);
                 Log.i("tag", "login" + Appconstatants.sessiondata);
-                response = connection.sendHttpPostjson(Appconstatants.POSTREVIEW + prod_id, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.sendHttpPostjson(Appconstatants.POSTREVIEW + prod_id, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Post Review resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1449,7 +1449,7 @@ public class ProductFullView extends Language {
             Connection connection = new Connection();
             try {
 
-                response = connection.sendHttpPostjson(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.sendHttpPostjson(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Add wish list resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1505,7 +1505,7 @@ public class ProductFullView extends Language {
             try {
                 Connection connection = new Connection();
 
-                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Delete wish List resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1559,7 +1559,7 @@ public class ProductFullView extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("Best selling api:" + response);
                 Log.d("prducts_api", param[0]);
                 Log.d("prducts_", response + "");
@@ -1731,7 +1731,7 @@ public class ProductFullView extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ProductFullView.this);
                 logger.info("WIsh list api resp" + response);
                 Log.d("wish_api", param[0]);
                 Log.d("wish_res", response + "");

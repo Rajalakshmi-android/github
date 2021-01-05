@@ -400,7 +400,7 @@ public class ConfirmOrder extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.sendHttpPostjson(param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpPostjson(param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Confirm order api resp" + response);
                 Log.d("Order_url", response);
                 Log.d("Order_url", Appconstatants.sessiondata);
@@ -548,7 +548,7 @@ public class ConfirmOrder extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.sendHttpPut(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpPut(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Place order api resp" + response);
                 Log.d("Order_Res", response + "");
 
@@ -779,7 +779,7 @@ public class ConfirmOrder extends Language {
                 JSONObject json = new JSONObject();
                 json.put("voucher", param[0]);
                 logger.info("Coupon api req " + json);
-                response = connection.sendHttpDelete(Appconstatants.Gift_COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpDelete(Appconstatants.Gift_COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Coupon api resp " + response);
                 Log.d("voucher_res", response + "");
                 Log.d("voucher_res", json.toString() + " -- "+Appconstatants.Gift_COUPON_API);
@@ -850,7 +850,7 @@ public class ConfirmOrder extends Language {
                 json.put("voucher", param[0]);
                  vocher1=param[0];
                 logger.info("Coupon api req " + json);
-                response = connection.sendHttpPostjson(Appconstatants.Gift_COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpPostjson(Appconstatants.Gift_COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Coupon api resp " + response);
                 Log.d("voucher_res", response + "");
                 Log.d("voucher_res", json.toString() + " -- "+Appconstatants.Gift_COUPON_API);
@@ -920,7 +920,7 @@ public class ConfirmOrder extends Language {
                 json.put("coupon", param[0]);
                 coupon1= param[0];
                 logger.info("Coupon api req " + json);
-                response = connection.sendHttpPostjson(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpPostjson(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Coupon api resp " + response);
                 Log.d("promo_res", response + "");
                 Log.d("promo_res", json.toString() + "");
@@ -988,7 +988,7 @@ public class ConfirmOrder extends Language {
                 JSONObject json = new JSONObject();
                 json.put("coupon", param[0]);
                 logger.info("Coupon api req " + json);
-                response = connection.sendHttpDelete(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpDelete(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Coupon api resp " + response);
                 Log.d("promo_res", response + "");
                 Log.d("promo_res", json.toString() + "");
@@ -1192,7 +1192,7 @@ public class ConfirmOrder extends Language {
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 Log.i("tag", "payment_success_item" + json);
                 logger.info("payment_success" + json);
-                response = connection.sendHttpPostjson(Appconstatants.Payment_Success, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpPostjson(Appconstatants.Payment_Success, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 Log.i("tag", "payment_success" + response);
                 logger.info("payment_success" + response);
 
@@ -1283,7 +1283,7 @@ public class ConfirmOrder extends Language {
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 Log.i("tag", "payment_success_item" + json);
                 logger.info("payment_success" + json);
-                response = connection.sendHttpPostjson(Appconstatants.razorpay, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
+                response = connection.sendHttpPostjson(Appconstatants.razorpay, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 Log.i("tag", "payment_success" + response);
                 logger.info("payment_success" + response);
 

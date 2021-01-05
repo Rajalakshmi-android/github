@@ -141,7 +141,7 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
             try {
 
                 Connection connection = new Connection();
-                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, context);
+                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, context);
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -109,7 +109,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         Appconstatants.CUR = db.getCurCode();
         LinearLayout facebook = findViewById(R.id.facebook);
         LinearLayout gmail_login = findViewById(R.id.gmail_login);
-        if(Appconstatants.fblogin==1){
+        if(Appconstatants.FB_LOGIN_NEED==1){
             facebook.setVisibility(View.VISIBLE);
         }else{
             facebook.setVisibility(View.GONE);
@@ -316,7 +316,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
                 Log.i("tag", "login" + Appconstatants.sessiondata);
                 logger.info("Login api req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.login_api, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Login.this);
+                response = connection.sendHttpPostjson(Appconstatants.login_api, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Login.this);
                 logger.info("Login api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -478,7 +478,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 Log.d("session", db.getSession());
                 Log.i("tag", "login" + Appconstatants.sessiondata);
                 logger.info("forget password api req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.forget_pass, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Login.this);
+                response = connection.sendHttpPostjson(Appconstatants.forget_pass, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Login.this);
                 logger.info("forget password api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -655,7 +655,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
                 Log.i("tag", "login" + Appconstatants.sessiondata);
                 logger.info("Login api req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.SOCIAL_LOGIN, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Login.this);
+                response = connection.sendHttpPostjson(Appconstatants.SOCIAL_LOGIN, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Login.this);
                 logger.info("Login api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -761,7 +761,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
                 Log.i("tag", "login" + Appconstatants.sessiondata);
                 logger.info("Login api req" + json);
-                response = connection.sendHttpPostjson("https://accounts.google.com/o/oauth2/token", json, "", Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Login.this);
+                response = connection.sendHttpPostjson("https://accounts.google.com/o/oauth2/token", json, "", Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Login.this);
                 logger.info("Login api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();

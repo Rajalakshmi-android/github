@@ -215,7 +215,7 @@ public class AddressList extends Language {
             try {
                 Connection connection = new Connection();
 
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
@@ -280,7 +280,7 @@ public class AddressList extends Language {
                 Log.d("Add_list_api", Appconstatants.addres_list);
                 Log.d("Add_list_api", Appconstatants.sessiondata);
 
-                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
+                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 logger.info("Add_list_resp" + response);
 
             } catch (Exception e) {
@@ -414,7 +414,7 @@ public class AddressList extends Language {
                 object.put("address_id", address_id);
                 Log.d("Add_req_ex", object.toString() + "");
                 logger.info("Address save old user api req" + object);
-                response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
+                response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 logger.info("Address save old user api resp" + response);
                 Log.d("Add_respex", response);
 
@@ -508,7 +508,7 @@ public class AddressList extends Language {
                 object.put("address_id", address_id);
                 Log.d("Add_req_existing", object.toString());
                 logger.info("Bill Address save old user api req" + object);
-                response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
+                response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, AddressList.this);
                 Log.d("Add_respex", response);
                 logger.info("Bill Address save old user api resp" + response);
 

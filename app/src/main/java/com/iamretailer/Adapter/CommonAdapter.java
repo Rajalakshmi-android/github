@@ -288,7 +288,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             String response;
             Connection connection = new Connection();
             try {
-                response = connection.sendHttpPostjson(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, context);
+                response = connection.sendHttpPostjson(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, context);
                 logger.info("Wish list add api resp :" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -359,7 +359,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             String response;
             try {
                 Connection connection = new Connection();
-                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, context);
+                response = connection.sendHttpDelete(Appconstatants.WishList_Add + param[0], null, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, context);
                 logger.info("Delete wish list api resp" + response);
 
             } catch (Exception e) {
@@ -440,7 +440,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
                 Log.d("Cart_input", json.toString());
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 logger.info("Cart Save req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.cart_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, context);
+                response = connection.sendHttpPostjson(Appconstatants.cart_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, context);
                 logger.info("Cart Save resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();

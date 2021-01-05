@@ -84,7 +84,7 @@ public class OrderEdit extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, OrderEdit.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, OrderEdit.this);
                 logger.info("Best sellin api" + response);
                 Log.d("prducts_api", param[0]);
                 Log.d("prducts_", response + "");

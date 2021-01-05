@@ -199,7 +199,7 @@ public class SearchActivity extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
                 logger.info("WIsh list api resp" + response);
                 Log.d("wish_api", param[0]);
                 Log.d("wish_res", response + "");
@@ -270,7 +270,7 @@ public class SearchActivity extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, SearchActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, SearchActivity.this);
                 logger.info("Product list search resp" + response);
                 Log.d("list_products", param[0] + "");
                 Log.d("list_products", Appconstatants.sessiondata);
@@ -428,7 +428,7 @@ public class SearchActivity extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0] + "");
                 Log.d("Cart_url_list", Appconstatants.sessiondata + "");
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, SearchActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, SearchActivity.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 

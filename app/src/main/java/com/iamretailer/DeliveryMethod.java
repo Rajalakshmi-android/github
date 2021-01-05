@@ -154,7 +154,7 @@ public class DeliveryMethod extends Language {
             try {
                 Log.d("Delivery_list", Appconstatants.DELIVERYMETHOD_LIST);
                 Log.d("Delivery_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(Appconstatants.DELIVERYMETHOD_LIST, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, DeliveryMethod.this);
+                response = connection.connStringResponse(Appconstatants.DELIVERYMETHOD_LIST, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, DeliveryMethod.this);
                 logger.info("Delivery_list api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -266,7 +266,7 @@ public class DeliveryMethod extends Language {
                 json.put("shipping_method", param[0]);
                 json.put("comment", param[2]);
                 Log.d("delivery_format", json.toString());
-                response = connection.sendHttpPostjson(Appconstatants.DELIVERYMETHOD_LIST, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, DeliveryMethod.this);
+                response = connection.sendHttpPostjson(Appconstatants.DELIVERYMETHOD_LIST, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, DeliveryMethod.this);
                 logger.info("Save Delivery method api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -312,7 +312,7 @@ public class Filter extends AppCompatActivity {
             try {
                 Connection connection = new Connection();
                 Log.d("url Api", param[0] + "");
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Filter.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Filter.this);
                 logger.info("Category_level resp" + response);
                 Log.d("url response", response + "");
             } catch (Exception e) {

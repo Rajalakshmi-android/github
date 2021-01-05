@@ -66,7 +66,7 @@ public class PaymentAct extends AppCompatActivity {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, PaymentAct.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, PaymentAct.this);
                 logger.info("payment--> api:" + response);
                 Log.d("payment-->api", param[0]);
                 Log.d("payment-->resp", response + "");

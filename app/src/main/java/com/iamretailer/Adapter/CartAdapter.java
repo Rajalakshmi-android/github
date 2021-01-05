@@ -270,7 +270,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
                 Log.d("cart", json.toString());
                 Log.d("session", Appconstatants.sessiondata);
                 logger.info("Update cart api req" + json);
-                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getContext());
+                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, getContext());
                 logger.info("Update cart api res" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -343,7 +343,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
                 Log.d("del_", json.toString());
                 Log.d("del_session", Appconstatants.sessiondata);
                 logger.info("Delete cart api" + json);
-                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getContext());
+                response = connection.sendHttpPutjson1(Appconstatants.cart_update_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, getContext());
                 logger.info("Delete cart api" + response);
                 Log.d("del_s", Appconstatants.cart_update_api);
                 Log.d("del_r", response + "");

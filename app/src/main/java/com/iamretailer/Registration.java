@@ -216,7 +216,7 @@ public class Registration extends Language {
                 Log.d("Input_format", Appconstatants.REGISTER);
                 Log.d("Input_format", Appconstatants.sessiondata);
                 logger.info("Register api req" + Appconstatants.REGISTER);
-                response = connection.sendHttpPostjson(Appconstatants.REGISTER, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Registration.this);
+                response = connection.sendHttpPostjson(Appconstatants.REGISTER, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Registration.this);
                 logger.info("Register api resp" + response);
                 Log.d("Input_format", response);
 

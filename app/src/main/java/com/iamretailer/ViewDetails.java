@@ -329,7 +329,7 @@ public class ViewDetails extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,ViewDetails.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.APP_DOMAIN_KEY,Appconstatants.Lang, Appconstatants.CUR,ViewDetails.this);
                 logger.info("View_Order_api resp"+response);
                 Log.d("View_Order_r", response);
                 Log.d("View_Order_r", Appconstatants.sessiondata);
@@ -527,7 +527,7 @@ public class ViewDetails extends Language {
         price.setText(a1);
         qunt.setText(placePO.getQty());
         amount.setText(b1);
-        if (Appconstatants.returns_menu == 1) {
+        if (Appconstatants.ORDER_RETURN_NEED== 1) {
             returnlay.setVisibility(View.VISIBLE);
         }else{
             returnlay.setVisibility(View.GONE);

@@ -205,7 +205,7 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
                 JSONObject json = new JSONObject();
                 Log.d("del_session", Appconstatants.sessiondata);
                 logger.info("Delete cart api" + json);
-                response = connection.sendHttpDelete(Appconstatants.ADDRESS_DEL + param[0], json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getContext());
+                response = connection.sendHttpDelete(Appconstatants.ADDRESS_DEL + param[0], json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, getContext());
                 logger.info("Delete cart api" + response);
                 Log.d("del_s", Appconstatants.ADDRESS_DEL + param[0]);
                 Log.d("del_r", response + "");

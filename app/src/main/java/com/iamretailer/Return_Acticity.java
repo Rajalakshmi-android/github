@@ -276,7 +276,7 @@ public class Return_Acticity extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Return_Acticity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Return_Acticity.this);
                 logger.info("REASON api res" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -413,7 +413,7 @@ public class Return_Acticity extends Language {
                 object.put("comment", param[12]);
                 Log.d("Update_in", object.toString() + "-- " + Appconstatants.Lang + " -- " + Appconstatants.CUR + " -- " + Appconstatants.sessiondata);
                 Connection connection = new Connection();
-                response = connection.sendHttpPostjson(param[0], object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Return_Acticity.this);
+                response = connection.sendHttpPostjson(param[0], object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Return_Acticity.this);
                 logger.info("Update api resp:" + response);
                 Log.d("Update_url", response + "");
 

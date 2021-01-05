@@ -146,7 +146,7 @@ public class ContactForm extends Language {
                 Log.d("Input_format", Appconstatants.CONTACT_API);
                 Log.d("Input_format", Appconstatants.sessiondata);
                 logger.info("Contact_form api req" + Appconstatants.CONTACT_API);
-                response = connection.sendHttpPostjson(Appconstatants.CONTACT_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ContactForm.this);
+                response = connection.sendHttpPostjson(Appconstatants.CONTACT_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ContactForm.this);
                 logger.info("Contact_form api resp" + response);
                 Log.d("Input_format", response);
 
@@ -254,7 +254,7 @@ public class ContactForm extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ContactForm.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ContactForm.this);
                 logger.info("Order list api resp" + response);
                 Log.d("Order_resp", response);
                 Log.d("url", Appconstatants.Lang);
@@ -384,7 +384,7 @@ public class ContactForm extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,ContactForm.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.APP_DOMAIN_KEY,Appconstatants.Lang, Appconstatants.CUR,ContactForm.this);
                 logger.info("View_Order_api resp"+response);
                 Log.d("View_Order_r", response);
                 Log.d("View_Order_r", Appconstatants.sessiondata);
