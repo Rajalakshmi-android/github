@@ -130,12 +130,12 @@ public class Drawer extends Language {
         title.setText(s3);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        if(Appconstatants.ORDER_RETURN_NEED==1){
+        if(Appconstatants.returns_menu.equalsIgnoreCase("1")){
             returns.setVisibility(View.VISIBLE);
         }else{
             returns.setVisibility(View.GONE);
         }
-        if (Appconstatants.STORE_LOCATOR == 1 && dbCon.get_store_lists() > 0) {
+        if (Appconstatants.store_locator.equalsIgnoreCase("1") && dbCon.get_store_lists() > 0) {
             store.setVisibility(View.VISIBLE);
         } else {
             store.setVisibility(View.GONE);
@@ -265,7 +265,7 @@ public class Drawer extends Language {
                 Log.d("coupon_api", Appconstatants.COUPON);
                 Log.d("coupon_api", Appconstatants.sessiondata);
 
-                response = connection.connStringResponse(Appconstatants.COUPON, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, cn);
+                response = connection.connStringResponse(Appconstatants.COUPON, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, cn);
                 logger.info("coupon_resp" + response);
 
             } catch (Exception e) {
@@ -318,7 +318,7 @@ public class Drawer extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Drawer.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Drawer.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
@@ -677,7 +677,7 @@ public class Drawer extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.sendHttpPostLogout(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR);
+                response = connection.sendHttpPostLogout(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR);
                 logger.info("Logout api resp" + response);
 
             } catch (Exception e) {

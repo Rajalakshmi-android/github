@@ -128,7 +128,7 @@ public class Webactivity extends AppCompatActivity {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Webactivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Webactivity.this);
                 logger.info("Product list search resp" + response);
                 Log.d("list_products", param[0]);
                 Log.d("list_products", Appconstatants.sessiondata);

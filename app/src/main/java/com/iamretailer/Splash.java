@@ -96,7 +96,7 @@ public class Splash extends Language {
                 } else {
 
                     GetSessionTask task = new GetSessionTask();
-                    task.execute(Appconstatants.SESSION_API + "," + Appconstatants.APP_LICENSE_KEY + "," + appId);
+                    task.execute(Appconstatants.SESSION_API + "," + Appconstatants.LICENSE_KEY + "," + appId);
                 }
             } else {
                 Snackbar
@@ -136,7 +136,7 @@ public class Splash extends Language {
                 String response = null;
                 try {
                     Connection connection = new Connection();
-                    response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, "", Splash.this);
+                    response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, "", Splash.this);
                     Log.d("session_url", param[0]);
                     Log.d("session_res", response + "zasfadfad");
                     logger.info("Session Resp :" + response);
@@ -222,7 +222,7 @@ public class Splash extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, "", Splash.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, "", Splash.this);
                 logger.info("Session Resp :" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -331,7 +331,7 @@ public class Splash extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, "", Splash.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, "", Splash.this);
                 logger.info("Session Resp :" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -419,7 +419,7 @@ public class Splash extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Splash.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Splash.this);
                 logger.info("Order list api resp" + response);
                 Log.d("Order_resp", response);
                 Log.d("url", Appconstatants.Lang);
@@ -532,7 +532,7 @@ public class Splash extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.APP_DOMAIN_KEY,Appconstatants.Lang, Appconstatants.CUR,Splash.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,Splash.this);
                 logger.info("View_Order_api resp"+response);
                 Log.d("View_Order_r", response);
                 Log.d("View_Order_r", Appconstatants.sessiondata);

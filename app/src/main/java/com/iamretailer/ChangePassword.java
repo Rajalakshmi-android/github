@@ -119,7 +119,7 @@ public class ChangePassword extends Language {
                 Log.d("change_p", json.toString());
                 Log.d("session", db.getSession());
                 logger.info("Change pwd api req" + json);
-                response = connection.sendHttpPutjson1(Appconstatants.CHANGE_PWD, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, ChangePassword.this);
+                response = connection.sendHttpPutjson1(Appconstatants.CHANGE_PWD, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ChangePassword.this);
                 logger.info("Change pwd api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();

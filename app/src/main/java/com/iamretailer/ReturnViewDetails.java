@@ -311,7 +311,7 @@ public class ReturnViewDetails extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.APP_DOMAIN_KEY,Appconstatants.Lang, Appconstatants.CUR,ReturnViewDetails.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1,Appconstatants.key,Appconstatants.value,Appconstatants.Lang, Appconstatants.CUR,ReturnViewDetails.this);
                 logger.info("View_Order_api resp"+response);
                 Log.d("View_Order_r", response);
                 Log.d("View_Order_r", Appconstatants.sessiondata);

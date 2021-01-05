@@ -359,7 +359,7 @@ public class Address extends Language {
                     Log.d("guest_url", Appconstatants.guest_api);
                     Log.d("guest_req", json.toString());
                     logger.info("Address save guest api req" + json);
-                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     logger.info("Address save guest api resp" + response);
                     Log.d("guest_resp", response);
                 } else if (from == 2) {
@@ -372,7 +372,7 @@ public class Address extends Language {
                     Log.d("Add_resp_new", json.toString() + "");
                     logger.info("Address save new user api req" + json);
 
-                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
                     logger.info("Address save new user api resp" + response);
                     Log.d("Add_resp_new", response);
@@ -382,7 +382,7 @@ public class Address extends Language {
                     object.put("address_id", address_id);
                     Log.d("Add_req_ex", object.toString() + "");
                     logger.info("Address save old user api req" + json);
-                    response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     logger.info("Address save old user api resp" + response);
                     Log.d("Add_respex", response);
                 } else if (from == 4) {
@@ -394,7 +394,7 @@ public class Address extends Language {
                     Log.d("Add_resp_new", json.toString() + "");
                     logger.info("Address save new user api req" + json);
 
-                    response = connection.sendHttpPostjson(Appconstatants.SAVE_ADD_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.SAVE_ADD_API, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
                     logger.info("Address save new user api resp" + response);
                     Log.d("Add_resp_new", response);
@@ -409,7 +409,7 @@ public class Address extends Language {
                     Log.d("Add_resp_newsssssss", json.toString() + "");
                     logger.info("Address save new user api req" + json);
 
-                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
                     logger.info("Address save new user api resp" + response);
                     Log.d("Add_resp_new", response);
@@ -541,7 +541,7 @@ public class Address extends Language {
                     Log.d("guest_sav_req", json.toString());
                     Log.d("guest_sav_url", Appconstatants.guest_shipping_api);
                     logger.info("Bill Address save guest api req" + json);
-                    response = connection.sendHttpPostjson(Appconstatants.guest_shipping_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.guest_shipping_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     logger.info("Bill Address save guest api resp" + response);
                     Log.d("guest_sav_resp", response);
                 } else if (from == 2) {
@@ -550,7 +550,7 @@ public class Address extends Language {
                     object.put("address_id", param[0]);
                     logger.info("Bill Address save new  user api req" + object);
 
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
 
                     logger.info("Bill Address save new  user api resp" + response);
                     Log.d("Add_resp_new", object.toString());
@@ -560,7 +560,7 @@ public class Address extends Language {
                     object.put("address_id", address_id);
                     Log.d("Add_req_existing", object.toString());
                     logger.info("Bill Address save old user api req" + object);
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save + "&existing=1", object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     Log.d("Add_respex", response);
                     logger.info("Bill Address save old user api resp" + response);
                 }
@@ -680,7 +680,7 @@ public class Address extends Language {
                     json.put("email", cc.getString("email"));
                     json.put("telephone", param[8]);
 
-                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.guest_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     logger.info("Bill Address save guest api resp" + response);
                     Log.d("guest_sav_resp", response);
                 } else {
@@ -689,7 +689,7 @@ public class Address extends Language {
                     JSONObject address = new JSONObject();
                     custom_field_obj.put("address", address);
                     json.put("custom_field", custom_field_obj);
-                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPostjson(Appconstatants.bill_address_save, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                     logger.info("Bill Address save new  user api resp" + response);
                 }
 
@@ -778,7 +778,7 @@ public class Address extends Language {
             String response = null;
             Connection connection = new Connection();
             try {
-                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                 logger.info("Country list api resp" + response);
 
             } catch (Exception e) {
@@ -893,7 +893,7 @@ public class Address extends Language {
             Connection connection = new Connection();
             try {
 
-                response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                 logger.info("State list api resp" + response);
 
             } catch (Exception e) {
@@ -1010,9 +1010,9 @@ public class Address extends Language {
                 Log.d("Add_save", Appconstatants.sessiondata);
                 Connection connection = new Connection();
                 if (from == 2) {
-                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + add_ids, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + add_ids, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                 } else {
-                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + address_id, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Address.this);
+                    response = connection.sendHttpPutjson1(Appconstatants.UPDATE_ADD_API + address_id, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Address.this);
                 }
 
                 Log.d("Add_resp", response + "");

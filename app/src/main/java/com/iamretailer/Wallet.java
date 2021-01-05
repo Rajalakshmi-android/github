@@ -258,7 +258,7 @@ public class Wallet extends Language {
                 Log.d("Cart_input", json.toString());
                 Log.d("Cart_url_insert", Appconstatants.sessiondata + "");
                 logger.info("Cart Save req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                response = connection.sendHttpPostjson(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
                 logger.info("Cart Save resp" + response);
 
 
@@ -327,7 +327,7 @@ public class Wallet extends Language {
                 JSONObject json = new JSONObject();
                 json.put("product_id", param[0]);
                 Connection connection = new Connection();
-                response = connection.sendHttpPutjson1(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                response = connection.sendHttpPutjson1(Appconstatants.Wallet_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -406,7 +406,7 @@ public class Wallet extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
@@ -498,7 +498,7 @@ public class Wallet extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
                 logger.info("Product list search resp" + response);
                 Log.d("list_products", Appconstatants.sessiondata);
 
@@ -614,7 +614,7 @@ public class Wallet extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, Wallet.this);
                 logger.info("Product list search resp" + response);
                 Log.d("list_products", param[0]);
                 Log.d("list_products", Appconstatants.sessiondata);

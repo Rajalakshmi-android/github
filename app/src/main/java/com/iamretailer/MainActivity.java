@@ -345,7 +345,7 @@ public class MainActivity extends Drawer {
                 startActivity(intent);
             }
         });
-        if(Appconstatants.WHATSAPP_MODE==1){
+        if(Appconstatants.whatsapp_mode.equalsIgnoreCase("1")){
             whatsapp.setVisibility(View.VISIBLE);
         }else{
             whatsapp.setVisibility(View.GONE);
@@ -361,7 +361,7 @@ public class MainActivity extends Drawer {
     }
   /*  private void openWhatsApp() {
         try {
-            Uri uri = Uri.parse("smsto:" +Appconstatants.WHATSAPP_NUMBER);
+            Uri uri = Uri.parse("smsto:" +Appconstatants.whatsapp_number);
             Intent i = new Intent(Intent.ACTION_SENDTO, uri);
             i.setPackage("com.whatsapp");
             startActivity(Intent.createChooser(i, ""));
@@ -375,7 +375,7 @@ public class MainActivity extends Drawer {
     }*/
     private void openWhatsApp() {
         try {
-        String smsNumber = Appconstatants.WHATSAPP_NUMBER;
+        String smsNumber = Appconstatants.whatsapp_number;
         boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
         if (isWhatsappInstalled) {
 
@@ -470,7 +470,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
             } catch (Exception e) {
@@ -619,7 +619,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Banner api :" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -725,7 +725,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
                 Log.d("cat_url_res", response);
@@ -883,7 +883,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Category resp :" + response);
                 Log.d("url response", response + "");
             } catch (Exception e) {
@@ -1046,7 +1046,7 @@ public class MainActivity extends Drawer {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("cart resp" + response);
                 Log.d("Cart_list_resp", response + "");
 
@@ -1238,7 +1238,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 Log.d("prducts_api", param[0]);
                 logger.info("Feature Product api :" + response);
                 Log.d("prducts_", response + "");
@@ -1388,7 +1388,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MainActivity.this);
                 logger.info("Best selling api:" + response);
                 Log.d("prducts_api", param[0]);
                 Log.d("prducts_", response + "");
@@ -1612,7 +1612,7 @@ public class MainActivity extends Drawer {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, getApplicationContext());
                 logger.info("WIsh list api resp" + response);
                 Log.d("wish_api", param[0]);
                 Log.d("wish_res", response + "");

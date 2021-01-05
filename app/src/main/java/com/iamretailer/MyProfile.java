@@ -212,7 +212,7 @@ public class MyProfile extends Language {
             String response = null;
             try {
                 Connection connection = new Connection();
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyProfile.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyProfile.this);
                 logger.info("Profile api res" + response);
                 Log.d("url_response", response + "");
             } catch (Exception e) {
@@ -311,7 +311,7 @@ public class MyProfile extends Language {
                 object.put("telephone", param[4]);
                 Log.d("Update_in", object.toString() + "");
                 Connection connection = new Connection();
-                response = connection.sendHttpPutjson1(param[0], object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyProfile.this);
+                response = connection.sendHttpPutjson1(param[0], object, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyProfile.this);
                 logger.info("Update api resp:" + response);
                 Log.d("Update_url", response + "");
 

@@ -269,7 +269,7 @@ public class MyCart_copy extends Language {
                 Log.d("Add_list_api", Appconstatants.addres_list);
                 Log.d("Add_list_api", Appconstatants.sessiondata);
 
-                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                response = connection.connStringResponse(Appconstatants.addres_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("Add_list_resp" + response);
 
             } catch (Exception e) {
@@ -400,7 +400,7 @@ public class MyCart_copy extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("Cart resp" + response);
                 Log.d("Cart_list_resp", response);
 
@@ -548,7 +548,7 @@ public class MyCart_copy extends Language {
                 Connection connection = new Connection();
                 Log.d("Cart_list_url", param[0]);
                 Log.d("Cart_url_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                response = connection.connStringResponse(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("Cart resp" + response);
 
                 Log.d("Cart_list_resp", response + "");
@@ -652,7 +652,7 @@ public class MyCart_copy extends Language {
             String response = null;
             Connection connection = new Connection();
             try {
-                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                response = connection.connStringResponse(Appconstatants.country_list_api, null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("Country list api resp" + response);
 
             } catch (Exception e) {
@@ -744,7 +744,7 @@ public class MyCart_copy extends Language {
             Connection connection = new Connection();
             try {
 
-                response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                response = connection.connStringResponse(param[0], null, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("State list api resp" + response);
 
             } catch (Exception e) {
@@ -856,7 +856,7 @@ public class MyCart_copy extends Language {
                 Log.d("cal_Api", Appconstatants.CAL_SHIP);
 
                 logger.info("cal_Apireq" + json);
-                response = connection.sendHttpPostjson(Appconstatants.CAL_SHIP, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
+                response = connection.sendHttpPostjson(Appconstatants.CAL_SHIP, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, MyCart_copy.this);
                 logger.info("cal_Api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();

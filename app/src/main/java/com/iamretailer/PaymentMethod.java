@@ -160,7 +160,7 @@ public class PaymentMethod extends Language {
             try {
                 Log.d("Payment_list", Appconstatants.payment_list);
                 Log.d("Payment_list", Appconstatants.sessiondata);
-                response = connection.connStringResponse(Appconstatants.payment_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, PaymentMethod.this);
+                response = connection.connStringResponse(Appconstatants.payment_list, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, PaymentMethod.this);
                 logger.info("Payment_list api resp:" + response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -265,7 +265,7 @@ public class PaymentMethod extends Language {
                 json.put("comment", param[2]);
                 Log.d("Login_format", json.toString());
                 logger.info("Payment method save api req" + json);
-                response = connection.sendHttpPostjson(Appconstatants.payment_method_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.APP_DOMAIN_KEY, Appconstatants.Lang, Appconstatants.CUR, PaymentMethod.this);
+                response = connection.sendHttpPostjson(Appconstatants.payment_method_api, json, Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, PaymentMethod.this);
                 logger.info("Payment method save api resp" + response);
             } catch (Exception e) {
                 e.printStackTrace();
