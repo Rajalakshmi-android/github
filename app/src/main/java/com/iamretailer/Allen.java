@@ -75,6 +75,7 @@ public class Allen extends Language {
     int cancel_data = 0;
     int apply = 0;
     private boolean val1 = false;
+    private int pro_list=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +139,7 @@ public class Allen extends Language {
                             loadin = true;
                             val = 1;
                             val1 = false;
+                            pro_list=pro_list+20;
                             load_more.setVisibility(View.VISIBLE);
                             ProductTask productTask = new ProductTask();
                             productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
@@ -587,7 +589,7 @@ public class Allen extends Language {
                                 category.setAdapter(adapter);
                             } else {
                                 if (cart_item != null && cart_item.size() > 0) {
-                                    for (int u = 0; u < list.size(); u++) {
+                                    for (int u = pro_list; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                                 list.get(u).setCart_list(true);
@@ -600,7 +602,7 @@ public class Allen extends Language {
 
                                 }
                                 if (fav_item != null && fav_item.size() > 0) {
-                                    for (int u = 0; u < list.size(); u++) {
+                                    for (int u = pro_list; u < list.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                 list.get(u).setWish_list(true);

@@ -109,7 +109,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
         Appconstatants.CUR = db.getCurCode();
         LinearLayout facebook = findViewById(R.id.facebook);
         LinearLayout gmail_login = findViewById(R.id.gmail_login);
-        if(Appconstatants.fblogin==1){
+        if(Appconstatants.fblogin.equalsIgnoreCase("1")){
             facebook.setVisibility(View.VISIBLE);
         }else{
             facebook.setVisibility(View.GONE);
