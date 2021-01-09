@@ -18,7 +18,7 @@ import com.onesignal.OneSignal;
 import io.fabric.sdk.android.Fabric;
 
 
-public class AppClass extends Application {
+public class AppClass extends MultiDexApplication {
     private static Context context;
 
     public static Context getContext() {
