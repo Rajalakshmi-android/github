@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -217,7 +218,7 @@ public class Return_Acticity extends Language {
             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
             drawable.setBounds(0, 0, 40, 40);
             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
-            rbn.setButtonDrawable(null);
+            rbn.setButtonDrawable(new StateListDrawable());
             rbn.setBackgroundColor(Color.TRANSPARENT);
             rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
@@ -314,7 +315,7 @@ public class Return_Acticity extends Language {
                             Drawable drawable = getApplicationContext().getResources().getDrawable(R.drawable.raidobuttonstyle);
                             drawable.setBounds(0, 0, 40, 40);
                             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
-                            rbn.setButtonDrawable(null);
+                            rbn.setButtonDrawable(new StateListDrawable());
                             rbn.setBackgroundColor(Color.TRANSPARENT);
                             rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 

@@ -61,6 +61,9 @@ public class Product_list extends Language {
     private boolean cart = true;
     ArrayList<ProductsPO> cart_item;
     private ArrayList<ProductsPO> fav_item;
+    private int best_list=0;
+    private int fure_list=0;
+    private int ban_list=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,7 @@ public class Product_list extends Language {
                             if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                                 loadin = true;
                                 val = 1;
+                                best_list=best_list+20;
                                 load_more.setVisibility(View.VISIBLE);
                                 BEST_SELLING best_selling = new BEST_SELLING();
                                 best_selling.execute(Appconstatants.Best_Sell + "&page=" + start + "&limit=" + limit);
@@ -172,6 +176,7 @@ public class Product_list extends Language {
                             if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                                 loadin = true;
                                 val = 1;
+                                ban_list=ban_list+20;
                                 load_more.setVisibility(View.VISIBLE);
                                 BANNER banner = new BANNER();
                                 banner.execute(Appconstatants.BANNER_LINK + banner_id + "&page=" + start + "&limit=" + limit);
@@ -182,6 +187,7 @@ public class Product_list extends Language {
                             if ((visibleItemCount + firstVisibleItem) >= (start - 1) * limit) {
                                 loadin = true;
                                 val = 1;
+                                fure_list=fure_list+20;
                                 load_more.setVisibility(View.VISIBLE);
                                 FEATURE_TASK feature_task = new FEATURE_TASK();
                                 feature_task.execute(Appconstatants.Feature_api + "&page=" + start + "&limit=" + limit);
@@ -296,7 +302,7 @@ public class Product_list extends Language {
 
                             } else {
                                 if (cart_item != null && cart_item.size() > 0) {
-                                    for (int u = 0; u < list.size(); u++) {
+                                    for (int u = best_list; u < list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                                 list.get(u).setCart_list(true);
@@ -310,7 +316,7 @@ public class Product_list extends Language {
                                 }
 
                                 if (fav_item != null && fav_item.size() > 0) {
-                                    for (int u = 0; u < list.size(); u++) {
+                                    for (int u = best_list; u < list.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
                                             if (Integer.parseInt(list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                 list.get(u).setWish_list(true);
@@ -460,7 +466,7 @@ public class Product_list extends Language {
                                 product_list.setAdapter(featuredAdapter);
                             } else {
                                 if (cart_item != null && cart_item.size() > 0) {
-                                    for (int u = 0; u < feat_list.size(); u++) {
+                                    for (int u = fure_list; u < feat_list.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                                 feat_list.get(u).setCart_list(true);
@@ -473,7 +479,7 @@ public class Product_list extends Language {
 
                                 }
                                 if (fav_item != null && fav_item.size() > 0) {
-                                    for (int u = 0; u < feat_list.size(); u++) {
+                                    for (int u = fure_list; u < feat_list.size(); u++) {
                                         for (int h = 0; h < fav_item.size(); h++) {
                                             if (Integer.parseInt(feat_list.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                 feat_list.get(u).setWish_list(true);
@@ -843,7 +849,7 @@ public class Product_list extends Language {
 
                             } else {
                                 if (cart_item != null && cart_item.size() > 0) {
-                                    for (int u = 0; u < banner_items.size(); u++) {
+                                    for (int u = ban_list; u < banner_items.size(); u++) {
                                         for (int h = 0; h < cart_item.size(); h++) {
                                             if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(cart_item.get(h).getProduct_id())) {
                                                 banner_items.get(u).setCart_list(true);
@@ -857,7 +863,7 @@ public class Product_list extends Language {
                                 }
                                 if (fav_item != null && fav_item.size() > 0) {
                                     if (banner_items != null && banner_items.size() > 0) {
-                                        for (int u = 0; u < banner_items.size(); u++) {
+                                        for (int u = ban_list; u < banner_items.size(); u++) {
                                             for (int h = 0; h < fav_item.size(); h++) {
                                                 if (Integer.parseInt(banner_items.get(u).getProduct_id()) == Integer.parseInt(fav_item.get(h).getProduct_id())) {
                                                     banner_items.get(u).setWish_list(true);

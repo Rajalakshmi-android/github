@@ -130,12 +130,12 @@ public class Drawer extends Language {
         title.setText(s3);
         CartTask cartTask = new CartTask();
         cartTask.execute(Appconstatants.cart_api);
-        if(Appconstatants.returns_menu==1){
+        if(Appconstatants.returns_menu.equalsIgnoreCase("1")){
             returns.setVisibility(View.VISIBLE);
         }else{
             returns.setVisibility(View.GONE);
         }
-        if (Appconstatants.store_locator == 1 && dbCon.get_store_lists() > 0) {
+        if (Appconstatants.store_locator.equalsIgnoreCase("1") && dbCon.get_store_lists() > 0) {
             store.setVisibility(View.VISIBLE);
         } else {
             store.setVisibility(View.GONE);
