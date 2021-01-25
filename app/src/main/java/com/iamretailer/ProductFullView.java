@@ -1306,14 +1306,14 @@ public class ProductFullView extends Language {
                         Log.d("app_1", "Installed package :" + packageInfo.packageName);
                         if (packageInfo.packageName.equalsIgnoreCase("com.whatsapp")) {
                             i.setPackage("com.whatsapp");
-                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + "https://play.google.com/store/apps/details?id=com.iamretailer");
+                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.playstore_url);
                             i.setType("image/*");
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));
                             check++;
                         } else if (packageInfo.packageName.equalsIgnoreCase("com.whatsapp.w4b")) {
                             i.setPackage("com.whatsapp.w4b");
-                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.domain);
+                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.playstore_url);
                             i.setType("image/*");
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));
