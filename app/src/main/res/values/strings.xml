@@ -479,4 +479,8 @@
     <string name="night_day_cracker">Featured Crackers</string>
     <string name="our_best">Our Best Selling</string>
 
+    //flipkart
+    <string name="views_alls">View All</string>
+    <string name="search_productss">Search for Products, Brands and More</string>
+
 </resources>

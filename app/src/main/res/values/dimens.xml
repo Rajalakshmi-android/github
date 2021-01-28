@@ -159,5 +159,5 @@
 	<dimen name="dp195">195dp</dimen>
 	<dimen name="dp185">185dp</dimen>
 	<dimen name="dp155">155dp</dimen>
-
+	<dimen name="dp175">175dp</dimen>
 </resources>
