@@ -170,56 +170,60 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp10"
                             android:orientation="horizontal">
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/out_of_stock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:text="@string/out_ofstock"
+                                android:textColor="@color/red" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/r1"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r1"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r2"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r2"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r3"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r3"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r4"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r4"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r5"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r5"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
-
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <com.iamretailer.Common.CustomTextview
-                            android:id="@+id/out_of_stock"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:text="@string/out_ofstock"
-                            android:textColor="@color/red" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
