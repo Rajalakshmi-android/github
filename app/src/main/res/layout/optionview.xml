@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginBottom="@dimen/dp0"
-        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp10"
         android:gravity="start"
         android:orientation="vertical">
 
@@ -42,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/dp10"
             android:gravity="start">
 
             <android.support.v7.widget.RecyclerView
