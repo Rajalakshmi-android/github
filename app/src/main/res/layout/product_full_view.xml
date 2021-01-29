@@ -234,18 +234,17 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content">
 
-                                    <android.support.v4.view.ViewPager
+                                    <com.iamretailer.Common.WrapcontentViewpager
                                         android:id="@+id/viewPager"
                                         android:layout_width="match_parent"
-                                        android:layout_height="@dimen/dp300" />
+                                        android:layout_height="wrap_content" />
 
                                 </RelativeLayout>
 
                                 <LinearLayout
                                     android:id="@+id/indicator"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dp25"
-                                    android:layout_marginTop="@dimen/dp5"
+                                    android:layout_height="@dimen/dp20"
                                     android:gravity="center"
                                     android:orientation="horizontal" />
 

@@ -53,6 +53,7 @@ import com.iamretailer.Common.Helper;
 import com.iamretailer.Common.LanguageList;
 import com.iamretailer.Common.LocaleHelper;
 import com.iamretailer.Common.RecyclerItemClickListener;
+import com.iamretailer.Common.WrapcontentViewpager;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.ProductsPO;
 import com.iamretailer.POJO.SingleOptionPO;
@@ -777,7 +778,7 @@ public class ProductFullView extends Language {
 
     private void init() {
 
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        WrapcontentViewpager viewPager = findViewById(R.id.viewPager);
         ll_dots = findViewById(R.id.indicator);
         SliderAdapter sliderAdapter = new SliderAdapter(ProductFullView.this, image_url);
         viewPager.setAdapter(sliderAdapter);
