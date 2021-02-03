@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimaryDark">#7e7e7e</color>
+    <color name="colorPrimaryDark">#ffffff</color>
     <color name="button_clr">#e40582</color>
     <color name="black">#000000</color>
     <color name="full_view_bg">#80FFFFFF</color>
@@ -84,5 +84,6 @@
     <color name="view">#cccccc</color>
     <color name="white_tran">#80ffffff</color>
     <color name="update_clr">#01865f</color>
+    <color name="Splash_bg">#e40582</color>
 
 </resources>

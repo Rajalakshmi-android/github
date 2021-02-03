@@ -28,10 +28,10 @@
                     <ImageView
                         android:id="@+id/prod_img"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp120"
+                        android:layout_height="@dimen/dp150"
                         android:layout_marginEnd="@dimen/dp10"
                         android:layout_marginStart="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp15" />
+                        android:layout_marginTop="@dimen/dp5" />
 
                     <LinearLayout
                         android:id="@+id/fav"
