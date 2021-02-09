@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class OptionsPO implements Serializable {
 
-    int selected_id;
+    String selected_id;
     int qty;
     ArrayList<OptionsPO> pos;
     double offer_rate;
@@ -101,11 +101,11 @@ public class OptionsPO implements Serializable {
         this.qty = qty;
     }
 
-    public int getSelected_id() {
+    public String getSelected_id() {
         return selected_id;
     }
 
-    public void setSelected_id(int selected_id) {
+    public void setSelected_id(String selected_id) {
         this.selected_id = selected_id;
     }
 

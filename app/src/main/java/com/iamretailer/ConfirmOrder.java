@@ -670,7 +670,11 @@ public class ConfirmOrder extends Language {
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
-            sb2.append(placePO.getOptionlist().get(h).getValue());
+            if(placePO.getOptionlist().get(h).getName().contains(getResources().getString(R.string.date))){
+                sb2.append("\n"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+            }else{
+                sb2.append(placePO.getOptionlist().get(h).getValue());
+            }
             if (h != placePO.getOptionlist().size() - 1)
                 sb2.append(",");
         }

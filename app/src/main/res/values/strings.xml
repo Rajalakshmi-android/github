@@ -98,6 +98,7 @@
     <string name="select_size">Select Size :</string>
     <string name="select">Select :</string>
     <string name="date">Date</string>
+    <string name="dates">date</string>
     <string name="sing">S</string>
     <string name="stuff">Add some stuff!</string>
     <string name="no_cart_list">Currently you have no items in your cart</string>
@@ -482,5 +483,6 @@
     //flipkart
     <string name="views_alls">View All</string>
     <string name="search_productss">Search for Products, Brands and More</string>
+    <string name="time">time</string>
 
 </resources>

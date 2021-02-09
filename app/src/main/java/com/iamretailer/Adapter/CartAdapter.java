@@ -122,15 +122,20 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         for (int j = 0; j < items.get(position).getOptionlist().size(); j++) {
             if (items.get(position).getOptionlist().size() - 1 == j)
                 op.append(items.get(position).getOptionlist().get(j).getName()).append(": ").append(items.get(position).getOptionlist().get(j).getValue());
-            else
+            else {
                 op.append(items.get(position).getOptionlist().get(j).getName()).append(": ").append(items.get(position).getOptionlist().get(j).getValue()).append(", ");
+            }
 
         }
 
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < items.get(position).getOptionlist().size(); h++) {
-            sb2.append(items.get(position).getOptionlist().get(h).getValue());
+            if(items.get(position).getOptionlist().get(h).getName().contains(context.getResources().getString(R.string.date))){
+                sb2.append("\n"+items.get(position).getOptionlist().get(h).getName() +" : "+items.get(position).getOptionlist().get(h).getValue());
+            }else{
+                sb2.append(items.get(position).getOptionlist().get(h).getValue());
+            }
             if (h != items.get(position).getOptionlist().size() - 1)
                 sb2.append(",");
         }
