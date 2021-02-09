@@ -626,7 +626,7 @@ public class ProductFullView extends Language {
     }
 
     private void weightoption(final OptionsPO optionsPO, final int pos) {
-        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.date_optoion, options, false);
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.weightoption, options, false);
         final Spinner weight_spinner = layout.findViewById(R.id.weight_spinner);
         final ArrayList<SingleOptionPO> spinner_string = optionsPO.getValuelist();
         TextView heading = layout.findViewById(R.id.heading);
