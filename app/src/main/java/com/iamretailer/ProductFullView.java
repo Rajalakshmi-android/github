@@ -327,7 +327,8 @@ public class ProductFullView extends Language {
             public void onClick(View view) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
-
+                CartTask cartTask = new CartTask();
+                cartTask.execute(Appconstatants.cart_api);
                 SingleProductTask singleProductTask = new SingleProductTask();
                 singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
 
@@ -686,7 +687,8 @@ public class ProductFullView extends Language {
                 rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                 rbn.setButtonDrawable(new StateListDrawable());
                 rbn.setBackgroundColor(Color.TRANSPARENT);
-                rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                rbn.setPaddingRelative((int) getApplicationContext().getResources().getDimension(R.dimen.dp5), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+
                 if (u == 0) {
                     rbn.setChecked(true);
                     optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id()+"");

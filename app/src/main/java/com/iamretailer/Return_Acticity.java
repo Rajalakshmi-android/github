@@ -220,7 +220,7 @@ public class Return_Acticity extends Language {
             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
             rbn.setButtonDrawable(new StateListDrawable());
             rbn.setBackgroundColor(Color.TRANSPARENT);
-            rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+            rbn.setPaddingRelative((int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
             if (u == 0) {
                 rbn.setChecked(true);
@@ -317,7 +317,7 @@ public class Return_Acticity extends Language {
                             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                             rbn.setButtonDrawable(new StateListDrawable());
                             rbn.setBackgroundColor(Color.TRANSPARENT);
-                            rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                            rbn.setPaddingRelative((int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
                             if (u == 0) {
                                 rbn.setChecked(true);

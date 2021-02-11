@@ -214,7 +214,7 @@ public class Address extends Language {
                 if (addressone.getText().toString().trim().equals("")) {
                     addressone.setError(getResources().getString(R.string.add_de));
                 }
-                if (addressone.getText().toString().length() <= 3) {
+                if (addressone.getText().toString().length() < 3) {
                     addressone.setError(getResources().getString(R.string.add_de_valid));
                 }
                 if (city.getText().toString().trim().equals("")) {

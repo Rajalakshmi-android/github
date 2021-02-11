@@ -637,8 +637,14 @@ public class MyCart extends Language {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (pin_code.getText().toString().trim().equals("")) {
+                    pin_code.setError(getResources().getString(R.string.oin_error));
+                }
+                if (pin_code.getText().toString().length() != 6) {
+                    pin_code.setError(getResources().getString(R.string.pin_error1));
+                }
 
-                if (country.getSelectedItemPosition() > 0 && state.getSelectedItemPosition() > 0 && pin_code.getText().toString().length() > 0) {
+                if (country.getSelectedItemPosition() > 0 && state.getSelectedItemPosition() > 0 &&  !pin_code.getText().toString().trim().isEmpty() && pin_code.getText().toString().length() == 6) {
                     CalcTask calcTask = new CalcTask();
                     calcTask.execute(country_list.get(country.getSelectedItemPosition()).getCount_id() + "", state_list.get(state.getSelectedItemPosition()).getZone_id(), pin_code.getText().toString());
                 } else {
@@ -648,9 +654,7 @@ public class MyCart extends Language {
                     if (state.getSelectedItemPosition() == 0) {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.select_state), Toast.LENGTH_LONG).show();
                     }
-                    if (pin_code.getText().toString().trim().length() == 0) {
-                        pin_code.setError(getResources().getString(R.string.oin_error));
-                    }
+
                 }
 
             }

@@ -142,8 +142,11 @@ public class AddressList extends Language {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
+                CartTask cartTask = new CartTask();
+                cartTask.execute(Appconstatants.cart_api);
                 AddressListTask addressListTask = new AddressListTask();
                 addressListTask.execute();
+
 
             }
         });

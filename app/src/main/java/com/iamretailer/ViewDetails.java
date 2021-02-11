@@ -370,9 +370,14 @@ public class ViewDetails extends Language {
                     else
                     {
                         String c_name=object.isNull("payment_firstname") ? "" : object.getString("payment_firstname") + " " + object.getString("payment_lastname");
-                        String c_ad1=object.getString("payment_address_1") + ", " + object.getString("payment_address_2")+",";
                         String c_ad2=object.getString("payment_city") + ", "+object.getString("payment_zone")+",";
                         String c_country=object.getString("payment_country")+" - "+object.getString("payment_postcode")+".";
+                        String c_ad1;
+                        if(object.getString("payment_address_2")!=null && object.getString("payment_address_2").length()!=0 && !object.getString("payment_address_2").equalsIgnoreCase("") ) {
+                           c_ad1 = object.getString("payment_address_1") + ", " + object.getString("payment_address_2") + ",";
+                        }else{
+                            c_ad1 = object.getString("payment_address_1") + ", ";
+                        }
 
                         cus_name.setText(c_name );
                         cus_address_one.setText(c_ad1);

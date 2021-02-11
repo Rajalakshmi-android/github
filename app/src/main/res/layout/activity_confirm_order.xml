@@ -334,12 +334,13 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center|center_vertical"
-                                    android:layout_marginEnd="@dimen/dp30">
+                                    android:paddingEnd="@dimen/dp10"
+                                    android:layout_marginEnd="@dimen/dp20">
 
                                     <ImageView
                                         android:id="@+id/promo_circle"
-                                        android:layout_width="@dimen/dp30"
-                                        android:layout_height="@dimen/dp30"
+                                        android:layout_width="@dimen/dp25"
+                                        android:layout_height="@dimen/dp25"
                                         android:src="@mipmap/promo_circle_unfil" />
                                 </LinearLayout>
 
@@ -412,12 +413,13 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center|center_vertical"
-                                    android:layout_marginEnd="@dimen/dp30">
+                                    android:paddingEnd="@dimen/dp10"
+                                    android:layout_marginEnd="@dimen/dp20">
 
                                     <ImageView
                                         android:id="@+id/gift_circle"
-                                        android:layout_width="@dimen/dp30"
-                                        android:layout_height="@dimen/dp30"
+                                        android:layout_width="@dimen/dp25"
+                                        android:layout_height="@dimen/dp25"
                                         android:autoMirrored="true"
                                         android:contentDescription="@null"
                                         android:rotationY="@integer/locale_mirror_flip"
