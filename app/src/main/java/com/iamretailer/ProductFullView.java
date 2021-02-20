@@ -531,11 +531,13 @@ public class ProductFullView extends Language {
     private void coloroption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.optionview, options, false);
         TextView heading = layout.findViewById(R.id.heading);
+        LinearLayout full_layout = layout.findViewById(R.id.full_layout);
         String text = optionsPO.getName() + " :";
         heading.setText(text);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         final ArrayList<SingleOptionPO> colorlist = optionsPO.getValuelist();
         if (colorlist != null && colorlist.size() > 0) {
+            full_layout.setVisibility(View.VISIBLE);
             colorlist.get(0).setImgSel(true);
 
             optionsPOArrayList.get(pos).setSelected_id(colorlist.get(0).getProduct_option_value_id()+"");
@@ -546,6 +548,8 @@ public class ProductFullView extends Language {
             ColorAdapters coladapter = new ColorAdapters(ProductFullView.this, colorlist);
             gridView.setAdapter(coladapter);
             gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        }else{
+            full_layout.setVisibility(View.GONE);
         }
         gridView.addOnItemTouchListener(new RecyclerItemClickListener(ProductFullView.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -1194,18 +1198,29 @@ public class ProductFullView extends Language {
         options.removeAllViews();
         for (int i = 0; i < optionsPOArrayList.size(); i++) {
             if ((optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colrs)) || optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colss))) && optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
-                coloroption(optionsPOArrayList.get(i), i);
+                     if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                         coloroption(optionsPOArrayList.get(i), i);
+                     }
             } else if (optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.size))) {
-                sizeoption(optionsPOArrayList.get(i), i);
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    sizeoption(optionsPOArrayList.get(i), i);
+                }
             } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.chelk_box))) {
-                checkbox_option(optionsPOArrayList.get(i), i);
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    checkbox_option(optionsPOArrayList.get(i), i);
+                }
             } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
-                radio_button(optionsPOArrayList.get(i), i);
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    radio_button(optionsPOArrayList.get(i), i);
+                }
             } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates))) {
-                date_option(optionsPOArrayList.get(i), i);
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    date_option(optionsPOArrayList.get(i), i);
+                }
             } else {
-                weightoption(optionsPOArrayList.get(i), i);
-
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    weightoption(optionsPOArrayList.get(i), i);
+                }
             }
 
         }

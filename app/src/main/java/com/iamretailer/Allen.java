@@ -633,6 +633,7 @@ public class Allen extends Language {
 
                         error_network.setVisibility(View.GONE);
                         start = start + 1;
+                        loadin = false;
                         prog_sec.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
 

@@ -276,7 +276,7 @@ public class MyOrders extends Language {
                     } else {
                         JSONArray array = json.getJSONArray("error");
 
-                        if (array.getString(0).equalsIgnoreCase("User is not logged in")) {
+                        if (array.getString(0).contains("not")) {
 
                             loading.setVisibility(View.GONE);
                             Intent i = new Intent(MyOrders.this, Login.class);
