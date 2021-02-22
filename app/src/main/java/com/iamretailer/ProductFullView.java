@@ -1252,7 +1252,7 @@ public class ProductFullView extends Language {
                     radio_button(optionsPOArrayList.get(i), i);
                 }
             } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates_contion))) {
-                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                if(optionsPOArrayList.get(i).getValue()!=null && optionsPOArrayList.get(i).getValue().length() > 0) {
                     date_option(optionsPOArrayList.get(i), i);
                 }
             } else {
