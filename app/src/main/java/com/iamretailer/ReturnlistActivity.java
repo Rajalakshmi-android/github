@@ -52,6 +52,7 @@ public class ReturnlistActivity extends Language {
         CommonFunctions.updateAndroidSecurityProvider(this);
         logger = AndroidLogger.getLogger(getApplicationContext(), Appconstatants.LOG_ID, false);
         LinearLayout back = findViewById(R.id.menu);
+
         error_network = findViewById(R.id.error_network);
         DBController db = new DBController(ReturnlistActivity.this);
         LinearLayout retry = findViewById(R.id.retry);

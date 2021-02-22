@@ -124,6 +124,7 @@ public class ConfirmOrder extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
+        Log.i("khfkhkfh",db.getCurCode()+"fghhfh");
         custid=db.getcusid();
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();

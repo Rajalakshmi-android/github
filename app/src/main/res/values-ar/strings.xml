@@ -50,7 +50,7 @@
     <string name="sorting">صنف حسب :</string>
     <string name="no_items">لا توجد منتجات.</string>
     <string name="no_con">لا يوجد اتصال</string>
-    <string name="check_network"> الرجاء التحقق من اتصالك بالإنترنت \ n &amp; حاول مجددا.</string>
+    <string name="check_network"> الرجاء التحقق من اتصالك بالإنترنت \n &amp; حاول مجددا.</string>
     <string name="amount">كمية :</string>
     <string name="USERNAME_Email">البريد الإلكتروني*</string>
     <string name="PASSWORD">كلمه السر*</string>

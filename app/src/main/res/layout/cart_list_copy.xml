@@ -76,7 +76,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp5"
-                            android:paddingEnd="@dimen/dp30"
+                            android:layout_marginEnd="@dimen/dp30"
                             android:paddingStart="@dimen/dp0"
                             android:text="@string/product_name"
                             android:textColor="@color/cart_text"

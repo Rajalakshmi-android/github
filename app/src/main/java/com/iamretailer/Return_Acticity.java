@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +75,7 @@ public class Return_Acticity extends Language {
     private int open = 0;
     private int reason_id = 0;
     private ArrayList<ProductsPO> reason_bos;
+    private ScrollView mScrlMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,14 @@ public class Return_Acticity extends Language {
         TextView cart_count = findViewById(R.id.cart_count);
         cart_count.setVisibility(View.GONE);
         cart_items.setVisibility(View.GONE);
+        mScrlMain = findViewById(R.id.scroll);
+        comments.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         if (getIntent().getExtras() != null) {
             quantity = getIntent().getExtras().getString("qty");
             prod_names = getIntent().getExtras().getString("prod_name");

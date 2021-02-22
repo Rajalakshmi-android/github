@@ -27,6 +27,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -40,6 +41,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -161,6 +163,7 @@ public class ProductFullView extends Language {
     private String manufacturer="";
     private FrameLayout brand_layout;
     private TextView brand;
+    private ScrollView mScrlMain;
 
 
     @Override
@@ -241,7 +244,14 @@ public class ProductFullView extends Language {
         rate3 = findViewById(R.id.rate3);
         rate4 = findViewById(R.id.rate4);
         rate5 = findViewById(R.id.rate5);
-
+      mScrlMain = findViewById(R.id.scroll);
+        comment.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         rate1.setOnClickListener(new View.OnClickListener() {
             @Override
