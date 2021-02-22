@@ -377,6 +377,7 @@ public class MainActivity extends Drawer {
         try {
         String smsNumber = Appconstatants.whatsapp_number;
         boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+        boolean isWhatsappInstalled1 = whatsappInstalledOrNot("com.whatsapp.w4b");
         if (isWhatsappInstalled) {
 
             Intent sendIntent = new Intent("android.intent.action.MAIN");
@@ -384,7 +385,17 @@ public class MainActivity extends Drawer {
             sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(smsNumber) + "@s.whatsapp.net");//phone number without "+" prefix
 
             startActivity(sendIntent);
-        } else {
+        }
+        else if (isWhatsappInstalled1) {
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            sendIntent.setComponent(new ComponentName("com.whatsapp.w4b", "com.whatsapp.Conversation"));
+            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(smsNumber) + "@s.whatsapp.net");//phone number without "+" prefix
+
+            startActivity(sendIntent);
+
+        }
+
+        else {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp")));
             Toast.makeText(this, "WhatsApp not Installed",
                     Toast.LENGTH_SHORT).show();

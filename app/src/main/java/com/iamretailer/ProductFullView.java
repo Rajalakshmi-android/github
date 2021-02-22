@@ -158,6 +158,9 @@ public class ProductFullView extends Language {
     private String duedate1 = "";
     private String psosavedate2 = "";
     private String psosavedate3="";
+    private String manufacturer="";
+    private FrameLayout brand_layout;
+    private TextView brand;
 
 
     @Override
@@ -203,6 +206,8 @@ public class ProductFullView extends Language {
         productrs = findViewById(R.id.productrs);
         originalrs = findViewById(R.id.originalrs);
         option_layout = findViewById(R.id.option_layout);
+        brand_layout = findViewById(R.id.brand_layout);
+        brand = findViewById(R.id.brand);
         review = findViewById(R.id.reviews);
         review_layout = findViewById(R.id.review_layout);
         review_list = findViewById(R.id.review_list);
@@ -962,6 +967,14 @@ public class ProductFullView extends Language {
                         p_id = jsonObject.isNull("id") ? "" : jsonObject.getString("id");
                         product_id = jsonObject.isNull("product_id") ? "" : jsonObject.getString("product_id");
                         p_name.setText(jsonObject.isNull("name") ? "" : jsonObject.getString("name"));
+                        manufacturer=(jsonObject.isNull("manufacturer") ? "" : jsonObject.getString("manufacturer"));
+                        if(manufacturer!=null&& !manufacturer.equalsIgnoreCase("")){
+                            brand.setText(manufacturer+"");
+                            brand_layout.setVisibility(View.VISIBLE);
+                        }else{
+                            brand.setText("");
+                            brand_layout.setVisibility(View.GONE);
+                        }
 
                         image = jsonObject.getString("image");
                         qty = jsonObject.isNull("quantity") ? 0 : jsonObject.getInt("quantity");
@@ -1197,23 +1210,23 @@ public class ProductFullView extends Language {
     private void DrawOptions() {
         options.removeAllViews();
         for (int i = 0; i < optionsPOArrayList.size(); i++) {
-            if ((optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colrs)) || optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colss))) && optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
+            if ((optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colrs_condition)) || optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colss_condition))) && optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio_condition))) {
                      if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                          coloroption(optionsPOArrayList.get(i), i);
                      }
-            } else if (optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.size))) {
+            } else if (optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.size_condtion))) {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     sizeoption(optionsPOArrayList.get(i), i);
                 }
-            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.chelk_box))) {
+            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.chelk_box_condition))) {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     checkbox_option(optionsPOArrayList.get(i), i);
                 }
-            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
+            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio_condition))) {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     radio_button(optionsPOArrayList.get(i), i);
                 }
-            } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates))) {
+            } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates_contion))) {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     date_option(optionsPOArrayList.get(i), i);
                 }
@@ -1306,7 +1319,7 @@ public class ProductFullView extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Snackbar.make(fullayout, R.string.error_msg,
-                            Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             buy.performClick();
@@ -1318,7 +1331,7 @@ public class ProductFullView extends Language {
                 }
             } else {
                 Snackbar.make(fullayout, R.string.error_net,
-                        Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                        Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         buy.performClick();

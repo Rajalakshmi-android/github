@@ -38,8 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:autoMirrored="true"
-                android:contentDescription="@null"
-                android:rotationY="@integer/locale_mirror_flip"
                 android:src="@mipmap/white_tic" />
         </LinearLayout>
     </FrameLayout>

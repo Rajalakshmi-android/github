@@ -76,26 +76,25 @@
 
         <LinearLayout
             android:id="@+id/shopnow"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/dp40"
-            android:layout_marginStart="@dimen/dp40"
-            android:layout_marginTop="@dimen/dp30"
-            android:background="@drawable/login_button"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
-            <com.iamretailer.Common.CustomTextview1
+            <com.iamretailer.Common.CustomButton
+                android:id="@+id/shop"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:singleLine="true"
+                android:layout_height="@dimen/dp35"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/circle"
+                android:paddingEnd="@dimen/dp20"
+                android:paddingStart="@dimen/dp20"
                 android:text="@string/shop_now"
                 android:textColor="@color/button_textcolor"
-                android:textSize="@dimen/text18sp" />
+                android:textSize="@dimen/text12sp" />
         </LinearLayout>
 
     </LinearLayout>

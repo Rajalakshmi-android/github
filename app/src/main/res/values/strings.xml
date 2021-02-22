@@ -98,7 +98,7 @@
     <string name="select_size">Select Size :</string>
     <string name="select">Select :</string>
     <string name="date">Date</string>
-    <string name="dates">date</string>
+    <string name="dates_contion">date</string>
     <string name="sing">S</string>
     <string name="stuff">Add some stuff!</string>
     <string name="no_cart_list">Currently you have no items in your cart</string>
@@ -119,6 +119,7 @@
     <string name="Paidment">Payment cash</string>
     <string name="qty">1</string>
     <string name="des">Description:</string>
+    <string name="brand">Brand:</string>
     <string name="my_Cart">My Cart</string>
     <string name="delivery">Delivery Method</string>
     <string name="delivery_tex">Add Comments About Your Order</string>
@@ -305,11 +306,11 @@
     <string name="comp">is completed. Thank you for ordering.</string>
     <string name="cod">Cash on Delivery</string>
     <string name="razorpay">razorpay</string>
-    <string name="colrs">Color</string>
-    <string name="colss">Colours</string>
-    <string name="radio">radio</string>
-    <string name="size">Size</string>
-    <string name="chelk_box">checkbox</string>
+    <string name="colrs_condition">Color</string>
+    <string name="colss_condition">Colours</string>
+    <string name="radio_condition">radio</string>
+    <string name="size_condtion">Size</string>
+    <string name="chelk_box_condition">checkbox</string>
     <string name="pay_type">Payment Type should be selected</string>
     <string name="store">Store Locator</string>
     <string name="store1">Our Stores</string>

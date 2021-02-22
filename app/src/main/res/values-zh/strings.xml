@@ -271,11 +271,11 @@ tab目录下的页面</string>
     <string name="orr">The order</string>
     <string name="ore_br">(order id:</string>
     <string name="comp">is completed. Thank you for ordering.</string>
-    <string name="colrs">Color</string>
-    <string name="colss">Colours</string>
-    <string name="radio">radio</string>
-    <string name="size">Size</string>
-    <string name="chelk_box">checkbox</string>
+    <string name="colrs_condition">Color</string>
+    <string name="colss_condition">Colours</string>
+    <string name="radio_condition">radio</string>
+    <string name="size_condtion">Size</string>
+    <string name="chelk_box_condition">checkbox</string>
     <string name="pay_type">Payment Type should be selected</string>
     <string name="del_by">Delivery by</string>
     <string name="return_save">Order Cancelled successfully</string>

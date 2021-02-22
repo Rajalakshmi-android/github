@@ -211,7 +211,7 @@ public class Return_Acticity extends Language {
         String[] value = {"Yes", "No"};
         for (int u = 0; u < value.length; u++) {
             RadioButton rbn = new RadioButton(Return_Acticity.this);
-            String values = "  " + value[u];
+            String values = "  " + value[u]+"  ";
             rbn.setId(u);
             rbn.setText(values);
             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
@@ -308,7 +308,7 @@ public class Return_Acticity extends Language {
                         Log.i("sdsadad", reason_bos.size() + "");
                         for (int u = 0; u < reason_bos.size(); u++) {
                             RadioButton rbn = new RadioButton(Return_Acticity.this);
-                            String values = "  " + reason_bos.get(u).getProduct_name();
+                            String values = "  " + reason_bos.get(u).getProduct_name()+"  ";
                             rbn.setId(reason_bos.get(u).getProductid());
                             rbn.setText(values);
                             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
@@ -445,7 +445,7 @@ public class Return_Acticity extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -457,7 +457,7 @@ public class Return_Acticity extends Language {
                 }
 
             } else {
-                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

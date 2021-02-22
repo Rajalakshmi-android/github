@@ -357,14 +357,49 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
+                                <FrameLayout
+                                    android:id="@+id/brand_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
 
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/dp5"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="@dimen/dp10"
+                                        android:paddingEnd="@dimen/dp10"
+                                        android:paddingStart="@dimen/dp10">
+
+
+                                        <com.iamretailer.Common.CustomTextview1
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/brand"
+                                            android:textColor="@color/app_text_color"
+                                            android:textSize="@dimen/text15sp" />
+
+
+                                        <com.iamretailer.Common.CustomTextview1
+                                            android:id="@+id/brand"
+                                            android:layout_marginStart="@dimen/dp15"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/des"
+                                            android:textColor="@color/app_text_color"
+                                            android:textSize="@dimen/text15sp" />
+                                    </LinearLayout>
+                                </FrameLayout>
                                 <LinearLayout
+                                    android:layout_marginTop="@dimen/dp5"
                                     android:id="@+id/options"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start"
                                     android:gravity="start"
                                     android:orientation="vertical" />
+
+
 
                                 <FrameLayout
                                     android:id="@+id/desp_layout"

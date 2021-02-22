@@ -353,7 +353,7 @@ public class MyProfile extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -365,7 +365,7 @@ public class MyProfile extends Language {
                 }
 
             } else {
-                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

@@ -375,7 +375,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                     if (pDialog != null)
                         pDialog.dismiss();
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -390,7 +390,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
             } else {
                 if (pDialog != null)
                     pDialog.dismiss();
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -506,7 +506,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(popup, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(popup, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -518,7 +518,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 }
 
             } else {
-                Snackbar.make(popup, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(popup, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -702,7 +702,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("exp_", e.toString());
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -715,7 +715,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -786,7 +786,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("exp_", e.toString());
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -799,7 +799,7 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

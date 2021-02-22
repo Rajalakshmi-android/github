@@ -96,7 +96,7 @@
     <string name="select_size">أختر الحجم :</string>
     <string name="select">تحديد :</string>
     <string name="date">تاريخ</string>
-    <string name="dates">تاريخ</string>
+    <string name="dates_contion">date</string>
     <string name="sing">س</string>
     <string name="stuff">أضف بعض الأشياء!</string>
     <string name="no_cart_list">حاليا لا يوجد لديك عناصر في سلة التسوق الخاصة بك</string>
@@ -300,11 +300,11 @@
     <string name="comp">قد اكتمل. شكرا لك على الطلب.</string>
     <string name="cod">الدفع عند الاستلام</string>
     <string name="razorpay">رازورباي</string>
-    <string name="colrs">اللون</string>
-    <string name="colss">الألوان</string>
-    <string name="radio">مذياع</string>
-    <string name="size">بحجم</string>
-    <string name="chelk_box">خانة الاختيار</string>
+    <string name="colrs_condition">Color</string>
+    <string name="colss_condition">Colours</string>
+    <string name="radio_condition">radio</string>
+    <string name="size_condtion">Size</string>
+    <string name="chelk_box_condition">checkbox</string>
     <string name="pay_type">يجب تحديد نوع الدفع</string>
     <string name="store">فروعنا</string>
     <string name="store1">متاجرنا</string>

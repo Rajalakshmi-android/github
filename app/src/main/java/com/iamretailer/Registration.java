@@ -261,7 +261,7 @@ public class Registration extends Language {
                         Toast.makeText(Registration.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -274,7 +274,7 @@ public class Registration extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -287,7 +287,7 @@ public class Registration extends Language {
             } else {
                 pDialog.dismiss();
 
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

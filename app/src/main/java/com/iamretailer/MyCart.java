@@ -139,6 +139,9 @@ public class MyCart extends Language {
 
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
+
+                CountryTask countryTask = new CountryTask();
+                countryTask.execute();
             }
         });
 
@@ -910,7 +913,7 @@ public class MyCart extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -923,7 +926,7 @@ public class MyCart extends Language {
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -989,7 +992,7 @@ public class MyCart extends Language {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ship_item, shipping_list, false);
         TextView ship_title = convertView.findViewById(R.id.ship_title);
         TextView ship_cost = convertView.findViewById(R.id.ship_cost);
-        String keys = key + ": ";
+        String keys = key + ":";
         ship_title.setText(keys);
         String costs = cost + "";
         ship_cost.setText(costs);

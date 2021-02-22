@@ -305,7 +305,7 @@ public class DeliveryMethod extends Language {
 
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(DeliveryMethod.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -317,7 +317,7 @@ public class DeliveryMethod extends Language {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -328,7 +328,7 @@ public class DeliveryMethod extends Language {
                             .show();
                 }
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
