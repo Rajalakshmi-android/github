@@ -3,7 +3,9 @@ package com.iamretailer.Adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,8 +73,13 @@ public class Wish_list_adapter extends ArrayAdapter<ProductsPO> {
         holder.cur_front = convertView.findViewById(R.id.cur_front);
         holder.cur_back = convertView.findViewById(R.id.cur_back);
         holder.line = convertView.findViewById(R.id.line);
-        holder.product_name.setText(items.get(position).getProduct_name());
         holder.p_price.setText(items.get(position).getOff_price());
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            holder.product_name.setText(Html.fromHtml(items.get(position).getProduct_name(), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            holder.product_name.setText(Html.fromHtml(items.get(position).getProduct_name()));
+        }
 
         if (items.get(position).getProducturl() != null && items.get(position).getProducturl().length() != 0)
             Picasso.with(context).load(items.get(position).getProducturl()).placeholder(R.mipmap.place_holder).into(holder.p_img);

@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -524,7 +525,7 @@ public class ViewDetails extends Language {
         cur_left2.setText(cur_left);
         cur_right1.setText(cur_right);
         cur_right2.setText(cur_right);
-        name.setText(placePO.getProduct_name());
+        //name.setText(placePO.getProduct_name());
         double a = Double.parseDouble(placePO.getPrcie());
         double b = Double.parseDouble(placePO.getAmout());
         String a1=String.format(Locale.ENGLISH,"%.2f", a);
@@ -536,6 +537,14 @@ public class ViewDetails extends Language {
             returnlay.setVisibility(View.VISIBLE);
         }else{
             returnlay.setVisibility(View.GONE);
+        }
+
+        if(placePO.getProduct_name()!=null && placePO.getProduct_name().length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                name.setText(Html.fromHtml(placePO.getProduct_name(), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                name.setText(Html.fromHtml(placePO.getProduct_name()));
+            }
         }
         returnlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -555,7 +564,7 @@ public class ViewDetails extends Language {
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
             if(placePO.getOptionlist().get(h).getName().contains(getResources().getString(R.string.date))){
-                sb2.append("\n"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+                sb2.append("<br/>"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
             }else{
                 sb2.append(placePO.getOptionlist().get(h).getValue());
             }
@@ -570,7 +579,14 @@ public class ViewDetails extends Language {
         {
             p_option.setVisibility(View.GONE);
         }
-        p_option.setText(String.valueOf(sb2));
+       // p_option.setText(String.valueOf(sb2));
+        if(String.valueOf(sb2)!=null && String.valueOf(sb2).length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                p_option.setText(Html.fromHtml(String.valueOf(sb2), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                p_option.setText(Html.fromHtml(String.valueOf(sb2)));
+            }
+        }
 
         if (placePO.getUrl() != null && placePO.getUrl().length() > 0  )
             Picasso.with(ViewDetails.this).load(placePO.getUrl()).placeholder(R.mipmap.place_holder).into(imag);

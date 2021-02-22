@@ -8,10 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
@@ -119,13 +121,20 @@ public class Return_Acticity extends Language {
             prod_model = getIntent().getExtras().getString("prod_model");
         }
         tot_qty.setText(quantity);
-        prod_name.setText(prod_names);
         cart = findViewById(R.id.cart);
         update = findViewById(R.id.update);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
         LinearLayout retry = findViewById(R.id.retry);
+
+        if(prod_names!=null && prod_names.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                prod_name.setText(Html.fromHtml(prod_names, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                prod_name.setText(Html.fromHtml(prod_names));
+            }
+        }
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

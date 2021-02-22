@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:paddingTop="@dimen/dp25"
     android:background="@color/app_bg_color1">
 
     <include layout="@layout/menu_back" />

@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -342,8 +343,20 @@ public class ReturnViewDetails extends Language {
                         cus_name.setText((object.isNull("firstname") ? "" : object.getString("firstname"))+" "+(object.isNull("lastname") ? "" : object.getString("lastname")));
                         email.setText(object.isNull("email") ? "" : object.getString("email"));
                         phone.setText(object.isNull("telephone") ? "" : object.getString("telephone"));
-                        product_name.setText(object.isNull("product") ? "" : object.getString("product"));
-                        model.setText(object.isNull("model") ? "" : object.getString("model"));
+                        if(object.getString("product")!=null && object.getString("product").length()!=0) {
+                            if (Build.VERSION.SDK_INT >= 24) {
+                                product_name.setText(Html.fromHtml(object.getString("product"), Html.FROM_HTML_MODE_LEGACY));
+                            } else {
+                                product_name.setText(Html.fromHtml(object.getString("product")));
+                            }
+                        }
+                        if(object.getString("model")!=null && object.getString("model").length()!=0) {
+                            if (Build.VERSION.SDK_INT >= 24) {
+                                model.setText(Html.fromHtml(object.getString("model"), Html.FROM_HTML_MODE_LEGACY));
+                            } else {
+                                model.setText(Html.fromHtml(object.getString("model")));
+                            }
+                        }
                         qty.setText(object.isNull("quantity") ? "" : object.getString("quantity"));
                         reason.setText(object.isNull("reason") ? "" : object.getString("reason"));
                         open.setText(object.isNull("opened") ? "" : object.getString("opened"));

@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -124,7 +126,6 @@ public class ConfirmOrder extends Language {
         Appconstatants.sessiondata = db.getSession();
         Appconstatants.Lang = db.get_lang_code();
         Appconstatants.CUR = db.getCurCode();
-        Log.i("khfkhkfh",db.getCurCode()+"fghhfh");
         custid=db.getcusid();
         cur_left = db.get_cur_Left();
         cur_right = db.get_cur_Right();
@@ -616,6 +617,10 @@ public class ConfirmOrder extends Language {
         dialog.getWindow().setAttributes(lp);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
+        Window window = dialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
         TextView order_id = dialog.findViewById(R.id.orderid);
         final LinearLayout details = dialog.findViewById(R.id.details);
         TextView header = dialog.findViewById(R.id.header);
@@ -656,15 +661,21 @@ public class ConfirmOrder extends Language {
         TextView qunt = convertView.findViewById(R.id.p_qty);
         TextView amount = convertView.findViewById(R.id.total);
         TextView p_option = convertView.findViewById(R.id.p_option);
-        name.setText(placePO.getProduct_name());
         price.setText(placePO.getPrcie());
         qunt.setText(placePO.getQty());
         amount.setText(placePO.getAmout());
+        if(placePO.getProduct_name()!=null && placePO.getProduct_name().length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+               name.setText(Html.fromHtml(placePO.getProduct_name(), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                name.setText(Html.fromHtml(placePO.getProduct_name()));
+            }
+        }
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
             if(placePO.getOptionlist().get(h).getName().contains(getResources().getString(R.string.date))){
-                sb2.append("\n"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+                sb2.append("<br/>"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
             }else{
                 sb2.append(placePO.getOptionlist().get(h).getValue());
             }
@@ -676,7 +687,14 @@ public class ConfirmOrder extends Language {
         } else {
             p_option.setVisibility(View.GONE);
         }
-        p_option.setText(String.valueOf(sb2));
+       // p_option.setText(String.valueOf(sb2));
+        if(String.valueOf(sb2)!=null && String.valueOf(sb2).length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                p_option.setText(Html.fromHtml(String.valueOf(sb2), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                p_option.setText(Html.fromHtml(String.valueOf(sb2)));
+            }
+        }
         if (placePO.getUrl().length() != 0 && placePO.getUrl() != null)
             Picasso.with(ConfirmOrder.this).load(placePO.getUrl()).placeholder(R.mipmap.place_holder).into(imag);
         view_list.addView(convertView);

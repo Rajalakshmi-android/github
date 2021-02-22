@@ -24,6 +24,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -758,7 +759,14 @@ public class ProductFullView extends Language {
         FrameLayout date_box = layout.findViewById(R.id.date_box);
         String text = optionsPO.getName() + " :";
         Log.i("tag","datevalue---- "+optionsPO.getValue());
-        heading.setText(text);
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+       // heading.setText(text);
         date.setText(optionsPO.getValue());
         optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
         date_box.setOnClickListener(new View.OnClickListener() {
@@ -976,7 +984,14 @@ public class ProductFullView extends Language {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         p_id = jsonObject.isNull("id") ? "" : jsonObject.getString("id");
                         product_id = jsonObject.isNull("product_id") ? "" : jsonObject.getString("product_id");
-                        p_name.setText(jsonObject.isNull("name") ? "" : jsonObject.getString("name"));
+                        if(jsonObject.getString("name")!=null && jsonObject.getString("name").length()!=0){
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            p_name.setText(Html.fromHtml(jsonObject.getString("name"), Html.FROM_HTML_MODE_LEGACY));
+                        } else {
+                            p_name.setText(Html.fromHtml(jsonObject.getString("name")));
+                        }
+                        }
+                      // p_name.setText(jsonObject.isNull("name") ? "" : jsonObject.getString("name"));
                         manufacturer=(jsonObject.isNull("manufacturer") ? "" : jsonObject.getString("manufacturer"));
                         if(manufacturer!=null&& !manufacturer.equalsIgnoreCase("")){
                             brand.setText(manufacturer+"");

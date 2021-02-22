@@ -2,9 +2,12 @@ package com.iamretailer;
 
 
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 
@@ -35,6 +38,14 @@ public class InfoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent, this.getTheme()));
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
+
+
+        }
 
     }
 
