@@ -5,12 +5,12 @@ public class Appconstatants {
     public static final String LOG_ID ="2abd0c80-6a04-40af-ba88-ce08a48e4e61";
 
     public static String key="x-oc-merchant-id";
-    public static String value="APP_DOMAIN_KEY";
-    //public static String value="nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";///"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
+
+    public static String value="nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cXPSUy2UUXFQqeKnHg44abn7ewySi3pz";///"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"jgEtw1UZQHvvPhOVEuZt2Yn3WG63pHaa";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";//"cDXtRf72fHTPDz0Mp5OCFysHna10Ssjf";//"nuhgMM40tVc2alX3gmXlVJLdzPIc0AeL";
 
     public static String key1="X-Oc-Session";
-    public static String domain ="APP_DOMAIN_NAME";
-   // public static String domain ="http://shopzen.stutzen.in/";//"https://shopzenstage.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
+
+    public static String domain ="http://shopzen.stutzen.in/";//"https://shopzenstage.stutzen.in/";//"https://krstore.iamretailer.com/";//"http://shopzen.stutzen.in/";//"https://krstore.iamretailer.com/";//http://shopzenstage.stutzen.in/";//"http://shopzenstage.stutzen.in/";
 
     public static String sessiondata ="5050f4ca981c9fc266f6b1e0b7";
 
@@ -134,19 +134,19 @@ public class Appconstatants {
 
     public static String BANNER_LINK=domain+"index.php?route=feed/rest_api/bannerProducts&id=";
 
-   // public static String CATEGORY_FILTER=domain+"index.php?route=feed/rest_api/manufacturers";
+    // public static String CATEGORY_FILTER=domain+"index.php?route=feed/rest_api/manufacturers";
     public static String CATEGORY_FILTER=domain+"index.php?route=rest/filter/filteroption";
 
 
-    public  static  String LICENSE_KEY="APP_LICENSE_KEY";
+    public  static  String LICENSE_KEY="1234567890";
     public static int need_brand_product=1;
-    public static String store_locator="STORE_LOCATOR";
-    public static String returns_menu="ORDER_RETURN_NEED";
-    public static String whatsapp_mode="WHATSAPP_MODE";
-    public static String fblogin="FB_LOGIN_NEED";
+    public static String store_locator="1";
+    public static String returns_menu="1";
+    public static String whatsapp_mode="1";
+    public static String fblogin="1";
     public static int view_detail_call=1;
     public static int return_view_detail_call=1;
-    public static String whatsapp_number="WHATSAPP_NUMBER";
+    public static String whatsapp_number="9965077905";
     public static String playstore_url="https://play.google.com/store/apps/details?id=com.iamretailer/";
 
     public static String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381","12.120000"};
