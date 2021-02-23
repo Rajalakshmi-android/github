@@ -319,7 +319,7 @@ public class Deal_list extends Language {
                         load_more.setVisibility(View.GONE);
 
                         start = start + 1;
-
+                        loadin = false;
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);

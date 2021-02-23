@@ -698,7 +698,7 @@ public class ProductFullView extends Language {
             for (int u = 0; u < radio_values.size(); u++) {
                 RadioButton rbn = new RadioButton(ProductFullView.this);
                 rbn.setId(radio_values.get(u).getProduct_option_value_id());
-                String value = "  " + radio_values.get(u).getName();
+                String value = "  " + radio_values.get(u).getName()+" ";
                 rbn.setText(value);
                 rbn.setTypeface(typeface);
                 rbn.setTextColor(getResources().getColor(R.color.text_select));
@@ -858,7 +858,7 @@ public class ProductFullView extends Language {
             for (int u = 0; u < check_value.size(); u++) {
                 RadioButton rbn = new RadioButton(ProductFullView.this);
                 rbn.setId(check_value.get(u).getProduct_option_value_id());
-                String value = "  " + check_value.get(u).getName();
+                String value = "  " + check_value.get(u).getName()+" ";
                 rbn.setText(value);
                 rbn.setTypeface(typeface);
                 rbn.setTextColor(getResources().getColor(R.color.text_select));
@@ -1252,9 +1252,9 @@ public class ProductFullView extends Language {
                     radio_button(optionsPOArrayList.get(i), i);
                 }
             } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates_contion))) {
-                if(optionsPOArrayList.get(i).getValue()!=null && optionsPOArrayList.get(i).getValue().length() > 0) {
-                    date_option(optionsPOArrayList.get(i), i);
-                }
+
+                date_option(optionsPOArrayList.get(i), i);
+
             } else {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     weightoption(optionsPOArrayList.get(i), i);
