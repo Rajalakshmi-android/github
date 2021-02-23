@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -566,7 +567,12 @@ public class ConfirmOrder extends Language {
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         orderid = jsonObject.getInt("order_id") + "";
-                        details();
+                       // details();
+                        Intent intent = new Intent(ConfirmOrder.this, SuccessActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", orderid);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     } else {
 
                         JSONArray array = json.getJSONArray("error");
@@ -607,6 +613,11 @@ public class ConfirmOrder extends Language {
         final Dialog dialog = new Dialog(ConfirmOrder.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_order_sucess);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            dialog. getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary, this.getTheme()));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        }
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -617,10 +628,6 @@ public class ConfirmOrder extends Language {
         dialog.getWindow().setAttributes(lp);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-        Window window = dialog.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
         TextView order_id = dialog.findViewById(R.id.orderid);
         final LinearLayout details = dialog.findViewById(R.id.details);
         TextView header = dialog.findViewById(R.id.header);
@@ -679,9 +686,9 @@ public class ConfirmOrder extends Language {
                     sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
                 }else{
                     if(h==0){
-                        sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue()+"\n");
+                        sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue()+"<br/>");
                     }else{
-                        sb2.append("\n"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+                        sb2.append("<br/>"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
 
                     }
                 }

@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -65,7 +66,7 @@ public class MyOrders extends Language {
         order = findViewById(R.id.order_list);
         loading = findViewById(R.id.loading);
         empty = findViewById(R.id.empty);
-        LinearLayout shopnow = findViewById(R.id.shopnow);
+        Button shop = findViewById(R.id.shop);
         fullayout = findViewById(R.id.fullayout);
         empty.setVisibility(View.GONE);
         errortxt1 = findViewById(R.id.errortxt1);
@@ -79,7 +80,7 @@ public class MyOrders extends Language {
 
         OrderTask orderTask = new OrderTask();
         orderTask.execute(Appconstatants.myorder_api, Appconstatants.sessiondata);
-        shopnow.setOnClickListener(new View.OnClickListener() {
+        shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MyOrders.this, MainActivity.class));
