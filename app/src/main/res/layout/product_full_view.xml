@@ -371,24 +371,21 @@
                                         android:paddingBottom="@dimen/dp10"
                                         android:paddingEnd="@dimen/dp10"
                                         android:paddingStart="@dimen/dp10">
-
-
                                         <com.iamretailer.Common.CustomTextview1
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/brand"
                                             android:textColor="@color/app_text_color"
-                                            android:textSize="@dimen/text15sp" />
-
-
+                                            android:textSize="@dimen/text14sp" />
                                         <com.iamretailer.Common.CustomTextview1
                                             android:id="@+id/brand"
                                             android:layout_marginStart="@dimen/dp15"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/des"
+                                            android:text=""
                                             android:textColor="@color/app_text_color"
-                                            android:textSize="@dimen/text15sp" />
+                                            android:textSize="@dimen/text14sp" />
+
                                     </LinearLayout>
                                 </FrameLayout>
                                 <LinearLayout
