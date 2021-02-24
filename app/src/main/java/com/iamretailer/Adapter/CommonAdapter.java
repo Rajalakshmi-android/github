@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,8 +106,12 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.MyViewHold
             lp.setMargins(0, (int) context.getResources().getDimension(R.dimen.dp10), 0, 0);
             holder.items_bg.setLayoutParams(lp);
         }
-        holder.product_name.setText(items.get(position).getProduct_name());
 
+        if (Build.VERSION.SDK_INT >= 24) {
+            holder.product_name.setText(Html.fromHtml(items.get(position).getProduct_name(), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            holder.product_name.setText(Html.fromHtml(items.get(position).getProduct_name()));
+        }
         if (items.get(position).getProd_offer_rate() > 0) {
             String special = cur_left + String.format(Locale.ENGLISH, "%.2f", items.get(position).getProd_offer_rate()) + cur_right;
             holder.p_price.setText(special);

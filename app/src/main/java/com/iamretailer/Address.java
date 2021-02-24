@@ -214,7 +214,7 @@ public class Address extends Language {
                 if (addressone.getText().toString().trim().equals("")) {
                     addressone.setError(getResources().getString(R.string.add_de));
                 }
-                if (addressone.getText().toString().length() <= 3) {
+                if (addressone.getText().toString().length() < 3) {
                     addressone.setError(getResources().getString(R.string.add_de_valid));
                 }
                 if (city.getText().toString().trim().equals("")) {
@@ -233,7 +233,7 @@ public class Address extends Language {
                 if (pincode.getText().toString().length() != 6) {
                     pincode.setError(getResources().getString(R.string.pin_error1));
                 }
-                if (mobile.getText().toString().length() < 7) {
+                if (mobile.getText().toString().length() <= 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -252,7 +252,7 @@ public class Address extends Language {
                         && !addressone.getText().toString().trim().isEmpty() && addressone.getText().toString().length() >= 3
                         && !city.getText().toString().trim().isEmpty() && Validation.validateName(city.getText().toString().trim()) && city.getText().toString().trim().length() > 2
                         && !pincode.getText().toString().trim().isEmpty() && pincode.getText().toString().length() == 6
-                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && mobile.getText().toString().length() > 7 && !mobile.getText().toString().trim().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
                         && country.getSelectedItemPosition() != 0 && state.getSelectedItemPosition() != 0
                         ) {
 
@@ -468,7 +468,7 @@ public class Address extends Language {
                             pDialog1.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -483,7 +483,7 @@ public class Address extends Language {
                     e.printStackTrace();
                     if (pDialog1 != null && pDialog1.isShowing())
                         pDialog1.dismiss();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -496,7 +496,7 @@ public class Address extends Language {
             } else {
                 if (pDialog1 != null && pDialog1.isShowing())
                     pDialog1.dismiss();
-                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -605,7 +605,7 @@ public class Address extends Language {
 
 
                     } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -619,7 +619,7 @@ public class Address extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
 
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -727,7 +727,7 @@ public class Address extends Language {
                         startActivity(i);
 
                     } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -741,7 +741,7 @@ public class Address extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
 
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -1064,7 +1064,7 @@ public class Address extends Language {
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(Address.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -1078,7 +1078,7 @@ public class Address extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -1092,7 +1092,7 @@ public class Address extends Language {
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

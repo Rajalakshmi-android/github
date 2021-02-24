@@ -20,9 +20,10 @@
             <include layout="@layout/menu_back" />
 
             <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dp65"
+                android:layout_marginBottom="@dimen/dp50"
                 android:fillViewport="true"
                 android:scrollbars="none">
 
@@ -34,9 +35,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dp20"
-                        android:layout_marginStart="@dimen/dp20"
-                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
                         android:orientation="vertical">
 
                         <com.iamretailer.Common.CustomTextview1
@@ -55,7 +56,6 @@
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp3"
                             android:orientation="horizontal"
                             android:paddingEnd="@dimen/dp0"
                             android:paddingStart="@dimen/dp10">
@@ -72,7 +72,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="bottom"
                                     android:gravity="start|center_vertical"
-                                    android:paddingBottom="@dimen/dp3"
                                     android:text=""
                                     android:textColor="@color/rupee_clr"
                                     android:textSize="@dimen/text14sp"
@@ -94,7 +93,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="bottom"
                                     android:gravity="start|center_vertical"
-                                    android:paddingBottom="@dimen/dp3"
                                     android:text=""
                                     android:textColor="@color/rupee_clr"
                                     android:textSize="@dimen/text14sp"
@@ -114,7 +112,6 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="bottom"
                                         android:gravity="start|center_vertical"
-                                        android:paddingBottom="@dimen/dp1"
                                         android:text=""
                                         android:textColor="@color/price_original"
                                         android:textSize="@dimen/text12sp" />
@@ -134,7 +131,6 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="bottom"
                                         android:gravity="start|center_vertical"
-                                        android:paddingBottom="@dimen/dp1"
                                         android:text=""
                                         android:textColor="@color/price_original"
                                         android:textSize="@dimen/text12sp" />
@@ -173,60 +169,62 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp15"
-                            android:layout_marginTop="@dimen/dp3"
+                            android:layout_marginStart="@dimen/dp10"
                             android:orientation="horizontal">
+                            <com.iamretailer.Common.CustomTextview
+                                android:id="@+id/out_of_stock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:text="@string/out_ofstock"
+                                android:textColor="@color/red" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/r1"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r1"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r2"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r2"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r3"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r3"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r4"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r4"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
+                                <ImageView
+                                    android:id="@+id/r5"
+                                    android:layout_width="@dimen/dp11"
+                                    android:layout_height="@dimen/dp11"
+                                    android:layout_marginStart="@dimen/dp2"
+                                    android:contentDescription="@null"
+                                    android:src="@mipmap/fill" />
 
-                            <ImageView
-                                android:id="@+id/r5"
-                                android:layout_width="@dimen/dp11"
-                                android:layout_height="@dimen/dp11"
-                                android:layout_marginStart="@dimen/dp2"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/fill" />
-
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <com.iamretailer.Common.CustomTextview
-                            android:id="@+id/out_of_stock"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp5"
-                            android:paddingStart="@dimen/dp15"
-                            android:text="@string/out_ofstock"
-                            android:textColor="@color/red" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -239,21 +237,19 @@
 
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/dp5">
+                                    android:layout_height="wrap_content">
 
-                                    <android.support.v4.view.ViewPager
+                                    <com.iamretailer.Common.WrapcontentViewpager
                                         android:id="@+id/viewPager"
                                         android:layout_width="match_parent"
-                                        android:layout_height="@dimen/dp300" />
+                                        android:layout_height="wrap_content" />
 
                                 </RelativeLayout>
 
                                 <LinearLayout
                                     android:id="@+id/indicator"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dp25"
-                                    android:layout_marginTop="@dimen/dp5"
+                                    android:layout_height="@dimen/dp20"
                                     android:gravity="center"
                                     android:orientation="horizontal" />
 
@@ -268,7 +264,7 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/dp5"
                         android:layout_marginStart="@dimen/dp5"
-                        android:layout_marginTop="@dimen/dp15"
+                        android:layout_marginTop="@dimen/dp10"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="@integer/three">
@@ -347,28 +343,61 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dp15"
-                        android:layout_marginStart="@dimen/dp15"
-                        android:layout_marginTop="@dimen/dp25">
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp15">
 
                         <FrameLayout
                             android:id="@+id/option_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp10"
                             android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
+                                <FrameLayout
+                                    android:id="@+id/brand_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
 
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/dp5"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="@dimen/dp10"
+                                        android:paddingEnd="@dimen/dp10"
+                                        android:paddingStart="@dimen/dp10">
+                                        <com.iamretailer.Common.CustomTextview1
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/brand"
+                                            android:textColor="@color/app_text_color"
+                                            android:textSize="@dimen/text14sp" />
+                                        <com.iamretailer.Common.CustomTextview1
+                                            android:id="@+id/brand"
+                                            android:layout_marginStart="@dimen/dp15"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text=""
+                                            android:textColor="@color/app_text_color"
+                                            android:textSize="@dimen/text14sp" />
+
+                                    </LinearLayout>
+                                </FrameLayout>
                                 <LinearLayout
+                                    android:layout_marginTop="@dimen/dp5"
                                     android:id="@+id/options"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start"
                                     android:gravity="start"
                                     android:orientation="vertical" />
+
+
 
                                 <FrameLayout
                                     android:id="@+id/desp_layout"
@@ -380,9 +409,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/dp5"
                                         android:orientation="vertical"
-                                        android:paddingBottom="@dimen/dp15"
+                                        android:paddingBottom="@dimen/dp10"
                                         android:paddingEnd="@dimen/dp10"
-                                        android:paddingStart="@dimen/dp20">
+                                        android:paddingStart="@dimen/dp10">
 
 
                                         <com.iamretailer.Common.CustomTextview1
@@ -440,8 +469,7 @@
                                     android:layout_gravity="end"
                                     android:layout_marginTop="@dimen/dp5"
                                     android:gravity="end"
-                                    android:paddingBottom="@dimen/dp10"
-                                    android:paddingEnd="@dimen/dp10"
+                                    android:paddingBottom="@dimen/dp5"
                                     android:text="@string/view_all"
                                     android:textColor="@color/colorAccent"
                                     android:textStyle="bold" />
@@ -470,8 +498,7 @@
                             android:id="@+id/add_rev_lay"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-
-
+                            android:visibility="gone"
                             >
 
                             <LinearLayout
@@ -485,7 +512,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start"
                                     android:layout_marginEnd="@dimen/dp20"
-                                    android:layout_marginStart="@dimen/dp20"
+                                    android:layout_marginStart="@dimen/dp10"
                                     android:layout_marginTop="@dimen/dp10"
                                     android:gravity="start">
 
@@ -611,7 +638,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp15">
+                                android:layout_marginTop="@dimen/dp10">
 
                             </android.support.v7.widget.RecyclerView>
 

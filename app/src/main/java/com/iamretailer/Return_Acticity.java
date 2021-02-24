@@ -8,14 +8,17 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.content.res.AppCompatResources;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -24,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +77,7 @@ public class Return_Acticity extends Language {
     private int open = 0;
     private int reason_id = 0;
     private ArrayList<ProductsPO> reason_bos;
+    private ScrollView mScrlMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +105,14 @@ public class Return_Acticity extends Language {
         TextView cart_count = findViewById(R.id.cart_count);
         cart_count.setVisibility(View.GONE);
         cart_items.setVisibility(View.GONE);
+        mScrlMain = findViewById(R.id.scroll);
+        comments.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         if (getIntent().getExtras() != null) {
             quantity = getIntent().getExtras().getString("qty");
             prod_names = getIntent().getExtras().getString("prod_name");
@@ -108,13 +121,20 @@ public class Return_Acticity extends Language {
             prod_model = getIntent().getExtras().getString("prod_model");
         }
         tot_qty.setText(quantity);
-        prod_name.setText(prod_names);
         cart = findViewById(R.id.cart);
         update = findViewById(R.id.update);
         errortxt1 = findViewById(R.id.errortxt1);
         errortxt2 = findViewById(R.id.errortxt2);
         loading_bar = findViewById(R.id.loading_bar);
         LinearLayout retry = findViewById(R.id.retry);
+
+        if(prod_names!=null && prod_names.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                prod_name.setText(Html.fromHtml(prod_names, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                prod_name.setText(Html.fromHtml(prod_names));
+            }
+        }
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,7 +231,7 @@ public class Return_Acticity extends Language {
         String[] value = {"Yes", "No"};
         for (int u = 0; u < value.length; u++) {
             RadioButton rbn = new RadioButton(Return_Acticity.this);
-            String values = "  " + value[u];
+            String values = "  " + value[u]+"  ";
             rbn.setId(u);
             rbn.setText(values);
             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
@@ -220,7 +240,7 @@ public class Return_Acticity extends Language {
             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
             rbn.setButtonDrawable(new StateListDrawable());
             rbn.setBackgroundColor(Color.TRANSPARENT);
-            rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+            rbn.setPaddingRelative((int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
             if (u == 0) {
                 rbn.setChecked(true);
@@ -308,7 +328,7 @@ public class Return_Acticity extends Language {
                         Log.i("sdsadad", reason_bos.size() + "");
                         for (int u = 0; u < reason_bos.size(); u++) {
                             RadioButton rbn = new RadioButton(Return_Acticity.this);
-                            String values = "  " + reason_bos.get(u).getProduct_name();
+                            String values = "  " + reason_bos.get(u).getProduct_name()+"  ";
                             rbn.setId(reason_bos.get(u).getProductid());
                             rbn.setText(values);
                             rbn.setTextColor(getResources().getColor(R.color.app_text_color));
@@ -317,7 +337,7 @@ public class Return_Acticity extends Language {
                             rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                             rbn.setButtonDrawable(new StateListDrawable());
                             rbn.setBackgroundColor(Color.TRANSPARENT);
-                            rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                            rbn.setPaddingRelative((int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
 
                             if (u == 0) {
                                 rbn.setChecked(true);
@@ -445,7 +465,7 @@ public class Return_Acticity extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -457,7 +477,7 @@ public class Return_Acticity extends Language {
                 }
 
             } else {
-                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

@@ -11,11 +11,13 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,7 @@ public class ContactForm extends Language {
     private FrameLayout error_network;
     private ArrayList<OrdersPO> list3;
     private TextView poss,store_name,store_address,store_mob,store_email;
+    private ScrollView mScrlMain;
 
 
     @Override
@@ -75,7 +78,14 @@ public class ContactForm extends Language {
         fullayout = findViewById(R.id.fullayout);
         loading = findViewById(R.id.loading);
         store_list = findViewById(R.id.store_list);
-
+        mScrlMain = findViewById(R.id.scroll);
+        comments.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         header.setText(R.string.contactus);
         cart_items.setVisibility(View.GONE);
         Storelist orderTask = new Storelist();
@@ -179,7 +189,7 @@ public class ContactForm extends Language {
                         Toast.makeText(ContactForm.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -192,7 +202,7 @@ public class ContactForm extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -203,7 +213,7 @@ public class ContactForm extends Language {
                 }
             } else {
 
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

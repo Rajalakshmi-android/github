@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp0"
-        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp10"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -32,7 +32,7 @@
             android:id="@+id/optiongrid"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp50"
-            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp10"
             android:layout_marginTop="@dimen/dp5"
             android:horizontalSpacing="@dimen/dp2"
             android:numColumns="@integer/flour"

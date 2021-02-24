@@ -1,5 +1,6 @@
 package com.iamretailer;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,16 +18,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -35,6 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +61,7 @@ import com.iamretailer.Common.Helper;
 import com.iamretailer.Common.LanguageList;
 import com.iamretailer.Common.LocaleHelper;
 import com.iamretailer.Common.RecyclerItemClickListener;
+import com.iamretailer.Common.WrapcontentViewpager;
 import com.iamretailer.POJO.OptionsPO;
 import com.iamretailer.POJO.ProductsPO;
 import com.iamretailer.POJO.SingleOptionPO;
@@ -67,10 +76,14 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
+import java.text.ParseException;
 import stutzen.co.network.Connection;
 
 
@@ -141,6 +154,18 @@ public class ProductFullView extends Language {
     private Typeface typeface;
     private Typeface typeface1;
 
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private String fromdate1 = "";
+    private String duedate1 = "";
+    private String psosavedate2 = "";
+    private String psosavedate3="";
+    private String manufacturer="";
+    private FrameLayout brand_layout;
+    private TextView brand;
+    private ScrollView mScrlMain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +210,8 @@ public class ProductFullView extends Language {
         productrs = findViewById(R.id.productrs);
         originalrs = findViewById(R.id.originalrs);
         option_layout = findViewById(R.id.option_layout);
+        brand_layout = findViewById(R.id.brand_layout);
+        brand = findViewById(R.id.brand);
         review = findViewById(R.id.reviews);
         review_layout = findViewById(R.id.review_layout);
         review_list = findViewById(R.id.review_list);
@@ -218,7 +245,14 @@ public class ProductFullView extends Language {
         rate3 = findViewById(R.id.rate3);
         rate4 = findViewById(R.id.rate4);
         rate5 = findViewById(R.id.rate5);
-
+      mScrlMain = findViewById(R.id.scroll);
+        comment.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         rate1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,7 +343,8 @@ public class ProductFullView extends Language {
             public void onClick(View view) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
-
+                CartTask cartTask = new CartTask();
+                cartTask.execute(Appconstatants.cart_api);
                 SingleProductTask singleProductTask = new SingleProductTask();
                 singleProductTask.execute(Appconstatants.PRODUCT_LIST + prod_id);
 
@@ -512,14 +547,16 @@ public class ProductFullView extends Language {
     private void coloroption(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.optionview, options, false);
         TextView heading = layout.findViewById(R.id.heading);
+        LinearLayout full_layout = layout.findViewById(R.id.full_layout);
         String text = optionsPO.getName() + " :";
         heading.setText(text);
         final RecyclerView gridView = layout.findViewById(R.id.optiongrid);
         final ArrayList<SingleOptionPO> colorlist = optionsPO.getValuelist();
         if (colorlist != null && colorlist.size() > 0) {
+            full_layout.setVisibility(View.VISIBLE);
             colorlist.get(0).setImgSel(true);
 
-            optionsPOArrayList.get(pos).setSelected_id(colorlist.get(0).getProduct_option_value_id());
+            optionsPOArrayList.get(pos).setSelected_id(colorlist.get(0).getProduct_option_value_id()+"");
             if (colorlist.get(0).getPrice() > 0) {
                 optionsPOArrayList.get(pos).setPrices(colorlist.get(0).getPrice());
                 optionsPOArrayList.get(pos).setPrefix(colorlist.get(0).getPrefix());
@@ -527,6 +564,8 @@ public class ProductFullView extends Language {
             ColorAdapters coladapter = new ColorAdapters(ProductFullView.this, colorlist);
             gridView.setAdapter(coladapter);
             gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        }else{
+            full_layout.setVisibility(View.GONE);
         }
         gridView.addOnItemTouchListener(new RecyclerItemClickListener(ProductFullView.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -538,7 +577,7 @@ public class ProductFullView extends Language {
 
                 final ColorAdapters coladapter = new ColorAdapters(ProductFullView.this, colorlist);
                 gridView.setAdapter(coladapter);
-                optionsPOArrayList.get(pos).setSelected_id(colorlist.get(i).getProduct_option_value_id());
+                optionsPOArrayList.get(pos).setSelected_id(colorlist.get(i).getProduct_option_value_id()+"");
                 gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                 if (colorlist.get(i).getPrice() > 0) {
                     optionsPOArrayList.get(pos).setPrices(colorlist.get(i).getPrice());
@@ -568,7 +607,7 @@ public class ProductFullView extends Language {
         final ArrayList<SingleOptionPO> sizelist = optionsPO.getValuelist();
         if (sizelist != null && sizelist.size() > 0) {
             sizelist.get(0).setImgSel(true);
-            optionsPOArrayList.get(pos).setSelected_id(sizelist.get(0).getProduct_option_value_id());
+            optionsPOArrayList.get(pos).setSelected_id(sizelist.get(0).getProduct_option_value_id()+"");
             if (sizelist.get(0).getPrice() > 0) {
                 optionsPOArrayList.get(pos).setPrices(sizelist.get(0).getPrice());
                 optionsPOArrayList.get(pos).setPrefix(sizelist.get(0).getPrefix());
@@ -587,7 +626,7 @@ public class ProductFullView extends Language {
                     sizelist.get(p).setImgSel(false);
                 }
                 sizelist.get(i).setImgSel(true);
-                optionsPOArrayList.get(pos).setSelected_id(sizelist.get(i).getProduct_option_value_id());
+                optionsPOArrayList.get(pos).setSelected_id(sizelist.get(i).getProduct_option_value_id()+"");
                 final SizeOptionAdapters sizeadapter = new SizeOptionAdapters(ProductFullView.this, sizelist);
                 gridView.setAdapter(sizeadapter);
                 gridView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -622,7 +661,7 @@ public class ProductFullView extends Language {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (spinner_string != null) {
-                    optionsPOArrayList.get(pos).setSelected_id(spinner_string.get(i).getProduct_option_value_id());
+                    optionsPOArrayList.get(pos).setSelected_id(spinner_string.get(i).getProduct_option_value_id()+"");
                     if (spinner_string.get(i).getPrice() > 0) {
                         optionsPOArrayList.get(pos).setPrices(spinner_string.get(i).getPrice());
                         optionsPOArrayList.get(pos).setPrefix(spinner_string.get(i).getPrefix());
@@ -659,7 +698,7 @@ public class ProductFullView extends Language {
             for (int u = 0; u < radio_values.size(); u++) {
                 RadioButton rbn = new RadioButton(ProductFullView.this);
                 rbn.setId(radio_values.get(u).getProduct_option_value_id());
-                String value = "  " + radio_values.get(u).getName();
+                String value = "  " + radio_values.get(u).getName()+" ";
                 rbn.setText(value);
                 rbn.setTypeface(typeface);
                 rbn.setTextColor(getResources().getColor(R.color.text_select));
@@ -668,10 +707,11 @@ public class ProductFullView extends Language {
                 rbn.setCompoundDrawablesRelative(drawable, null, null, null);
                 rbn.setButtonDrawable(new StateListDrawable());
                 rbn.setBackgroundColor(Color.TRANSPARENT);
-                rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+                rbn.setPaddingRelative((int) getApplicationContext().getResources().getDimension(R.dimen.dp5), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
+
                 if (u == 0) {
                     rbn.setChecked(true);
-                    optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id());
+                    optionsPOArrayList.get(pos).setSelected_id(radio_values.get(u).getProduct_option_value_id()+"");
                     optionsPOArrayList.get(pos).setPrices(radio_values.get(u).getPrice());
                     optionsPOArrayList.get(pos).setPrefix(radio_values.get(u).getPrefix());
                 } else {
@@ -692,7 +732,7 @@ public class ProductFullView extends Language {
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
                 int selectedId = radio.getCheckedRadioButtonId();
-                optionsPOArrayList.get(pos).setSelected_id(selectedId);
+                optionsPOArrayList.get(pos).setSelected_id(selectedId+"");
                 RadioButton radioButton = arg0.findViewById(arg1);
                 int mySelectedIndex = (int) radioButton.getTag();
                 if (radio_values.get(mySelectedIndex).getPrice() > 0) {
@@ -712,6 +752,99 @@ public class ProductFullView extends Language {
 
     }
 
+    private void date_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.date_optoion, options, false);
+        final TextView date = layout.findViewById(R.id.date);
+        TextView heading = layout.findViewById(R.id.heading);
+        FrameLayout date_box = layout.findViewById(R.id.date_box);
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+       // heading.setText(text);
+        date.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
+        date_box.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ProductFullView.this, R.style.TimePickerTheme,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int month, int day) {
+
+                                String dat = (day > 9 ? day : "0" + day) + "/" + ((month + 1) > 9 ? month + 1 : "0" + (month + 1)) + "/" + year;
+                                String dat2 = year + "-" + ((month + 1) > 9 ? month + 1 : "0" + (month + 1)) + "-" + (day > 9 ? day : "0" + day);
+
+                                duedate1 = dat2;
+                                DateFormat originalFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                                DateFormat targetFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                                DateFormat targetFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                                Date dat1 = null;
+                                try {
+                                    dat1 = originalFormat1.parse(dat);
+                                    psosavedate2 = targetFormat1.format(dat1);
+                                    psosavedate3 = targetFormat2.format(dat1);
+                                    Log.i("tag", "date---" + psosavedate2);
+                                    if(optionsPO.getType().contains(getResources().getString(R.string.time))) {
+                                        DateFormat df = new SimpleDateFormat("hh:mm a");
+                                        String date1 = df.format(Calendar.getInstance().getTime());
+                                        date.setText(psosavedate3 +" "+date1);
+                                    }else{
+                                        date.setText(psosavedate2);
+                                    }
+                                    date.setError(null);
+                                    Log.i("tag","dateingoooooo1111--- "+psosavedate2);
+
+                                    Log.i("tag", "date---" + date.getText());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+        date.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (date.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
+
+
     private void checkbox_option(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.check_box_option, options, false);
         TextView heading = layout.findViewById(R.id.heading);
@@ -725,7 +858,7 @@ public class ProductFullView extends Language {
             for (int u = 0; u < check_value.size(); u++) {
                 RadioButton rbn = new RadioButton(ProductFullView.this);
                 rbn.setId(check_value.get(u).getProduct_option_value_id());
-                String value = "  " + check_value.get(u).getName();
+                String value = "  " + check_value.get(u).getName()+" ";
                 rbn.setText(value);
                 rbn.setTypeface(typeface);
                 rbn.setTextColor(getResources().getColor(R.color.text_select));
@@ -737,7 +870,7 @@ public class ProductFullView extends Language {
                 rbn.setPaddingRelative(0, (int) getApplicationContext().getResources().getDimension(R.dimen.dp10), (int) getApplicationContext().getResources().getDimension(R.dimen.dp20), (int) getApplicationContext().getResources().getDimension(R.dimen.dp10));
                 if (u == 0) {
                     rbn.setChecked(true);
-                    optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id());
+                    optionsPOArrayList.get(pos).setSelected_id(check_value.get(u).getProduct_option_value_id()+"");
                     optionsPOArrayList.get(pos).setPrices(check_value.get(u).getPrice());
                     optionsPOArrayList.get(pos).setPrefix(check_value.get(u).getPrefix());
                 } else {
@@ -754,7 +887,7 @@ public class ProductFullView extends Language {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedId = checkbox1.getCheckedRadioButtonId();
-                optionsPOArrayList.get(pos).setSelected_id(selectedId);
+                optionsPOArrayList.get(pos).setSelected_id(selectedId+"");
                 RadioButton radioButton = group.findViewById(checkedId);
                 int mySelectedIndex = (int) radioButton.getTag();
                 if (check_value.get(mySelectedIndex).getPrice() > 0) {
@@ -777,7 +910,7 @@ public class ProductFullView extends Language {
 
     private void init() {
 
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        WrapcontentViewpager viewPager = findViewById(R.id.viewPager);
         ll_dots = findViewById(R.id.indicator);
         SliderAdapter sliderAdapter = new SliderAdapter(ProductFullView.this, image_url);
         viewPager.setAdapter(sliderAdapter);
@@ -851,7 +984,22 @@ public class ProductFullView extends Language {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         p_id = jsonObject.isNull("id") ? "" : jsonObject.getString("id");
                         product_id = jsonObject.isNull("product_id") ? "" : jsonObject.getString("product_id");
-                        p_name.setText(jsonObject.isNull("name") ? "" : jsonObject.getString("name"));
+                        if(jsonObject.getString("name")!=null && jsonObject.getString("name").length()!=0){
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            p_name.setText(Html.fromHtml(jsonObject.getString("name"), Html.FROM_HTML_MODE_LEGACY));
+                        } else {
+                            p_name.setText(Html.fromHtml(jsonObject.getString("name")));
+                        }
+                        }
+                      // p_name.setText(jsonObject.isNull("name") ? "" : jsonObject.getString("name"));
+                        manufacturer=(jsonObject.isNull("manufacturer") ? "" : jsonObject.getString("manufacturer"));
+                        if(manufacturer!=null&& !manufacturer.equalsIgnoreCase("")){
+                            brand.setText(manufacturer+"");
+                            brand_layout.setVisibility(View.VISIBLE);
+                        }else{
+                            brand.setText("");
+                            brand_layout.setVisibility(View.GONE);
+                        }
 
                         image = jsonObject.getString("image");
                         qty = jsonObject.isNull("quantity") ? 0 : jsonObject.getInt("quantity");
@@ -1087,21 +1235,35 @@ public class ProductFullView extends Language {
     private void DrawOptions() {
         options.removeAllViews();
         for (int i = 0; i < optionsPOArrayList.size(); i++) {
-            if ((optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colrs)) || optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colss))) && optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
-                coloroption(optionsPOArrayList.get(i), i);
-            } else if (optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.size))) {
-                sizeoption(optionsPOArrayList.get(i), i);
-            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.chelk_box))) {
-                checkbox_option(optionsPOArrayList.get(i), i);
-            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio))) {
-                radio_button(optionsPOArrayList.get(i), i);
-            } else {
-                weightoption(optionsPOArrayList.get(i), i);
+            if ((optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colrs_condition)) || optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.colss_condition))) && optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio_condition))) {
+                     if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                         coloroption(optionsPOArrayList.get(i), i);
+                     }
+            } else if (optionsPOArrayList.get(i).getName().equalsIgnoreCase(getResources().getString(R.string.size_condtion))) {
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    sizeoption(optionsPOArrayList.get(i), i);
+                }
+            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.chelk_box_condition))) {
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    checkbox_option(optionsPOArrayList.get(i), i);
+                }
+            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.radio_condition))) {
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    radio_button(optionsPOArrayList.get(i), i);
+                }
+            } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates_contion))) {
 
+                date_option(optionsPOArrayList.get(i), i);
+
+            } else {
+                if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
+                    weightoption(optionsPOArrayList.get(i), i);
+                }
             }
 
         }
     }
+
 
     private class CartSaveTask extends AsyncTask<Object, Void, String> {
 
@@ -1182,7 +1344,7 @@ public class ProductFullView extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Snackbar.make(fullayout, R.string.error_msg,
-                            Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             buy.performClick();
@@ -1194,7 +1356,7 @@ public class ProductFullView extends Language {
                 }
             } else {
                 Snackbar.make(fullayout, R.string.error_net,
-                        Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                        Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         buy.performClick();
@@ -1306,14 +1468,14 @@ public class ProductFullView extends Language {
                         Log.d("app_1", "Installed package :" + packageInfo.packageName);
                         if (packageInfo.packageName.equalsIgnoreCase("com.whatsapp")) {
                             i.setPackage("com.whatsapp");
-                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.domain);
+                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.playstore_url);
                             i.setType("image/*");
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));
                             check++;
                         } else if (packageInfo.packageName.equalsIgnoreCase("com.whatsapp.w4b")) {
                             i.setPackage("com.whatsapp.w4b");
-                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.domain);
+                            i.putExtra(Intent.EXTRA_TEXT, p_name.getText().toString() + "\nPrice - " + productrate.getText().toString() + "\nFrom-" + "\n" + Appconstatants.playstore_url);
                             i.setType("image/*");
                             i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri2(bitmap));
                             startActivity(Intent.createChooser(i, "Share"));

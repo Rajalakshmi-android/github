@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.multidex.BuildConfig;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;

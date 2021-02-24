@@ -142,8 +142,11 @@ public class AddressList extends Language {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
+                CartTask cartTask = new CartTask();
+                cartTask.execute(Appconstatants.cart_api);
                 AddressListTask addressListTask = new AddressListTask();
                 addressListTask.execute();
+
 
             }
         });
@@ -441,7 +444,7 @@ public class AddressList extends Language {
                             pDialog1.dismiss();
                         JSONArray array = json.getJSONArray("error");
                         Toast.makeText(AddressList.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -456,7 +459,7 @@ public class AddressList extends Language {
                     e.printStackTrace();
                     if (pDialog1 != null && pDialog1.isShowing())
                         pDialog1.dismiss();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -470,7 +473,7 @@ public class AddressList extends Language {
             } else {
                 if (pDialog1 != null && pDialog1.isShowing())
                     pDialog1.dismiss();
-                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -551,7 +554,7 @@ public class AddressList extends Language {
                         startActivity(i);
 
                     } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -565,7 +568,7 @@ public class AddressList extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
 
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {

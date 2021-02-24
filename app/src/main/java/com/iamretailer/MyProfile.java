@@ -173,7 +173,7 @@ public class MyProfile extends Language {
                 if (mobile.getText().toString().trim().length() == 0) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
-                if (mobile.getText().toString().trim().length() < 7) {
+                if (mobile.getText().toString().trim().length() <= 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -185,7 +185,7 @@ public class MyProfile extends Language {
                 if (!f_name.getText().toString().isEmpty() && f_name.getText().toString().trim().length() > 2 && Validation.validateName(f_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
-                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && mobile.getText().toString().length() > 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
                         ) {
                     UPDATE_PROFILE update_profile = new UPDATE_PROFILE();
                     update_profile.execute(Appconstatants.MY_PROFILE, f_name.getText().toString().trim(), l_name.getText().toString().trim(), email.getText().toString().trim(), mobile.getText().toString().trim());
@@ -353,7 +353,7 @@ public class MyProfile extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(lay, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -365,7 +365,7 @@ public class MyProfile extends Language {
                 }
 
             } else {
-                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(lay, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

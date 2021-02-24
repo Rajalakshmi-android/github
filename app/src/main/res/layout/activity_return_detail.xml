@@ -458,13 +458,14 @@
                            <LinearLayout
                                  android:layout_width="match_parent"
                                  android:layout_height="wrap_content"
+                               android:weightSum="@integer/two"
                                  android:orientation="horizontal">
 
                                  <com.iamretailer.Common.CustomTextview1
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:layout_gravity="center_vertical"
-                                     android:gravity="center"
+                                     android:layout_gravity="start|center_vertical"
+                                     android:gravity="start|center_vertical"
                                      android:text="@string/reason"
                                      android:textColor="@color/conf_tex"
                                      android:textSize="@dimen/text13sp" />
@@ -490,8 +491,8 @@
                                  <com.iamretailer.Common.CustomTextview1
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:layout_gravity="center_vertical"
-                                     android:gravity="center"
+                                     android:layout_gravity="start|center_vertical"
+                                     android:gravity="start|center_vertical"
                                      android:text="@string/opens"
                                      android:textColor="@color/conf_tex"
                                      android:textSize="@dimen/text13sp" />
@@ -516,8 +517,8 @@
                                  <com.iamretailer.Common.CustomTextview1
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:layout_gravity="center_vertical"
-                                     android:gravity="center"
+                                     android:layout_gravity="start"
+                                     android:gravity="start"
                                      android:text="@string/comments"
                                      android:textColor="@color/conf_tex"
                                      android:textSize="@dimen/text13sp" />

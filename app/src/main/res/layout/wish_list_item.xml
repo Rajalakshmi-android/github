@@ -43,32 +43,37 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="@dimen/dp5"
-                android:gravity="center"
+                android:gravity="start|center_vertical"
                 android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_gravity="start|center_vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="start|center_vertical"
                         android:gravity=""
                         android:orientation="vertical">
 
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="start|center_vertical"
+                            >
 
                             <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/prod_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingEnd="@dimen/dp35"
+                                android:layout_marginEnd="@dimen/dp35"
+                                android:layout_gravity="start|center_vertical"
+                                android:gravity="start|center_vertical"
                                 android:text="@string/product_name"
                                 android:textColor="@color/cart_text"
                                 android:textSize="@dimen/text16sp" />
@@ -77,11 +82,12 @@
                                 android:id="@+id/remove"
                                 android:layout_width="@dimen/dp20"
                                 android:layout_height="@dimen/dp20"
-                                android:layout_gravity="end|top"
                                 android:layout_marginEnd="@dimen/dp12"
                                 android:padding="@dimen/dp4"
                                 android:rotationY="@integer/locale_mirror_flip"
                                 android:autoMirrored="true"
+                                android:layout_gravity="end|top"
+                                android:gravity="end|top"
                                 android:src="@mipmap/cancel_icon" />
                         </FrameLayout>
 

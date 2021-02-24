@@ -6,13 +6,16 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -227,14 +230,6 @@ public class ConfirmOrder extends Language {
             @Override
             public void onClick(View view) {
                 onBackPressed();
-                if(vocher!=null && !vocher.equalsIgnoreCase("")) {
-                    DeleteCouponTask1 couponTask = new DeleteCouponTask1();
-                    couponTask.execute(vocher);
-                }
-                if(coupon!=null && !coupon.equalsIgnoreCase("")) {
-                    DeleteCouponTask couponTask = new DeleteCouponTask();
-                    couponTask.execute(coupon);
-                }
             }
         });
         place_list = findViewById(R.id.listview);
@@ -475,7 +470,7 @@ public class ConfirmOrder extends Language {
                         }
                         if (totals.size() > 0) {
                             subtotal.setText(totals.get(totals.size() - 1).getTot_amt_txt());
-
+                             Log.i("dgkfjkfgjhdkg","dghjfdhjg"+db.get_cur_Left());
                             if (db.get_cur_Left() != null && db.get_cur_Left().length() > 0)
                                 pay_tot = Double.parseDouble(totals.get(totals.size() - 1).getTot_amt_txt().replace(db.get_cur_Left(), "").replace(",", ""));
                             else if (db.get_cur_Right() != null && db.get_cur_Right().length() > 0)
@@ -503,7 +498,7 @@ public class ConfirmOrder extends Language {
                     error_network.setVisibility(View.GONE);
                     success.setVisibility(View.GONE);
                     loading.setVisibility(View.GONE);
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -572,7 +567,12 @@ public class ConfirmOrder extends Language {
                     if (json.getInt("success") == 1) {
                         JSONObject jsonObject = new JSONObject(json.getString("data"));
                         orderid = jsonObject.getInt("order_id") + "";
-                        details();
+                       // details();
+                        Intent intent = new Intent(ConfirmOrder.this, SuccessActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", orderid);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     } else {
 
                         JSONArray array = json.getJSONArray("error");
@@ -581,7 +581,7 @@ public class ConfirmOrder extends Language {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -595,7 +595,7 @@ public class ConfirmOrder extends Language {
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -613,6 +613,11 @@ public class ConfirmOrder extends Language {
         final Dialog dialog = new Dialog(ConfirmOrder.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_order_sucess);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            dialog. getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary, this.getTheme()));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        }
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -663,14 +668,33 @@ public class ConfirmOrder extends Language {
         TextView qunt = convertView.findViewById(R.id.p_qty);
         TextView amount = convertView.findViewById(R.id.total);
         TextView p_option = convertView.findViewById(R.id.p_option);
-        name.setText(placePO.getProduct_name());
         price.setText(placePO.getPrcie());
         qunt.setText(placePO.getQty());
         amount.setText(placePO.getAmout());
+        if(placePO.getProduct_name()!=null && placePO.getProduct_name().length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+               name.setText(Html.fromHtml(placePO.getProduct_name(), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                name.setText(Html.fromHtml(placePO.getProduct_name()));
+            }
+        }
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
-            sb2.append(placePO.getOptionlist().get(h).getValue());
+            if(placePO.getOptionlist().get(h).getName().contains(getResources().getString(R.string.date))){
+                if(placePO.getOptionlist().size()==1){
+                    sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+                }else{
+                    if(h==0){
+                        sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue()+"<br/>");
+                    }else{
+                        sb2.append("<br/>"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+
+                    }
+                }
+            }else{
+                sb2.append(placePO.getOptionlist().get(h).getValue());
+            }
             if (h != placePO.getOptionlist().size() - 1)
                 sb2.append(",");
         }
@@ -679,7 +703,14 @@ public class ConfirmOrder extends Language {
         } else {
             p_option.setVisibility(View.GONE);
         }
-        p_option.setText(String.valueOf(sb2));
+       // p_option.setText(String.valueOf(sb2));
+        if(String.valueOf(sb2)!=null && String.valueOf(sb2).length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                p_option.setText(Html.fromHtml(String.valueOf(sb2), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                p_option.setText(Html.fromHtml(String.valueOf(sb2)));
+            }
+        }
         if (placePO.getUrl().length() != 0 && placePO.getUrl() != null)
             Picasso.with(ConfirmOrder.this).load(placePO.getUrl()).placeholder(R.mipmap.place_holder).into(imag);
         view_list.addView(convertView);
@@ -791,34 +822,37 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if (pDialog != null)
-                pDialog.dismiss();
-
+            if (!ConfirmOrder.this.isFinishing()) {
+                if (pDialog != null)
+                    pDialog.dismiss();
+            }
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         vocher="";
                         Toast.makeText(ConfirmOrder.this, R.string.gift_remove, Toast.LENGTH_LONG).show();
-                        gift_circle.setImageResource(R.mipmap.promo_circle_unfil);
-                        gift_tag.setImageResource(R.mipmap.promo_tag_unfill);
-                        gift_text.setTextColor(getResources().getColor(R.color.prom_tex));
-                        ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
-                        confirmOrderTask.execute(Appconstatants.Confirm_Order);
 
+                        if (!ConfirmOrder.this.isFinishing()) {
+                            gift_circle.setImageResource(R.mipmap.promo_circle_unfil);
+                            gift_tag.setImageResource(R.mipmap.promo_tag_unfill);
+                            gift_text.setTextColor(getResources().getColor(R.color.prom_tex));
+                            ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
+                            confirmOrderTask.execute(Appconstatants.Confirm_Order);
+                        }
 
                     } else {
                         JSONArray array = json.getJSONArray("error");
-                        Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), array.getString(0) + "", Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.error_msg, Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(ConfirmOrder.this, R.string.error_net, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.error_net, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -962,7 +996,6 @@ public class ConfirmOrder extends Language {
             }
         }
     }
-
     private class DeleteCouponTask extends AsyncTask<String, Void, String> {
         private ProgressDialog pDialog;
 
@@ -991,7 +1024,7 @@ public class ConfirmOrder extends Language {
                 response = connection.sendHttpDelete(Appconstatants.COUPON_API, json, db.getSession(), Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR, ConfirmOrder.this);
                 logger.info("Coupon api resp " + response);
                 Log.d("promo_res", response + "");
-                Log.d("promo_res", json.toString() + "");
+                Log.d("promo_res", json.toString() + ""+Appconstatants.COUPON_API);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -1000,33 +1033,35 @@ public class ConfirmOrder extends Language {
         }
 
         protected void onPostExecute(String resp) {
-            if (pDialog != null)
-                pDialog.dismiss();
-
+            if (!ConfirmOrder.this.isFinishing()) {
+                if (pDialog != null)
+                    pDialog.dismiss();
+            }
             if (resp != null) {
                 try {
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
                         coupon="";
-                        Toast.makeText(ConfirmOrder.this, R.string.coupon_remove, Toast.LENGTH_LONG).show();
-                        promo_circle.setImageResource(R.mipmap.promo_circle_unfil);
-                        promo_tag.setImageResource(R.mipmap.promo_tag_unfill);
-                        promo_text.setTextColor(getResources().getColor(R.color.prom_tex));
-                        ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
-                        confirmOrderTask.execute(Appconstatants.Confirm_Order);
-
+                        Toast.makeText(getApplicationContext(), R.string.coupon_remove, Toast.LENGTH_LONG).show();
+                        if (!ConfirmOrder.this.isFinishing()) {
+                            promo_circle.setImageResource(R.mipmap.promo_circle_unfil);
+                            promo_tag.setImageResource(R.mipmap.promo_tag_unfill);
+                            promo_text.setTextColor(getResources().getColor(R.color.prom_tex));
+                            ConfirmOrderTask confirmOrderTask = new ConfirmOrderTask();
+                            confirmOrderTask.execute(Appconstatants.Confirm_Order);
+                        }
 
                     } else {
                         JSONArray array = json.getJSONArray("error");
-                        Toast.makeText(ConfirmOrder.this, array.getString(0) + "", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), array.getString(0) + "", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(ConfirmOrder.this, R.string.error_msg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.error_msg, Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(ConfirmOrder.this, R.string.error_net, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.error_net, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -1348,5 +1383,18 @@ public class ConfirmOrder extends Language {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(vocher!=null && !vocher.equalsIgnoreCase("")) {
+            DeleteCouponTask1 couponTask = new DeleteCouponTask1();
+            couponTask.execute(vocher);
+        }
+        Log.i("fhghfhg","Fhhfhfh"+coupon);
+        if(coupon!=null && !coupon.equalsIgnoreCase("")) {
+            DeleteCouponTask couponTask = new DeleteCouponTask();
+            couponTask.execute(coupon);
+        }
+        super.onBackPressed();
+    }
 
 }

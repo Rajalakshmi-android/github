@@ -127,7 +127,7 @@ public class Registration extends Language {
                 if (mobile.getText().toString().trim().equals("")) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
-                if (mobile.getText().toString().length() < 7) {
+                if (mobile.getText().toString().length() <= 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
 
@@ -150,7 +150,7 @@ public class Registration extends Language {
                 if (!f_name.getText().toString().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
-                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
+                        && mobile.getText().toString().length() > 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()
                         && !passone.getText().toString().isEmpty() && passone.getText().toString().trim().length() > 5
                         && !passtwo.getText().toString().isEmpty() && passtwo.getText().toString().trim().length() > 5
                         && passone.getText().toString().trim().equals(passtwo.getText().toString().trim())
@@ -261,7 +261,7 @@ public class Registration extends Language {
                         Toast.makeText(Registration.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                        Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -274,7 +274,7 @@ public class Registration extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -287,7 +287,7 @@ public class Registration extends Language {
             } else {
                 pDialog.dismiss();
 
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

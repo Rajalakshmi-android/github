@@ -68,7 +68,7 @@ public class GuestCheckout extends Language {
                 if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                     email.setError(getResources().getString(R.string.valid_mail));
                 }
-                if (mobile.getText().toString().trim().length() < 7) {
+                if (mobile.getText().toString().trim().length() <= 7) {
                     mobile.setError(getResources().getString(R.string.mobl_error));
                 }
                 if (mobile.getText().toString().trim().equals("")) {
@@ -81,7 +81,7 @@ public class GuestCheckout extends Language {
                 if (!f_name.getText().toString().isEmpty() && Validation.validateName(f_name.getText().toString().trim())
                         && !l_name.getText().toString().isEmpty() && Validation.validateName(l_name.getText().toString().trim())
                         && !email.getText().toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()
-                        && mobile.getText().toString().length() >= 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
+                        && mobile.getText().toString().length() > 7 && !mobile.getText().toString().isEmpty() && Patterns.PHONE.matcher(mobile.getText().toString().trim()).matches()) {
 
                     Intent intent = new Intent(GuestCheckout.this, Address.class);
                     Bundle gues_data = new Bundle();

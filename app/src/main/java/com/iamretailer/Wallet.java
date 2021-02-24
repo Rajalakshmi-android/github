@@ -289,7 +289,7 @@ public class Wallet extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Snackbar.make(fullayout, R.string.error_msg,
-                            Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             wallet_list.performClick();
@@ -301,7 +301,7 @@ public class Wallet extends Language {
                 }
             } else {
                 Snackbar.make(fullayout, R.string.error_net,
-                        Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                        Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         wallet_list.performClick();
@@ -365,7 +365,7 @@ public class Wallet extends Language {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Snackbar.make(fullayout, R.string.error_msg,
-                            Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             wallet_list.performClick();
@@ -377,7 +377,7 @@ public class Wallet extends Language {
                 }
             } else {
                 Snackbar.make(fullayout, R.string.error_net,
-                        Snackbar.LENGTH_LONG).setAction(R.string.retry, new View.OnClickListener() {
+                        Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         wallet_list.performClick();
