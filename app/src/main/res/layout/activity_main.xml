@@ -371,8 +371,8 @@
                             android:gravity="center"
                             android:id="@+id/whatsapp">
                             <ImageView
-                                android:layout_width="@dimen/dp80"
-                                android:layout_height="@dimen/dp80"
+                                android:layout_width="@dimen/dp50"
+                                android:layout_height="@dimen/dp50"
                                 android:src="@mipmap/whatsapp_icon"
                                 android:id="@+id/whats_img"
                                 android:layout_gravity="center"
