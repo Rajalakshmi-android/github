@@ -752,6 +752,101 @@ public class ProductFullView extends Language {
 
     }
 
+    private void text_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.text_optoion, options, false);
+        final TextView texts = layout.findViewById(R.id.text);
+        TextView heading = layout.findViewById(R.id.heading);
+
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+       // heading.setText(text);
+        texts.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(texts.getText().toString());
+
+        texts.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (texts.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(texts.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }else{
+                    optionsPOArrayList.get(pos).setSelected_id("");
+
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
+    private void textarea_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.textarea_option, options, false);
+        final EditText textarea = layout.findViewById(R.id.comments);
+        TextView heading = layout.findViewById(R.id.heading);
+
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+        // heading.setText(text);
+        textarea.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(textarea.getText().toString());
+        textarea.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        textarea.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (textarea.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(textarea.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }else{
+                    optionsPOArrayList.get(pos).setSelected_id("");
+
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
     private void date_option(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.date_optoion, options, false);
         final TextView date = layout.findViewById(R.id.date);
@@ -766,7 +861,7 @@ public class ProductFullView extends Language {
                 heading.setText(Html.fromHtml(text));
             }
         }
-       // heading.setText(text);
+        // heading.setText(text);
         date.setText(optionsPO.getValue());
         optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
         date_box.setOnClickListener(new View.OnClickListener() {
@@ -843,7 +938,6 @@ public class ProductFullView extends Language {
         });
         options.addView(layout);
     }
-
 
     private void checkbox_option(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.check_box_option, options, false);
@@ -1255,7 +1349,16 @@ public class ProductFullView extends Language {
 
                 date_option(optionsPOArrayList.get(i), i);
 
-            } else {
+            }else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.text_contion))) {
+
+                text_option(optionsPOArrayList.get(i), i);
+
+            }else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.textarea_contion))) {
+
+                textarea_option(optionsPOArrayList.get(i), i);
+
+            }
+            else {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     weightoption(optionsPOArrayList.get(i), i);
                 }

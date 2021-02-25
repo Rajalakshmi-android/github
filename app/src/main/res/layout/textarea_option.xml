@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_bg_color1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp0"
+        android:layout_marginEnd="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="@integer/two"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:gravity="top"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="match_parent"
+                android:layout_weight="@dimen/value_0_7_5">
+
+                <com.iamretailer.Common.CustomTextview1
+                    android:layout_marginTop="@dimen/dp10"
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:text="@string/select"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/text14sp" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/value_1_2_5"
+                android:background="@drawable/optionunselect"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.iamretailer.Common.CustomEditext
+                        android:id="@+id/comments"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp100"
+                        android:layout_gravity="start|top"
+                        android:background="@null"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:padding="@dimen/dp10"
+                        android:theme="@style/LoginEditTexts"
+                        android:textColor="@color/app_text_color"
+                        android:textSize="@dimen/text14sp" />
+
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:background="@color/app_view_color" />
+</LinearLayout>

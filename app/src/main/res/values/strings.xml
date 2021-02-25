@@ -485,5 +485,7 @@
     <string name="views_alls">View All</string>
     <string name="search_productss">Search for Products, Brands and More</string>
     <string name="time">time</string>
+    <string name="text_contion">text</string>
+    <string name="textarea_contion">textarea</string>
 
 </resources>
