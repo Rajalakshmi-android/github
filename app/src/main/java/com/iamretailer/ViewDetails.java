@@ -563,14 +563,14 @@ public class ViewDetails extends Language {
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < placePO.getOptionlist().size(); h++) {
-            if(placePO.getOptionlist().get(h).getName().contains(getResources().getString(R.string.date))){
+            if(placePO.getOptionlist().get(h).getName().contains(getResources().getString(R.string.date))||placePO.getOptionlist().get(h).getName().toLowerCase().contains(getResources().getString(R.string.time))){
                  if(placePO.getOptionlist().size()==1){
                     sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
                 }else{
                     if(h==0){
-                        sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue()+"\n");
+                        sb2.append(placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue()+"<br/>");
                     }else{
-                        sb2.append("\n"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
+                        sb2.append("<br/>"+placePO.getOptionlist().get(h).getName() +" : "+placePO.getOptionlist().get(h).getValue());
 
                     }
                 }

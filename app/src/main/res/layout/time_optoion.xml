@@ -23,14 +23,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="@dimen/value_0_7_5">
 
-            <com.iamretailer.Common.CustomTextview1
-                android:id="@+id/heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/select"
-                android:textColor="@color/app_text_color"
-                android:textSize="@dimen/text14sp" />
+                <com.iamretailer.Common.CustomTextview1
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/select"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/text14sp" />
             </LinearLayout>
 
             <FrameLayout
@@ -55,12 +55,12 @@
 
                         <TextView
                             android:id="@+id/date"
-                            android:textSize="@dimen/text14sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_gravity="start|center"
                             android:gravity="start|center"
+                            android:textSize="@dimen/text14sp"
                             android:background="@android:color/transparent"
                             android:layout_marginEnd="@dimen/dp25" />
 
@@ -72,7 +72,7 @@
                             android:autoMirrored="true"
                             android:layout_margin="@dimen/dp5"
                             android:rotationY="@integer/locale_mirror_flip"
-                            android:src="@mipmap/date_picker" />
+                            android:src="@mipmap/time" />
                     </FrameLayout>
                 </LinearLayout>
             </FrameLayout>

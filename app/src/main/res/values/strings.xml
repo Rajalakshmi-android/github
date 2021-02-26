@@ -99,6 +99,8 @@
     <string name="select">Select :</string>
     <string name="date">Date</string>
     <string name="dates_contion">date</string>
+    <string name="date_time_contion">datetime</string>
+    <string name="time_contion">time</string>
     <string name="sing">S</string>
     <string name="stuff">Add some stuff!</string>
     <string name="no_cart_list">Currently you have no items in your cart</string>
