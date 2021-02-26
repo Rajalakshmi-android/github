@@ -35,6 +35,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -365,9 +366,13 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
 
 
                     } else {
-                        if (pDialog != null)
-                            pDialog.dismiss();
+                       /* if (pDialog != null)
+                            pDialog.dismiss();*/
                         JSONArray array = json.getJSONArray("error");
+                        if(array.getString(0).contains("User is logged")){
+                            LogoutTask task = new LogoutTask();
+                            task.execute(Appconstatants.LOGOUT_URL);
+                        }
                         Toast.makeText(Login.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
                     }
 
@@ -858,6 +863,62 @@ public class Login extends Language implements GoogleApiClient.OnConnectionFaile
             System.out.println("Error.");
         }
         return "";
+    }
+
+    private class LogoutTask extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d("confirm_order", "started");
+        }
+
+        protected String doInBackground(String... param) {
+            logger.info("Logout api" + param[0]);
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.sendHttpPostLogout(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR);
+                logger.info("Logout api resp" + response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("confirm_order", "Logout--->  " + resp);
+            if (pDialog != null)
+                pDialog.dismiss();
+            if (resp != null) {
+
+                try {
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        db.dropUser();
+                        LoginManager.getInstance().logOut();
+                        Intent i = new Intent(Login.this, MainActivity.class);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(Login.this, R.string.log_fail, Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(Login.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, R.string.log_fail, Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(Login.this, R.string.error_net, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, R.string.log_fail, Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
 }
