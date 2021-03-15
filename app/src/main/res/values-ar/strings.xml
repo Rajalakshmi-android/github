@@ -50,7 +50,7 @@
     <string name="sorting">صنف حسب :</string>
     <string name="no_items">لا توجد منتجات.</string>
     <string name="no_con">لا يوجد اتصال</string>
-    <string name="check_network"> الرجاء التحقق من اتصالك بالإنترنت \ n &amp; حاول مجددا.</string>
+    <string name="check_network"> الرجاء التحقق من اتصالك بالإنترنت \n &amp; حاول مجددا.</string>
     <string name="amount">كمية :</string>
     <string name="USERNAME_Email">البريد الإلكتروني*</string>
     <string name="PASSWORD">كلمه السر*</string>
@@ -96,6 +96,7 @@
     <string name="select_size">أختر الحجم :</string>
     <string name="select">تحديد :</string>
     <string name="date">تاريخ</string>
+    <string name="dates_contion">date</string>
     <string name="sing">س</string>
     <string name="stuff">أضف بعض الأشياء!</string>
     <string name="no_cart_list">حاليا لا يوجد لديك عناصر في سلة التسوق الخاصة بك</string>
@@ -299,11 +300,11 @@
     <string name="comp">قد اكتمل. شكرا لك على الطلب.</string>
     <string name="cod">الدفع عند الاستلام</string>
     <string name="razorpay">رازورباي</string>
-    <string name="colrs">اللون</string>
-    <string name="colss">الألوان</string>
-    <string name="radio">مذياع</string>
-    <string name="size">بحجم</string>
-    <string name="chelk_box">خانة الاختيار</string>
+    <string name="colrs_condition">Color</string>
+    <string name="colss_condition">Colours</string>
+    <string name="radio_condition">radio</string>
+    <string name="size_condtion">Size</string>
+    <string name="chelk_box_condition">checkbox</string>
     <string name="pay_type">يجب تحديد نوع الدفع</string>
     <string name="store">فروعنا</string>
     <string name="store1">متاجرنا</string>
@@ -344,7 +345,7 @@
     <string name="per_grant">تم تأمين التصريح</string>
     <string name="per_den">طلب الاذن مرفوض</string>
 
-
+    <string name="views_alls">مشاهدة الكل</string>
 
 
     //stemp
@@ -380,7 +381,7 @@
     <string name="search_category">بحث عن العلامة التجارية</string>
     <string name="category_filter">تصفية حسب الماركة</string>
     <string name="brand_not_found">الماركة غير موجودة !!</string>
-    <string name="dfgdg">أدخل رقم الجوال</string>
+
 
     //pink
     <string name="pl_loading">برجاء الانتظار جاري التحميل ....</string>
@@ -467,5 +468,23 @@
     <string name="gift_suc">تم تطبيق الهدية بنجاح</string>
     <string name="gift_remove">تمت إزالة شهادة الهدية</string>
     <string name="gift_delete">هل تريد حذف شهادة الهدية؟</string>
+    <string name="coupon_remove">تمت إزالة رمز القسيمة</string>
+    <string name="coupon_delete">هل تريد حذف رمز القسيمة؟</string>
 
+    //yellow
+    <string name="search_product">البحث عن المنتجات</string>
+    <string name="SPECIAL_PRICE">سعر خاص</string>
+    <string name="copy_code">انسخ رمز القسيمة</string>
+    <string name="our_brand">علاماتنا التجارية</string>
+    <string name="night_day_cracker">المفرقعات المميزة</string>
+    <string name="our_best">أفضل بيع لدينا</string>
+
+    //flipkart
+    <string name="search_productss">ابحث عن المنتجات والعلامات التجارية والمزيد</string>
+    <string name="time">الوقت</string>
+
+    <string name="offer_range">75٪ - 20٪ خصم على أول عملية شراء</string>
+    <string name="offercode">555555</string>
+    <string name="scratch">خدش للحصول على الرمز</string>
+    <string name="brand">ماركة:</string>
 </resources>

@@ -94,7 +94,7 @@ public class AddressAdapter extends ArrayAdapter<AddressPO> {
         String c_name = items.get(position).getF_name() + " " + items.get(position).getL_name();
         holder.cus_name.setText(c_name);
 
-        if (items.get(position).getAdd_2() != null || items.get(position).getAdd_2().trim().length() > 0) {
+        if (items.get(position).getAdd_2() != null && items.get(position).getAdd_2().trim().length() !=0) {
             String add_1 = items.get(position).getAdd_1() + ", " + items.get(position).getAdd_2();
             holder.address_1.setText(add_1);
         } else {

@@ -21,8 +21,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/dp5"
+                    android:gravity="end"
                 android:textColor="@color/app_text_color"
-                android:textSize="@dimen/text14sp" />
+                android:textSize="@dimen/text12sp" />
 
         </LinearLayout>
 
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/app_text_color"
-                android:textSize="@dimen/text14sp"
+                android:textSize="@dimen/text12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 

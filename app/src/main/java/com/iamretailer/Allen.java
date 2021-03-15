@@ -339,6 +339,8 @@ public class Allen extends Language {
                 sort.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.VISIBLE);
                 no_items.setVisibility(View.GONE);
+                CartTask cartTask = new CartTask();
+                cartTask.execute(Appconstatants.cart_api);
                 ProductTask productTask = new ProductTask();
                 productTask.execute(Appconstatants.PRODUCT_LIST + "&sort=" + sort_option + "&order=" + sort_order + "&category=" + cat_id + "&page=" + start + "&limit=" + limit + "&manufacturer=" + method(manufacturer) + "&option_value=" + method(option_value) + "&pr=" + pr);
             }
@@ -631,6 +633,7 @@ public class Allen extends Language {
 
                         error_network.setVisibility(View.GONE);
                         start = start + 1;
+                        loadin = false;
                         prog_sec.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
 

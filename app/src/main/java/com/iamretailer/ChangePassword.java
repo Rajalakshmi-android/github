@@ -146,7 +146,7 @@ public class ChangePassword extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG)
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -157,7 +157,7 @@ public class ChangePassword extends Language {
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG)
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

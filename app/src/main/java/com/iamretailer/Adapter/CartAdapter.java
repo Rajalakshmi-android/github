@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,8 +114,11 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
 
         }
 
-
-        holder.cart_prod_name.setText(items.get(position).getProduct_name());
+        if (Build.VERSION.SDK_INT >= 24) {
+            holder.cart_prod_name.setText(Html.fromHtml(items.get(position).getProduct_name(), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            holder.cart_prod_name.setText(Html.fromHtml(items.get(position).getProduct_name()));
+        }
         holder.rupee_back.setText(cur_right);
         holder.rupee_front.setText(cur_left);
         String val = String.format(Locale.ENGLISH, "%.2f", items.get(position).getTotal());
@@ -122,15 +127,20 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         for (int j = 0; j < items.get(position).getOptionlist().size(); j++) {
             if (items.get(position).getOptionlist().size() - 1 == j)
                 op.append(items.get(position).getOptionlist().get(j).getName()).append(": ").append(items.get(position).getOptionlist().get(j).getValue());
-            else
+            else {
                 op.append(items.get(position).getOptionlist().get(j).getName()).append(": ").append(items.get(position).getOptionlist().get(j).getValue()).append(", ");
+            }
 
         }
 
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < items.get(position).getOptionlist().size(); h++) {
-            sb2.append(items.get(position).getOptionlist().get(h).getValue());
+            if(items.get(position).getOptionlist().get(h).getName().contains(context.getResources().getString(R.string.date))){
+                sb2.append("<br/>"+items.get(position).getOptionlist().get(h).getName() +" : "+items.get(position).getOptionlist().get(h).getValue());
+            }else{
+                sb2.append(items.get(position).getOptionlist().get(h).getValue());
+            }
             if (h != items.get(position).getOptionlist().size() - 1)
                 sb2.append(",");
         }
@@ -140,7 +150,14 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         } else {
             holder.option.setVisibility(View.GONE);
         }
-        holder.option_list.setText(String.valueOf(sb2));
+       // holder.option_list.setText(String.valueOf(sb2));
+        if(String.valueOf(sb2)!=null && String.valueOf(sb2).length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                holder.option_list.setText(Html.fromHtml(String.valueOf(sb2), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                holder.option_list.setText(Html.fromHtml(String.valueOf(sb2)));
+            }
+        }
         holder.cart_value.setText(String.valueOf(items.get(position).getCartvalue()));
         holder.cart_ins.setTag(position);
 

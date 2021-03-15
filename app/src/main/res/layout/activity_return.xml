@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
@@ -170,14 +171,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/dp10"
-                                    android:layout_marginStart="@dimen/dp20"
+                                    android:layout_marginStart="@dimen/dp15"
                                     android:layout_marginTop="@dimen/dp10"
                                     android:orientation="vertical">
 
                                     <RadioGroup
                                         android:id="@+id/radio"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="5dp"/>
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -203,13 +205,14 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/dp10"
-                                    android:layout_marginStart="@dimen/dp20"
+                                    android:layout_marginStart="@dimen/dp15"
                                     android:layout_marginTop="@dimen/dp10">
 
                                     <RadioGroup
                                         android:id="@+id/radiogroup"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/dp5"
                                         android:orientation="horizontal">
 
 
@@ -248,7 +251,7 @@
                                     <com.iamretailer.Common.CustomEditext
                                         android:id="@+id/comments"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="match_parent"
                                         android:layout_margin="@dimen/dp6"
                                         android:background="@android:color/transparent"
                                         android:gravity="top"

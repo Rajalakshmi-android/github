@@ -88,6 +88,8 @@ public class SearchActivity extends Language {
             public void onClick(View v) {
                 error_network.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
+                CartTask cartTask = new CartTask();
+                cartTask.execute(Appconstatants.cart_api);
                 productTask = new SingleProductTask();
                 try {
                     productTask.execute(Appconstatants.SEARCH + URLEncoder.encode(text, "UTF-8") + "&category=" + "&sub_category=" + "&description=" + "&sort=name" + "&page=" + start + "&limit=" + limit);

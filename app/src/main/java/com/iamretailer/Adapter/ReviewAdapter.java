@@ -1,7 +1,9 @@
 package com.iamretailer.Adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,8 +66,11 @@ public class ReviewAdapter extends ArrayAdapter<SingleOptionPO> {
         holder.r3 = convertView.findViewById(R.id.r3);
         holder.r4 = convertView.findViewById(R.id.r4);
         holder.r5 = convertView.findViewById(R.id.r5);
-
-        holder.comts.setText(items.get(position).getRev_text());
+        if (Build.VERSION.SDK_INT >= 24) {
+            holder.comts.setText(Html.fromHtml(items.get(position).getRev_text(), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            holder.comts.setText(Html.fromHtml(items.get(position).getRev_text()));
+        }
         holder.rev_date.setText(items.get(position).getRev_date());
         holder.user_name.setText(items.get(position).getRev_author());
         holder.user_first.setText(String.valueOf(items.get(position).getRev_author().charAt(0)).toUpperCase());

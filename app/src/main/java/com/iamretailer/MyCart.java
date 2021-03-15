@@ -139,6 +139,9 @@ public class MyCart extends Language {
 
                 CartTask cartTask = new CartTask();
                 cartTask.execute(Appconstatants.cart_api);
+
+                CountryTask countryTask = new CountryTask();
+                countryTask.execute();
             }
         });
 
@@ -637,8 +640,14 @@ public class MyCart extends Language {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (pin_code.getText().toString().trim().equals("")) {
+                    pin_code.setError(getResources().getString(R.string.oin_error));
+                }
+                if (pin_code.getText().toString().length() != 6) {
+                    pin_code.setError(getResources().getString(R.string.pin_error1));
+                }
 
-                if (country.getSelectedItemPosition() > 0 && state.getSelectedItemPosition() > 0 && pin_code.getText().toString().length() > 0) {
+                if (country.getSelectedItemPosition() > 0 && state.getSelectedItemPosition() > 0 &&  !pin_code.getText().toString().trim().isEmpty() && pin_code.getText().toString().length() == 6) {
                     CalcTask calcTask = new CalcTask();
                     calcTask.execute(country_list.get(country.getSelectedItemPosition()).getCount_id() + "", state_list.get(state.getSelectedItemPosition()).getZone_id(), pin_code.getText().toString());
                 } else {
@@ -648,9 +657,7 @@ public class MyCart extends Language {
                     if (state.getSelectedItemPosition() == 0) {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.select_state), Toast.LENGTH_LONG).show();
                     }
-                    if (pin_code.getText().toString().trim().length() == 0) {
-                        pin_code.setError(getResources().getString(R.string.oin_error));
-                    }
+
                 }
 
             }
@@ -906,7 +913,7 @@ public class MyCart extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                    Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -919,7 +926,7 @@ public class MyCart extends Language {
                 }
 
             } else {
-                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_LONG).setActionTextColor(getResources().getColor(R.color.colorAccent))
+                Snackbar.make(fullayout, R.string.error_net, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                         .setAction(R.string.retry, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -985,7 +992,7 @@ public class MyCart extends Language {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ship_item, shipping_list, false);
         TextView ship_title = convertView.findViewById(R.id.ship_title);
         TextView ship_cost = convertView.findViewById(R.id.ship_cost);
-        String keys = key + ": ";
+        String keys = key + ":";
         ship_title.setText(keys);
         String costs = cost + "";
         ship_cost.setText(costs);

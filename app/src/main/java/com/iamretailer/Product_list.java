@@ -345,7 +345,7 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.GONE);
                         load_more.setVisibility(View.GONE);
                         start = start + 1;
-
+                        loadin = false;
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);
@@ -503,6 +503,7 @@ public class Product_list extends Language {
                         error_network.setVisibility(View.GONE);
 
                         start = start + 1;
+                        loadin = false;
                         if (cart) {
                             CartTask cartTask = new CartTask();
                             cartTask.execute(Appconstatants.cart_api);
@@ -894,7 +895,7 @@ public class Product_list extends Language {
                         load_more.setVisibility(View.GONE);
 
                         start = start + 1;
-
+                        loadin = false;
                     } else {
                         loading.setVisibility(View.GONE);
                         error_network.setVisibility(View.VISIBLE);

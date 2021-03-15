@@ -60,9 +60,10 @@
                         <LinearLayout
                             android:layout_width="@dimen/dp0"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start"
                             android:layout_weight="@integer/one"
                             android:gravity="start"
+                            android:layout_gravity="start"
+
                             android:orientation="horizontal">
 
                             <com.iamretailer.Common.CustomTextview1
@@ -139,6 +140,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:gravity="start"
+                        android:layout_gravity="start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dp10"
@@ -148,6 +151,8 @@
                             android:id="@+id/comments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:gravity="start"
                             android:text="@string/product"
                             android:textColor="@color/cart_text"
                             android:textSize="@dimen/text12sp" />

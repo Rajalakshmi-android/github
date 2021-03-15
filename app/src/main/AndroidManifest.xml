@@ -151,6 +151,7 @@
         <activity android:name=".MyCart" />
         <activity android:name=".MyCart_copy" />
         <activity android:name=".Filter" />
+        <activity android:name=".SuccessActivity" />
 
 
 
