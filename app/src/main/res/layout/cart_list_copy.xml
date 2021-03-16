@@ -94,7 +94,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/option"
                                 android:textColor="@color/cart_text"
-                                android:textSize="@dimen/text14sp" />
+                                android:textSize="@dimen/text13sp" />
 
                             <com.iamretailer.Common.CustomTextview
                                 android:id="@+id/cart_prod_rate"

@@ -2,6 +2,7 @@ package com.iamretailer;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -45,6 +46,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.iamretailer.Adapter.ColorAdapters;
@@ -76,6 +78,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,6 +168,8 @@ public class ProductFullView extends Language {
     private FrameLayout brand_layout;
     private TextView brand;
     private ScrollView mScrlMain;
+    private int mhour;
+    private int minute;
 
 
     @Override
@@ -752,6 +757,272 @@ public class ProductFullView extends Language {
 
     }
 
+    private void text_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.text_optoion, options, false);
+        final TextView texts = layout.findViewById(R.id.text);
+        TextView heading = layout.findViewById(R.id.heading);
+
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+       // heading.setText(text);
+        texts.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(texts.getText().toString());
+
+        texts.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (texts.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(texts.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }else{
+                    optionsPOArrayList.get(pos).setSelected_id("");
+
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
+    private void textarea_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.textarea_option, options, false);
+        final EditText textarea = layout.findViewById(R.id.comments);
+        TextView heading = layout.findViewById(R.id.heading);
+
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+        // heading.setText(text);
+        textarea.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(textarea.getText().toString());
+        textarea.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScrlMain.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        textarea.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (textarea.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(textarea.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }else{
+                    optionsPOArrayList.get(pos).setSelected_id("");
+
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
+    private void date_time_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.date_optoion, options, false);
+        final TextView date = layout.findViewById(R.id.date);
+        TextView heading = layout.findViewById(R.id.heading);
+        FrameLayout date_box = layout.findViewById(R.id.date_box);
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+        // heading.setText(text);
+        date.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
+        date_box.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ProductFullView.this, R.style.TimePickerTheme,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int month, int day) {
+
+                                String dat = (day > 9 ? day : "0" + day) + "/" + ((month + 1) > 9 ? month + 1 : "0" + (month + 1)) + "/" + year;
+                                String dat2 = year + "-" + ((month + 1) > 9 ? month + 1 : "0" + (month + 1)) + "-" + (day > 9 ? day : "0" + day);
+
+                                duedate1 = dat2;
+                                DateFormat originalFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                                DateFormat targetFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                                DateFormat targetFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                                Date dat1 = null;
+                                final Date dat3 = null;
+                                try {
+                                    dat1 = originalFormat1.parse(dat);
+                                    psosavedate2 = targetFormat1.format(dat1);
+                                    psosavedate3 = targetFormat2.format(dat1);
+                                    new TimePickerDialog(ProductFullView.this, R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
+                                        @Override
+                                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                                            c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                            c.set(Calendar.MINUTE, minute);
+                                            Log.v("TAG", "The choosen one " + c.getTime());
+                                            DateFormat df = new SimpleDateFormat("hh:mm a");
+                                            String date1 = df.format(c.getTime());
+                                            date.setText(psosavedate3 +" "+date1);
+                                        }
+                                    }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
+                                    Log.i("tag", "date---" + psosavedate2);
+                                   /* if(optionsPO.getType().contains(getResources().getString(R.string.time))) {
+                                        DateFormat df = new SimpleDateFormat("hh:mm a");
+                                        String date1 = df.format(Calendar.getInstance().getTime());
+                                        date.setText(psosavedate3 +" "+date1);
+                                    }else{
+                                        date.setText(psosavedate2);
+                                    }*/
+                                    date.setError(null);
+                                    Log.i("tag","dateingoooooo1111--- "+psosavedate2);
+
+                                    Log.i("tag", "date---" + date.getText());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+        date.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (date.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
+    private void time_option(final OptionsPO optionsPO, final int pos) {
+        View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.time_optoion, options, false);
+        final TextView date = layout.findViewById(R.id.date);
+        TextView heading = layout.findViewById(R.id.heading);
+        FrameLayout date_box = layout.findViewById(R.id.date_box);
+        String text = optionsPO.getName() + " :";
+        Log.i("tag","datevalue---- "+optionsPO.getValue());
+        if(text!=null && text.length()!=0) {
+            if (Build.VERSION.SDK_INT >= 24) {
+                heading.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                heading.setText(Html.fromHtml(text));
+            }
+        }
+        // heading.setText(text);
+        date.setText(optionsPO.getValue());
+        optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
+        date_box.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mhour = c.get(Calendar.HOUR_OF_DAY);
+                minute = c.get(Calendar.MINUTE);
+
+
+               new TimePickerDialog(ProductFullView.this, R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        Log.v("TAG", "The choosen one " + c.getTime());
+                        DateFormat df = new SimpleDateFormat("hh:mm a");
+                        String date1 = df.format(c.getTime());
+                        date.setText(psosavedate3 + " " + date1);
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
+
+
+
+
+            }
+        });
+        date.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (date.getText().length() > 0) {
+                    optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
+                    Log.i("tag","datevalue111----"+optionsPOArrayList.get(pos).getSelected_id());
+                    Log.i("tag","datevalue222----"+String.valueOf(optionsPOArrayList.get(pos).getSelected_id()));
+                }
+
+            }
+        });
+        options.addView(layout);
+    }
     private void date_option(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.date_optoion, options, false);
         final TextView date = layout.findViewById(R.id.date);
@@ -766,7 +1037,7 @@ public class ProductFullView extends Language {
                 heading.setText(Html.fromHtml(text));
             }
         }
-       // heading.setText(text);
+        // heading.setText(text);
         date.setText(optionsPO.getValue());
         optionsPOArrayList.get(pos).setSelected_id(date.getText().toString());
         date_box.setOnClickListener(new View.OnClickListener() {
@@ -843,8 +1114,6 @@ public class ProductFullView extends Language {
         });
         options.addView(layout);
     }
-
-
     private void checkbox_option(final OptionsPO optionsPO, final int pos) {
         View layout = LayoutInflater.from(ProductFullView.this).inflate(R.layout.check_box_option, options, false);
         TextView heading = layout.findViewById(R.id.heading);
@@ -1251,11 +1520,28 @@ public class ProductFullView extends Language {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     radio_button(optionsPOArrayList.get(i), i);
                 }
-            } else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.dates_contion))) {
+            } else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.dates_contion))) {
 
                 date_option(optionsPOArrayList.get(i), i);
 
-            } else {
+            }else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.date_time_contion))) {
+
+                date_time_option(optionsPOArrayList.get(i), i);
+
+            }else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.time_contion))) {
+
+                time_option(optionsPOArrayList.get(i), i);
+
+            }else if (optionsPOArrayList.get(i).getType().equalsIgnoreCase(getResources().getString(R.string.text_contion))) {
+
+                text_option(optionsPOArrayList.get(i), i);
+
+            }else if (optionsPOArrayList.get(i).getType().contains(getResources().getString(R.string.textarea_contion))) {
+
+                textarea_option(optionsPOArrayList.get(i), i);
+
+            }
+            else {
                 if(optionsPOArrayList.get(i).getValuelist()!=null && optionsPOArrayList.get(i).getValuelist().size() > 0) {
                     weightoption(optionsPOArrayList.get(i), i);
                 }

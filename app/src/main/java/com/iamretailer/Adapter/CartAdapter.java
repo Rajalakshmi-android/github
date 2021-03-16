@@ -136,7 +136,7 @@ public class CartAdapter extends ArrayAdapter<ProductsPO> {
         StringBuilder sb2 = new StringBuilder();
 
         for (int h = 0; h < items.get(position).getOptionlist().size(); h++) {
-            if(items.get(position).getOptionlist().get(h).getName().contains(context.getResources().getString(R.string.date))){
+            if(items.get(position).getOptionlist().get(h).getName().contains(context.getResources().getString(R.string.date))||items.get(position).getOptionlist().get(h).getName().toLowerCase().contains(context.getResources().getString(R.string.time))){
                 sb2.append("<br/>"+items.get(position).getOptionlist().get(h).getName() +" : "+items.get(position).getOptionlist().get(h).getValue());
             }else{
                 sb2.append(items.get(position).getOptionlist().get(h).getValue());

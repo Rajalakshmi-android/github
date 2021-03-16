@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
@@ -40,6 +41,7 @@ public class Registration extends Language {
     private int from;
     private LinearLayout fullayout;
     private AndroidLogger logger;
+    private ProgressDialog pDialog;
 
 
     @Override
@@ -180,8 +182,6 @@ public class Registration extends Language {
     private class RegisterTask extends AsyncTask<Object, Void, String> {
 
 
-        private ProgressDialog pDialog;
-
         @Override
         protected void onPreExecute() {
             pDialog = new ProgressDialog(Registration.this);
@@ -230,10 +230,11 @@ public class Registration extends Language {
         protected void onPostExecute(String resp) {
             Log.i("Register", "Register--->  " + resp);
             if (resp != null) {
-                pDialog.dismiss();
+
                 try {
                     JSONObject json1 = new JSONObject(resp);
                     if (json1.getInt("success") == 1) {
+                        pDialog.dismiss();
                         JSONObject json = json1.getJSONObject("data");
                         String cus_id = json.isNull("customer_id") ? "" : json.getString("customer_id");
                         String cus_f_name = json.isNull("firstname") ? "" : json.getString("firstname");
@@ -258,6 +259,10 @@ public class Registration extends Language {
                     } else if (json1.getInt("success") == 0) {
 
                         JSONArray array = json1.getJSONArray("error");
+                        if(array.getString(0).contains("User is logged")){
+                            LogoutTask task = new LogoutTask();
+                            task.execute(Appconstatants.LOGOUT_URL);
+                        }
                         Toast.makeText(Registration.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -296,6 +301,62 @@ public class Registration extends Language {
                         })
                         .show();
 
+            }
+
+        }
+    }
+
+    private class LogoutTask extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d("confirm_order", "started");
+        }
+
+        protected String doInBackground(String... param) {
+            logger.info("Logout api" + param[0]);
+            String response = null;
+            try {
+                Connection connection = new Connection();
+                response = connection.sendHttpPostLogout(param[0], Appconstatants.sessiondata, Appconstatants.key1, Appconstatants.key, Appconstatants.value, Appconstatants.Lang, Appconstatants.CUR);
+                logger.info("Logout api resp" + response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String resp) {
+            Log.i("confirm_order", "Logout--->  " + resp);
+            if (pDialog != null)
+                pDialog.dismiss();
+            if (resp != null) {
+
+                try {
+                    JSONObject json = new JSONObject(resp);
+                    if (json.getInt("success") == 1) {
+                        dbController.dropUser();
+                        LoginManager.getInstance().logOut();
+                        Intent i = new Intent(Registration.this, MainActivity.class);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(Registration.this, R.string.log_fail, Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(Registration.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registration.this, R.string.log_fail, Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(Registration.this, R.string.error_net, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Registration.this, R.string.log_fail, Toast.LENGTH_LONG).show();
             }
 
         }

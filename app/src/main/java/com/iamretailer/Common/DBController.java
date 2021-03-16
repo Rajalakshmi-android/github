@@ -386,6 +386,7 @@ public class DBController extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM storelist"); //delete all rows in a table
         db.close();
+
     }
     public void drop_guestval()
     {
