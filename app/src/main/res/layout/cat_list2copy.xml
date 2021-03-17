@@ -48,6 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="@color/app_text_color"
                 android:textSize="@dimen/text14sp" />
         </FrameLayout>
