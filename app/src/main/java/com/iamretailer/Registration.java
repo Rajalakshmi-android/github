@@ -262,10 +262,13 @@ public class Registration extends Language {
                         if(array.getString(0).contains("User is logged")){
                             LogoutTask task = new LogoutTask();
                             task.execute(Appconstatants.LOGOUT_URL);
+                        }else{
+                            pDialog.dismiss();
                         }
                         Toast.makeText(Registration.this, array.getString(0) + "", Toast.LENGTH_SHORT).show();
 
                     } else {
+                        pDialog.dismiss();
                         Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.retry, new View.OnClickListener() {
                                     @Override
@@ -279,6 +282,7 @@ public class Registration extends Language {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    pDialog.dismiss();
                     Snackbar.make(fullayout, R.string.error_msg, Snackbar.LENGTH_INDEFINITE).setActionTextColor(getResources().getColor(R.color.colorAccent))
                             .setAction(R.string.retry, new View.OnClickListener() {
                                 @Override
