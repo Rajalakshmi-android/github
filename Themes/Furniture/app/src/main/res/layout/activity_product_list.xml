@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg_color1"
+    android:id="@+id/fullayout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/menu_back"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.iamretailer.Common.CustomTextview
+                    android:id="@+id/no_proditems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/dp10"
+                    android:text="@string/no_items"
+                    android:textColor="@color/app_text_color"
+                    android:visibility="gone" />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/product_list"
+                    android:scrollbars="none"
+                    android:listSelector="@android:color/transparent"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:layout_marginStart="@dimen/dp10"
+                  />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:id="@+id/load_more"
+                    android:visibility="gone"
+                    android:background="@color/app_bg_color"
+                    android:orientation="vertical">
+                    <ProgressBar
+                        android:padding="@dimen/dp5"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        android:indeterminateDrawable="@drawable/custom_progress" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <include
+                layout="@layout/loading"/>
+            <include
+                layout="@layout/error_layout"/>
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>

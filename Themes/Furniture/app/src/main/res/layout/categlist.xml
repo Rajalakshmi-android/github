@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp15"
+        android:layout_marginStart="@dimen/dp18"
+        android:layout_marginTop="@dimen/dp15">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.iamretailer.Common.CustomTextview1
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/dp10"
+                android:gravity="start"
+                android:text="@string/newly"
+                android:textColor="@color/f_text"
+                android:textSize="@dimen/text17sp"
+                />
+            <ImageView
+                android:layout_width="@dimen/dp18"
+                android:layout_height="@dimen/dp15"
+                android:src="@mipmap/b_arrow"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_gravity="center_vertical"
+                android:autoMirrored="true"
+                android:rotationY="@integer/locale_mirror_flip"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:paddingBottom="@dimen/dp3"
+            android:paddingStart="@dimen/dp14"
+            android:paddingTop="@dimen/dp3">
+
+
+            <com.iamretailer.Common.CustomTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:text="@string/views_all"
+                android:textColor="@color/f_text"
+                android:background="@drawable/underline_black"
+                android:textSize="@dimen/text13sp" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+    <FrameLayout android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/loading_bar">
+        <ProgressBar
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:indeterminateDrawable="@drawable/progress_bar_states"
+            />
+    </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_marginTop="@dimen/dp15"
+        android:layout_marginBottom="@dimen/dp15"
+        android:id="@+id/error_network"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:id="@+id/retry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/erroricon"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:autoMirrored="true"
+                android:layout_marginEnd="@dimen/dp20"
+                android:rotationY="@integer/locale_mirror_flip"
+                android:src="@mipmap/retry_icon" />
+            <com.iamretailer.Common.CustomTextview1
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/retry"
+                android:textColor="@color/product_text_clr"
+                android:textSize="@dimen/text15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/product_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp2"
+            android:layout_marginTop="@dimen/dp10"
+            android:divider="@android:color/transparent"
+            android:scrollbars="none"
+            android:visibility="gone"/>
+
+        <com.iamretailer.Common.CustomTextview
+            android:id="@+id/no_proditems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/dp10"
+            android:text="@string/no_items"
+            android:textColor="@color/app_text_color"
+            android:visibility="gone" />
+    </FrameLayout>
+
+
+</LinearLayout>

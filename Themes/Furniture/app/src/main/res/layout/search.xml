@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg_color1"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:id="@+id/fullayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/menu_back" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp40"
+                        android:layout_marginTop="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:background="@drawable/search_bg1">
+
+                            <LinearLayout
+                                android:id="@+id/searchs"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp20"
+                                    android:layout_height="@dimen/dp20"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp10"
+                                    android:padding="@dimen/dp2"
+                                    android:autoMirrored="true"
+                                    android:rotationY="@integer/locale_mirror_flip"
+                                    android:src="@mipmap/searching" />
+
+                                <com.iamretailer.Common.CustomEditext
+                                    android:id="@+id/search_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp10"
+                                    android:background="@null"
+                                    android:hint="@string/search_products"
+                                    android:textSize="@dimen/text14sp"
+                                    android:singleLine="true"
+                                    android:imeOptions="actionDone"
+                                    android:textColorHint="@color/textcolor"
+                                    android:theme="@style/LoginEditTexts" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:id="@+id/search_loading"
+                            android:layout_marginTop="@dimen/dp10"
+                            >
+                            <ProgressBar
+                                android:padding="@dimen/dp5"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:indeterminate="true"
+                                android:indeterminateDrawable="@drawable/custom_progress" />
+                        </LinearLayout>
+
+                        <com.iamretailer.Common.CustomTextview
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text15sp"
+                            android:text="@string/no_items"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:visibility="gone"
+                            android:id="@+id/no_items"
+                            android:textColor="@color/app_text_color"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/grid"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp15"
+                            android:listSelector="@android:color/transparent"
+                            android:scrollbars="none"
+                          />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp50"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:id="@+id/load_more"
+                            android:visibility="gone"
+                            android:background="@color/app_bg_color"
+                            android:orientation="vertical">
+                            <ProgressBar
+                                android:padding="@dimen/dp5"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:indeterminate="true"
+                                android:indeterminateDrawable="@drawable/custom_progress" />
+                        </LinearLayout>
+
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                           >
+                            <include layout="@layout/loading" />
+                        </FrameLayout>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/error_layout" />
+                </FrameLayout>
+
+            </FrameLayout>
+
+
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>
