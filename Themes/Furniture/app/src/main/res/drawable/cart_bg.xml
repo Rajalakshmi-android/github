@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#11bbbbbb" />
+            <padding  android:right="1px" android:bottom="1px"  />
+            <corners
+                android:bottomLeftRadius="@dimen/dp40"
+                android:topLeftRadius="@dimen/dp40"
+                android:topRightRadius="@dimen/dp40"
+                android:bottomRightRadius="@dimen/dp40"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#11bbbbbb" />
+            <padding  android:right="1px" android:bottom="1px"  android:top="1px" android:left="1px"   />
+            <corners
+                android:bottomLeftRadius="@dimen/dp40"
+                android:topLeftRadius="@dimen/dp40"
+                android:topRightRadius="@dimen/dp40"
+                android:bottomRightRadius="@dimen/dp40"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#33bbbbbb" />
+            <padding  android:right="2px" android:bottom="2px"  />
+            <corners
+                android:bottomLeftRadius="@dimen/dp40"
+                android:topLeftRadius="@dimen/dp40"
+                android:topRightRadius="@dimen/dp40"
+                android:bottomRightRadius="@dimen/dp40"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/cat_bg" />
+            <padding  android:right="1px" android:bottom="1px"  android:top="1px" android:left="1px" />
+            <corners
+                android:bottomLeftRadius="@dimen/dp40"
+                android:topLeftRadius="@dimen/dp40"
+                android:topRightRadius="@dimen/dp40"
+                android:bottomRightRadius="@dimen/dp40"/>
+        <stroke
+            android:color="@color/white"
+            android:width="1px"/>
+        </shape>
+
+    </item>
+</layer-list>
