@@ -268,7 +268,7 @@ public class ViewDetails extends Language {
 
     private void call_action(){
 
-        String ph=getResources().getString(R.string.tel)+getResources().getString(R.string.phone_num);
+        String ph=getResources().getString(R.string.tel)+Appconstatants.mobile_number;
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse(ph));
         startActivity(callIntent);
