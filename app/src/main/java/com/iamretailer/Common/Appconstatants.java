@@ -147,6 +147,7 @@ public class Appconstatants {
     public static int view_detail_call=1;
     public static int return_view_detail_call=1;
     public static String whatsapp_number="WHATSAPP_NUMBER";
+    public static String mobile_number="MOBILENO";
     public static String playstore_url="https://play.google.com/store/apps/details?id=com.iamretailer/";
 
     public static String[] lat = {"9.448540", "10.3673", "9.925201", "13.082680", "8.713913", "11.016844", "10.2381","12.120000"};
