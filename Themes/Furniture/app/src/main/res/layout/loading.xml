@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/loading"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layoutDirection="locale"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/loading_bar"
+        android:orientation="vertical"
+        android:padding="@dimen/dp10">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+        <com.iamretailer.Common.DotsZoomProgress
+            android:padding="@dimen/dp5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:min_radius="10dp"
+            app:inner_radius="20dp"
+            app:mid_radius="26dp"
+            app:outer_radius="30dp"
+            app:zoom_speed="15"
+            app:outer_color="@color/white"
+            app:inner_color="@color/colorAccent"
+            />
+        </LinearLayout>
+
+        <com.iamretailer.Common.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="@string/loading_wait" />
+    </LinearLayout>
+</FrameLayout>

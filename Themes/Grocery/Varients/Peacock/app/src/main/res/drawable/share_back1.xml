@@ -1,0 +1,63 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Drop Shadow Stack -->
+   <!-- <item>
+        <shape>
+            <padding android:top="0.5dp" android:right="1dp" android:bottom="1dp" android:left="0.5dp" />
+            <solid android:color="#10bbbbbb" />
+            <corners android:radius="35dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:top="0.5dp" android:right="1dp" android:bottom="1dp" android:left="0.5dp" />
+            <solid android:color="#10bbbbbb" />
+            <corners android:radius="34dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:top="1dp" android:right="1dp" android:bottom="1dp" android:left="1dp" />
+            <solid android:color="#20bbbbbb" />
+            <corners android:radius="33dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:top="0dp" android:right="1dp" android:bottom="1dp" android:left="0dp" />
+            <solid android:color="#30bbbbbb" />
+            <corners android:radius="32dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:top="0dp" android:right="1dp" android:bottom="1dp" android:left="0dp" />
+            <solid android:color="#40bbbbbb" />
+            <corners android:radius="31dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:top="0dp" android:right="1dp" android:bottom="1dp" android:left="0dp" />
+            <solid android:color="#50bbbbbb" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+
+            <padding android:top="0dp" android:right="0.1dp" android:bottom="0.5dp" android:left="0.1dp" />
+            <solid android:color="#60bbbbbb" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>-->
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <solid android:color="@color/share_bg" />
+            <corners android:radius="@dimen/dp30" />
+        </shape>
+    </item>
+
+
+</layer-list>
