@@ -1,12 +1,14 @@
 package com.iamretailer;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
 import com.iamretailer.Common.LanguageList;
+import com.iamretailer.Common.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -42,9 +44,14 @@ public class Language extends AppCompatActivity {
 
         Configuration config = new Configuration();
         // API 17+ only.
+        LocaleHelper.setLocale(this, set_lan);
         Locale locale = new Locale(set_lan);
         Locale.setDefault(locale);
+        config = new Configuration();
         config.locale = locale;
+        if (Build.VERSION.SDK_INT >= 17) {
+            config.setLayoutDirection(locale);
+        }
 
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
