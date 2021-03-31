@@ -73,7 +73,7 @@ public class Splash extends Language {
         CheckTask task = new CheckTask();
         task.execute();
         printHashKey(Splash.this);
-        appId = getApplicationContext().getPackageName(); //BuildConfig.APPLICATION_ID;
+        appId = BuildConfig.APPLICATION_ID;
 
     }
 

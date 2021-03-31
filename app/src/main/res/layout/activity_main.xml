@@ -176,6 +176,38 @@
                                         </LinearLayout>
                                     </FrameLayout>
 
+                                    <FrameLayout
+                                        android:id="@+id/banner_lay1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dp15"
+                                        android:layout_marginEnd="@dimen/dp5"
+                                        android:layout_marginTop="@dimen/dp15">
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+                                            <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/banner_grid1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/app_bg_color"
+                                            android:scrollbars="none"
+                                            />
+                                        </RelativeLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/banner_load1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center">
+
+                                            <ProgressBar
+                                                android:layout_width="@dimen/dp30"
+                                                android:layout_height="@dimen/dp30"
+                                                android:indeterminateDrawable="@drawable/progress_bar_states" />
+                                        </LinearLayout>
+                                    </FrameLayout>
+
 
                                     <LinearLayout
                                         android:id="@+id/category"
@@ -277,7 +309,34 @@
                                             android:paddingEnd="@dimen/dp15"
                                             android:paddingStart="@dimen/dp15" />
                                     </LinearLayout>
+                                    <FrameLayout
+                                        android:id="@+id/banner_lay2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dp15"
+                                        android:layout_marginEnd="@dimen/dp5"
+                                        android:layout_marginTop="@dimen/dp15">
 
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/banner_grid2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/app_bg_color"
+                                            android:horizontalSpacing="@dimen/dp10"
+                                            android:scrollbars="none" />
+
+                                        <LinearLayout
+                                            android:id="@+id/banner_load2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center">
+
+                                            <ProgressBar
+                                                android:layout_width="@dimen/dp30"
+                                                android:layout_height="@dimen/dp30"
+                                                android:indeterminateDrawable="@drawable/progress_bar_states" />
+                                        </LinearLayout>
+                                    </FrameLayout>
                                     <FrameLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -348,6 +407,36 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginBottom="@dimen/dp10"
+                                            android:gravity="center">
+
+                                            <ProgressBar
+                                                android:layout_width="@dimen/dp30"
+                                                android:layout_height="@dimen/dp30"
+                                                android:indeterminateDrawable="@drawable/progress_bar_states" />
+                                        </LinearLayout>
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:id="@+id/banner_lay3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dp15"
+                                        android:layout_marginEnd="@dimen/dp5"
+                                        android:layout_marginBottom="@dimen/dp20"
+                                        android:layout_marginTop="@dimen/dp15">
+
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/banner_grid3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/app_bg_color"
+                                            android:horizontalSpacing="@dimen/dp10"
+                                            android:scrollbars="none" />
+
+                                        <LinearLayout
+                                            android:id="@+id/banner_load3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
                                             android:gravity="center">
 
                                             <ProgressBar

@@ -42,6 +42,7 @@ import com.cooltechworks.views.ScratchTextView;
 import com.iamretailer.Adapter.BrandzAdapter;
 import com.iamretailer.Adapter.CommonAdapter;
 import com.iamretailer.Adapter.DemoInfiniteAdapter;
+import com.iamretailer.Adapter.SubBannerAdapter;
 import com.iamretailer.Common.Appconstatants;
 import com.iamretailer.Common.CommonFunctions;
 import com.iamretailer.Common.DBController;
@@ -83,11 +84,17 @@ public class MainActivity extends Drawer {
     private ArrayList<BrandsPO> seller_list;
     private FrameLayout fullayout;
     private ArrayList<BannerBo> banner_list;
+    private ArrayList<BannerBo> banner_list1;
+    private ArrayList<BannerBo> banner_list2;
+    private ArrayList<BannerBo> banner_list3;
     private ArrayList<BannerBo> banner2;
     private JazzyViewPager baner2;
     private ArrayList<ProductsPO> list;
     private RecyclerView horizontalListView;
     private RecyclerView best_selling_list;
+    private RecyclerView banner_grid3;
+    private RecyclerView banner_grid2;
+    private RecyclerView banner_grid1;
     private FrameLayout loading;
     private TextView cart_count1;
     private ArrayList<ProductsPO> feat_list;
@@ -114,6 +121,12 @@ public class MainActivity extends Drawer {
     private String downloadsize;
     LinearLayout whatsapp;
     ImageView whats;
+    private FrameLayout banner_lay3;
+    private FrameLayout banner_lay2;
+    private FrameLayout banner_lay1;
+    private LinearLayout banner_load3;
+    private LinearLayout banner_load2;
+    private LinearLayout banner_load1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +151,15 @@ public class MainActivity extends Drawer {
         cart_count = findViewById(R.id.cart_count);
         horizontalListView = findViewById(R.id.features_list);
         best_selling_list = findViewById(R.id.best_selling_list);
+        banner_grid3 = findViewById(R.id.banner_grid3);
+        banner_grid2 = findViewById(R.id.banner_grid2);
+        banner_grid1 = findViewById(R.id.banner_grid1);
+        banner_lay3 = findViewById(R.id.banner_lay3);
+        banner_lay2 = findViewById(R.id.banner_lay2);
+        banner_lay1 = findViewById(R.id.banner_lay1);
+        banner_load3 = findViewById(R.id.banner_load3);
+        banner_load2 = findViewById(R.id.banner_load2);
+        banner_load1 = findViewById(R.id.banner_load1);
         baner2 = findViewById(R.id.baner2);
         loading = findViewById(R.id.loading);
         cart_count1 = findViewById(R.id.cart_count1);
@@ -645,39 +667,102 @@ public class MainActivity extends Drawer {
             if (resp != null) {
                 try {
                     banner_list = new ArrayList<>();
+                    banner_list1 = new ArrayList<>();
+                    banner_list2 = new ArrayList<>();
+                    banner_list3 = new ArrayList<>();
                     banner2 = new ArrayList<>();
 
                     JSONObject json = new JSONObject(resp);
                     if (json.getInt("success") == 1) {
 
                         JSONArray jsonObject = json.getJSONArray("data");
-                        JSONObject object = jsonObject.getJSONObject(0);
-                        JSONArray array = object.getJSONArray("data");
-                        if (array.length() > 0) {
-                            for (int h = 0; h < array.length(); h++) {
+                        if (jsonObject.length() > 0) {
+                            for (int w = 0; w < jsonObject.length(); w++) {
+                                JSONObject object = jsonObject.getJSONObject(w);
+                                JSONArray array = object.getJSONArray("data");
+                                String banner_name = object.getString("name");
+                                if (array.length() > 0 && banner_name.equalsIgnoreCase("App banner")) {
+                                    for (int h = 0; h < array.length(); h++) {
 
-                                JSONObject obj = array.getJSONObject(h);
-                                BannerBo bo = new BannerBo();
-                                bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
-                                bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
+                                        JSONObject obj = array.getJSONObject(h);
+                                        BannerBo bo = new BannerBo();
+                                        bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
+                                        bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
+                                        bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
 
-                                banner_list.add(bo);
-                                if (h == array.length() - 1) {
-                                    BannerBo bo1 = new BannerBo();
-                                    bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
-                                    bo1.setLink(obj.isNull("title") ? "" : obj.getString("title"));
-                                    bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
+                                        banner_list.add(bo);
+                                        if (h == array.length() - 1) {
+                                            BannerBo bo1 = new BannerBo();
+                                            bo1.setImage(obj.isNull("image") ? "" : obj.getString("image"));
+                                            bo1.setLink(obj.isNull("title") ? "" : obj.getString("title"));
+                                            bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
 
-                                    banner2.add(bo);
+                                            banner2.add(bo);
+                                        }
+
+
+                                    }
+                                }else if(array.length() > 0 && banner_name.contains("banner1")){
+                                     for (int h = 0; h < 4; h++) {
+
+                                        JSONObject obj = array.getJSONObject(h);
+                                        BannerBo bo = new BannerBo();
+                                        bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
+                                        bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
+                                        bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
+
+                                        banner_list1.add(bo);
+                                     }
+
+                                }else if(array.length() > 0 && banner_name.contains("banner2")){
+                                    for (int h = 0; h < 4; h++) {
+
+                                        JSONObject obj = array.getJSONObject(h);
+                                        BannerBo bo = new BannerBo();
+                                        bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
+                                        bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
+                                        bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
+
+                                        banner_list2.add(bo);
+                                    }
+
+                                }else if(array.length() > 0 && banner_name.contains("banner3")){
+                                    for (int h = 0; h < 4; h++) {
+
+                                        JSONObject obj = array.getJSONObject(h);
+                                        BannerBo bo = new BannerBo();
+                                        bo.setImage(obj.isNull("image") ? "" : obj.getString("image"));
+                                        bo.setLink(obj.isNull("title") ? "" : obj.getString("title"));
+                                        bo.setBanner_id(obj.isNull("id") ? "" : obj.getString("id"));
+
+                                        banner_list3.add(bo);
+                                    }
+
                                 }
-
-
                             }
                         }
 
                         loading.setVisibility(View.GONE);
+                        if(banner_list1!=null && banner_list1.size()!=0){
+                            banner_lay1.setVisibility(View.VISIBLE);
+                            banner_load1.setVisibility(View.VISIBLE);
+                        }else{
+                            banner_lay1.setVisibility(View.GONE);
+                        }
+                        if(banner_list2!=null && banner_list2.size()!=0){
+                            banner_lay2.setVisibility(View.VISIBLE);
+                            banner_load2.setVisibility(View.VISIBLE);
+                        }else{
+                            banner_lay2.setVisibility(View.GONE);
+                        }
+                        if( banner_list3!=null && banner_list3.size()!=0){
+                            banner_lay3.setVisibility(View.VISIBLE);
+                            banner_load3.setVisibility(View.VISIBLE);
+                        }else{
+                            banner_lay3.setVisibility(View.GONE);
+                        }
+
                         setupJazziness();
                         Brandtask brandtask = new Brandtask();
                         brandtask.execute(Appconstatants.CAT_LIST);
@@ -1169,6 +1254,29 @@ public class MainActivity extends Drawer {
     }
 
     private void setupJazziness() {
+        if(banner_list1.size()!=0) {
+            SubBannerAdapter adapter1 = new SubBannerAdapter(MainActivity.this, banner_list1);
+            banner_grid1.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+            banner_grid1.setAdapter(adapter1);
+            banner_load1.setVisibility(View.GONE);
+        }
+        if(banner_list2.size()!=0) {
+            SubBannerAdapter adapter1 = new SubBannerAdapter(MainActivity.this, banner_list2);
+            banner_grid2.setAdapter(adapter1);
+            GridLayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
+            banner_grid2.setLayoutManager(mLayoutManager);
+            banner_load2.setVisibility(View.GONE);
+        }
+
+        if(banner_list3.size()!=0) {
+            SubBannerAdapter adapter1 = new SubBannerAdapter(MainActivity.this, banner_list3);
+            banner_grid3.setAdapter(adapter1);
+            GridLayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
+            banner_grid3.setLayoutManager(mLayoutManager);
+            banner_load3.setVisibility(View.GONE);
+        }
+
+
         pager.setAdapter(new DemoInfiniteAdapter(MainActivity.this, banner_list, true));
         indicatorView.setCount(pager.getIndicatorCount());
     }
